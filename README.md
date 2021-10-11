@@ -1,4 +1,4 @@
- ## *Note. This repository is depricated in favour of Polus.gg, and is now read-only as it will not be recieving updates. Please visit our [steam page](https://store.steampowered.com/app/1653240/Polusgg/) and our [discord](https://discord.gg/polus) for all updates**
+ ## *Note: This repository is an unofficial continuation of Town of Us due to the original repository being discontinued. The rights to this mod still belong to Polus.gg.*
 
 
 [![Discord](./Images/Polus.png)](https://discord.gg/polus)
@@ -590,7 +590,7 @@ After a set period of time, the player will be resurrected, if the revival isn't
 ### **Team: Crewmates**
 
 The Retributionist is a Crewmate that can kill during meetings.\
-During meetings, the Retributionist can choose to kill someone by guessing their role, however, if they themselves are wrong they die instead.
+During meetings, the Retributionist can choose to kill someone by guessing their role, however, if they guess incorrectly, they die instead.
 ### Game Options
 | Name | Description | Type | Default |
 |----------|:-------------:|:------:|:------:|
