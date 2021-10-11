@@ -841,7 +841,7 @@ During the game, the Grenadier has the option to throw down a smoke grenade whic
 ### Game Options
 | Name | Description | Type | Default |
 |----------|:-------------:|:------:|:------:|
-| Grenadier | The percentage probability of the Morphling appearing | Percentage | 0% |
+| Grenadier | The percentage probability of the Grenadier appearing | Percentage | 0% |
 | Flash Grenade Cooldown | The cooldown of the Grenadier's Flash button | Time | 25s |
 | Flash Grenade Duration | How long the Flash Grenade lasts for | Time | 10s |
 | Grenadier can Vent | Whether the Grenadier can Vent | Toggle | False |
