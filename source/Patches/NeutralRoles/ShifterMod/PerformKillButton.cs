@@ -18,9 +18,14 @@ namespace TownOfUs.NeutralRoles.ShifterMod
 {
     public enum ShiftEnum
     {
-        NonImpostors,
-        RegularCrewmates,
-        Nobody
+        NonImps,
+        Crew
+    }
+
+    public enum BecomeEnum
+    {
+        Shifter,
+        Crewmate
     }
 
     [HarmonyPatch(typeof(KillButtonManager), nameof(KillButtonManager.PerformKill))]
@@ -112,7 +117,6 @@ namespace TownOfUs.NeutralRoles.ShifterMod
             switch (role)
             {
                 case RoleEnum.Sheriff:
-                case RoleEnum.Jester:
                 case RoleEnum.Engineer:
                 case RoleEnum.Lover:
                 case RoleEnum.Mayor:
@@ -121,12 +125,11 @@ namespace TownOfUs.NeutralRoles.ShifterMod
                 case RoleEnum.TimeLord:
                 case RoleEnum.Medic:
                 case RoleEnum.Seer:
-                case RoleEnum.Executioner:
                 case RoleEnum.Spy:
                 case RoleEnum.Snitch:
-                case RoleEnum.Arsonist:
-                case RoleEnum.Crewmate:
                 case RoleEnum.Altruist:
+                case RoleEnum.Retributionist:
+                case RoleEnum.Crewmate:
 
                     if (role == RoleEnum.Investigator) Footprint.DestroyAll(Role.GetRole<Investigator>(other));
 
@@ -163,8 +166,8 @@ namespace TownOfUs.NeutralRoles.ShifterMod
 
                     Role.RoleDictionary.Remove(shifter.PlayerId);
                     Role.RoleDictionary.Remove(other.PlayerId);
-
                     Role.RoleDictionary.Add(shifter.PlayerId, newRole);
+
                     lovers = role == RoleEnum.Lover;
                     snitch = role == RoleEnum.Snitch;
 
@@ -182,8 +185,7 @@ namespace TownOfUs.NeutralRoles.ShifterMod
                         }
                     }
 
-                    if (CustomGameOptions.WhoShifts == ShiftEnum.NonImpostors ||
-                        role == RoleEnum.Crewmate && CustomGameOptions.WhoShifts == ShiftEnum.RegularCrewmates)
+                    if (CustomGameOptions.ShiftedBecomes == BecomeEnum.Shifter)
                     {
                         resetShifter = true;
                         shifterRole.Player = other;
@@ -197,6 +199,61 @@ namespace TownOfUs.NeutralRoles.ShifterMod
 
                     break;
 
+                case RoleEnum.Jester:
+                case RoleEnum.Executioner:
+                case RoleEnum.Arsonist:
+                case RoleEnum.Shifter:
+                    
+                    if (CustomGameOptions.WhoShifts == ShiftEnum.NonImps)
+                    {
+                        newRole = Role.GetRole(other);
+                        newRole.Player = shifter;
+                        var modifier3 = Modifier.GetModifier(other);
+                        var modifier4 = Modifier.GetModifier(shifter);
+                        if (modifier3 != null && modifier4 != null)
+                        {
+                            modifier3.Player = shifter;
+                            modifier4.Player = other;
+                            Modifier.ModifierDictionary.Remove(other.PlayerId);
+                            Modifier.ModifierDictionary.Remove(shifter.PlayerId);
+                            Modifier.ModifierDictionary.Add(shifter.PlayerId, modifier3);
+                            Modifier.ModifierDictionary.Add(other.PlayerId, modifier4);
+                        }
+                        else if (modifier4 != null)
+                        {
+                            modifier4.Player = other;
+                            Modifier.ModifierDictionary.Remove(shifter.PlayerId);
+                            Modifier.ModifierDictionary.Add(other.PlayerId, modifier4);
+                        }
+                        else if (modifier3 != null)
+                        {
+                            modifier3.Player = shifter;
+                            Modifier.ModifierDictionary.Remove(other.PlayerId);
+                            Modifier.ModifierDictionary.Add(shifter.PlayerId, modifier3);
+                        }
+                        Role.RoleDictionary.Remove(shifter.PlayerId);
+                        Role.RoleDictionary.Remove(other.PlayerId);
+                        Role.RoleDictionary.Add(shifter.PlayerId, newRole);
+                        if (CustomGameOptions.ShiftedBecomes == BecomeEnum.Shifter)
+                        {
+                            resetShifter = true;
+                            shifterRole.Player = other;
+                            Role.RoleDictionary.Add(other.PlayerId, shifterRole);
+                        }
+                        else
+                        {
+                            new Crewmate(other);
+                        }
+                    }
+                    else
+                    {
+                        shifter.Data.IsImpostor = true; 
+                        shifter.MurderPlayer(shifter);
+                        shifter.Data.IsImpostor = false;
+                        swapTasks = false;
+                    }
+                    break;
+
                 case RoleEnum.Underdog:
                 case RoleEnum.Undertaker:
                 case RoleEnum.Assassin:
@@ -205,10 +262,10 @@ namespace TownOfUs.NeutralRoles.ShifterMod
                 case RoleEnum.Morphling:
                 case RoleEnum.Camouflager:
                 case RoleEnum.Janitor:
+                case RoleEnum.Grenadier:
                 case RoleEnum.LoverImpostor:
                 case RoleEnum.Impostor:
                 case RoleEnum.Glitch:
-                case RoleEnum.Shifter:
                     shifter.Data.IsImpostor = true;
                     shifter.MurderPlayer(shifter);
                     shifter.Data.IsImpostor = false;
@@ -258,7 +315,12 @@ namespace TownOfUs.NeutralRoles.ShifterMod
             if (shifter.AmOwner || other.AmOwner)
             {
                 if (shifter.Is(RoleEnum.Arsonist) && other.AmOwner)
+
+                {
                     Role.GetRole<Arsonist>(shifter).IgniteButton.Destroy();
+                    Role.GetRole<Arsonist>(shifter).IgniteButton.renderer.enabled = false;
+                }
+
                 DestroyableSingleton<HudManager>.Instance.KillButton.gameObject.SetActive(false);
                 DestroyableSingleton<HudManager>.Instance.KillButton.isActive = false;
 

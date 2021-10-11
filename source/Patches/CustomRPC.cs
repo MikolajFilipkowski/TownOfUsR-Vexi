@@ -27,6 +27,8 @@ namespace TownOfUs
         SetUndertaker,
         SetAssassin,
         SetUnderdog,
+        SetRetributionist,
+        SetGrenadier,
 
         SetTorch,
         SetDiseased,
@@ -39,6 +41,10 @@ namespace TownOfUs
         SetPhantom,
         PhantomDied,
         CatchPhantom,
+
+        SetHaunter,
+        HaunterDied,
+        CatchHaunter,
 
         SetCrewmate,
         SetImpostor,
@@ -78,6 +84,9 @@ namespace TownOfUs
         Drag,
         Drop,
         AssassinKill,
+        RetributionistKill,
+        HaunterFinished,
+        FlashGrenade,
 
         SetGlitch,
         BypassKill,

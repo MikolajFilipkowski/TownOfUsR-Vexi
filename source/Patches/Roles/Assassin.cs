@@ -22,8 +22,8 @@ namespace TownOfUs.Roles
             { "Medic", new Color(0f, 0.4f, 0f, 1f) },
             { "Seer", new Color(1f, 0.8f, 0.5f, 1f) },
             { "Spy", new Color(0.8f, 0.64f, 0.8f, 1f) },
-            { "Snitch", new Color(0.83f, 0.69f, 0.22f, 1f) },
-            { "Altruist", new Color(0.4f, 0f, 0f, 1f) }
+            { "Altruist", new Color(0.4f, 0f, 0f, 1f) },
+            { "Retributionist", new Color(0.8f, 1f, 0f, 1f) }
         };
 
         public Dictionary<byte, string> Guesses = new Dictionary<byte, string>();
@@ -39,6 +39,11 @@ namespace TownOfUs.Roles
             Faction = Faction.Impostors;
 
             RemainingKills = CustomGameOptions.AssassinKills;
+
+            if (!CustomGameOptions.AssassinSnitchViaCrewmate)
+            {
+                ColorMapping.Add("Snitch", new Color(0.83f, 0.69f, 0.22f, 1f));
+            }
 
             if (CustomGameOptions.AssassinGuessNeutrals)
             {

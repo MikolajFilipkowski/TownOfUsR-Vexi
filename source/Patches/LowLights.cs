@@ -20,9 +20,6 @@ namespace TownOfUs
             if (player.IsImpostor || player._object.Is(RoleEnum.Glitch))
             {
                 __result = __instance.MaxLightRadius * PlayerControl.GameOptions.ImpostorLightMod;
-                if (player.Object.Is(ModifierEnum.ButtonBarry))
-                    if (Modifier.GetModifier<ButtonBarry>(PlayerControl.LocalPlayer).ButtonUsed)
-                        __result *= 0.5f;
                 return false;
             }
 
@@ -30,10 +27,6 @@ namespace TownOfUs
             if (player._object.Is(ModifierEnum.Torch)) t = 1;
             __result = Mathf.Lerp(__instance.MinLightRadius, __instance.MaxLightRadius, t) *
                        PlayerControl.GameOptions.CrewLightMod;
-
-            if (player.Object.Is(ModifierEnum.ButtonBarry))
-                if (Modifier.GetModifier<ButtonBarry>(PlayerControl.LocalPlayer).ButtonUsed)
-                    __result *= 0.5f;
 
             return false;
         }

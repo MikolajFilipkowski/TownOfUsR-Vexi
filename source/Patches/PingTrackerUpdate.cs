@@ -7,18 +7,6 @@ namespace TownOfUs
     [HarmonyPatch(typeof(PingTracker), nameof(PingTracker.Update))]
     public static class PingTracker_Update
     {
-        [HarmonyPrefix]
-        public static void Prefix(PingTracker __instance)
-        {
-            if (!__instance.GetComponentInChildren<SpriteRenderer>())
-            {
-                var spriteObject = new GameObject("Polus Sprite");
-                spriteObject.AddComponent<SpriteRenderer>().sprite = TownOfUs.PolusSprite;
-                spriteObject.transform.parent = __instance.transform;
-                spriteObject.transform.localPosition = new Vector3(-1f, -0.3f, -1);
-                spriteObject.transform.localScale *= 0.72f;
-            }
-        }
 
         [HarmonyPostfix]
         public static void Postfix(PingTracker __instance)
@@ -28,11 +16,10 @@ namespace TownOfUs
             position.AdjustPosition();
 
             __instance.text.text =
-                "<color=#00FF00FF>TownOfUs v2.2.1</color>\n" +
-                "Available on <color=#BEA4FFFF>Polus.gg</color>\n" +
+                "<color=#00FF00FF>TownOfUs v2.3.0</color>" + "<color=#00FF00FF></color>\n" + 
                 $"Ping: {AmongUsClient.Instance.Ping}ms\n" +
                 (!MeetingHud.Instance
-                    ? "<color=#00FF00FF>slushiegoose ft. edisonparklive</color>"
+                    ? "<color=#00FF00FF>Slushiegoose (v1.0.0 -> v2.1.0)</color>\n" + "<color=#00FF00FF>polus.gg (v2.1.1 -> v2.2.1)</color>\n" + "<color=#00FF00FF>Donners (v2.3.0)</color>"
                     : "");
         }
     }

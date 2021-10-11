@@ -23,7 +23,7 @@ namespace TownOfUs.CrewmateRoles.SnitchMod
             if (!PlayerControl.LocalPlayer.Is(RoleEnum.Snitch)) return;
             var role = Role.GetRole<Snitch>(PlayerControl.LocalPlayer);
             if (!role.TasksDone) return;
-            if (MeetingHud.Instance) UpdateMeeting(MeetingHud.Instance);
+            if (MeetingHud.Instance && CustomGameOptions.SnitchSeesImpInMeeting) UpdateMeeting(MeetingHud.Instance);
 
             foreach (var player in PlayerControl.AllPlayerControls)
             {

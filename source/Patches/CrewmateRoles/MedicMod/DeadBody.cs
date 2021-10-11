@@ -50,7 +50,7 @@ namespace TownOfUs.CrewmateRoles.MedicMod
                 {12, "darker"},// maroon
                 {13, "lighter"},// rose
                 {14, "lighter"},// banana
-                {15, "lighter"},// gray
+                {15, "darker"},// gray
                 {16, "darker"},// tan
                 {17, "lighter"},// coral
                 {18, "darker"},// watermelon

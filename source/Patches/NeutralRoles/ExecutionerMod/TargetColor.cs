@@ -8,7 +8,8 @@ namespace TownOfUs.NeutralRoles.ExecutionerMod
     public enum OnTargetDead
     {
         Crew,
-        Jester
+        Jester,
+        Shifter
     }
 
     [HarmonyPatch(typeof(HudManager), nameof(HudManager.Update))]
@@ -68,6 +69,15 @@ namespace TownOfUs.NeutralRoles.ExecutionerMod
                 task.transform.SetParent(player.transform, false);
                 task.Text =
                     $"{jester.ColorString}Role: {jester.Name}\nYour target was killed. Now you get voted out!\nFake Tasks:[]";
+                player.myTasks.Insert(0, task);
+            }
+            else if (CustomGameOptions.OnTargetDead == OnTargetDead.Shifter)
+            {
+                var shifter = new Shifter(player);
+                var task = new GameObject("ShifterTask").AddComponent<ImportantTextTask>();
+                task.transform.SetParent(player.transform, false);
+                task.Text =
+                    $"{shifter.ColorString}Role: {shifter.Name}\nYour target was killed. Now steal someone elses role!\nFake Tasks:[]";
                 player.myTasks.Insert(0, task);
             }
             else

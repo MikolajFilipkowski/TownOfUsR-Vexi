@@ -27,13 +27,13 @@ namespace TownOfUs.Roles
             RoleType = RoleEnum.Snitch;
         }
 
-        public bool OneTaskLeft => TasksLeft <= 1;
+        public bool Revealed => TasksLeft <= CustomGameOptions.SnitchTasksRemaining;
         public bool TasksDone => TasksLeft <= 0;
 
 
         internal override bool Criteria()
         {
-            return OneTaskLeft && PlayerControl.LocalPlayer.Data.IsImpostor ||
+            return Revealed && PlayerControl.LocalPlayer.Data.IsImpostor ||
                    base.Criteria();
         }
 
@@ -41,7 +41,7 @@ namespace TownOfUs.Roles
         {
             if (CamouflageUnCamouflage.IsCamoed && player == null) return "";
             if (PlayerControl.LocalPlayer.Data.IsDead) return base.NameText(player);
-            if (OneTaskLeft || !Hidden) return base.NameText(player);
+            if (Revealed || !Hidden) return base.NameText(player);
             Player.nameText.color = Color.white;
             if (player != null) player.NameText.color = Color.white;
             if (player != null && (MeetingHud.Instance.state == MeetingHud.VoteStates.Proceeding ||

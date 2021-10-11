@@ -20,6 +20,8 @@ namespace TownOfUs
         Arsonist,
         Altruist,
         Phantom,
+        Retributionist,
+        Haunter,
 
         Miner,
         Swooper,
@@ -29,6 +31,7 @@ namespace TownOfUs
         Undertaker,
         Assassin,
         Underdog,
+        Grenadier,
 
 
         Glitch,

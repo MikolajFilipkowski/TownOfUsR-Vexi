@@ -15,7 +15,6 @@ namespace TownOfUs.CrewmateRoles.SeerMod
             {
                 var seer = (Seer) role;
                 seer.LastInvestigated = DateTime.UtcNow;
-                seer.LastInvestigated = seer.LastInvestigated.AddSeconds(-10.0);
             }
         }
     }

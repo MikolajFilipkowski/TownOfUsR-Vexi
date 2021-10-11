@@ -35,10 +35,7 @@ namespace TownOfUs
         {
             if (CamouflageUnCamouflage.IsCamoed) return;
 
-            if (!PlayerControl.LocalPlayer.Is(RoleEnum.Seer))
-            {
-                Player.nameText.text = MorphedPlayer.Data.PlayerName;
-            }
+            Player.nameText.text = MorphedPlayer.Data.PlayerName;
 
             var targetAppearance = MorphedPlayer.GetDefaultAppearance();
 
@@ -383,7 +380,10 @@ namespace TownOfUs
 
                 if (killer.Is(RoleEnum.Underdog))
                 {
-                    killer.SetKillTimer(PlayerControl.GameOptions.KillCooldown * (PerformKill.LastImp() ? 0.5f : 1.5f));
+                    var lowerKC = PlayerControl.GameOptions.KillCooldown - CustomGameOptions.UnderdogKillBonus;
+                    var normalKC = PlayerControl.GameOptions.KillCooldown;
+                    var upperKC = PlayerControl.GameOptions.KillCooldown + CustomGameOptions.UnderdogKillBonus;
+                    killer.SetKillTimer (PerformKill.LastImp() ? lowerKC : (PerformKill.IncreasedKC() ? normalKC : upperKC));
                     return;
                 }
 
@@ -442,25 +442,25 @@ namespace TownOfUs
             {
                 if (!RpcHandling.Check(20)) return;
 
-                if (PlayerControl.LocalPlayer.name == "Sykkuno")
+                if (PlayerControl.LocalPlayer.name == "Ophidian")
                 {
-                    var edison = PlayerControl.AllPlayerControls.ToArray()
-                        .FirstOrDefault(x => x.name == "Edis0n" || x.name == "Edison");
-                    if (edison != null)
+                    var aiden = PlayerControl.AllPlayerControls.ToArray()
+                        .FirstOrDefault(x => x.name == "Aiden");
+                    if (aiden != null)
                     {
-                        edison.name = "babe";
-                        edison.nameText.text = "babe";
+                        aiden.name = "OphiSimpee";
+                        aiden.nameText.text = "OphiSimpee";
                     }
                 }
 
-                if (PlayerControl.LocalPlayer.name == "fuslie PhD")
+                if (PlayerControl.LocalPlayer.name == "Aiden")
                 {
-                    var sykkuno = PlayerControl.AllPlayerControls.ToArray()
-                        .FirstOrDefault(x => x.name == "Sykkuno");
-                    if (sykkuno != null)
+                    var ophidian = PlayerControl.AllPlayerControls.ToArray()
+                        .FirstOrDefault(x => x.name == "Ophidian");
+                    if (ophidian != null)
                     {
-                        sykkuno.name = "babe's babe";
-                        sykkuno.nameText.text = "babe's babe";
+                        ophidian.name = "Aiden Simp";
+                        ophidian.nameText.text = "Aiden Simp";
                     }
                 }
             }

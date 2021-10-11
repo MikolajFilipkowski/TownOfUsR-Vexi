@@ -30,13 +30,15 @@ namespace TownOfUs
             }
                 
 
-            if (player.Is(RoleEnum.Morphling)
-                || player.Is(RoleEnum.Swooper)
-                || (player.Is(RoleEnum.Undertaker) && Role.GetRole<Undertaker>(player).CurrentlyDragging != null))
+            if (player.Is(RoleEnum.Morphling) && !CustomGameOptions.MorphlingVent
+                || player.Is(RoleEnum.Swooper) && !CustomGameOptions.SwooperVent
+                || player.Is(RoleEnum.Grenadier) && !CustomGameOptions.GrenadierVent
+                || player.Is(RoleEnum.Undertaker) && !CustomGameOptions.UndertakerVent
+                || (player.Is(RoleEnum.Undertaker) && Role.GetRole<Undertaker>(player).CurrentlyDragging != null && !CustomGameOptions.UndertakerVentWithBody))
                 return false;
 
 
-            if (player.Is(RoleEnum.Engineer))
+            if (player.Is(RoleEnum.Engineer)||(player.Is(RoleEnum.Glitch)&&CustomGameOptions.GlitchVent))
                 playerInfo.IsImpostor = true;
             
             return true;
@@ -44,7 +46,7 @@ namespace TownOfUs
 
         public static void Postfix(Vent __instance, [HarmonyArgument(0)] GameData.PlayerInfo playerInfo)
         {
-            if (playerInfo.Object.Is(RoleEnum.Engineer))
+            if (playerInfo.Object.Is(RoleEnum.Engineer)||(playerInfo.Object.Is(RoleEnum.Glitch)&&CustomGameOptions.GlitchVent))
                 playerInfo.IsImpostor = false;
         }
     }

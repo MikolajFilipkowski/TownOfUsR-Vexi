@@ -17,7 +17,8 @@ namespace TownOfUs.ImpostorRoles.AssassinMod
 
         private static Sprite GuessSprite => TownOfUs.GuessSprite;
 
-        private static bool IsExempt(PlayerVoteArea voteArea) {
+        private static bool IsExempt(PlayerVoteArea voteArea)
+        {
             if (voteArea.AmDead) return true;
             var player = Utils.PlayerById(voteArea.TargetPlayerId);
             if (
@@ -42,12 +43,12 @@ namespace TownOfUs.ImpostorRoles.AssassinMod
 
             var confirmButton = voteArea.Buttons.transform.GetChild(0).gameObject;
             var parent = confirmButton.transform.parent.parent;
-            
+
             var nameText = Object.Instantiate(voteArea.NameText, voteArea.transform);
             voteArea.NameText.transform.localPosition = new Vector3(0.55f, 0.12f, -0.1f);
             nameText.transform.localPosition = new Vector3(0.55f, -0.12f, -0.1f);
             nameText.text = "Guess";
-            
+
             var cycle = Object.Instantiate(confirmButton, voteArea.transform);
             var cycleRenderer = cycle.GetComponent<SpriteRenderer>();
             cycleRenderer.sprite = CycleSprite;
@@ -123,6 +124,8 @@ namespace TownOfUs.ImpostorRoles.AssassinMod
                 var playerRole = Role.GetRole(voteArea);
 
                 var toDie = playerRole.Name == currentGuess ? playerRole.Player : role.Player;
+                if (CustomGameOptions.AssassinSnitchViaCrewmate)
+                    toDie = (playerRole.Name == currentGuess || (playerRole.Name == "Snitch" && currentGuess == "Crewmate")) ? playerRole.Player : role.Player;
 
                 AssassinKill.RpcMurderPlayer(toDie);
                 role.RemainingKills--;
@@ -141,7 +144,7 @@ namespace TownOfUs.ImpostorRoles.AssassinMod
         {
             foreach (var role in Role.GetRoles(RoleEnum.Assassin))
             {
-                var assassin = (Assassin) role;
+                var assassin = (Assassin)role;
                 assassin.Guesses.Clear();
                 assassin.Buttons.Clear();
                 assassin.GuessedThisMeeting = false;

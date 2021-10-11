@@ -10,7 +10,6 @@ namespace TownOfUs.Modifiers.ButtonBarryMod
         public static bool Prefix(KillButtonManager __instance)
         {
             if (!PlayerControl.LocalPlayer.Is(ModifierEnum.ButtonBarry)) return true;
-            if (PlayerControl.LocalPlayer.Is(RoleEnum.Swapper)) return true;
             if (PlayerControl.LocalPlayer.Is(RoleEnum.Glitch)) return true;
 
             var role = Modifier.GetModifier<ButtonBarry>(PlayerControl.LocalPlayer);

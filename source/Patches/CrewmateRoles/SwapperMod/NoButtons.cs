@@ -7,7 +7,8 @@ namespace TownOfUs.CrewmateRoles.SwapperMod
     {
         public static void Postfix()
         {
-            if (PlayerControl.LocalPlayer.Is(RoleEnum.Swapper)) PlayerControl.LocalPlayer.RemainingEmergencies = 0;
+            if (!CustomGameOptions.SwapperButton)
+                if (PlayerControl.LocalPlayer.Is(RoleEnum.Swapper)) PlayerControl.LocalPlayer.RemainingEmergencies = 0;
         }
     }
 
@@ -16,7 +17,8 @@ namespace TownOfUs.CrewmateRoles.SwapperMod
     {
         public static void Postfix()
         {
-            if (PlayerControl.LocalPlayer.Is(RoleEnum.Swapper)) PlayerControl.LocalPlayer.RemainingEmergencies = 0;
+            if (!CustomGameOptions.SwapperButton)
+                if (PlayerControl.LocalPlayer.Is(RoleEnum.Swapper)) PlayerControl.LocalPlayer.RemainingEmergencies = 0;
         }
     }
 }

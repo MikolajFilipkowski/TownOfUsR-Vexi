@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
+using System.Linq;
 
 namespace TownOfUs.NeutralRoles.PhantomMod
 {
@@ -50,6 +51,13 @@ namespace TownOfUs.NeutralRoles.PhantomMod
             if (Role.GetRole<Phantom>(PlayerControl.LocalPlayer).Caught) return;
             var startingVent =
                 ShipStatus.Instance.AllVents[Random.RandomRangeInt(0, ShipStatus.Instance.AllVents.Count)];
+            if (PlayerControl.GameOptions.MapId == 2)
+            {
+                while (startingVent == ShipStatus.Instance.AllVents[5])
+                {
+                    startingVent = ShipStatus.Instance.AllVents[Random.RandomRangeInt(0, ShipStatus.Instance.AllVents.Count)];
+                }
+            }
             PlayerControl.LocalPlayer.NetTransform.RpcSnapTo(startingVent.transform.position);
             PlayerControl.LocalPlayer.MyPhysics.RpcEnterVent(startingVent.Id);
         }
@@ -76,6 +84,8 @@ namespace TownOfUs.NeutralRoles.PhantomMod
                             console.Image.color = Color.white;
                     normalPlayerTask.taskStep = 0;
 
+                    if (normalPlayerTask.TaskType == TaskTypes.UploadData)
+                        normalPlayerTask.taskStep = 1;
                     if (updateArrow)
                         normalPlayerTask.UpdateArrow();
                     
@@ -120,11 +130,16 @@ namespace TownOfUs.NeutralRoles.PhantomMod
             {
                 if (MeetingHud.Instance) return;
                 if (PlayerControl.LocalPlayer.Data.IsDead) return;
-                role.Caught = true;
-                var writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
-                    (byte) CustomRPC.CatchPhantom, SendOption.Reliable, -1);
-                writer.Write(role.Player.PlayerId);
-                AmongUsClient.Instance.FinishRpcImmediately(writer);
+                var taskinfos = player.Data.Tasks.ToArray();
+                var tasksLeft = taskinfos.Count(x => !x.Complete);
+                if ((tasksLeft > CustomGameOptions.PhantomLessTasks + CustomGameOptions.PhantomTasksRemaining && CustomGameOptions.PhantomCanBeClickedBefore) || (tasksLeft <= CustomGameOptions.PhantomLessTasks + CustomGameOptions.PhantomTasksRemaining && CustomGameOptions.PhantomCanBeClickedAfter))
+                {
+                    role.Caught = true;
+                    var writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
+                        (byte)CustomRPC.CatchPhantom, SendOption.Reliable, -1);
+                    writer.Write(role.Player.PlayerId);
+                    AmongUsClient.Instance.FinishRpcImmediately(writer);
+                }
             }));
         }
     }

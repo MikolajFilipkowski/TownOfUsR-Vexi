@@ -20,7 +20,6 @@ namespace TownOfUs.Modifiers.ButtonBarryMod
             if (PlayerControl.LocalPlayer == null) return;
             if (PlayerControl.LocalPlayer.Data == null) return;
             if (!PlayerControl.LocalPlayer.Is(ModifierEnum.ButtonBarry)) return;
-            if (PlayerControl.LocalPlayer.Is(RoleEnum.Swapper)) return;
             if (PlayerControl.LocalPlayer.Is(RoleEnum.Glitch)) return;
 
             var data = PlayerControl.LocalPlayer.Data;

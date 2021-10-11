@@ -19,7 +19,7 @@ using UnityEngine.SceneManagement;
 
 namespace TownOfUs
 {
-    [BepInPlugin(Id, "Town Of Us", "2.2.1")]
+    [BepInPlugin(Id, "Town Of Us", "2.3.0")]
     [BepInDependency(ReactorPlugin.Id)]
     public class TownOfUs : BasePlugin
     {
@@ -55,6 +55,8 @@ namespace TownOfUs
 
         public static Sprite DragSprite;
         public static Sprite DropSprite;
+
+        public static Sprite FlashSprite;
 
         private static DLoadImage _iCallLoadImage;
 
@@ -101,6 +103,7 @@ namespace TownOfUs
             PolusSprite = CreateSprite("TownOfUs.Resources.polus.gg.png");
             CycleSprite = CreateSprite("TownOfUs.Resources.Cycle.png");
             GuessSprite = CreateSprite("TownOfUs.Resources.Guess.png");
+            FlashSprite = CreateSprite("TownOfUs.Resources.Flash.png");
 
             PalettePatch.Load();
             ClassInjector.RegisterTypeInIl2Cpp<RainbowBehaviour>();

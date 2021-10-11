@@ -2,6 +2,7 @@ using System.Linq;
 using HarmonyLib;
 using Hazel;
 using TownOfUs.Roles;
+using Reactor;
 
 namespace TownOfUs.NeutralRoles.PhantomMod
 {
@@ -17,7 +18,12 @@ namespace TownOfUs.NeutralRoles.PhantomMod
 
             var tasksLeft = taskinfos.Count(x => !x.Complete);
 
-            if (tasksLeft == 0 && !role.Caught)
+            if (tasksLeft == CustomGameOptions.PhantomLessTasks+CustomGameOptions.PhantomTasksRemaining && !role.Caught)
+            {
+                Coroutines.Start(Utils.FlashCoroutine(role.Color));
+            }
+
+            if (tasksLeft == CustomGameOptions.PhantomLessTasks && !role.Caught)
             {
                 role.CompletedTasks = true;
                 if (AmongUsClient.Instance.AmHost)

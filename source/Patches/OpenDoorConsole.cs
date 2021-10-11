@@ -5,7 +5,7 @@ using TownOfUs.Roles;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace TownOfUs.NeutralRoles.PhantomMod
+namespace TownOfUs
 {
     #region OpenDoorConsole
     [HarmonyPatch(typeof(OpenDoorConsole), nameof(OpenDoorConsole.CanUse))]
@@ -16,9 +16,9 @@ namespace TownOfUs.NeutralRoles.PhantomMod
             ref bool __state)
         {
             __state = false;
-            
+
             var playerControl = playerInfo.Object;
-            if (playerControl.Is(RoleEnum.Phantom) && !Role.GetRole<Phantom>(playerControl).Caught && playerInfo.IsDead)
+            if ((playerControl.Is(RoleEnum.Phantom) && !Role.GetRole<Phantom>(playerControl).Caught) || (playerControl.Is(RoleEnum.Haunter) && !Role.GetRole<Haunter>(playerControl).Caught) && playerInfo.IsDead)
             {
                 playerInfo.IsDead = false;
                 __state = true;
@@ -31,7 +31,7 @@ namespace TownOfUs.NeutralRoles.PhantomMod
                 playerInfo.IsDead = true;
         }
     }
-    
+
     [HarmonyPatch(typeof(OpenDoorConsole), nameof(OpenDoorConsole.Use))]
     public class OpenDoorConsoleUse
     {
@@ -44,7 +44,7 @@ namespace TownOfUs.NeutralRoles.PhantomMod
         }
     }
     #endregion
-    
+
     #region DoorConsole
     [HarmonyPatch(typeof(DoorConsole), nameof(DoorConsole.CanUse))]
     public class DoorConsoleCanUse
@@ -54,29 +54,29 @@ namespace TownOfUs.NeutralRoles.PhantomMod
             ref bool __state)
         {
             __state = false;
-            
+
             var playerControl = playerInfo.Object;
-            if (playerControl.Is(RoleEnum.Phantom) && !Role.GetRole<Phantom>(playerControl).Caught && playerInfo.IsDead)
+            if ((playerControl.Is(RoleEnum.Phantom) && !Role.GetRole<Phantom>(playerControl).Caught) || (playerControl.Is(RoleEnum.Haunter) && !Role.GetRole<Haunter>(playerControl).Caught) && playerInfo.IsDead)
             {
                 playerInfo.IsDead = false;
                 __state = true;
             }
         }
 
-        public static void Postfix([HarmonyArgument(0)] GameData.PlayerInfo playerInfo, ref bool __state, 
+        public static void Postfix([HarmonyArgument(0)] GameData.PlayerInfo playerInfo, ref bool __state,
             [HarmonyArgument(1)] ref bool canUse, [HarmonyArgument(2)] ref bool couldUse)
         {
             if (__state)
                 playerInfo.IsDead = true;
         }
     }
-    
+
     [HarmonyPatch(typeof(DoorConsole), nameof(DoorConsole.Use))]
     public static class DoorConsoleUsePatch
     {
         public static bool Prefix(DoorConsole __instance)
         {
-            
+
             __instance.CanUse(PlayerControl.LocalPlayer.Data, out var canUse, out _);
             if (!canUse) return false;
             PlayerControl.LocalPlayer.NetTransform.Halt();
@@ -86,14 +86,15 @@ namespace TownOfUs.NeutralRoles.PhantomMod
             try
             {
                 minigame.Cast<IDoorMinigame>().SetDoor(__instance.MyDoor);
-            } catch (InvalidCastException) { /* ignored */ }
-            
+            }
+            catch (InvalidCastException) { /* ignored */ }
+
             minigame.Begin(null);
             return false;
         }
     }
     #endregion
-    
+
     #region Ladder
     [HarmonyPatch(typeof(Ladder), nameof(Ladder.CanUse))]
     public class LadderCanUse
@@ -104,7 +105,7 @@ namespace TownOfUs.NeutralRoles.PhantomMod
         {
             __state = false;
             var playerControl = playerInfo.Object;
-            if (playerControl.Is(RoleEnum.Phantom) && !Role.GetRole<Phantom>(playerControl).Caught && playerInfo.IsDead)
+            if ((playerControl.Is(RoleEnum.Phantom) && !Role.GetRole<Phantom>(playerControl).Caught) || (playerControl.Is(RoleEnum.Haunter) && !Role.GetRole<Haunter>(playerControl).Caught) && playerInfo.IsDead)
             {
                 playerInfo.IsDead = false;
                 __state = true;
@@ -117,7 +118,7 @@ namespace TownOfUs.NeutralRoles.PhantomMod
                 playerInfo.IsDead = true;
         }
     }
-    
+
     [HarmonyPatch(typeof(Ladder), nameof(Ladder.Use))]
     public class LadderUse
     {
@@ -142,7 +143,7 @@ namespace TownOfUs.NeutralRoles.PhantomMod
         {
             __state = false;
             var playerControl = playerInfo.Object;
-            if (playerControl.Is(RoleEnum.Phantom) && !Role.GetRole<Phantom>(playerControl).Caught && playerInfo.IsDead)
+            if ((playerControl.Is(RoleEnum.Phantom) && !Role.GetRole<Phantom>(playerControl).Caught) || (playerControl.Is(RoleEnum.Haunter) && !Role.GetRole<Haunter>(playerControl).Caught) && playerInfo.IsDead)
             {
                 playerInfo.IsDead = false;
                 __state = true;
@@ -156,7 +157,7 @@ namespace TownOfUs.NeutralRoles.PhantomMod
         }
     }
     #endregion
-    
+
     #region DeconControl
     [HarmonyPatch(typeof(DeconControl), nameof(DeconControl.CanUse))]
     public class DeconControlUse
@@ -166,9 +167,9 @@ namespace TownOfUs.NeutralRoles.PhantomMod
             ref bool __state)
         {
             __state = false;
-            
+
             var playerControl = playerInfo.Object;
-            if (playerControl.Is(RoleEnum.Phantom) && !Role.GetRole<Phantom>(playerControl).Caught && playerInfo.IsDead)
+            if ((playerControl.Is(RoleEnum.Phantom) && !Role.GetRole<Phantom>(playerControl).Caught) || (playerControl.Is(RoleEnum.Haunter) && !Role.GetRole<Haunter>(playerControl).Caught) && playerInfo.IsDead)
             {
                 playerInfo.IsDead = false;
                 __state = true;
@@ -182,7 +183,7 @@ namespace TownOfUs.NeutralRoles.PhantomMod
         }
     }
     #endregion
-    
+
     #region global::Console
     [HarmonyPatch(typeof(Console), nameof(Console.CanUse))]
     public class ConsoleCanUsePatch
@@ -192,9 +193,9 @@ namespace TownOfUs.NeutralRoles.PhantomMod
             ref bool __state)
         {
             __state = false;
-            
+
             var playerControl = playerInfo.Object;
-            if (playerControl.Is(RoleEnum.Phantom) && !Role.GetRole<Phantom>(playerControl).Caught && playerInfo.IsDead)
+            if ((playerControl.Is(RoleEnum.Phantom) && !Role.GetRole<Phantom>(playerControl).Caught) || (playerControl.Is(RoleEnum.Haunter) && !Role.GetRole<Haunter>(playerControl).Caught) && playerInfo.IsDead)
             {
                 playerInfo.IsDead = false;
                 __state = true;
@@ -207,7 +208,7 @@ namespace TownOfUs.NeutralRoles.PhantomMod
                 playerInfo.IsDead = true;
         }
     }
-    
+
     [HarmonyPatch(typeof(Console), nameof(Console.Use))]
     public class ConsoleUsePatch
     {
@@ -231,5 +232,5 @@ namespace TownOfUs.NeutralRoles.PhantomMod
         }
     }
     #endregion
-    
+
 }

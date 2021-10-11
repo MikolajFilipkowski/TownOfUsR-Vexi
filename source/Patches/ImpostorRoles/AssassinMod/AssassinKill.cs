@@ -5,6 +5,7 @@ using TownOfUs.Roles;
 using UnityEngine;
 using UnityEngine.UI;
 using TownOfUs.CrewmateRoles.MedicMod;
+using TownOfUs.CrewmateRoles.RetributionistMod;
 
 namespace TownOfUs.ImpostorRoles.AssassinMod
 {
@@ -85,6 +86,11 @@ namespace TownOfUs.ImpostorRoles.AssassinMod
                         button.SetActive(false);
                         button.GetComponent<PassiveButton>().OnClick = new Button.ButtonClickedEvent();
                     }
+                }
+                if (player.Is(RoleEnum.Retributionist))
+                {
+                    var retributionist = Role.GetRole<Retributionist>(PlayerControl.LocalPlayer);
+                    ShowHideButtonsRetri.HideButtonsRetri(retributionist);
                 }
             }
             player.Die(DeathReason.Kill);

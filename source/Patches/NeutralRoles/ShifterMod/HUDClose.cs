@@ -15,7 +15,6 @@ namespace TownOfUs.NeutralRoles.ShifterMod
             {
                 var shifter = (Shifter) role;
                 shifter.LastShifted = DateTime.UtcNow;
-                shifter.LastShifted = shifter.LastShifted.AddSeconds(-10.0);
             }
         }
     }
