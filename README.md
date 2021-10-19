@@ -1,4 +1,4 @@
- ## *Note. This repository is depricated in favour of Polus.gg, and is now read-only as it will not be recieving updates. Please visit our [steam page](https://store.steampowered.com/app/1653240/Polusgg/) and our [discord](https://discord.gg/polus) for all updates**
+ ## *Note: This repository is an unofficial continuation of Town of Us due to the original repository being discontinued. The rights to this mod still belong to Polus.gg.*
 
 
 [![Discord](./Images/Polus.png)](https://discord.gg/polus)
@@ -24,6 +24,8 @@ An Among Us mod that adds a bunch of roles, modifiers and game settings
 - [Spy](#spy)
 - [Snitch](#snitch)
 - [Altruist](#altruist)
+- [Retributionist](#retributionist)
+- [Haunter](#haunter)
 
 **Neutral Roles**
 - [Jester](#jester)
@@ -39,9 +41,10 @@ An Among Us mod that adds a bunch of roles, modifiers and game settings
 - [Camouflager](#camouflager)
 - [Miner](#miner)
 - [Swooper](#swooper)
+- [Undertaker](#undertaker)
 - [Assassin](#assassin)
 - [Underdog](#underdog)
-- [Undertaker](#undertaker)
+- [Grenadier](#grenadier)
 
 **Modifiers**
 - [Torch](#torch)
@@ -58,6 +61,7 @@ An Among Us mod that adds a bunch of roles, modifiers and game settings
 # Releases
 | Among Us - Version| Mod Version | Link |
 |----------|-------------|-----------------|
+| 2021.6.30s & 2021.6.30e & 2021.7.20e | v2.3.0 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v2.3.0/ToU.v2.3.0.zip) |
 | 2021.6.30s & 2021.6.30e & 2021.7.20e | v2.2.1 | [Download](https://github.com/polusgg/Town-Of-Us/releases/download/v2.2.1/TOU_221.zip) |
 | 2021.6.30s & 2021.6.30e & 2021.7.20e | v2.2.0 | [Download](https://github.com/polusgg/Town-Of-Us/releases/download/v2.2.0/TOU_220.zip) |
 | 2021.6.15s & 2021.6.15e | v2.1.4 | [Download](https://github.com/polusgg/Town-Of-Us/releases/download/v2.1.4/TOU_214.zip) |
@@ -79,6 +83,48 @@ An Among Us mod that adds a bunch of roles, modifiers and game settings
 
 <details>
   <summary> Changelog </summary>
+  <details>
+  <summary> v2.3.0 </summary>
+  <ul> <li>New Role: Retributionist (Assassin Crewmate)</li> </ul>
+  <ul> <li>New Role: Haunter (basically the Phantom but a Crewmate, once tasks are finished Impostors are revealed)</li> </ul>
+  <ul> <li>New Role: Grenadier (blinds Crewmates with flashbangs)</li> </ul>
+  <ul> <li>Added the remaining missing hats from v2.0.4 and prior</li> </ul>
+  <ul> <li>Glitch cooldowns adjusted to be the same as other roles</li> </ul>
+  <ul> <li>Made Swapper able to get Button Barry Modifier</li> </ul>
+  <ul> <li>Button Barry vision no longer reduced after Button Barry ability was used</li> </ul>
+  <ul> <li>Standardised starting cooldowns to not be decreased (for round start only) for all roles</li> </ul>
+  <ul> <li>Added alert for when Phantom is nearly finished</li> </ul>
+  <ul> <li>Glitch does not get notification for Snitch unless Snitch sees neutral roles</li> </ul>
+  <ul> <li>Made it so Impostors know when Snitch is done all tasks</li> </ul>
+  <ul> <li>Reworked how Phantom is set because of Haunter addition</li> </ul>
+  <ul> <li>Gray colour changed to ‘Darker’ for Medic reports</li> </ul>
+  <ul> <li>Made the Seer unable to see through the disguises of Morphling and Glitch</li> </ul>
+  <ul> <li>Split shifter into two settings, who can Shifter shift on and what shifted becomes</li> </ul>
+  <ul> <li>Setting for Sheriff can kill Executioner</li> </ul>
+  <ul> <li>Setting for Morphling, Swooper, Undertaker and Glitch to vent</li> </ul>
+  <ul> <li>Setting for Undertaker to vent while dragging a body</li> </ul>
+  <ul> <li>Setting for Mayor, Swapper, Jester, Executioner and Arsonist to not be able to button</li> </ul>
+  <ul> <li>Setting for Executioner becomes Shifter on target death</li> </ul>
+  <ul> <li>Setting for Phantom to do less tasks</li> </ul>
+  <ul> <li>Setting for Assassin to assassinate Snitch via ‘Crewmate’ guess</li> </ul>
+  <ul> <li>Underdog changes: Setting to choose kill cooldown bonus</li> </ul>
+  <ul> <li>Setting for Underdog to not have increased kill cooldown when 2+ imps</li> </ul>
+  <ul> <li>Settings for the Phantom to not be clickable before and after alert</li> </ul>
+  <ul> <li>Setting for Shifter to win with Crewmates</li> </ul>
+  <ul> <li>Setting for starting cooldowns on game start for all roles (a general setting)</li> </ul>
+  <ul> <li>Setting for when Snitch is revealed</li> </ul>
+  <ul> <li>Settings for clicking Phantom, one for before alert and the other for after alert</li> </ul>
+  <ul> <li>Setting for Snitch to not see Impostor names mid-meeting</li> </ul>
+  <ul> <li>Time Lord rewind time decreased from 3-15secs to 2-5secs</li> </ul>
+  <ul> <li>Time Lord cooldown increased from 10-40secs to 10-60secs</li> </ul>
+  <ul> <li>The maximum number of kills an Assassin can do during a meeting increased from 1-5 to 1-15</li> </ul>
+  <ul> <li>Bug Fix: Host no longer sees Undertaker dragging a body after they dropped it</li> </ul>
+  <ul> <li>Bug Fix: Host now has correct cooldowns on game start</li> </ul>
+  <ul> <li>Bug Fix: Investigator footprint interval fixed (lag not entirely fixed)</li> </ul>
+  <ul> <li>Bug Fix: Fixed the issue where Torch/Diseased were not given to anyone</li> </ul>
+  <ul> <li>Bug Fix: Made it so the Phantom only has to upload data and not download it</li> </ul>
+  <ul> <li>Bug Fix: Phantom no longer spawns in the admin vent</li> </ul>
+  </details>
   <details>
   <summary> v2.2.1 </summary>
   <ul> <li>Fix for the credits removed in v2.0.3 </li> </ul>
@@ -338,6 +384,7 @@ As long as not everyone has voted, the Mayor can use as many votes from their Vo
 | Mayor | The percentage probability of the Mayor appearing | Percentage | 0% |
 | Initial Mayor Vote Bank | The number of votes in the Vote Bank at the start of a game | Number | 1 |
 | Mayor Votes Show Anonymous | Whether the Mayor's extra votes will show up anonymously | Toggle | False |
+| Mayor Can Button | Whether the Mayor Can Press the Button | Toggle | True |
 
 -----------------------
 ## Lovers
@@ -369,6 +416,7 @@ However, if they kill a Crewmate or a Neutral player they can't kill, they inste
 | Sheriff Miskill Kills Crewmate | Whether the other player is killed if the Sheriff Misfires | Toggle | False |
 | Sheriff Kills Jester | Whether the Sheriff is able to kill the Jester | Toggle | False |
 | Sheriff Kills The Glitch | Whether the Sheriff is able to kill The Glitch | Toggle | False |
+| Sheriff Kills Executioner | Whether the Sheriff is able to kill the Executioner | Toggle | False |
 | Sheriff Kills Arsonist | Whether the Sheriff is able to kill the Arsonist | Toggle | False |
 | Sheriff Kill Cooldown | The cooldown on the Sheriff's kill button | Time | 25s |
 | Sheriff can report who they've killed | Whether the Sheriff is able to report their own kills | Toggle | True |
@@ -395,6 +443,7 @@ All the votes for the first player will instead be counted towards the second pl
 | Name | Description | Type | Default |
 |----------|:-------------:|:------:|:------:|
 | Swapper | The percentage probability of the Swapper appearing | Percentage | 0% |
+| Swapper Can Button | Whether the Swapper Can Press the Button | Toggle | True |
 
 -----------------------
 ## Investigator
@@ -425,7 +474,7 @@ If enabled, the Time Lord can't use Vitals to make things more balanced.
 |----------|:-------------:|:------:|:------:|
 | Time Lord | The percentage probability of the Time Lord appearing | Percentage | 0% |
 | Revive During Rewind | Whether the Time Lord revives dead players when rewinding | Toggle | False |
-| Rewind Duration | How far the rewind goes back in time | Time | 3s |
+| Rewind Duration | How far the rewind goes back in time | Time | 2s |
 | Rewind Cooldown | The cooldown of the Time Lord's Rewind button | Time | 25s |
 | Time Lord can use Vitals | Whether the Time Lord has the ability to use Vitals | Toggle | False |
 
@@ -452,7 +501,7 @@ A report can contain the name of the killer or the color type (Darker/Lighter)
 - Maroon - Darker
 - Rose - Lighter
 - Banana - Lighter
-- Gray - Lighter
+- Gray - Darker
 - Tan - Darker
 - Coral - Lighter
 - Watermelon - Darker
@@ -517,6 +566,9 @@ However, when they only have a single task left, the Impostors get an arrow poin
 |----------|:-------------:|:------:|:------:|
 | Snitch | The percentage probability of the Snitch appearing | Percentage | 0% |
 | Snitch knows who they are on Game Start | Whether the Snitch knows their role at the start of a game | Toggle | False |
+| Snitch Sees Neutral Roles | Whether the Snitch also Reveals Neutral Roles | Toggle | False |
+| Tasks Remaining When Revealed | The number of tasks remaining when the Snitch is revealed to Impostors | Number | 1 |
+| Snitch Sees Impostors in Meetings | Whether the Snitch sees the Impostor's names red in Meetings | Toggle | True |
 
 -----------------------
 ## Altruist
@@ -534,6 +586,38 @@ After a set period of time, the player will be resurrected, if the revival isn't
 | Target's body disappears on beginning of revive | Whether the dead body of the player the Altruist is reviving disappears upon revival | Toggle | False |
 
 -----------------------
+## Retributionist
+### **Team: Crewmates**
+
+The Retributionist is a Crewmate that can kill during meetings.\
+During meetings, the Retributionist can choose to kill someone by guessing their role, however, if they guess incorrectly, they die instead.
+### Game Options
+| Name | Description | Type | Default |
+|----------|:-------------:|:------:|:------:|
+| Retributionist | The percentage probability of the Retributionist appearing | Percentage | 0% |
+| Retributionist Kill | The number of kill the Retributionist can do with his ability | Number | 1 |
+| Retributionist Guess Neutral  | Whether the Retributionist can Guess Neutral roles | Toggle | False |
+| Retributionist Multiple Kill  | Whether the Retributionist can kill more than once per meeting | Toggle | False |
+
+-----------------------
+## Haunter
+### **Team: Crewmates**
+
+The Haunter is a dead Crewmate that can reveal Impostors if they finish all their tasks.\
+Upon finishing all of their tasks, Impostors are revealed to alive crewmates after a meeting is called.\
+However, if the Haunter is clicked they lose their ability to reveal Impostors and are once again a normal ghost.
+### Game Options
+| Name | Description | Type | Default |
+|----------|:-------------:|:------:|:------:|
+| Haunter | The percentage probability of the Haunter appearing | Percentage | 0% |
+| Haunter Less Tasks | The amount of tasks less that the Haunter has to do then alive players | Number | 0 |
+| Haunter Alert | The amount of tasks remaining when the Impostors are alreted that the Haunter is nearly finished | Number | 1 |
+| Haunter Clicked Before Alert  | Whether the Haunter can be clicked before the alert | Toggle | True |
+| Haunter Clicked After Alert  | Whether the Haunter can be clicked after the alert | Toggle | True |
+| Haunter Reveals Neutral Roles | Whether the Haunter also Reveals Neutral Roles | Toggle | False |
+| Who can Click Haunter | Whether even other Crewmates can click the Haunter | All / Non-Crew / Imps Only | All |
+
+-----------------------
 # Neutral Roles
 ## Jester
 ### **Team: Neutral**
@@ -545,6 +629,7 @@ However, the Jester does not win if the Crewmates, Impostors or another Neutral 
 | Name | Description | Type | Default |
 |----------|:-------------:|:------:|:------:|
 | Jester | The percentage probability of the Jester appearing | Percentage | 0% |
+| Jester Can Button | Whether the Jester Can Press the Button | Toggle | True |
 
 -----------------------
 ## Shifter
@@ -561,7 +646,9 @@ Swapping roles with an Impostor fails and kills the Shifter.
 |----------|:-------------:|:------:|:------:|
 | Shifter | The percentage probability of the Shifter appearing | Percentage | 0% |
 | Shifter Cooldown | The cooldown on the Shifter's Shift button | Time | 30s |
-| Who gets the Shifter role on Shift | Who will receive the Shifter role upon getting Shifted into | Non-Impostors / Regular Crewmates / Nobody | Non-Impostors |
+| Who can Shifter shift on | Who the Shifter can steal roles from | No Impostors / Crewmates | No Impostors |
+| Shifted Becomes | What the Shifted become | Shifter / Crewmate | Shifter |
+| Shifter Wins with Crew | Whether the Shifter Wins with the Crewmates | Toggle | False |
 
 -----------------------
 ## The Glitch
@@ -582,8 +669,8 @@ The Glitch can Mimic someone, which results in them looking exactly like the oth
 | Hack Cooldown | The cooldown of The Glitch's Hack button | Time | 30s |
 | Hack Duration | How long The Glitch can Hack a player | Time | 10s |
 | Glitch Kill Cooldown | The cooldown of the Glitch's Kill button | Time | 30s |
-| Initial Glitch Kill Cooldown | The cooldown of The Glitch's Kill button at the start of a game | Time | 10s |
 | Glitch Hack Distance | How far away The Glitch can Hack someone from | Short / Normal / Long | Short |
+| Glitch can Vent | Whether the Glitch can Vent | Toggle | False |
 
 -----------------------
 ## Executioner
@@ -596,7 +683,8 @@ If that player gets voted out, they win the game.
 | Name | Description | Type | Default |
 |----------|:-------------:|:------:|:------:|
 | Executioner | The percentage probability of the Executioner appearing | Percentage | 0% |
-| Executioner becomes on Target Dead | Which role the Executioner becomes when their target dies | Crewmate / Jester | Crewmate |
+| Executioner becomes on Target Dead | Which role the Executioner becomes when their target dies | Crewmate / Jester / Shifter | Crewmate |
+| Executioner Can Button | Whether the Executioner Can Press the Button | Toggle | True |
 
 -----------------------
 ## Arsonist
@@ -612,6 +700,7 @@ Upon Igniting every player, they win the game.
 | Arsonist | The percentage probability of the Arsonist appearing | Percentage | 0% |
 | Douse Cooldown | The cooldown of the Arsonist's Douse button | Time | 25s |
 | Game keeps going so long as Arsonist is alive | Whether the game keeps going while the Arsonist remains | Toggle | False |
+| Arsonist Can Button | Whether the Arsonist Can Press the Button | Toggle | True |
 
 -----------------------
 ## Phantom
@@ -623,6 +712,10 @@ They become half-invisible when they die and has to complete all their tasks wit
 | Name | Description | Type | Default |
 |----------|:-------------:|:------:|:------:|
 | Phantom | The percentage probability of the Phantom appearing | Percentage | 0% |
+| Phantom Less Tasks | The amount of tasks less that the Phantom has to do then alive players | Number | 0 |
+| Phantom Alert | The amount of tasks remaining when everyone is alreted that the Phantom is nearly finished | Number | 1 |
+| Phantom Clicked Before Alert  | Whether the Phantom can be clicked before the alert | Toggle | True |
+| Phantom Clicked After Alert  | Whether the Phantom can be clicked after the alert | Toggle | True |
 
 -----------------------
 # Impostor Roles
@@ -642,8 +735,7 @@ Both their Kill and Clean ability have a shared cooldown, meaning they have to c
 
 The Morphling is an Impostor that can Morph into another player.\
 At the beginning of the game and after every meeting, they can choose someone to Sample.\
-They can then Morph into that person at any time for a limited amount of time.\
-To balance the role, they can't vent.
+They can then Morph into that person at any time for a limited amount of time.
 
 ### Game Options
 | Name | Description | Type | Default |
@@ -651,6 +743,7 @@ To balance the role, they can't vent.
 | Morphling | The percentage probability of the Morphling appearing | Percentage | 0% |
 | Morph Cooldown | The cooldown of the Morphling's Morph button | Time | 25s |
 | Morph Duration | How long the Morph lasts for | Time | 10s |
+| Morphling can Vent | Whether the Morphling can Vent | Toggle | False |
 
 -----------------------
 ## Camouflager
@@ -683,8 +776,7 @@ These vents only connect to each other, forming a new passway.
 ## Swooper
 ### **Team: Impostors**
 
-The Swooper is an Impostor that can temporarily turn invisible.\
-To balance the role, they can't vent.
+The Swooper is an Impostor that can temporarily turn invisible.
 
 ### Game Options
 | Name | Description | Type | Default |
@@ -692,6 +784,21 @@ To balance the role, they can't vent.
 | Swooper | The percentage probability of the Swooper appearing | Percentage | 0% |
 | Swooper Cooldown | The cooldown of the Swooper's Swoop button | Time | 25s |
 | Swooper Duration | How long the Swooping lasts for | Time | 10s |
+| Swooper can Vent | Whether the Swooper can Vent | Toggle | False |
+
+-----------------------
+## Undertaker
+### **Team: Impostors**
+
+The Undertaker is an Impostor that can drag and drop bodies.
+
+### Game Options
+| Name | Description | Type | Default |
+|----------|:-------------:|:------:|:------:|
+| Undertaker | The percentage probability of the Undertaker appearing | Percentage | 0% |
+| Undertaker Drag Cooldown | The cooldown of the Undertaker Drag ability | Time | 25s |
+| Undertaker can Vent | Whether the Undertaker can Vent | Toggle | False |
+| Undertaker can Vent while Dragging | Whether the Undertaker can Vent when they are Dragging a Body | Toggle | False |
 
 -----------------------
 ## Assassin
@@ -707,19 +814,8 @@ If they guessed wrong, they die instead.
 | Assassin Kill | The number of kill the Assassin can do with his ability | Number | 1 |
 | Assassin Guess Crewmate | Whether the Assassin can Guess "Crewmate" | Toggle | False |
 | Assassin Guess Neutral  | Whether the Assassin can Guess Neutral roles | Toggle | False |
-| Assassin Multiple Kill  | Whether the Assassin can kill more than once per meeting | Toggle | True |
-
------------------------
-## Undertaker
-### **Team: Impostors**
-
-The Undertaker is an Impostor that can drag and drop bodies.
-
-### Game Options
-| Name | Description | Type | Default |
-|----------|:-------------:|:------:|:------:|
-| Undertaker | The percentage probability of the Undertaker appearing | Percentage | 0% |
-| Undertaker Drag Cooldown | The cooldown of the Undertaker Drag ability | Time | 25s |
+| Assassin Multiple Kill  | Whether the Assassin can kill more than once per meeting | Toggle | False |
+| Assassinate Snitch via Crewmate Guess  | Whether the Assassin can kill the Snitch by Guessing Crewmate | Toggle | False |
 
 -----------------------
 ## Underdog
@@ -732,7 +828,23 @@ When they are the only remaining Impostor, they will have their kill cooldown sh
 | Name | Description | Type | Default |
 |----------|:-------------:|:------:|:------:|
 | Underdog | The percentage probability of the Underdog appearing | Percentage | 0% |
+| Kill Cooldown Bonus | The amount of time added or removed from the Underdog's Kill Cooldown | Time | 5s |
+| Increased Kill Cooldown  | Whether the Underdog's Kill Cooldown is Increased when 2+ Imps are alive | Toggle | True |
 
+-----------------------
+## Grenadier
+### **Team: Impostors**
+
+The Grenadier is an Impostor that can throw smoke grenades.\
+During the game, the Grenadier has the option to throw down a smoke grenade which blinds crewmates so they can't see.
+
+### Game Options
+| Name | Description | Type | Default |
+|----------|:-------------:|:------:|:------:|
+| Grenadier | The percentage probability of the Grenadier appearing | Percentage | 0% |
+| Flash Grenade Cooldown | The cooldown of the Grenadier's Flash button | Time | 25s |
+| Flash Grenade Duration | How long the Flash Grenade lasts for | Time | 10s |
+| Grenadier can Vent | Whether the Grenadier can Vent | Toggle | False |
 -----------------------
 
 # Modifiers
@@ -814,6 +926,7 @@ They have the same amount of meetings as a regular player.
 | Max Neutral Roles | The maximum number of Neutral roles a game can have | Number | 1 |
 | Role Appears Under Name | Whether your own role appears under your name | Toggle | True |
 | Probability of a completely vanilla game | The percentage probability of a vanilla Among Us game happening | Percentage | 0% |
+| Game Start Cooldowns | The cooldown for all roles at the start of the game (excluding Impostor's Kill Cooldown) | Time | 10s |
 
 -----------------------
 # Extras
@@ -841,7 +954,7 @@ If you have any bugs or any need to contact me, join the [Discord server](https:
 [TorchMod](https://github.com/tomozbot/TorchMod) - For the inspirtation of the Torch Mod.\
 [XtraCube](https://github.com/XtraCube) - For the RainbowMod.\
 [PhasmoFireGod](https://twitch.tv/PhasmoFireGod) - Button Art.\
-[TheOtherRoles](https://github.com/Eisbison/TheOtherRoles) - For the inspiration of the Child and Spy roles.
+[TheOtherRoles](https://github.com/Eisbison/TheOtherRoles) - For the inspiration of the Retributionist and Spy roles.
 
 [Essentials](https://github.com/DorCoMaNdO/Reactor-Essentials) - For created custom game options.\
 v1.0.3 uses [Essentials](https://github.com/DorCoMaNdO/Reactor-Essentials) directly.\
