@@ -138,7 +138,7 @@ namespace TownOfUs
             if (LoversOn)
                 Lover.Gen(crewmates, impostors);
 
-            while (impostors.Count > 0)
+            while (impostors.Count > 0 && ImpostorRoles.Count > 0)
             {
                 var (type, rpc, _) = ImpostorRoles.TakeFirst();
                 if (type == null) break;
@@ -187,124 +187,63 @@ namespace TownOfUs
             foreach (var (type, rpc, _) in CrewmateModifiers)
                 Role.Gen<Modifier>(type, canHaveModifier, rpc);
 
-            if (PhantomOn && HaunterOn)
+            var vanilla = PlayerControl.AllPlayerControls.ToArray().Where(x => x.Is(RoleEnum.Crewmate)).ToList();
+            var ghostRoles = 0;
+            var phantomSpawn = false;
+            var haunterSpawn = false;
+            if (PhantomOn) ghostRoles = ghostRoles + 1;
+            if (HaunterOn) ghostRoles = ghostRoles + 1;
+            var toChooseFrom = PlayerControl.AllPlayerControls.ToArray().Where(x => x.Is(Faction.Crewmates) && !x.isLover()).ToList();
+            var rand = Random.RandomRangeInt(0, toChooseFrom.Count);
+            var rand2 = Random.RandomRangeInt(0, toChooseFrom.Count);
+            var pc = toChooseFrom[rand];
+            var pc2 = toChooseFrom[rand2];
+            if (ghostRoles == 2 && toChooseFrom.Count > 1)
             {
-                var vanilla = PlayerControl.AllPlayerControls.ToArray().Where(x => x.Is(RoleEnum.Crewmate)).ToList();
-                var toChooseFrom = PlayerControl.AllPlayerControls.ToArray().Where(x => x.Is(Faction.Crewmates) && !x.isLover())
-                        .ToList();
-                var rand = Random.RandomRangeInt(0, toChooseFrom.Count);
-                var rand2 = Random.RandomRangeInt(0, toChooseFrom.Count);
-                var bothghosts = true;
-                var n = 0;
-                while (rand == rand2 && n < 11)
+                while (rand == rand2)
                 {
-                    if (n < 10)
-                    {
-                        rand2 = Random.RandomRangeInt(0, toChooseFrom.Count);
-                    }
-                    else if (n == 10)
-                    {
-                        bothghosts = false;
-                    }
-                    n = n + 1;
-
+                    rand2 = Random.RandomRangeInt(0, toChooseFrom.Count);
                 }
-                var pc = toChooseFrom[rand];
-                var pc2 = toChooseFrom[rand2];
-
-                if (bothghosts == true)
-                {
-                    SetPhantom.WillBePhantom = pc;
-                    SetHaunter.WillBeHaunter = pc2;
-
-                    var writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
-                        (byte)CustomRPC.SetPhantom, SendOption.Reliable, -1);
-                    writer.Write(pc.PlayerId);
-                    AmongUsClient.Instance.FinishRpcImmediately(writer);
-                    var writer2 = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
-                        (byte)CustomRPC.SetHaunter, SendOption.Reliable, -1);
-                    writer2.Write(pc2.PlayerId);
-                    AmongUsClient.Instance.FinishRpcImmediately(writer2);
-                }
-                else
-                {
-                    var rand3 = Random.RandomRangeInt(0, 2);
-                    if (rand3 == 0)
-                    {
-                        SetPhantom.WillBePhantom = pc;
-
-                        var writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
-                            (byte)CustomRPC.SetPhantom, SendOption.Reliable, -1);
-                        writer.Write(pc.PlayerId);
-                        AmongUsClient.Instance.FinishRpcImmediately(writer);
-                        var writer2 = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
-                            (byte)CustomRPC.SetHaunter, SendOption.Reliable, -1);
-                        writer2.Write(byte.MaxValue);
-                        AmongUsClient.Instance.FinishRpcImmediately(writer2);
-                    }
-                    else
-                    {
-                        SetHaunter.WillBeHaunter = pc;
-
-                        var writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
-                            (byte)CustomRPC.SetHaunter, SendOption.Reliable, -1);
-                        writer.Write(pc.PlayerId);
-                        AmongUsClient.Instance.FinishRpcImmediately(writer);
-                        var writer2 = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
-                            (byte)CustomRPC.SetPhantom, SendOption.Reliable, -1);
-                        writer2.Write(byte.MaxValue);
-                        AmongUsClient.Instance.FinishRpcImmediately(writer2);
-                    }
-                }
+                pc2 = toChooseFrom[rand2];
+                phantomSpawn = true;
+                haunterSpawn = true;
             }
-            else if (PhantomOn)
+            else if (ghostRoles == 2 && toChooseFrom.Count == 1)
             {
-                var vanilla = PlayerControl.AllPlayerControls.ToArray().Where(x => x.Is(RoleEnum.Crewmate)).ToList();
-                var toChooseFrom = crewmates.Count > 0
-                    ? crewmates
-                    : PlayerControl.AllPlayerControls.ToArray().Where(x => x.Is(Faction.Crewmates) && !x.isLover())
-                        .ToList();
-                var rand = Random.RandomRangeInt(0, toChooseFrom.Count);
-                var pc = toChooseFrom[rand];
-
+                var rand3 = Random.RandomRangeInt(0, 2);
+                if (rand3 == 0) phantomSpawn = true;
+                else haunterSpawn = true;
+            }
+            else if (ghostRoles == 1 && toChooseFrom.Count > 0)
+            {
+                if (PhantomOn) phantomSpawn = true;
+                if (HaunterOn) haunterSpawn = true;
+            }
+            if (phantomSpawn == true)
+            {
                 SetPhantom.WillBePhantom = pc;
-
                 var writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
-                    (byte)CustomRPC.SetPhantom, SendOption.Reliable, -1);
+                        (byte)CustomRPC.SetPhantom, SendOption.Reliable, -1);
                 writer.Write(pc.PlayerId);
                 AmongUsClient.Instance.FinishRpcImmediately(writer);
-                var writer2 = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
-                    (byte)CustomRPC.SetHaunter, SendOption.Reliable, -1);
-                writer2.Write(byte.MaxValue);
-                AmongUsClient.Instance.FinishRpcImmediately(writer2);
-            }
-            else if (HaunterOn)
-            {
-                var vanilla = PlayerControl.AllPlayerControls.ToArray().Where(x => x.Is(RoleEnum.Crewmate)).ToList();
-                var toChooseFrom = crewmates.Count > 0
-                    ? crewmates
-                    : PlayerControl.AllPlayerControls.ToArray().Where(x => x.Is(Faction.Crewmates) && !x.isLover())
-                        .ToList();
-                var rand = Random.RandomRangeInt(0, toChooseFrom.Count);
-                var pc = toChooseFrom[rand];
-
-                SetHaunter.WillBeHaunter = pc;
-
-                var writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
-                    (byte)CustomRPC.SetHaunter, SendOption.Reliable, -1);
-                writer.Write(pc.PlayerId);
-                AmongUsClient.Instance.FinishRpcImmediately(writer);
-                var writer2 = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
-                    (byte)CustomRPC.SetPhantom, SendOption.Reliable, -1);
-                writer2.Write(byte.MaxValue);
-                AmongUsClient.Instance.FinishRpcImmediately(writer2);
             }
             else
             {
-                var writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
+                var writer2 = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
                     (byte)CustomRPC.SetPhantom, SendOption.Reliable, -1);
-                writer.Write(byte.MaxValue);
+                writer2.Write(byte.MaxValue);
+                AmongUsClient.Instance.FinishRpcImmediately(writer2);
+            }
+            if (haunterSpawn == true)
+            {
+                SetHaunter.WillBeHaunter = pc2;
+                var writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
+                        (byte)CustomRPC.SetHaunter, SendOption.Reliable, -1);
+                writer.Write(pc2.PlayerId);
                 AmongUsClient.Instance.FinishRpcImmediately(writer);
+            }
+            else
+            {
                 var writer2 = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
                     (byte)CustomRPC.SetHaunter, SendOption.Reliable, -1);
                 writer2.Write(byte.MaxValue);

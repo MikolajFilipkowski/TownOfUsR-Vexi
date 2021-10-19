@@ -455,7 +455,7 @@ namespace TownOfUs.CustomOption
                 new CustomHeaderOption(num++, "<color=#d3d3d3FF>Haunter</color>");
             HaunterLessTasks = new CustomNumberOption(num++, "Haunter Does All Tasks Minus", 0, 0, 5, 1);
             HaunterTasksRemaining =
-                 new CustomNumberOption(num++, "Tasks Reamining When Haunter Alert Is Sent", 1, 1, 5, 1);
+                 new CustomNumberOption(num++, "Tasks Remaining When Haunter Alert Is Sent", 1, 1, 5, 1);
             HaunterCanBeClickedBefore = new CustomToggleOption(num++, "Haunter Can Be Clicked Before Alert", true);
             HaunterCanBeClickedAfter = new CustomToggleOption(num++, "Haunter Can Be Clicked After Alert", true);
             HaunterRevealsNeutrals = new CustomToggleOption(num++, "Haunter Reveals Neutral Roles", false);
@@ -511,7 +511,7 @@ namespace TownOfUs.CustomOption
                 new CustomHeaderOption(num++, "<color=#662962FF>Phantom</color>");
             PhantomLessTasks = new CustomNumberOption(num++, "Phantom Does All Tasks Minus", 0, 0, 5, 1);
             PhantomTasksRemaining =
-                 new CustomNumberOption(num++, "Tasks Reamining When Phantom Alert Is Sent", 1, 1, 5, 1);
+                 new CustomNumberOption(num++, "Tasks Remaining When Phantom Alert Is Sent", 1, 1, 5, 1);
             PhantomCanBeClickedBefore = new CustomToggleOption(num++, "Phantom Can Be Clicked Before Alert", true);
             PhantomCanBeClickedAfter = new CustomToggleOption(num++, "Phantom Can Be Clicked After Alert", true);
 

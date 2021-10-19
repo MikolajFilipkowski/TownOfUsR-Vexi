@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using System.Linq;
-using TownOfUs.ImpostorRoles.GrenadierMod;
 
 namespace TownOfUs.Roles
 {
@@ -55,60 +54,18 @@ namespace TownOfUs.Roles
             }
             Enabled = true;
             TimeRemaining -= Time.deltaTime;
+
+            //To stop the scenario where the flash and sabotage are called at the same time.
             var system = ShipStatus.Instance.Systems[SystemTypes.Sabotage].Cast<SabotageSystemType>();
             var specials = system.specials.ToArray();
             var dummyActive = system.dummy.IsActive;
             var sabActive = specials.Any(s => s.IsActive);
-            if (sabActive)
-            {
-                switch (PlayerControl.GameOptions.MapId)
-                {
-                    case 0:
-                    case 3:
-                        var comms1 = ShipStatus.Instance.Systems[SystemTypes.Comms].Cast<HudOverrideSystemType>();
-                        if (comms1.IsActive) SabotageFix.FixComms();
-                        var reactor1 = ShipStatus.Instance.Systems[SystemTypes.Reactor].Cast<ReactorSystemType>();
-                        if (reactor1.IsActive) SabotageFix.FixReactor(SystemTypes.Reactor);
-                        var oxygen1 = ShipStatus.Instance.Systems[SystemTypes.LifeSupp].Cast<LifeSuppSystemType>();
-                        if (oxygen1.IsActive) SabotageFix.FixOxygen();
-                        var lights1 = ShipStatus.Instance.Systems[SystemTypes.Electrical].Cast<SwitchSystem>();
-                        if (lights1.IsActive) SabotageFix.FixLights(lights1);
 
-                        break;
-                    case 1:
-                        var comms2 = ShipStatus.Instance.Systems[SystemTypes.Comms].Cast<HqHudSystemType>();
-                        if (comms2.IsActive) SabotageFix.FixMiraComms();
-                        var reactor2 = ShipStatus.Instance.Systems[SystemTypes.Reactor].Cast<ReactorSystemType>();
-                        if (reactor2.IsActive) SabotageFix.FixReactor(SystemTypes.Reactor);
-                        var oxygen2 = ShipStatus.Instance.Systems[SystemTypes.LifeSupp].Cast<LifeSuppSystemType>();
-                        if (oxygen2.IsActive) SabotageFix.FixOxygen();
-                        var lights2 = ShipStatus.Instance.Systems[SystemTypes.Electrical].Cast<SwitchSystem>();
-                        if (lights2.IsActive) SabotageFix.FixLights(lights2);
-                        break;
-
-                    case 2:
-                        var comms3 = ShipStatus.Instance.Systems[SystemTypes.Comms].Cast<HudOverrideSystemType>();
-                        if (comms3.IsActive) SabotageFix.FixComms();
-                        var seismic = ShipStatus.Instance.Systems[SystemTypes.Laboratory].Cast<ReactorSystemType>();
-                        if (seismic.IsActive) SabotageFix.FixReactor(SystemTypes.Laboratory);
-                        var lights3 = ShipStatus.Instance.Systems[SystemTypes.Electrical].Cast<SwitchSystem>();
-                        if (lights3.IsActive) SabotageFix.FixLights(lights3);
-                        break;
-                    case 4:
-                        var comms4 = ShipStatus.Instance.Systems[SystemTypes.Comms].Cast<HudOverrideSystemType>();
-                        if (comms4.IsActive) SabotageFix.FixComms();
-                        var reactor = ShipStatus.Instance.Systems[SystemTypes.Reactor].Cast<HeliSabotageSystem>();
-                        if (reactor.IsActive) SabotageFix.FixAirshipReactor();
-                        var lights4 = ShipStatus.Instance.Systems[SystemTypes.Electrical].Cast<SwitchSystem>();
-                        if (lights4.IsActive) SabotageFix.FixLights(lights4);
-                        break;
-                }
-            }
             foreach (var player in closestPlayers)
             {
                 if (PlayerControl.LocalPlayer.PlayerId == player.PlayerId)
                 {
-                    if (TimeRemaining > CustomGameOptions.GrenadeDuration - 0.5f)
+                    if (TimeRemaining > CustomGameOptions.GrenadeDuration - 0.5f && (!sabActive | dummyActive))
                     {
                         float fade = (TimeRemaining - CustomGameOptions.GrenadeDuration) * -2.0f;
                         if (!player.Data.IsImpostor && !player.Data.IsDead && !MeetingHud.Instance)
@@ -120,6 +77,10 @@ namespace TownOfUs.Roles
                         {
                             ((Renderer)DestroyableSingleton<HudManager>.Instance.FullScreen).enabled = true;
                             DestroyableSingleton<HudManager>.Instance.FullScreen.color = Color.Lerp((new Color(0.83f, 0.83f, 0.83f, 0f)), (new Color(0.83f, 0.83f, 0.83f, 0.2f)), fade);
+                            if (PlayerControl.LocalPlayer.Data.IsImpostor && MapBehaviour.Instance.infectedOverlay.SabSystem.Timer < 0.5f)
+                            {
+                                MapBehaviour.Instance.infectedOverlay.SabSystem.Timer = 0.5f;
+                            }
                         }
                         else
                         {
@@ -127,7 +88,7 @@ namespace TownOfUs.Roles
                             DestroyableSingleton<HudManager>.Instance.FullScreen.color = new Color(0.83f, 0.83f, 0.83f, 0f);
                         }
                     }
-                    else if (TimeRemaining <= (CustomGameOptions.GrenadeDuration - 0.5f) && TimeRemaining >= 0.5f)
+                    else if (TimeRemaining <= (CustomGameOptions.GrenadeDuration - 0.5f) && TimeRemaining >= 0.5f && (!sabActive | dummyActive))
                     {
                         if ((!player.Data.IsImpostor && !player.Data.IsDead) && !MeetingHud.Instance)
                         {
@@ -138,6 +99,10 @@ namespace TownOfUs.Roles
                         {
                             ((Renderer)DestroyableSingleton<HudManager>.Instance.FullScreen).enabled = true;
                             DestroyableSingleton<HudManager>.Instance.FullScreen.color = new Color(0.83f, 0.83f, 0.83f, 0.2f);
+                            if (PlayerControl.LocalPlayer.Data.IsImpostor && MapBehaviour.Instance.infectedOverlay.SabSystem.Timer < 0.5f)
+                            {
+                                MapBehaviour.Instance.infectedOverlay.SabSystem.Timer = 0.5f;
+                            }
                         }
                         else
                         {
@@ -145,7 +110,7 @@ namespace TownOfUs.Roles
                             DestroyableSingleton<HudManager>.Instance.FullScreen.color = new Color(0.83f, 0.83f, 0.83f, 0f);
                         }
                     }
-                    else
+                    else if (TimeRemaining < 0.5f && (!sabActive | dummyActive))
                     {
                         float fade2 = (TimeRemaining * -2.0f) + 1.0f;
                         if ((!player.Data.IsImpostor && !player.Data.IsDead) && !MeetingHud.Instance)
@@ -157,6 +122,10 @@ namespace TownOfUs.Roles
                         {
                             ((Renderer)DestroyableSingleton<HudManager>.Instance.FullScreen).enabled = true;
                             DestroyableSingleton<HudManager>.Instance.FullScreen.color = Color.Lerp((new Color(0.83f, 0.83f, 0.83f, 0.2f)), (new Color(0.83f, 0.83f, 0.83f, 0f)), fade2);
+                            if (PlayerControl.LocalPlayer.Data.IsImpostor && MapBehaviour.Instance.infectedOverlay.SabSystem.Timer < 0.5f)
+                            {
+                                MapBehaviour.Instance.infectedOverlay.SabSystem.Timer = 0.5f;
+                            }
                         }
                         else
                         {
@@ -164,6 +133,20 @@ namespace TownOfUs.Roles
                             DestroyableSingleton<HudManager>.Instance.FullScreen.color = new Color(0.83f, 0.83f, 0.83f, 0f);
                         }
                     }
+                    else
+                    {
+                        ((Renderer)DestroyableSingleton<HudManager>.Instance.FullScreen).enabled = true;
+                        DestroyableSingleton<HudManager>.Instance.FullScreen.color = new Color(0.83f, 0.83f, 0.83f, 0f);
+                        TimeRemaining = 0.0f;
+                    }
+                }
+            }
+
+            if (TimeRemaining > 0.5f)
+            {
+                if (PlayerControl.LocalPlayer.Data.IsImpostor && MapBehaviour.Instance.infectedOverlay.SabSystem.Timer < 0.5f)
+                {
+                    MapBehaviour.Instance.infectedOverlay.SabSystem.Timer = 0.5f;
                 }
             }
         }
@@ -175,6 +158,7 @@ namespace TownOfUs.Roles
             ((Renderer)DestroyableSingleton<HudManager>.Instance.FullScreen).enabled = true;
             DestroyableSingleton<HudManager>.Instance.FullScreen.color = new Color(0.83f, 0.83f, 0.83f, 0f);
         }
+
         public static Il2CppSystem.Collections.Generic.List<PlayerControl> FindClosestPlayers(PlayerControl player)
         {
             Il2CppSystem.Collections.Generic.List<PlayerControl> playerControlList = new Il2CppSystem.Collections.Generic.List<PlayerControl>();
