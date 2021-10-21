@@ -61,6 +61,7 @@ An Among Us mod that adds a bunch of roles, modifiers and game settings
 # Releases
 | Among Us - Version| Mod Version | Link |
 |----------|-------------|-----------------|
+| 2021.6.30s & 2021.6.30e & 2021.7.20e | v2.3.1 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v2.3.1/ToU.v2.3.1.zip) |
 | 2021.6.30s & 2021.6.30e & 2021.7.20e | v2.3.0 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v2.3.0/ToU.v2.3.0.zip) |
 | 2021.6.30s & 2021.6.30e & 2021.7.20e | v2.2.1 | [Download](https://github.com/polusgg/Town-Of-Us/releases/download/v2.2.1/TOU_221.zip) |
 | 2021.6.30s & 2021.6.30e & 2021.7.20e | v2.2.0 | [Download](https://github.com/polusgg/Town-Of-Us/releases/download/v2.2.0/TOU_220.zip) |
@@ -83,6 +84,11 @@ An Among Us mod that adds a bunch of roles, modifiers and game settings
 
 <details>
   <summary> Changelog </summary>
+  <details>
+  <summary> v2.3.1 </summary>
+  <ul> <li>Removed Modded Handshake as that was causing the host to crash</li> </ul>
+  <ul> <li>Minor Bug Fixes</li> </ul>
+  </details>
   <details>
   <summary> v2.3.0 </summary>
   <ul> <li>New Role: Retributionist (Assassin Crewmate)</li> </ul>
