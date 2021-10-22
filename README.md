@@ -5,7 +5,7 @@
 
 An Among Us mod that adds a bunch of roles, modifiers and game settings
 
-Loin our [Discord](https://discord.gg/ugyc4EVUYZ)!
+Join our [Discord](https://discord.gg/ugyc4EVUYZ) if you have any problems or want to find people to play with!
 
 
 
