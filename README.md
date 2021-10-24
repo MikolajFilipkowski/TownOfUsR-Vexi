@@ -955,10 +955,11 @@ If you have any bugs or any need to contact me, join the [Discord Server](https:
 [Among-Us-Love-Couple-Mod](https://github.com/Woodi-dev/Among-Us-Love-Couple-Mod) - For the inspiration of Lovers role.\
 [ExtraRolesAmongUs](https://github.com/NotHunter101/ExtraRolesAmongUs) - For the Engineer & Medic roles.\
 [TooManyRolesMods](https://github.com/Hardel-DW/TooManyRolesMods) - For the Investigator & Time Lord roles.\
-[TorchMod](https://github.com/tomozbot/TorchMod) - For the inspirtation of the Torch Mod.\
+[TorchMod](https://github.com/tomozbot/TorchMod) - For the inspiration of the Torch Mod.\
 [XtraCube](https://github.com/XtraCube) - For the RainbowMod.\
 [PhasmoFireGod](https://twitch.tv/PhasmoFireGod) - Button Art.\
-[TheOtherRoles](https://github.com/Eisbison/TheOtherRoles) - For the inspiration of the Retributionist and Spy roles.
+[TheOtherRoles](https://github.com/Eisbison/TheOtherRoles) - For the inspiration of the Retributionist and Spy roles.\
+[5up](https://www.twitch.tv/5uppp) and the Submarine Team - For the inspiration of the Grenadier role.
 
 [Essentials](https://github.com/DorCoMaNdO/Reactor-Essentials) - For created custom game options.\
 v1.0.3 uses [Essentials](https://github.com/DorCoMaNdO/Reactor-Essentials) directly.\
