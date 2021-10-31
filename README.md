@@ -59,6 +59,7 @@ Join our [Discord](https://discord.gg/ugyc4EVUYZ) if you have any problems or wa
 # Releases
 | Among Us - Version| Mod Version | Link |
 |----------|-------------|-----------------|
+| 2021.6.30s & 2021.6.30e & 2021.7.20e | v2.3.2 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v2.3.2/ToU.v2.3.2.zip) |
 | 2021.6.30s & 2021.6.30e & 2021.7.20e | v2.3.1 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v2.3.1/ToU.v2.3.1.zip) |
 | 2021.6.30s & 2021.6.30e & 2021.7.20e | v2.3.0 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v2.3.0/ToU.v2.3.0.zip) |
 | 2021.6.30s & 2021.6.30e & 2021.7.20e | v2.2.1 | [Download](https://github.com/polusgg/Town-Of-Us/releases/download/v2.2.1/TOU_221.zip) |
@@ -82,6 +83,20 @@ Join our [Discord](https://discord.gg/ugyc4EVUYZ) if you have any problems or wa
 
 <details>
   <summary> Changelog </summary>
+  <details>
+  <summary> v2.3.2 </summary>
+  <ul> <li>Bug Fix: Sheriff no longer instantly ends the game and bans the host for hacking</li> </ul>
+  <ul> <li>Bug Fix: Retributionist/Mayor interaction</li> </ul>
+  <ul> <li>Bug Fix: Executioner always gets a target now</li> </ul>
+  <ul> <li>Executioner can not have Lovers, Swapper, Mayor or Retributionist as their target</li> </ul>
+  <ul> <li>Made it so dead Impostors don’t see Haunter arrows</li> </ul>
+  <ul> <li>Made it so if Haunter reveals Neutral roles, all Neutral roles are alerted when Haunter is nearly finished tasks</li> </ul>
+  <ul> <li>Removed alert for Phantom</li> </ul>
+  <ul> <li>All hats with credits from v2.2.1-t have been added</li> </ul>
+  <ul> <li>Removed the settings about when Phantom/Haunter can be clicked and replaced them with ‘tasks remaining when they can be clicked’</li> </ul>
+  <ul> <li>Removed the settings for Phantom/Haunter to have less tasks</li> </ul>
+  <ul> <li>Changed kill cooldown bonus for Underdog from 2.5-10secs to 2.5-30secs</li> </ul>
+  </details>
   <details>
   <summary> v2.3.1 </summary>
   <ul> <li>Removed Modded Handshake as that was causing the host to crash</li> </ul>
@@ -614,10 +629,8 @@ However, if the Haunter is clicked they lose their ability to reveal Impostors a
 | Name | Description | Type | Default |
 |----------|:-------------:|:------:|:------:|
 | Haunter | The percentage probability of the Haunter appearing | Percentage | 0% |
-| Haunter Less Tasks | The amount of tasks less that the Haunter has to do then alive players | Number | 0 |
+| Haunter Can Be Clicked When | The amount of tasks remaining when the Haunter Can Be Clicked | Number | 5 |
 | Haunter Alert | The amount of tasks remaining when the Impostors are alreted that the Haunter is nearly finished | Number | 1 |
-| Haunter Clicked Before Alert  | Whether the Haunter can be clicked before the alert | Toggle | True |
-| Haunter Clicked After Alert  | Whether the Haunter can be clicked after the alert | Toggle | True |
 | Haunter Reveals Neutral Roles | Whether the Haunter also Reveals Neutral Roles | Toggle | False |
 | Who can Click Haunter | Whether even other Crewmates can click the Haunter | All / Non-Crew / Imps Only | All |
 
@@ -716,10 +729,7 @@ They become half-invisible when they die and has to complete all their tasks wit
 | Name | Description | Type | Default |
 |----------|:-------------:|:------:|:------:|
 | Phantom | The percentage probability of the Phantom appearing | Percentage | 0% |
-| Phantom Less Tasks | The amount of tasks less that the Phantom has to do then alive players | Number | 0 |
-| Phantom Alert | The amount of tasks remaining when everyone is alreted that the Phantom is nearly finished | Number | 1 |
-| Phantom Clicked Before Alert  | Whether the Phantom can be clicked before the alert | Toggle | True |
-| Phantom Clicked After Alert  | Whether the Phantom can be clicked after the alert | Toggle | True |
+| Phantom Can Be Clicked When | The amount of tasks remaining when the Phantom Can Be Clicked | Number | 5 |
 
 -----------------------
 # Impostor Roles
@@ -840,7 +850,8 @@ When they are the only remaining Impostor, they will have their kill cooldown sh
 ### **Team: Impostors**
 
 The Grenadier is an Impostor that can throw smoke grenades.\
-During the game, the Grenadier has the option to throw down a smoke grenade which blinds crewmates so they can't see.
+During the game, the Grenadier has the option to throw down a smoke grenade which blinds crewmates so they can't see.\
+However, a sabotage and a smoke grenade can not be active at the same time.
 
 ### Game Options
 | Name | Description | Type | Default |
