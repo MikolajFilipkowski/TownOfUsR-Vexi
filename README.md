@@ -629,7 +629,7 @@ However, if the Haunter is clicked they lose their ability to reveal Impostors a
 | Name | Description | Type | Default |
 |----------|:-------------:|:------:|:------:|
 | Haunter | The percentage probability of the Haunter appearing | Percentage | 0% |
-| Haunter Can Be Clicked When | The amount of tasks remaining when the Haunter Can Be Clicked | Number | 5 |
+| When Haunter Can Be Clicked | The amount of tasks remaining when the Haunter Can Be Clicked | Number | 5 |
 | Haunter Alert | The amount of tasks remaining when the Impostors are alreted that the Haunter is nearly finished | Number | 1 |
 | Haunter Reveals Neutral Roles | Whether the Haunter also Reveals Neutral Roles | Toggle | False |
 | Who can Click Haunter | Whether even other Crewmates can click the Haunter | All / Non-Crew / Imps Only | All |
@@ -729,7 +729,7 @@ They become half-invisible when they die and has to complete all their tasks wit
 | Name | Description | Type | Default |
 |----------|:-------------:|:------:|:------:|
 | Phantom | The percentage probability of the Phantom appearing | Percentage | 0% |
-| Phantom Can Be Clicked When | The amount of tasks remaining when the Phantom Can Be Clicked | Number | 5 |
+| When Phantom Can Be Clicked | The amount of tasks remaining when the Phantom Can Be Clicked | Number | 5 |
 
 -----------------------
 # Impostor Roles
