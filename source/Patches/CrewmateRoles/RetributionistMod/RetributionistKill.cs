@@ -117,6 +117,33 @@ namespace TownOfUs.CrewmateRoles.RetributionistMod
                 if (!voteAreaPlayer.AmOwner) continue;
                 meetingHud.ClearVote();
             }
+            if (AmongUsClient.Instance.AmHost)
+            {
+                foreach (var role in Role.GetRoles(RoleEnum.Mayor))
+                {
+                    if (role is Mayor mayor)
+                    {
+                        if (role.Player == player)
+                        {
+                            mayor.ExtraVotes.Clear();
+                        }
+                        else
+                        {
+                            var votesRegained = mayor.ExtraVotes.RemoveAll(x => x == player.PlayerId);
+
+                            if (mayor.Player == PlayerControl.LocalPlayer)
+                                mayor.VoteBank += votesRegained;
+
+                            var writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
+                                (byte)CustomRPC.AddMayorVoteBank, SendOption.Reliable, -1);
+                            writer.Write(mayor.Player.PlayerId);
+                            writer.Write(votesRegained);
+                            AmongUsClient.Instance.FinishRpcImmediately(writer);
+                        }
+                    }
+                }
+                meetingHud.CheckForEndVoting();
+            }
         }
     }
 }

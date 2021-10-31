@@ -18,12 +18,7 @@ namespace TownOfUs.NeutralRoles.PhantomMod
 
             var tasksLeft = taskinfos.Count(x => !x.Complete);
 
-            if (tasksLeft == CustomGameOptions.PhantomLessTasks+CustomGameOptions.PhantomTasksRemaining && !role.Caught)
-            {
-                Coroutines.Start(Utils.FlashCoroutine(role.Color));
-            }
-
-            if (tasksLeft == CustomGameOptions.PhantomLessTasks && !role.Caught)
+            if (tasksLeft == 0 && !role.Caught)
             {
                 role.CompletedTasks = true;
                 if (AmongUsClient.Instance.AmHost)

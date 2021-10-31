@@ -153,9 +153,7 @@ namespace TownOfUs
 
             if (executioner != null)
             {
-                var targets = Utils.GetCrewmates(impostors).Where(
-                    crewmate => Role.GetRole(crewmate)?.Faction == Faction.Crewmates
-                ).ToList();
+                var targets = PlayerControl.AllPlayerControls.ToArray().Where(x => x.Is(Faction.Crewmates) && !x.isLover() && !x.Is(RoleEnum.Mayor) && !x.Is(RoleEnum.Swapper) && !x.Is(RoleEnum.Retributionist)).ToList();
                 if (targets.Count > 0)
                 {
                     var exec = Role.Gen<Executioner>(
@@ -181,7 +179,7 @@ namespace TownOfUs
             foreach (var (type, rpc, _) in GlobalModifiers)
                 Role.Gen<Modifier>(type, canHaveModifier, rpc);
 
-            canHaveModifier.RemoveAll(player => (player.Is(RoleEnum.Glitch)||player.Is(RoleEnum.Impostor)||player.Is(RoleEnum.LoverImpostor)||player.Is(RoleEnum.Janitor)||player.Is(RoleEnum.Morphling)||player.Is(RoleEnum.Camouflager)||player.Is(RoleEnum.Miner)||player.Is(RoleEnum.Swooper)||player.Is(RoleEnum.Undertaker)||player.Is(RoleEnum.Assassin)||player.Is(RoleEnum.Underdog)||player.Is(RoleEnum.Grenadier)));
+            canHaveModifier.RemoveAll(player => (player.Is(RoleEnum.Glitch)||player.Is(Faction.Impostors)));
             canHaveModifier.Shuffle();
 
             foreach (var (type, rpc, _) in CrewmateModifiers)
@@ -443,7 +441,6 @@ namespace TownOfUs
                         PluginSingleton<TownOfUs>.Instance.Log.LogMessage("Bytes received - " + readSByte + " - " +
                                                                           readSByte2);
                         break;
-
                     case CustomRPC.Shift:
                         readByte1 = reader.ReadByte();
                         readByte2 = reader.ReadByte();

@@ -132,7 +132,7 @@ namespace TownOfUs.NeutralRoles.PhantomMod
                 if (PlayerControl.LocalPlayer.Data.IsDead) return;
                 var taskinfos = player.Data.Tasks.ToArray();
                 var tasksLeft = taskinfos.Count(x => !x.Complete);
-                if ((tasksLeft > CustomGameOptions.PhantomLessTasks + CustomGameOptions.PhantomTasksRemaining && CustomGameOptions.PhantomCanBeClickedBefore) || (tasksLeft <= CustomGameOptions.PhantomLessTasks + CustomGameOptions.PhantomTasksRemaining && CustomGameOptions.PhantomCanBeClickedAfter))
+                if (tasksLeft <= CustomGameOptions.PhantomTasksRemaining)
                 {
                     role.Caught = true;
                     var writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,

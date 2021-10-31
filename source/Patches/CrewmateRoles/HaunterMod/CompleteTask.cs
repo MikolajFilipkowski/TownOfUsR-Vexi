@@ -20,13 +20,13 @@ namespace TownOfUs.CrewmateRoles.HaunterMod
 
             var tasksLeft = taskinfos.Count(x => !x.Complete);
 
-            if (tasksLeft == CustomGameOptions.HaunterLessTasks+CustomGameOptions.HaunterTasksRemaining && !role.Caught)
+            if (tasksLeft == CustomGameOptions.HaunterTasksRemainingAlert && !role.Caught)
             {
                 if (PlayerControl.LocalPlayer.Is(RoleEnum.Haunter))
                 {
                     Coroutines.Start(Utils.FlashCoroutine(role.Color));
                 }
-                else if (PlayerControl.LocalPlayer.Data.IsImpostor || (PlayerControl.LocalPlayer.Is(RoleEnum.Glitch) && CustomGameOptions.HaunterRevealsNeutrals))
+                else if (PlayerControl.LocalPlayer.Data.IsImpostor || (PlayerControl.LocalPlayer.Is(Faction.Neutral) && CustomGameOptions.HaunterRevealsNeutrals))
                 {
                     Coroutines.Start(Utils.FlashCoroutine(role.Color));
                     var gameObj = new GameObject();
@@ -40,14 +40,14 @@ namespace TownOfUs.CrewmateRoles.HaunterMod
                 }
             }
 
-            if (tasksLeft == CustomGameOptions.HaunterLessTasks && !role.Caught)
+            if (tasksLeft == 0 && !role.Caught)
             {
                 role.CompletedTasks = true;
                 if (PlayerControl.LocalPlayer.Is(RoleEnum.Haunter))
                 {
                     Coroutines.Start(Utils.FlashCoroutine(Color.white));
                 }
-                else if (PlayerControl.LocalPlayer.Data.IsImpostor || (PlayerControl.LocalPlayer.Is(RoleEnum.Glitch) && CustomGameOptions.HaunterRevealsNeutrals))
+                else if (PlayerControl.LocalPlayer.Data.IsImpostor || (PlayerControl.LocalPlayer.Is(Faction.Neutral) && CustomGameOptions.HaunterRevealsNeutrals))
                 {
                     Coroutines.Start(Utils.FlashCoroutine(Color.white));
                 }

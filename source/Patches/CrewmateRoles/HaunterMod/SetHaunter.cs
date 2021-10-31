@@ -139,7 +139,7 @@ namespace TownOfUs.CrewmateRoles.HaunterMod
                 if (CustomGameOptions.HaunterCanBeClickedBy == HaunterCanBeClickedBy.NonCrew && !(PlayerControl.LocalPlayer.Data.IsImpostor || PlayerControl.LocalPlayer.Is(RoleEnum.Jester) || PlayerControl.LocalPlayer.Is(RoleEnum.Shifter) || PlayerControl.LocalPlayer.Is(RoleEnum.Glitch) || PlayerControl.LocalPlayer.Is(RoleEnum.Executioner) || PlayerControl.LocalPlayer.Is(RoleEnum.Arsonist))) return;
                 var taskinfos = player.Data.Tasks.ToArray();
                 var tasksLeft = taskinfos.Count(x => !x.Complete);
-                if ((tasksLeft > CustomGameOptions.HaunterLessTasks + CustomGameOptions.HaunterTasksRemaining && CustomGameOptions.HaunterCanBeClickedBefore) || (tasksLeft <= CustomGameOptions.HaunterLessTasks + CustomGameOptions.HaunterTasksRemaining && CustomGameOptions.HaunterCanBeClickedAfter))
+                if (tasksLeft <= CustomGameOptions.HaunterTasksRemainingClicked)
                 {
                     role.Caught = true;
                     var writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,

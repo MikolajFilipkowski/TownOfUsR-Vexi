@@ -153,9 +153,6 @@ namespace TownOfUs.CustomOption
 
         public static CustomHeaderOption Phantom;
         public static CustomNumberOption PhantomTasksRemaining;
-        public static CustomNumberOption PhantomLessTasks;
-        public static CustomToggleOption PhantomCanBeClickedBefore;
-        public static CustomToggleOption PhantomCanBeClickedAfter;
 
         public static CustomHeaderOption Snitch;
         public static CustomToggleOption SnitchOnLaunch;
@@ -202,10 +199,8 @@ namespace TownOfUs.CustomOption
         public static CustomToggleOption RetributionistMultiKill;
 
         public static CustomHeaderOption Haunter;
-        public static CustomNumberOption HaunterTasksRemaining;
-        public static CustomNumberOption HaunterLessTasks;
-        public static CustomToggleOption HaunterCanBeClickedBefore;
-        public static CustomToggleOption HaunterCanBeClickedAfter;
+        public static CustomNumberOption HaunterTasksRemainingClicked;
+        public static CustomNumberOption HaunterTasksRemainingAlert;
         public static CustomToggleOption HaunterRevealsNeutrals;
         public static CustomStringOption HaunterCanBeClickedBy;
 
@@ -453,11 +448,10 @@ namespace TownOfUs.CustomOption
 
             Haunter =
                 new CustomHeaderOption(num++, "<color=#d3d3d3FF>Haunter</color>");
-            HaunterLessTasks = new CustomNumberOption(num++, "Haunter Does All Tasks Minus", 0, 0, 5, 1);
-            HaunterTasksRemaining =
-                 new CustomNumberOption(num++, "Tasks Remaining When Haunter Alert Is Sent", 1, 1, 5, 1);
-            HaunterCanBeClickedBefore = new CustomToggleOption(num++, "Haunter Can Be Clicked Before Alert", true);
-            HaunterCanBeClickedAfter = new CustomToggleOption(num++, "Haunter Can Be Clicked After Alert", true);
+            HaunterTasksRemainingClicked =
+                 new CustomNumberOption(num++, "Tasks Remaining When Haunter Can Be Clicked", 5, 1, 10, 1);
+            HaunterTasksRemainingAlert =
+                 new CustomNumberOption(num++, "Tasks Remaining When Alert Is Sent", 1, 1, 5, 1);
             HaunterRevealsNeutrals = new CustomToggleOption(num++, "Haunter Reveals Neutral Roles", false);
             HaunterCanBeClickedBy = new CustomStringOption(num++, "Who Can Click Haunter", new[] { "All", "Non-Crew", "Imps Only" });
 
@@ -509,11 +503,8 @@ namespace TownOfUs.CustomOption
 
             Phantom =
                 new CustomHeaderOption(num++, "<color=#662962FF>Phantom</color>");
-            PhantomLessTasks = new CustomNumberOption(num++, "Phantom Does All Tasks Minus", 0, 0, 5, 1);
             PhantomTasksRemaining =
-                 new CustomNumberOption(num++, "Tasks Remaining When Phantom Alert Is Sent", 1, 1, 5, 1);
-            PhantomCanBeClickedBefore = new CustomToggleOption(num++, "Phantom Can Be Clicked Before Alert", true);
-            PhantomCanBeClickedAfter = new CustomToggleOption(num++, "Phantom Can Be Clicked After Alert", true);
+                 new CustomNumberOption(num++, "Tasks Remaining When Phantom Can Be Clicked", 5, 1, 10, 1);
 
             Morphling =
                 new CustomHeaderOption(num++, "<color=#FF0000FF>Morphling</color>");
@@ -561,7 +552,7 @@ namespace TownOfUs.CustomOption
             AssassinSnitchViaCrewmate = new CustomToggleOption(num++, "Assassinate Snitch Via \"Crewmate\" Guess", false);
 
             Underdog = new CustomHeaderOption(num++, "<color=#FF0000FF>Underdog</color>");
-            UnderdogKillBonus = new CustomNumberOption(num++, "Kill Cooldown Bonus", 5, 2.5f, 10, 2.5f, CooldownFormat);
+            UnderdogKillBonus = new CustomNumberOption(num++, "Kill Cooldown Bonus", 5, 2.5f, 30, 2.5f, CooldownFormat);
             UnderdogIncreasedKC = new CustomToggleOption(num++, "Increased Kill Cooldown When 2+ Imps", true);
 
             Grenadier =

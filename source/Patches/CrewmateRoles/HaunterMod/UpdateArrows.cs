@@ -14,7 +14,7 @@ namespace TownOfUs.CrewmateRoles.HaunterMod
             foreach (var role in Role.AllRoles.Where(x => x.RoleType == RoleEnum.Haunter))
             {
                 var haunter = (Haunter)role;
-                if (haunter.Caught)
+                if (PlayerControl.LocalPlayer.Data.IsDead || haunter.Caught)
                 {
                     haunter.HaunterArrows.DestroyAll();
                     haunter.HaunterArrows.Clear();
