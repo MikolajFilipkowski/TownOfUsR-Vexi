@@ -59,6 +59,7 @@ Join our [Discord](https://discord.gg/ugyc4EVUYZ) if you have any problems or wa
 # Releases
 | Among Us - Version| Mod Version | Link |
 |----------|-------------|-----------------|
+| 2021.6.30s & 2021.6.30e & 2021.7.20e | v2.3.3 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v2.3.3/ToU.v2.3.3.zip) |
 | 2021.6.30s & 2021.6.30e & 2021.7.20e | v2.3.2 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v2.3.2/ToU.v2.3.2.zip) |
 | 2021.6.30s & 2021.6.30e & 2021.7.20e | v2.3.1 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v2.3.1/ToU.v2.3.1.zip) |
 | 2021.6.30s & 2021.6.30e & 2021.7.20e | v2.3.0 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v2.3.0/ToU.v2.3.0.zip) |
@@ -84,6 +85,21 @@ Join our [Discord](https://discord.gg/ugyc4EVUYZ) if you have any problems or wa
 <details>
   <summary> Changelog </summary>
   <details>
+  <summary> v2.3.3 </summary>
+  <ul> <li>Added the remaining hats with credits from ToU v2.2.1-t</li> </ul>
+  <ul> <li>Added some new hats from Pigoletto</li> </ul>
+  <ul> <li>Removed Acron’s hats as he requested their removal</li> </ul>
+  <ul> <li>Bug Fix: Lovers no longer win if the other disconnects</li> </ul>
+  <ul> <li>Bug Fix: Mayor votes no longer double on a disconnect</li> </ul>
+  <ul> <li>Bug Fix: When Shifter shifts with Arsonist, the douse also shifts now</li> </ul>
+  <ul> <li>Bug Fix: Shifter can now ignite after shifting with the Arsonist</li> </ul>
+  <ul> <li>Bug Fix: Impostors no longer see their teammate’s name go pink at the end of the meeting if their teammate is a Loving Impostor</li> </ul>
+  <ul> <li>Bug Fix: Investigator no longer lags the player into oblivion</li> </ul>
+  <ul> <li>Bug Fix: The game no longer infinitely tries to distribute crewmate modifiers when there are more modifiers than crewmates</li> </ul>
+  <ul> <li>Bug Fix: Snitch now always sees Impostors mid-meeting (if setting is on) even when someone dcs</li> </ul>
+  <ul> <li>Bug Fix: Haunter now always reveals Impostors mid-meeting even when someone dcs</li> </ul>
+  <ul> <li>Bug Fix: Shield now breaks when Medic disconnects</li> </ul>
+  </details>
   <summary> v2.3.2 </summary>
   <ul> <li>Bug Fix: Sheriff no longer instantly ends the game and bans the host for hacking</li> </ul>
   <ul> <li>Bug Fix: Retributionist/Mayor interaction</li> </ul>

@@ -94,29 +94,25 @@ namespace TownOfUs.CrewmateRoles.MayorMod
         [HarmonyPrefix]
         [HarmonyPatch(
             nameof(MeetingHud.HandleDisconnect),
-            typeof(PlayerControl), typeof(InnerNet.DisconnectReasons)
+            typeof(PlayerControl), typeof(DisconnectReasons)
         )]
         public static void Prefix(
             MeetingHud __instance, [HarmonyArgument(0)] PlayerControl player)
         {
-            if (AmongUsClient.Instance.AmHost)
+            foreach (var role in Role.GetRoles(RoleEnum.Mayor))
             {
-                foreach (var role in Role.GetRoles(RoleEnum.Mayor))
-                {
-                    if (role is Mayor mayor)
-                    {
-                        var votesRegained = mayor.ExtraVotes.RemoveAll(x => x == player.PlayerId);
-                        
-                        if (mayor.Player == PlayerControl.LocalPlayer)
-                            mayor.VoteBank += votesRegained;
-                        
-                        var writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
-                            (byte) CustomRPC.AddMayorVoteBank, SendOption.Reliable, -1);
-                        writer.Write(mayor.Player.PlayerId);
-                        writer.Write(mayor.VoteBank);
-                        AmongUsClient.Instance.FinishRpcImmediately(writer);
-                    }
-                }
+                var mayor = (Mayor)role;
+                var playerId = player.PlayerId;
+
+                var votesRegained = mayor.ExtraVotes.RemoveAll(x => x == playerId);
+
+                mayor.VoteBank += votesRegained;
+
+                var mayorId = mayor.Player.PlayerId;
+
+                var voteArea = __instance.playerStates.First(area => area.TargetPlayerId == mayorId);
+                if (voteArea.VotedFor == playerId)
+                    mayor.VoteBank++;
             }
         }
 
@@ -179,35 +175,13 @@ namespace TownOfUs.CrewmateRoles.MayorMod
             }
         }
 
-        [HarmonyPatch(typeof(MeetingHud), nameof(MeetingHud.VotingComplete))]
-        public static class VotingComplete
-        {
-            public static void Postfix(MeetingHud __instance,
-                [HarmonyArgument(0)] Il2CppStructArray<MeetingHud.VoterState> states,
-                [HarmonyArgument(1)] GameData.PlayerInfo exiled,
-                [HarmonyArgument(2)] bool tie)
-            {
-                // __instance.exiledPlayer = __instance.wasTie ? null : __instance.exiledPlayer;
-                var exiledString = exiled == null ? "null" : exiled.PlayerName;
-                PluginSingleton<TownOfUs>.Instance.Log.LogMessage($"Exiled PlayerName = {exiledString}");
-                PluginSingleton<TownOfUs>.Instance.Log.LogMessage($"Was a tie = {tie}");
-            }
-        }
-
         [HarmonyPatch(typeof(MeetingHud), nameof(MeetingHud.PopulateResults))]
         public static class PopulateResults
         {
             public static bool Prefix(MeetingHud __instance,
                 [HarmonyArgument(0)] Il2CppStructArray<MeetingHud.VoterState> statess)
             {
-                // var joined = string.Join(",", statess);
-                // var arr = joined.Split(',');
-                // var states = arr.Select(byte.Parse).ToArray();
-
-                // var allnums = new int[__instance.playerStates.Length];
-
                 var allNums = new Dictionary<int, int>();
-
 
                 __instance.TitleText.text = Object.FindObjectOfType<TranslationController>()
                     .GetString(StringNames.MeetingVotingResults, Array.Empty<Il2CppSystem.Object>());
@@ -222,12 +196,7 @@ namespace TownOfUs.CrewmateRoles.MayorMod
                     {
                         var voteState = statess[stateIdx];
                         var playerInfo = GameData.Instance.GetPlayerById(voteState.VoterId);
-                        if (playerInfo == null)
-                        {
-                            Debug.LogError(string.Format("Couldn't find player info for voter: {0}",
-                                voteState.VoterId));
-                        }
-                        else if (i == 0 && voteState.SkippedVote)
+                        if (i == 0 && voteState.SkippedVote)
                         {
                             __instance.BloopAVoteIcon(playerInfo, amountOfSkippedVoters, __instance.SkippedVoting.transform);
                             amountOfSkippedVoters++;

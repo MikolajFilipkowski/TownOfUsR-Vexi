@@ -13,12 +13,12 @@ namespace TownOfUs.Roles
         public Dictionary<string, Color> ColorMapping = new Dictionary<string, Color>
         {
             { "Mayor", new Color(0.44f, 0.31f, 0.66f, 1f) },
+            { "Lover", new Color(1f, 0.4f, 0.8f, 1f) },
             { "Sheriff", Color.yellow },
             { "Engineer", new Color(1f, 0.65f, 0.04f, 1f) },
             { "Swapper", new Color(0.4f, 0.9f, 0.4f, 1f) },
             { "Investigator", new Color(0f, 0.7f, 0.7f, 1f) },
             { "Time Lord", new Color(0f, 0f, 1f, 1f) },
-            { "Lover", new Color(1f, 0.4f, 0.8f, 1f) },
             { "Medic", new Color(0f, 0.4f, 0f, 1f) },
             { "Seer", new Color(1f, 0.8f, 0.5f, 1f) },
             { "Spy", new Color(0.8f, 0.64f, 0.8f, 1f) },

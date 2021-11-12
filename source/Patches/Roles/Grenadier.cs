@@ -10,7 +10,7 @@ namespace TownOfUs.Roles
         public bool Enabled;
         public DateTime LastFlashed;
         public float TimeRemaining;
-        Il2CppSystem.Collections.Generic.List<PlayerControl> closestPlayers = null;
+        public static Il2CppSystem.Collections.Generic.List<PlayerControl> closestPlayers = null;
 
         public Grenadier(PlayerControl player) : base(player)
         {
@@ -172,7 +172,7 @@ namespace TownOfUs.Roles
                 {
                     Vector2 vector2 = new Vector2(playerInfo.Object.GetTruePosition().x - truePosition.x, playerInfo.Object.GetTruePosition().y - truePosition.y);
                     float magnitude = ((Vector2) vector2).magnitude;
-                    if (magnitude <= impostorLightMod*5)
+                    if (magnitude <= impostorLightMod * 5)
                     {
                         PlayerControl playerControl = playerInfo.Object;
                         playerControlList.Add(playerControl);

@@ -19,7 +19,7 @@ using UnityEngine.SceneManagement;
 
 namespace TownOfUs
 {
-    [BepInPlugin(Id, "Town Of Us", "2.3.2")]
+    [BepInPlugin(Id, "Town Of Us", "2.3.3")]
     [BepInDependency(ReactorPlugin.Id)]
     public class TownOfUs : BasePlugin
     {
@@ -40,7 +40,6 @@ namespace TownOfUs
         public static Sprite MorphSprite;
         public static Sprite Camouflage;
         public static Sprite Arrow;
-        public static Sprite Abstain;
         public static Sprite MineSprite;
         public static Sprite SwoopSprite;
         public static Sprite DouseSprite;
@@ -48,14 +47,10 @@ namespace TownOfUs
         public static Sprite ReviveSprite;
         public static Sprite ButtonSprite;
         public static Sprite PolusSprite;
-
         public static Sprite CycleSprite;
         public static Sprite GuessSprite;
-
-
         public static Sprite DragSprite;
         public static Sprite DropSprite;
-
         public static Sprite FlashSprite;
 
         private static DLoadImage _iCallLoadImage;
@@ -91,7 +86,6 @@ namespace TownOfUs
             MorphSprite = CreateSprite("TownOfUs.Resources.Morph.png");
             Camouflage = CreateSprite("TownOfUs.Resources.Camouflage.png");
             Arrow = CreateSprite("TownOfUs.Resources.Arrow.png");
-            Abstain = CreateSprite("TownOfUs.Resources.Abstain.png");
             MineSprite = CreateSprite("TownOfUs.Resources.Mine.png");
             SwoopSprite = CreateSprite("TownOfUs.Resources.Swoop.png");
             DouseSprite = CreateSprite("TownOfUs.Resources.Douse.png");

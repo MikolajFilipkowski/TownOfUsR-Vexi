@@ -99,8 +99,6 @@ namespace TownOfUs
 
         Start,
         SyncCustomSettings,
-        FixAnimation,
-        
-        AddMayorVoteBank
+        FixAnimation
     }
 }

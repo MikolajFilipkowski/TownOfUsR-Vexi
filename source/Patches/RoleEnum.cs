@@ -4,9 +4,9 @@ namespace TownOfUs
     {
         Sheriff,
         Jester,
-        Engineer,
-        LoverImpostor,
         Lover,
+        LoverImpostor,
+        Engineer,
         Mayor,
         Swapper,
         Investigator,

@@ -182,8 +182,11 @@ namespace TownOfUs
             canHaveModifier.RemoveAll(player => (player.Is(RoleEnum.Glitch)||player.Is(Faction.Impostors)));
             canHaveModifier.Shuffle();
 
-            foreach (var (type, rpc, _) in CrewmateModifiers)
-                Role.Gen<Modifier>(type, canHaveModifier, rpc);
+            while (canHaveModifier.Count > 0 && CrewmateModifiers.Count > 0)
+            {
+                var (type, rpc, _) = CrewmateModifiers.TakeFirst();
+                Role.Gen<Modifier>(type, canHaveModifier.TakeFirst(), rpc);
+            }
 
             var vanilla = PlayerControl.AllPlayerControls.ToArray().Where(x => x.Is(RoleEnum.Crewmate)).ToList();
             var ghostRoles = 0;
@@ -700,15 +703,13 @@ namespace TownOfUs
                         break;
                     case CustomRPC.Drop:
                         readByte1 = reader.ReadByte();
-                        var v2 = reader.ReadVector2();
-                        var v2z = reader.ReadSingle();
+                        Vector2 deadBody = reader.ReadVector2();
                         var dienerPlayer2 = Utils.PlayerById(readByte1);
                         var dienerRole2 = Role.GetRole<Undertaker>(dienerPlayer2);
                         var body2 = dienerRole2.CurrentlyDragging;
                         dienerRole2.CurrentlyDragging = null;
 
-                        body2.transform.position = new Vector3(v2.x, v2.y, v2z);
-
+                        body2.TruePosition.Set(deadBody.x, deadBody.y);
 
                         break;
                     case CustomRPC.SetAssassin:
@@ -769,9 +770,6 @@ namespace TownOfUs
                         break;
                     case CustomRPC.HaunterFinished:
                         HighlightImpostors.UpdateMeeting(MeetingHud.Instance);
-                        break;
-                    case CustomRPC.AddMayorVoteBank:
-                        Role.GetRole<Mayor>(Utils.PlayerById(reader.ReadByte())).VoteBank += reader.ReadInt32();
                         break;
                 }
             }

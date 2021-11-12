@@ -46,9 +46,7 @@ namespace TownOfUs.Roles
             if (CamouflageUnCamouflage.IsCamoed && player == null) return "";
             if (PlayerControl.LocalPlayer.Data.IsDead || PlayerControl.LocalPlayer == Player)
                 return base.NameText(player);
-            if (player != null && (MeetingHud.Instance.state == MeetingHud.VoteStates.Proceeding ||
-                                   MeetingHud.Instance.state == MeetingHud.VoteStates.Results)) return Player.name;
-            if (!CustomGameOptions.RoleUnderName && player == null) return Player.name;
+            if (!CustomGameOptions.RoleUnderName && player == null) 
             Player.nameText.transform.localPosition = new Vector3(
                 0f,
                 Player.Data.HatId == 0U ? 1.5f : 2f,
@@ -58,7 +56,15 @@ namespace TownOfUs.Roles
             {
                 Player.nameText.color = Palette.ImpostorRed;
                 if (player != null) player.NameText.color = Palette.ImpostorRed;
-                return Player.name + "\n" + "Impostor";
+                if (MeetingHud.Instance.state == MeetingHud.VoteStates.Proceeding ||
+                                   MeetingHud.Instance.state == MeetingHud.VoteStates.Results)
+                {
+                    return Player.name;
+                }
+                else
+                {
+                    return Player.name + "\n" + "Impostor";
+                }
             }
 
 
@@ -138,7 +144,7 @@ namespace TownOfUs.Roles
             var lover1 = Player;
             var lover2 = OtherLover.Player;
             {
-                return !lover1.Data.IsDead && !lover2.Data.IsDead &&
+                return !(lover1.Data.IsDead || lover1.Data.Disconnected) && !(lover2.Data.IsDead || lover2.Data.Disconnected) &&
                        alives.Count() == 4 && LoverImpostor;
             }
         }
@@ -151,7 +157,7 @@ namespace TownOfUs.Roles
             var lover1 = Player;
             var lover2 = OtherLover.Player;
 
-            return !lover1.Data.IsDead && !lover2.Data.IsDead &&
+            return !(lover1.Data.IsDead || lover1.Data.Disconnected) && !(lover2.Data.IsDead || lover2.Data.Disconnected) &&
                    (alives.Count == 3) | (alives.Count == 2);
         }
 

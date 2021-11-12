@@ -119,8 +119,8 @@ namespace TownOfUs.NeutralRoles.ShifterMod
             {
                 case RoleEnum.Sheriff:
                 case RoleEnum.Engineer:
-                case RoleEnum.Lover:
                 case RoleEnum.Mayor:
+                case RoleEnum.Lover:
                 case RoleEnum.Swapper:
                 case RoleEnum.Investigator:
                 case RoleEnum.TimeLord:
@@ -147,6 +147,7 @@ namespace TownOfUs.NeutralRoles.ShifterMod
                     }
                     break;
             }
+
             if (shift == true)
             {
                 if (role == RoleEnum.Investigator) Footprint.DestroyAll(Role.GetRole<Investigator>(other));
@@ -159,6 +160,7 @@ namespace TownOfUs.NeutralRoles.ShifterMod
 
                 var modifier = Modifier.GetModifier(other);
                 var modifier2 = Modifier.GetModifier(shifter);
+
                 if (modifier != null && modifier2 != null)
                 {
                     modifier.Player = shifter;
@@ -260,13 +262,23 @@ namespace TownOfUs.NeutralRoles.ShifterMod
             //System.Console.WriteLine(shifter.Is(RoleEnum.Sheriff));
             //System.Console.WriteLine(other.Is(RoleEnum.Sheriff));
             //System.Console.WriteLine(Roles.Role.GetRole(shifter));
+
+            if (shifter.Is(RoleEnum.Arsonist))
+            {
+                var role2 = Role.GetRole<Arsonist>(shifter);
+                if (role2.DousedPlayers.Contains(shifter.PlayerId))
+                {
+                    role2.DousedPlayers.Add(other.PlayerId);
+                    role2.DousedPlayers.Remove(shifter.PlayerId);
+                }
+            }
+
             if (shifter.AmOwner || other.AmOwner)
             {
                 if (shifter.Is(RoleEnum.Arsonist) && other.AmOwner)
 
                 {
                     Role.GetRole<Arsonist>(shifter).IgniteButton.Destroy();
-                    Role.GetRole<Arsonist>(shifter).IgniteButton.renderer.enabled = false;
                 }
 
                 foreach (var sheriffRole in Role.GetRoles(RoleEnum.Sheriff))
