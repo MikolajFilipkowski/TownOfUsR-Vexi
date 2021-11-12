@@ -100,6 +100,7 @@ Join our [Discord](https://discord.gg/ugyc4EVUYZ) if you have any problems or wa
   <ul> <li>Bug Fix: Haunter now always reveals Impostors mid-meeting even when someone dcs</li> </ul>
   <ul> <li>Bug Fix: Shield now breaks when Medic disconnects</li> </ul>
   </details>
+  </details>
   <summary> v2.3.2 </summary>
   <ul> <li>Bug Fix: Sheriff no longer instantly ends the game and bans the host for hacking</li> </ul>
   <ul> <li>Bug Fix: Retributionist/Mayor interaction</li> </ul>
