@@ -93,12 +93,12 @@ namespace TownOfUs
 
         private static void GenEachRole(List<GameData.PlayerInfo> infected)
         {
-            return;
 
             var impostors = Utils.GetImpostors(infected);
             var crewmates = Utils.GetCrewmates(impostors);
             crewmates.Shuffle();
             impostors.Shuffle();
+            PluginSingleton<TownOfUs>.Instance.Log.LogMessage($"RPC SET ROLE {impostors.Count} -> {crewmates.Count}");
 
             SortRoles(CrewmateRoles);
             SortRoles(NeutralRoles, CustomGameOptions.MaxNeutralRoles);
@@ -780,7 +780,7 @@ namespace TownOfUs
         [HarmonyPatch(typeof(RoleManager), nameof(RoleManager.SelectRoles))]
         public static class RpcSetRole
         {
-            public static void PostFix()
+            public static void Postfix()
             {
                 PluginSingleton<TownOfUs>.Instance.Log.LogMessage("RPC SET ROLE");
                 var infected = GameData.Instance.AllPlayers.ToArray().Where(o => o.IsImpostor());
