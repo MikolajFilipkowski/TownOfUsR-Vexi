@@ -41,9 +41,9 @@ namespace TownOfUs.Roles
                 case SeeReveal.Nobody:
                     return false;
                 case SeeReveal.ImpsAndNeut:
-                    return role != null && role.Faction != Faction.Crewmates || player.Data.IsImpostor;
+                    return role != null && role.Faction != Faction.Crewmates || player.Data.IsImpostor();
                 case SeeReveal.Crew:
-                    return role != null && role.Faction == Faction.Crewmates || !player.Data.IsImpostor;
+                    return role != null && role.Faction == Faction.Crewmates || !player.Data.IsImpostor();
             }
 
             return false;

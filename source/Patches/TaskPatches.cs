@@ -16,7 +16,7 @@ namespace TownOfUs
                 {
                     var playerInfo = __instance.AllPlayers.ToArray()[i];
                     if (!playerInfo.Disconnected && playerInfo.Tasks != null && playerInfo.Object &&
-                        (PlayerControl.GameOptions.GhostsDoTasks || !playerInfo.IsDead) && !playerInfo.IsImpostor &&
+                        (PlayerControl.GameOptions.GhostsDoTasks || !playerInfo.IsDead) && !playerInfo.IsImpostor() &&
                         !(
                             playerInfo._object.Is(RoleEnum.Jester) || playerInfo._object.Is(RoleEnum.Shifter) ||
                             playerInfo._object.Is(RoleEnum.Glitch) || playerInfo._object.Is(RoleEnum.Executioner) ||

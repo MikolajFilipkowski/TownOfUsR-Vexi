@@ -46,10 +46,10 @@ namespace TownOfUs.Extensions
         {
             return new VisualAppearance()
             {
-                ColorId = player.Data.ColorId,
-                HatId = player.Data.HatId,
-                SkinId = player.Data.SkinId,
-                PetId = player.Data.PetId
+                ColorId = player.CurrentOutfit.ColorId,
+                HatId = 0,//player.DefaultOutfit.HatId,
+                SkinId = 0, // player.Data.SkinId,
+                PetId = 0//player.Data.PetId
             };
         }
 

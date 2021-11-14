@@ -1,5 +1,6 @@
 using HarmonyLib;
 using TownOfUs.Roles;
+using UnityEngine;
 
 namespace TownOfUs.CrewmateRoles.SnitchMod
 {
@@ -27,7 +28,7 @@ namespace TownOfUs.CrewmateRoles.SnitchMod
 
             foreach (var player in PlayerControl.AllPlayerControls)
             {
-                if (player.Data.IsImpostor) player.nameText.color = Palette.ImpostorRed;
+                if (player.Data.IsImpostor()) player.nameText.color = Palette.ImpostorRed;
                 var playerRole = Role.GetRole(player);
                 if (playerRole.Faction == Faction.Neutral && CustomGameOptions.SnitchSeesNeutrals)
                     player.nameText.color = role.Color;

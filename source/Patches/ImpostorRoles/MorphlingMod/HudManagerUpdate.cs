@@ -21,18 +21,18 @@ namespace TownOfUs.ImpostorRoles.MorphlingMod
             if (role.MorphButton == null)
             {
                 role.MorphButton = Object.Instantiate(__instance.KillButton, HudManager.Instance.transform);
-                role.MorphButton.renderer.enabled = true;
-                role.MorphButton.renderer.sprite = SampleSprite;
+                role.MorphButton.graphic.enabled = true;
+                role.MorphButton.graphic.sprite = SampleSprite;
             }
 
-            if (role.MorphButton.renderer.sprite != SampleSprite && role.MorphButton.renderer.sprite != MorphSprite)
-                role.MorphButton.renderer.sprite = SampleSprite;
+            if (role.MorphButton.graphic.sprite != SampleSprite && role.MorphButton.graphic.sprite != MorphSprite)
+                role.MorphButton.graphic.sprite = SampleSprite;
 
             role.MorphButton.gameObject.SetActive(!PlayerControl.LocalPlayer.Data.IsDead && !MeetingHud.Instance);
             var position = __instance.KillButton.transform.localPosition;
             role.MorphButton.transform.localPosition = new Vector3(position.x,
                 __instance.ReportButton.transform.localPosition.y, position.z);
-            if (role.MorphButton.renderer.sprite == SampleSprite)
+            if (role.MorphButton.graphic.sprite == SampleSprite)
             {
                 role.MorphButton.SetCoolDown(0f, 1f);
                 Utils.SetTarget(ref role.ClosestPlayer, role.MorphButton);
@@ -46,8 +46,8 @@ namespace TownOfUs.ImpostorRoles.MorphlingMod
                 }
 
                 role.MorphButton.SetCoolDown(role.MorphTimer(), CustomGameOptions.MorphlingCd);
-                role.MorphButton.renderer.color = Palette.EnabledColor;
-                role.MorphButton.renderer.material.SetFloat("_Desat", 0f);
+                role.MorphButton.graphic.color = Palette.EnabledColor;
+                role.MorphButton.graphic.material.SetFloat("_Desat", 0f);
             }
         }
     }

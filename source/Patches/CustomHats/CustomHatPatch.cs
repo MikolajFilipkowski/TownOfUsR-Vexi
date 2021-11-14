@@ -14,6 +14,7 @@ namespace TownOfUs.Patches.CustomHats
     {
         public static void Postfix(HatsTab __instance)
         {
+            return;
             var allHats = DestroyableSingleton<HatManager>.Instance.GetUnlockedHats();
             var hatGroups = new SortedList<string, List<HatBehaviour>>(
                 new PaddedComparer<string>("Vanilla", "")
@@ -62,7 +63,7 @@ namespace TownOfUs.Patches.CustomHats
                     ColorChip colorChip = Object.Instantiate(__instance.ColorTabPrefab, __instance.scroller.Inner);
                     colorChip.transform.localPosition = new Vector3(num, num2, -1f);
                     colorChip.Button.OnClick.AddListener((Action)(() => __instance.SelectHat(hat)));
-                    colorChip.Inner.SetHat(hat, PlayerControl.LocalPlayer.Data.ColorId);
+                    colorChip.Inner.SetHat(hat, PlayerControl.LocalPlayer.CurrentOutfit.ColorId);
                     colorChip.Inner.transform.localPosition = hat.ChipOffset + new Vector2(0f, -0.3f);
                     colorChip.Tag = hat;
                     __instance.ColorChips.Add(colorChip);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using HarmonyLib;
 using Hazel;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ namespace TownOfUs.Roles
 {
     public class Arsonist : Role
     {
-        private KillButtonManager _igniteButton;
+        private KillButton _igniteButton;
         public bool ArsonistWins;
         public PlayerControl ClosestPlayer;
         public List<byte> DousedPlayers = new List<byte>();
@@ -26,7 +27,7 @@ namespace TownOfUs.Roles
             Faction = Faction.Neutral;
         }
 
-        public KillButtonManager IgniteButton
+        public KillButton IgniteButton
         {
             get => _igniteButton;
             set
@@ -68,7 +69,7 @@ namespace TownOfUs.Roles
 
         public void Loses()
         {
-            Player.Data.IsImpostor = true;
+            Player.Data.SetImpostor(true);
         }
 
         public bool CheckEveryoneDoused()
@@ -87,7 +88,7 @@ namespace TownOfUs.Roles
             return true;
         }
 
-        protected override void IntroPrefix(IntroCutscene._CoBegin_d__14 __instance)
+        protected override void IntroPrefix(IntroCutscene._CoBegin_d__18 __instance)
         {
             var arsonistTeam = new Il2CppSystem.Collections.Generic.List<PlayerControl>();
             arsonistTeam.Add(PlayerControl.LocalPlayer);

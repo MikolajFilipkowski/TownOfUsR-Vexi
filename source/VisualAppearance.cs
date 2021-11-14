@@ -10,6 +10,6 @@ namespace TownOfUs
         public int ColorId { get; set; }
         public uint HatId { get; set; }
         public uint SkinId { get; set; }
-        public uint PetId { get; set; }
+        public uint PetId { get; set; } 
     }
 }

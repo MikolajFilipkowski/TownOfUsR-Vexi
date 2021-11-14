@@ -5,10 +5,10 @@ namespace TownOfUs.RainbowMod
     // {
     //     public static bool Prefix(PlayerTab __instance)
     //     {
-    //         PlayerControl.SetPlayerMaterialColors(PlayerControl.LocalPlayer.Data.ColorId, __instance.DemoImage);
-    //         __instance.HatImage.SetHat(SaveManager.LastHat, PlayerControl.LocalPlayer.Data.ColorId);
+    //         PlayerControl.SetPlayerMaterialColors(PlayerControl.LocalPlayer.DefaultOutfit.ColorId, __instance.DemoImage);
+    //         __instance.HatImage.SetHat(SaveManager.LastHat, PlayerControl.LocalPlayer.DefaultOutfit.ColorId);
     //         PlayerControl.SetSkinImage(SaveManager.LastSkin, __instance.SkinImage);
-    //         PlayerControl.SetPetImage(SaveManager.LastPet, PlayerControl.LocalPlayer.Data.ColorId, __instance.PetImage);
+    //         PlayerControl.SetPetImage(SaveManager.LastPet, PlayerControl.LocalPlayer.DefaultOutfit.ColorId, __instance.PetImage);
     //         var num = (float)Palette.PlayerColors.Length / 4f;
     //         for (var i = 0; i < Palette.PlayerColors.Length; i++)
     //         {

@@ -28,76 +28,77 @@ namespace TownOfUs
 
         public static void SetSkin(PlayerControl Player, uint skin)
         {
-            Player.MyPhysics.SetSkin(skin);
+          //  Player.MyPhysics.SetSkin(skin);
         }
+        //TODO: FIX  MORPHLING..
 
         public static void Morph(PlayerControl Player, PlayerControl MorphedPlayer, bool resetAnim = false)
         {
-            if (CamouflageUnCamouflage.IsCamoed) return;
+            //if (CamouflageUnCamouflage.IsCamoed) return;
 
-            Player.nameText.text = MorphedPlayer.Data.PlayerName;
+            //Player.nameText.text = MorphedPlayer.Data.PlayerName;
 
-            var targetAppearance = MorphedPlayer.GetDefaultAppearance();
+            //var targetAppearance = MorphedPlayer.GetDefaultAppearance();
 
-            PlayerControl.SetPlayerMaterialColors(targetAppearance.ColorId, Player.myRend);
-            Player.HatRenderer.SetHat(targetAppearance.HatId, targetAppearance.ColorId);
-            Player.nameText.transform.localPosition = new Vector3(
-                0f,
-                Player.Data.HatId == 0U ? 1.5f : 2.0f,
-                -0.5f
-            );
+            //PlayerControl.SetPlayerMaterialColors(targetAppearance.ColorId, Player.myRend);
+            //Player.HatRenderer.SetHat(targetAppearance.HatId, targetAppearance.ColorId);
+            //Player.nameText.transform.localPosition = new Vector3(
+            //    0f,
+            //    Player.DefaultOutfit.HatId == "hat_NoHat" ? 1.5f : 2.0f,
+            //    -0.5f
+            //);
 
-            if (Player.MyPhysics.Skin.skin.ProdId != DestroyableSingleton<HatManager>.Instance
-                .AllSkins.ToArray()[(int)targetAppearance.SkinId].ProdId)
-                SetSkin(Player, targetAppearance.SkinId);
+            //if (Player.MyPhysics.Skin.skin.ProdId != DestroyableSingleton<HatManager>.Instance
+            //    .AllSkins.ToArray()[(int)targetAppearance.SkinId].ProdId)
+            //    SetSkin(Player, targetAppearance.SkinId);
 
-            if (Player.CurrentPet == null || Player.CurrentPet.ProdId !=
-                DestroyableSingleton<HatManager>.Instance.AllPets.ToArray()[(int)targetAppearance.PetId].ProdId)
-            {
-                if (Player.CurrentPet != null) Object.Destroy(Player.CurrentPet.gameObject);
+            //if (Player.CurrentPet == null || Player.CurrentPet.ProdId !=
+            //    DestroyableSingleton<HatManager>.Instance.AllPets.ToArray()[(int)targetAppearance.PetId].ProdId)
+            //{
+            //    if (Player.CurrentPet != null) Object.Destroy(Player.CurrentPet.gameObject);
 
-                Player.CurrentPet =
-                    Object.Instantiate(
-                        DestroyableSingleton<HatManager>.Instance.AllPets.ToArray()[(int)targetAppearance.PetId]);
-                Player.CurrentPet.transform.position = Player.transform.position;
-                Player.CurrentPet.Source = Player;
-                Player.CurrentPet.Visible = Player.Visible;
-            }
+            //    Player.CurrentPet =
+            //        Object.Instantiate(
+            //            DestroyableSingleton<HatManager>.Instance.AllPets.ToArray()[(int)targetAppearance.PetId]);
+            //    Player.CurrentPet.transform.position = Player.transform.position;
+            //    Player.CurrentPet.Source = Player;
+            //    Player.CurrentPet.Visible = Player.Visible;
+            //}
 
-            PlayerControl.SetPlayerMaterialColors(targetAppearance.ColorId, Player.CurrentPet.rend);
-            /*if (resetAnim && !Player.inVent)
-            {
-                Player.MyPhysics.ResetAnim();
-            }*/
+            //PlayerControl.SetPlayerMaterialColors(targetAppearance.ColorId, Player.CurrentPet.rend);
+            ///*if (resetAnim && !Player.inVent)
+            //{
+            //    Player.MyPhysics.ResetAnim();
+            //}*/
         }
 
         public static void Unmorph(PlayerControl Player)
         {
-            var appearance = Player.GetDefaultAppearance();
+            //var appearance = Player.GetDefaultAppearance();
 
-            Player.nameText.text = Player.Data.PlayerName;
-            PlayerControl.SetPlayerMaterialColors(appearance.ColorId, Player.myRend);
-            Player.HatRenderer.SetHat(appearance.HatId, appearance.ColorId);
-            Player.nameText.transform.localPosition = new Vector3(
-                0f,
-                appearance.HatId == 0U ? 1.5f : 2.0f,
-                -0.5f
-            );
+            //Player.nameText.text = Player.Data.PlayerName;
+            //PlayerControl.SetPlayerMaterialColors(appearance.ColorId, Player.myRend);
+            //Player.HatRenderer.SetHat(appearance.HatId, appearance.ColorId);
+            //Player.nameText.transform.localPosition = new Vector3(
+            //    0f,
+            //    appearance.HatId == "hat_NoHat" ? 1.5f : 2.0f,
+            //    -0.5f
+            //);
 
-            if (Player.MyPhysics.Skin.skin.ProdId != DestroyableSingleton<HatManager>.Instance
-                .AllSkins.ToArray()[(int)appearance.SkinId].ProdId)
-                SetSkin(Player, appearance.SkinId);
+            //if (Player.MyPhysics.Skin.skin.ProdId != DestroyableSingleton<HatManager>.Instance
+            //    .AllSkins.ToArray()[(int)appearance.SkinId].ProdId)
+            //    SetSkin(Player, appearance.SkinId);
 
-            if (Player.CurrentPet != null) Object.Destroy(Player.CurrentPet.gameObject);
+            //if (Player.CurrentPet != null) Object.Destroy(Player.CurrentPet.gameObject);
 
-            Player.CurrentPet =
-                Object.Instantiate(
-                    DestroyableSingleton<HatManager>.Instance.AllPets.ToArray()[(int)appearance.PetId]);
-            Player.CurrentPet.transform.position = Player.transform.position;
-            Player.CurrentPet.Source = Player;
-            Player.CurrentPet.Visible = Player.Visible;
+            //Player.CurrentPet =
+            //    Object.Instantiate(
+            //        DestroyableSingleton<HatManager>.Instance.AllPets.ToArray()[(int)appearance.PetId]);
+            //Player.CurrentPet.transform.position = Player.transform.position;
+            //Player.CurrentPet.Source = Player;
+            //Player.CurrentPet.Visible = Player.Visible;
 
-            PlayerControl.SetPlayerMaterialColors(appearance.ColorId, Player.CurrentPet.rend);
+            //PlayerControl.SetPlayerMaterialColors(appearance.ColorId, Player.CurrentPet.rend);
 
             /*if (!Player.inVent)
             {
@@ -107,23 +108,23 @@ namespace TownOfUs
 
         public static void Camouflage()
         {
-            foreach (var player in PlayerControl.AllPlayerControls)
-            {
-                player.nameText.text = "";
-                PlayerControl.SetPlayerMaterialColors(Color.grey, player.myRend);
-                player.HatRenderer.SetHat(0, 0);
-                if (player.MyPhysics.Skin.skin.ProdId != DestroyableSingleton<HatManager>.Instance
-                    .AllSkins.ToArray()[0].ProdId)
-                    SetSkin(player, 0);
+            //foreach (var player in PlayerControl.AllPlayerControls)
+            //{
+            //    player.nameText.text = "";
+            //    PlayerControl.SetPlayerMaterialColors(Color.grey, player.myRend);
+            //    player.HatRenderer.SetHat(0, 0);
+            //    if (player.MyPhysics.Skin.skin.ProdId != DestroyableSingleton<HatManager>.Instance
+            //        .AllSkins.ToArray()[0].ProdId)
+            //        SetSkin(player, 0);
 
-                if (player.CurrentPet != null) Object.Destroy(player.CurrentPet.gameObject);
-                player.CurrentPet =
-                    Object.Instantiate(
-                        DestroyableSingleton<HatManager>.Instance.AllPets.ToArray()[0]);
-                player.CurrentPet.transform.position = player.transform.position;
-                player.CurrentPet.Source = player;
-                player.CurrentPet.Visible = player.Visible;
-            }
+            //    if (player.CurrentPet != null) Object.Destroy(player.CurrentPet.gameObject);
+            //    player.CurrentPet =
+            //        Object.Instantiate(
+            //            DestroyableSingleton<HatManager>.Instance.AllPets.ToArray()[0]);
+            //    player.CurrentPet.transform.position = player.transform.position;
+            //    player.CurrentPet.Source = player;
+            //    player.CurrentPet.Visible = player.Visible;
+            //}
         }
 
         public static void UnCamouflage()
@@ -187,7 +188,7 @@ namespace TownOfUs
             var role = Role.GetRole(player);
             if (role != null) return role.RoleType;
 
-            return player.Data.IsImpostor ? RoleEnum.Impostor : RoleEnum.Crewmate;
+            return player.Data.IsImpostor() ? RoleEnum.Impostor : RoleEnum.Crewmate;
         }
 
         public static PlayerControl PlayerById(byte id)
@@ -246,7 +247,7 @@ namespace TownOfUs
         }
         public static void SetTarget(
             ref PlayerControl closestPlayer,
-            KillButtonManager button,
+            KillButton button,
             float maxDistance = float.NaN,
             List<PlayerControl> targets = null
         )
@@ -372,7 +373,7 @@ namespace TownOfUs
                     return;
                 }
 
-                if (target.Is(ModifierEnum.Diseased) && killer.Data.IsImpostor)
+                if (target.Is(ModifierEnum.Diseased) && killer.Data.IsImpostor())
                 {
                     killer.SetKillTimer(PlayerControl.GameOptions.KillCooldown * 3);
                     return;
@@ -387,7 +388,7 @@ namespace TownOfUs
                     return;
                 }
 
-                if (killer.Data.IsImpostor)
+                if (killer.Data.IsImpostor())
                 {
                     killer.SetKillTimer(PlayerControl.GameOptions.KillCooldown);
                 }
@@ -435,8 +436,8 @@ namespace TownOfUs
             ShipStatus.RpcEndGame(reason, showAds);
         }
 
-        [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.SetInfected))]
-        public static class PlayerControl_SetInfected
+        [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.SetRole))]
+        public static class PlayerControl_SetRole
         {
             public static void Postfix()
             {

@@ -6,7 +6,7 @@ namespace TownOfUs.Roles
 {
     public class Swooper : Role
     {
-        public KillButtonManager _swoopButton;
+        public KillButton _swoopButton;
         public bool Enabled;
         public DateTime LastSwooped;
         public float TimeRemaining;
@@ -23,7 +23,7 @@ namespace TownOfUs.Roles
 
         public bool IsSwooped => TimeRemaining > 0f;
 
-        public KillButtonManager SwoopButton
+        public KillButton SwoopButton
         {
             get => _swoopButton;
             set
@@ -50,23 +50,24 @@ namespace TownOfUs.Roles
             Enabled = true;
             TimeRemaining -= Time.deltaTime;
             var color = Color.clear;
-            if (PlayerControl.LocalPlayer.Data.IsImpostor || PlayerControl.LocalPlayer.Data.IsDead) color.a = 0.1f;
+            if (PlayerControl.LocalPlayer.Data.IsImpostor() || PlayerControl.LocalPlayer.Data.IsDead) color.a = 0.1f;
 
 
             Player.MyRend.color = color;
 
-            Player.HatRenderer.SetHat(0, 0);
-            Player.nameText.text = "";
-            if (Player.MyPhysics.Skin.skin.ProdId != DestroyableSingleton<HatManager>.Instance
-                .AllSkins.ToArray()[0].ProdId)
-                Player.MyPhysics.SetSkin(0);
-            if (Player.CurrentPet != null) Object.Destroy(Player.CurrentPet.gameObject);
-            Player.CurrentPet =
-                Object.Instantiate(
-                    DestroyableSingleton<HatManager>.Instance.AllPets.ToArray()[0]);
-            Player.CurrentPet.transform.position = Player.transform.position;
-            Player.CurrentPet.Source = Player;
-            Player.CurrentPet.Visible = Player.Visible;
+            //TODO: LOOK INTO THIS!
+            //Player.HatRenderer.SetHat(0, 0);
+            //Player.nameText.text = "";
+            //if (Player.MyPhysics.Skin.skin.ProdId != DestroyableSingleton<HatManager>.Instance
+            //    .AllSkins.ToArray()[0].ProdId)
+            //    Player.MyPhysics.SetSkin(0);
+            //if (Player.CurrentPet != null) Object.Destroy(Player.CurrentPet.gameObject);
+            ////Player.CurrentPet =
+            ////    Object.Instantiate(
+            ////        DestroyableSingleton<HatManager>.Instance.AllPets.ToArray()[0]);
+            ////Player.CurrentPet.transform.position = Player.transform.position;
+            ////Player.CurrentPet.Source = Player;
+            ////Player.CurrentPet.Visible = Player.Visible;
         }
 
 

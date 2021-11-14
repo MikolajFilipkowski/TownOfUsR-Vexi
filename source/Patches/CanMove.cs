@@ -18,7 +18,8 @@ namespace TownOfUs.Patches
                            /*&& (!ControllerManager.Instance || !ControllerManager.Instance.IsUiControllerActive)*/
                            && (!MapBehaviour.Instance || !MapBehaviour.Instance.IsOpenStopped)
                            && !MeetingHud.Instance
-                           && !CustomPlayerMenu.Instance
+                           //TODO: CHANGED THIS LINE FOR UPDATE LOOK INTO IT
+                           //  && !CustomPlayerMenu.Instance 
                            && !ExileController.Instance
                            && !IntroCutscene.Instance;
 

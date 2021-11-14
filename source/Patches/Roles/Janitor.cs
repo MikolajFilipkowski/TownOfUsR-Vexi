@@ -2,7 +2,7 @@ namespace TownOfUs.Roles
 {
     public class Janitor : Role
     {
-        public KillButtonManager _cleanButton;
+        public KillButton _cleanButton;
 
         public Janitor(PlayerControl player) : base(player)
         {
@@ -16,7 +16,7 @@ namespace TownOfUs.Roles
 
         public DeadBody CurrentTarget { get; set; }
 
-        public KillButtonManager CleanButton
+        public KillButton CleanButton
         {
             get => _cleanButton;
             set

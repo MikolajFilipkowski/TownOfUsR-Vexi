@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using HarmonyLib;
 using TownOfUs.Roles;
+using UnityEngine;
 
 namespace TownOfUs.ImpostorRoles.UnderdogMod
 {
@@ -17,7 +18,7 @@ namespace TownOfUs.ImpostorRoles.UnderdogMod
         internal static bool LastImp()
         {
             return PlayerControl.AllPlayerControls.ToArray()
-                .Count(x => x.Data.IsImpostor && !x.Data.IsDead) == 1;
+                .Count(x => x.Data.IsImpostor() && !x.Data.IsDead) == 1;
         }
 
         internal static bool IncreasedKC()

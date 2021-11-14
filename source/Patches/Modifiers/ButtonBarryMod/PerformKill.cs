@@ -4,10 +4,10 @@ using TownOfUs.Roles.Modifiers;
 
 namespace TownOfUs.Modifiers.ButtonBarryMod
 {
-    [HarmonyPatch(typeof(KillButtonManager), nameof(KillButtonManager.PerformKill))]
+    [HarmonyPatch(typeof(KillButton), nameof(KillButton.DoClick))]
     public class PerformKill
     {
-        public static bool Prefix(KillButtonManager __instance)
+        public static bool Prefix(KillButton __instance)
         {
             if (!PlayerControl.LocalPlayer.Is(ModifierEnum.ButtonBarry)) return true;
             if (PlayerControl.LocalPlayer.Is(RoleEnum.Glitch)) return true;

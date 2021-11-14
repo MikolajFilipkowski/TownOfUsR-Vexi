@@ -20,7 +20,7 @@ namespace TownOfUs.Roles
 
         public void Loses()
         {
-            Player.Data.IsImpostor = true;
+            Player.Data.SetImpostor(true);
         }
 
         public void Fade()
@@ -44,19 +44,14 @@ namespace TownOfUs.Roles
             color.a = Mathf.Lerp(color.a, 0, distPercent);
 
             Player.MyRend.color = color;
-
+            //TODO: LOOK INTO THIS;
             Player.HatRenderer.SetHat(0, 0);
             Player.nameText.text = "";
             if (Player.MyPhysics.Skin.skin.ProdId != DestroyableSingleton<HatManager>.Instance
                 .AllSkins.ToArray()[0].ProdId)
                 Player.MyPhysics.SetSkin(0);
-            if (Player.CurrentPet != null) Object.Destroy(Player.CurrentPet.gameObject);
-            Player.CurrentPet =
-                Object.Instantiate(
-                    DestroyableSingleton<HatManager>.Instance.AllPets.ToArray()[0]);
-            Player.CurrentPet.transform.position = Player.transform.position;
-            Player.CurrentPet.Source = Player;
-            Player.CurrentPet.Visible = Player.Visible;
+            Player.RawSetPet(0, 0);
+
         }
     }
 }

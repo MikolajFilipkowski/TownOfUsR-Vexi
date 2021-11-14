@@ -33,7 +33,7 @@ namespace TownOfUs.Roles
 
         internal override bool Criteria()
         {
-            return Revealed && PlayerControl.LocalPlayer.Data.IsImpostor ||
+            return Revealed && PlayerControl.LocalPlayer.Data.IsImpostor() ||
                    base.Criteria();
         }
 
@@ -49,7 +49,7 @@ namespace TownOfUs.Roles
             if (!CustomGameOptions.RoleUnderName && player == null) return Player.name;
             Player.nameText.transform.localPosition = new Vector3(
                 0f,
-                Player.Data.HatId == 0U ? 1.5f : 2.0f,
+                Player.CurrentOutfit.HatId == "hat_NoHat" ? 1.5f : 2.0f,
                 -0.5f
             );
             return Player.name + "\n" + "Crewmate";

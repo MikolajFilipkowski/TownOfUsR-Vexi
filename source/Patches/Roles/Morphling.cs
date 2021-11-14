@@ -8,7 +8,7 @@ namespace TownOfUs.Roles
     public class Morphling : Role, IVisualAlteration
 
     {
-        public KillButtonManager _morphButton;
+        public KillButton _morphButton;
         public PlayerControl ClosestPlayer;
         public DateTime LastMorphed;
         public PlayerControl MorphedPlayer;
@@ -26,7 +26,7 @@ namespace TownOfUs.Roles
             Faction = Faction.Impostors;
         }
 
-        public KillButtonManager MorphButton
+        public KillButton MorphButton
         {
             get => _morphButton;
             set

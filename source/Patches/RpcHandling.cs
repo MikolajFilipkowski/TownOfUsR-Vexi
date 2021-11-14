@@ -393,8 +393,8 @@ namespace TownOfUs
 
                     case CustomRPC.Start:
                         /*
-                        EngineerMod.PerformKill.UsedThisRound = false;
-                        EngineerMod.PerformKill.SabotageTime = DateTime.UtcNow.AddSeconds(-100);
+                        EngineerMod.DoClick.UsedThisRound = false;
+                        EngineerMod.DoClick.SabotageTime = DateTime.UtcNow.AddSeconds(-100);
                         */
                         Utils.ShowDeadBodies = false;
                         Murder.KilledPlayers.Clear();
@@ -775,8 +775,8 @@ namespace TownOfUs
             }
         }
 
-        [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.RpcSetInfected))]
-        public static class RpcSetInfected
+        [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.RpcSetRole))]
+        public static class RpcSetRole
         {
             public static void Prefix([HarmonyArgument(0)] ref Il2CppReferenceArray<GameData.PlayerInfo> infected)
             {

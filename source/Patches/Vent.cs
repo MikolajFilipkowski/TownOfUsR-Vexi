@@ -39,7 +39,7 @@ namespace TownOfUs
 
 
             if (player.Is(RoleEnum.Engineer)||(player.Is(RoleEnum.Glitch)&&CustomGameOptions.GlitchVent))
-                playerInfo.IsImpostor = true;
+                playerInfo.SetImpostor(true);
             
             return true;
         }
@@ -47,7 +47,7 @@ namespace TownOfUs
         public static void Postfix(Vent __instance, [HarmonyArgument(0)] GameData.PlayerInfo playerInfo)
         {
             if (playerInfo.Object.Is(RoleEnum.Engineer)||(playerInfo.Object.Is(RoleEnum.Glitch)&&CustomGameOptions.GlitchVent))
-                playerInfo.IsImpostor = false;
+                playerInfo.SetImpostor(true);
         }
     }
 }
