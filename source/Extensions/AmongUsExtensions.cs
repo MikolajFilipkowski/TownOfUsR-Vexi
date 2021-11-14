@@ -44,6 +44,7 @@ namespace TownOfUs.Extensions
 
         public static VisualAppearance GetDefaultAppearance(this PlayerControl player)
         {
+            //TODO: FIX THIS
             return new VisualAppearance()
             {
                 ColorId = player.CurrentOutfit.ColorId,
