@@ -8,11 +8,12 @@ namespace UnityEngine
     {
         public static bool IsImpostor(this GameData.PlayerInfo playerinfo)
         {
-            return playerinfo.Role.TeamType == RoleTeamTypes.Impostor;
+            return playerinfo?.Role?.TeamType == RoleTeamTypes.Impostor;
         }
 
         public static void SetImpostor(this GameData.PlayerInfo playerinfo, bool impostor)
         {
+            if (playerinfo.Role != null)
             playerinfo.Role.TeamType = impostor ? RoleTeamTypes.Impostor : RoleTeamTypes.Crewmate;
         }
 
