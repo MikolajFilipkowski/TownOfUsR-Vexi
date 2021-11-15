@@ -45,12 +45,12 @@ namespace TownOfUs.Roles
 
             Player.MyRend.color = color;
             //TODO: LOOK INTO THIS;
-            Player.HatRenderer.SetHat(0, 0);
+            Player.HatRenderer.SetHat("", 0);
             Player.nameText.text = "";
             if (Player.MyPhysics.Skin.skin.ProdId != DestroyableSingleton<HatManager>.Instance
                 .AllSkins.ToArray()[0].ProdId)
-                Player.MyPhysics.SetSkin(0);
-            Player.RawSetPet(0, 0);
+                Player.MyPhysics.SetSkin("");
+            Player.RawSetPet("", 0);
 
         }
     }

@@ -27,11 +27,6 @@ namespace TownOfUs
 
         public static List<WinningPlayerData> potentialWinners = new List<WinningPlayerData>();
 
-        public static void SetSkin(PlayerControl Player, uint skin)
-        {
-            Player.MyPhysics.SetSkin(skin);
-        }
-
         public static void Morph(PlayerControl player, PlayerControl MorphedPlayer, bool resetAnim = false)
         {
             if (CamouflageUnCamouflage.IsCamoed) return;

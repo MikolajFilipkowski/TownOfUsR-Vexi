@@ -4,13 +4,12 @@ using UnityEngine;
 
 namespace TownOfUs
 {
-    //TODO: !LOOK INTO THIS??
-    //[HarmonyPatch(typeof(GameSettingMenu), nameof(GameSettingMenu.OnEnable))]
-    //public class EnableMapImps
-    //{
-    //    private static void Prefix(ref GameSettingMenu __instance)
-    //    {
-    //        __instance.HideForOnline = new Il2CppReferenceArray<Transform>(0);
-    //    }
-    //}
+    [HarmonyPatch(typeof(GameSettingMenu), nameof(GameSettingMenu.InitializeOptions))]
+    public class EnableMapImps
+    {
+        private static void Prefix(ref GameSettingMenu __instance)
+        {
+            __instance.HideForOnline = new Il2CppReferenceArray<Transform>(0);
+        }
+    }
 }

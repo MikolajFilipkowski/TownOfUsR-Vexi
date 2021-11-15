@@ -41,9 +41,10 @@ namespace TownOfUs.Patches.CustomHats
                 DestroyableSingleton<HatManager>.Instance.AllHats.ForEach(
                     (Action<HatBehaviour>)(x => x.StoreName = "Vanilla")
                 );
+                var originalCount = DestroyableSingleton<HatManager>.Instance.AllHats.Count;
                 for (var i = 0; i < hatBehaviours.Count; i++)
                 {
-                    //hatBehaviours[i].Order = HAT_ORDER_BASELINE + i;
+                    hatBehaviours[i].Order = originalCount + i;
                     HatManager.Instance.AllHats.Add(hatBehaviours[i]);
                 }
 
