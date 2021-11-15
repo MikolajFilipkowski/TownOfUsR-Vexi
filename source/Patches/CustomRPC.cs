@@ -96,9 +96,10 @@ namespace TownOfUs
 
         ExecutionerToJester,
 
-
         Start,
         SyncCustomSettings,
-        FixAnimation
+        FixAnimation,
+
+        AddMayorVoteBank
     }
 }

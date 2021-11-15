@@ -771,6 +771,10 @@ namespace TownOfUs
                     case CustomRPC.HaunterFinished:
                         HighlightImpostors.UpdateMeeting(MeetingHud.Instance);
                         break;
+
+                    case CustomRPC.AddMayorVoteBank:
+                        Role.GetRole<Mayor>(Utils.PlayerById(reader.ReadByte())).VoteBank += reader.ReadInt32();
+                        break;
                 }
             }
         }
