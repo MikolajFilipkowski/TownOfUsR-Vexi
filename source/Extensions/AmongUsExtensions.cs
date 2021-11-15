@@ -44,14 +44,7 @@ namespace TownOfUs.Extensions
 
         public static VisualAppearance GetDefaultAppearance(this PlayerControl player)
         {
-            //TODO: FIX THIS
-            return new VisualAppearance()
-            {
-                ColorId = player.CurrentOutfit.ColorId,
-                HatId = 0,//player.DefaultOutfit.HatId,
-                SkinId = 0, // player.Data.SkinId,
-                PetId = 0//player.Data.PetId
-            };
+            return new VisualAppearance();
         }
 
         public static bool TryGetAppearance(this PlayerControl player, IVisualAlteration modifier, out VisualAppearance appearance)
