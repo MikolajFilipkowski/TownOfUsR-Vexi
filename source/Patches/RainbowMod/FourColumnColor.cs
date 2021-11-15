@@ -14,7 +14,8 @@ namespace TownOfUs.RainbowMod
     //         {
     //             var xCoord = __instance.XRange.Lerp((float)(i % 4) / 3f);
     //             float yCoord = __instance.YStart - (float)(i / 4) * 0.55f;
-    //             var colorChip = Object.Instantiate<ColorChip>(__instance.ColorTabPrefab, __instance.ColorTabArea);
+    //             var colorChip = Object.Instantiate<ColorChip>(__instance.
+    //             Prefab, __instance.ColorTabArea);
     //             colorChip.transform.localPosition = new Vector3(xCoord, yCoord, -1f);
     //             var j = i;
     //             colorChip.Button.OnClick.AddListener((Action)delegate()
