@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
+using Reactor;
 using Reactor.Extensions;
 using TownOfUs.Extensions;
 using UnhollowerBaseLib;
@@ -32,7 +33,7 @@ namespace TownOfUs.CustomOption
             }
             else
             {
-                var toggle = Object.Instantiate(togglePrefab, togglePrefab.transform.parent).DontDestroy();
+                var toggle = Object.Instantiate(togglePrefab, togglePrefab.transform.parent);
                 toggle.transform.GetChild(2).gameObject.SetActive(false);
                 toggle.transform.GetChild(0).localPosition += new Vector3(1f, 0f, 0f);
 
@@ -48,7 +49,7 @@ namespace TownOfUs.CustomOption
             }
             else
             {
-                var toggle = Object.Instantiate(togglePrefab, togglePrefab.transform.parent).DontDestroy();
+                var toggle = Object.Instantiate(togglePrefab, togglePrefab.transform.parent);
                 toggle.transform.GetChild(2).gameObject.SetActive(false);
                 toggle.transform.GetChild(0).localPosition += new Vector3(1f, 0f, 0f);
 
@@ -72,24 +73,24 @@ namespace TownOfUs.CustomOption
                 switch (option.Type)
                 {
                     case CustomOptionType.Header:
-                        var toggle = Object.Instantiate(togglePrefab, togglePrefab.transform.parent).DontDestroy();
+                        var toggle = Object.Instantiate(togglePrefab, togglePrefab.transform.parent);
                         toggle.transform.GetChild(1).gameObject.SetActive(false);
                         toggle.transform.GetChild(2).gameObject.SetActive(false);
                         option.Setting = toggle;
                         options.Add(toggle);
                         break;
                     case CustomOptionType.Toggle:
-                        var toggle2 = Object.Instantiate(togglePrefab, togglePrefab.transform.parent).DontDestroy();
+                        var toggle2 = Object.Instantiate(togglePrefab, togglePrefab.transform.parent);
                         option.Setting = toggle2;
                         options.Add(toggle2);
                         break;
                     case CustomOptionType.Number:
-                        var number = Object.Instantiate(numberPrefab, numberPrefab.transform.parent).DontDestroy();
+                        var number = Object.Instantiate(numberPrefab, numberPrefab.transform.parent);
                         option.Setting = number;
                         options.Add(number);
                         break;
                     case CustomOptionType.String:
-                        var str = Object.Instantiate(stringPrefab, stringPrefab.transform.parent).DontDestroy();
+                        var str = Object.Instantiate(stringPrefab, stringPrefab.transform.parent);
                         option.Setting = str;
                         options.Add(str);
                         break;
@@ -136,23 +137,102 @@ namespace TownOfUs.CustomOption
             return false;
         }
 
+        //TODO: MOVE TO SEPERATE FILE
+        public static SpriteRenderer TOUSettingsHighlight;
+        public static GameObject TOUSettings;
+        public static GameOptionsMenu TOUGameSettingsMenu;
+        [HarmonyPatch(typeof(GameSettingMenu), nameof(GameSettingMenu.Start))]
+        private class OptionsMenuBehaviour_Start
+        {
+            public static void Postfix(GameSettingMenu __instance)
+            {
+                var obj = __instance.RolesSettingsHightlight.gameObject.transform.parent.parent;
+
+                TOUSettings = Object.Instantiate(__instance.RegularGameSettings, __instance.RegularGameSettings.transform.parent);
+                TOUSettings.SetActive(false);
+                TOUSettings.name = "TOUSettings";
+                var gameGroup = TOUSettings.transform.FindChild("GameGroup");
+                var title = gameGroup?.FindChild("Text");
+                PluginSingleton<TownOfUs>.Instance.Log.LogMessage($"FOUND TITLE? {(title == null? "NO" : "YES")}");
+
+                if (title != null)
+                {
+                    title.GetComponent<TextTranslatorTMP>().Destroy();
+                    title.GetComponent<TMPro.TextMeshPro>().m_text = "Town Of Us Settings";
+                }
+                var sliderInner = gameGroup?.FindChild("SliderInner");
+                TOUGameSettingsMenu = sliderInner?.GetComponent<GameOptionsMenu>();
+
+                var ourSettingsButton = Object.Instantiate(obj.gameObject, obj.transform.parent);
+                ourSettingsButton.transform.localPosition = new Vector3(obj.localPosition.x + 0.906f, obj.localPosition.y, obj.localPosition.z);
+                ourSettingsButton.name = "TOUtab";
+                var hatButton = ourSettingsButton.transform.GetChild(0); //TODO:  change to FindChild I guess to be sure
+                var hatIcon = hatButton.GetChild(0);
+                var tabBackground = hatButton.GetChild(1);
+
+                var renderer = hatIcon.GetComponent<SpriteRenderer>();
+                renderer.sprite = TownOfUs.ReviveSprite;
+                TOUSettingsHighlight = tabBackground.GetComponent<SpriteRenderer>();
+                PassiveButton passiveButton = __instance.GameSettingsHightlight.GetComponent<PassiveButton>();
+                passiveButton.OnClick = new UnityEngine.UI.Button.ButtonClickedEvent();
+                passiveButton.OnClick.AddListener(ToggleButton(__instance, 0));
+                passiveButton = __instance.RolesSettingsHightlight.GetComponent<PassiveButton>();
+                passiveButton.OnClick = new UnityEngine.UI.Button.ButtonClickedEvent();
+                passiveButton.OnClick.AddListener(ToggleButton(__instance, 1));
+                passiveButton = tabBackground.GetComponent<PassiveButton>();
+                passiveButton.OnClick = new UnityEngine.UI.Button.ButtonClickedEvent();
+                passiveButton.OnClick.AddListener(ToggleButton(__instance, 2));
+
+            }
+        }
+
+        public static System.Action ToggleButton(GameSettingMenu settingMenu, int id)
+        {
+            return new System.Action(() =>
+            {
+                settingMenu.RegularGameSettings.SetActive(id == 0);
+                settingMenu.GameSettingsHightlight.enabled = id == 0;
+                settingMenu.RolesSettings.gameObject.SetActive(id == 1);
+                settingMenu.RolesSettingsHightlight.enabled = id == 1;
+                TOUSettingsHighlight.enabled = id == 2;
+                TOUSettings.SetActive(id == 2);
+            });
+        }
+
+  
+
 
         [HarmonyPatch(typeof(GameOptionsMenu), nameof(GameOptionsMenu.Start))]
         private class GameOptionsMenu_Start
         {
-            public static void Postfix(GameOptionsMenu __instance)
+            public static bool Prefix(GameOptionsMenu __instance)
             {
-                var customOptions = CreateOptions(__instance);
-                var y = __instance.GetComponentsInChildren<OptionBehaviour>()
-                    .Max(option => option.transform.localPosition.y);
-                var x = __instance.Children[1].transform.localPosition.x;
-                var z = __instance.Children[1].transform.localPosition.z;
-                var i = 0;
 
+                if (TOUGameSettingsMenu == null || __instance.GetInstanceID() != TOUGameSettingsMenu.GetInstanceID())
+                    return true;
+                __instance.Children = new Il2CppReferenceArray<OptionBehaviour>(new OptionBehaviour[0]);
+                var childeren = new Transform[__instance.gameObject.transform.childCount];
+                for (int k = 0; k < childeren.Length; k++)
+                {
+                    childeren[k] = __instance.gameObject.transform.GetChild(k); //TODO: Make a better fix for this for example caching the options or creating it ourself.
+                }
+                var startOption = __instance.gameObject.transform.GetChild(0);
+                var customOptions = CreateOptions(__instance);
+                var y = startOption.localPosition.y;
+                var x = startOption.localPosition.x;
+                var z = startOption.localPosition.z;
+                for (int k = 0; k < childeren.Length; k++)
+                {
+                    childeren[k].gameObject.Destroy();
+                }
+
+                var i = 0;
                 foreach (var option in customOptions)
                     option.transform.localPosition = new Vector3(x, y - i++ * 0.5f, z);
 
                 __instance.Children = new Il2CppReferenceArray<OptionBehaviour>(customOptions.ToArray());
+                return false;
+
             }
         }
 
@@ -161,6 +241,8 @@ namespace TownOfUs.CustomOption
         {
             public static void Postfix(GameOptionsMenu __instance)
             {
+                if (__instance.Children == null || __instance.Children.Length == 0)
+                    return;
                 var y = __instance.GetComponentsInChildren<OptionBehaviour>()
                     .Max(option => option.transform.localPosition.y);
                 float x, z;
