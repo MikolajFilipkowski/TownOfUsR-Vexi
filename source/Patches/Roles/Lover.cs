@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Hazel;
+using TownOfUs.Extensions;
 using TownOfUs.ImpostorRoles.CamouflageMod;
 using UnityEngine;
 

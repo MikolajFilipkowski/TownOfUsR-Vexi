@@ -9,7 +9,8 @@ namespace TownOfUs.Extensions
         Default,
         Shapeshifted,
         Morph,
-        Camouflage
+        Camouflage,
+        Swooper
 
     }
 }

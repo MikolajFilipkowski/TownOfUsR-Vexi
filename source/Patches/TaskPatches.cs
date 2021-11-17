@@ -1,4 +1,5 @@
 using HarmonyLib;
+using TownOfUs.Extensions;
 using UnityEngine;
 
 namespace TownOfUs

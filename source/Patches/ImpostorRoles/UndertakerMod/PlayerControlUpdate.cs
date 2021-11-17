@@ -17,9 +17,11 @@ namespace TownOfUs.ImpostorRoles.UndertakerMod
             var role = Role.GetRole<Undertaker>(PlayerControl.LocalPlayer);
             if (role.DragDropButton == null)
             {
-                role.DragDropButton = Object.Instantiate(__instance.KillButton, HudManager.Instance.transform);
+                role.DragDropButton = Object.Instantiate(__instance.KillButton, __instance.KillButton.transform.parent);
                 role.DragDropButton.graphic.enabled = true;
                 role.DragDropButton.graphic.sprite = TownOfUs.DragSprite;
+                role.DragDropButton.GetComponent<AspectPosition>().DistanceFromEdge = TownOfUs.ButtonPosition;
+
             }
 
             if (role.DragDropButton.graphic.sprite != TownOfUs.DragSprite &&
@@ -30,9 +32,6 @@ namespace TownOfUs.ImpostorRoles.UndertakerMod
                 role.DragDropButton.graphic.sprite = TownOfUs.DragSprite;
 
             role.DragDropButton.gameObject.SetActive(!PlayerControl.LocalPlayer.Data.IsDead && !MeetingHud.Instance);
-            var position = __instance.KillButton.transform.localPosition;
-            role.DragDropButton.transform.localPosition = new Vector3(position.x,
-                __instance.ReportButton.transform.localPosition.y, position.z);
 
 
             if (role.DragDropButton.graphic.sprite == TownOfUs.DragSprite)
@@ -45,7 +44,7 @@ namespace TownOfUs.ImpostorRoles.UndertakerMod
                            (!AmongUsClient.Instance || !AmongUsClient.Instance.IsGameOver) &&
                            PlayerControl.LocalPlayer.CanMove;
                 var allocs = Physics2D.OverlapCircleAll(truePosition, maxDistance,
-                    LayerMask.GetMask(new[] {"Players", "Ghost"}));
+                    LayerMask.GetMask(new[] { "Players", "Ghost" }));
                 var killButton = role.DragDropButton;
                 DeadBody closestBody = null;
                 var closestDistance = float.MaxValue;

@@ -21,14 +21,12 @@ namespace TownOfUs.ImpostorRoles.MinerMod
             {
                 role.MineButton = Object.Instantiate(__instance.KillButton, HudManager.Instance.transform);
                 role.MineButton.graphic.enabled = true;
+                role.MineButton.GetComponent<AspectPosition>().DistanceFromEdge = TownOfUs.ButtonPosition;
             }
 
             role.MineButton.graphic.sprite = MineSprite;
             role.MineButton.gameObject.SetActive(!PlayerControl.LocalPlayer.Data.IsDead && !MeetingHud.Instance);
-            var position = __instance.KillButton.transform.localPosition;
-            role.MineButton.transform.localPosition = new Vector3(position.x,
-                __instance.ReportButton.transform.localPosition.y, position.z);
-            role.MineButton.SetCoolDown(role.MineTimer(), CustomGameOptions.MineCd);
+         
 
             var hits = Physics2D.OverlapBoxAll(PlayerControl.LocalPlayer.transform.position, role.VentSize, 0);
             hits = hits.ToArray().Where(c =>

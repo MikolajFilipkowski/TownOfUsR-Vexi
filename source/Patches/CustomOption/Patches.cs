@@ -151,9 +151,9 @@ namespace TownOfUs.CustomOption
                 TOUSettings = Object.Instantiate(__instance.RegularGameSettings, __instance.RegularGameSettings.transform.parent);
                 TOUSettings.SetActive(false);
                 TOUSettings.name = "TOUSettings";
+                
                 var gameGroup = TOUSettings.transform.FindChild("GameGroup");
                 var title = gameGroup?.FindChild("Text");
-                PluginSingleton<TownOfUs>.Instance.Log.LogMessage($"FOUND TITLE? {(title == null? "NO" : "YES")}");
 
                 if (title != null)
                 {
@@ -183,6 +183,12 @@ namespace TownOfUs.CustomOption
                 passiveButton.OnClick = new UnityEngine.UI.Button.ButtonClickedEvent();
                 passiveButton.OnClick.AddListener(ToggleButton(__instance, 2));
 
+                //fix for scrollbar (bug in among us)
+                TOUSettings.GetComponentInChildren<Scrollbar>().parent = TOUSettings.GetComponentInChildren<Scroller>();
+                __instance.RegularGameSettings.GetComponentInChildren<Scrollbar>().parent = __instance.RegularGameSettings.GetComponentInChildren<Scroller>();
+                __instance.RolesSettings.GetComponentInChildren<Scrollbar>().parent = __instance.RolesSettings.GetComponentInChildren<Scroller>();
+
+
             }
         }
 
@@ -195,7 +201,7 @@ namespace TownOfUs.CustomOption
                 settingMenu.RolesSettings.gameObject.SetActive(id == 1);
                 settingMenu.RolesSettingsHightlight.enabled = id == 1;
                 TOUSettingsHighlight.enabled = id == 2;
-                TOUSettings.SetActive(id == 2);
+                TOUSettings?.SetActive(id == 2);
             });
         }
 

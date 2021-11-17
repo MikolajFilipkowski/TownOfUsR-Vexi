@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 using System.Linq;
+using TownOfUs.Extensions;
 
 namespace TownOfUs.CrewmateRoles.HaunterMod
 {

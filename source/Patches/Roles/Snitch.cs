@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TownOfUs.Extensions;
 using TownOfUs.ImpostorRoles.CamouflageMod;
 using UnityEngine;
 

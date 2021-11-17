@@ -31,14 +31,13 @@ namespace TownOfUs.NeutralRoles.ArsonistMod
 
             if (role.IgniteButton == null)
             {
-                role.IgniteButton = Object.Instantiate(__instance.KillButton, HudManager.Instance.transform);
+                role.IgniteButton = Object.Instantiate(__instance.KillButton, __instance.KillButton.transform.parent);
                 role.IgniteButton.graphic.enabled = true;
+                role.IgniteButton.GetComponent<AspectPosition>().DistanceFromEdge = TownOfUs.ButtonPosition;
+
             }
 
             role.IgniteButton.graphic.sprite = IgniteSprite;
-            var position = __instance.KillButton.transform.localPosition;
-            role.IgniteButton.transform.localPosition = new Vector3(position.x,
-                __instance.ReportButton.transform.localPosition.y, position.z);
 
             role.IgniteButton.gameObject.SetActive(!PlayerControl.LocalPlayer.Data.IsDead && !MeetingHud.Instance);
             __instance.KillButton.gameObject.SetActive(!PlayerControl.LocalPlayer.Data.IsDead && !MeetingHud.Instance);

@@ -1,4 +1,5 @@
 using HarmonyLib;
+using TownOfUs.Extensions;
 using TownOfUs.Roles;
 using UnityEngine;
 

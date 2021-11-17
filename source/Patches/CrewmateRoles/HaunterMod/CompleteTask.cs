@@ -4,6 +4,7 @@ using Hazel;
 using TownOfUs.Roles;
 using Reactor;
 using UnityEngine;
+using TownOfUs.Extensions;
 
 namespace TownOfUs.CrewmateRoles.HaunterMod
 {

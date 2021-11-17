@@ -19,7 +19,7 @@ using UnityEngine.SceneManagement;
 
 namespace TownOfUs
 {
-    [BepInPlugin(Id, "Town Of Us", "2.3.4")]
+    [BepInPlugin(Id, "Town Of Us", "2.3.4-test")]
     [BepInDependency(ReactorPlugin.Id)]
     public class TownOfUs : BasePlugin
     {
@@ -53,6 +53,7 @@ namespace TownOfUs
         public static Sprite DragSprite;
         public static Sprite DropSprite;
         public static Sprite FlashSprite;
+        public static Vector3 ButtonPosition { get; private set; } = new Vector3(2.6f, 0.7f, -9f);
 
         private static DLoadImage _iCallLoadImage;
 
@@ -62,7 +63,6 @@ namespace TownOfUs
         public ConfigEntry<string> Ip { get; set; }
 
         public ConfigEntry<ushort> Port { get; set; }
-
 
         public override void Load()
         {

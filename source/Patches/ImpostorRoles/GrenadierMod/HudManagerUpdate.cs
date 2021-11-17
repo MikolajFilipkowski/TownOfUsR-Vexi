@@ -18,15 +18,14 @@ namespace TownOfUs.ImpostorRoles.GrenadierMod
             var role = Role.GetRole<Grenadier>(PlayerControl.LocalPlayer);
             if (role.FlashButton == null)
             {
-                role.FlashButton = Object.Instantiate(__instance.KillButton, HudManager.Instance.transform);
+                role.FlashButton = Object.Instantiate(__instance.KillButton, __instance.KillButton.transform.parent);
                 role.FlashButton.graphic.enabled = true;
+                role.FlashButton.GetComponent<AspectPosition>().DistanceFromEdge = TownOfUs.ButtonPosition;
+
             }
 
             role.FlashButton.graphic.sprite = FlashSprite;
             role.FlashButton.gameObject.SetActive(!PlayerControl.LocalPlayer.Data.IsDead && !MeetingHud.Instance);
-            var position = __instance.KillButton.transform.localPosition;
-            role.FlashButton.transform.localPosition = new Vector3(position.x,
-                __instance.ReportButton.transform.localPosition.y, position.z);
 
             if (role.Flashed)
             {

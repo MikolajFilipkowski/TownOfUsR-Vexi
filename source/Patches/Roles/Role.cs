@@ -11,6 +11,7 @@ using UnhollowerBaseLib;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
+using TownOfUs.Extensions;
 
 namespace TownOfUs.Roles
 {
