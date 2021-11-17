@@ -21,7 +21,7 @@ namespace TownOfUs.ImpostorRoles.UndertakerMod
                 role.DragDropButton.graphic.enabled = true;
                 role.DragDropButton.graphic.sprite = TownOfUs.DragSprite;
                 role.DragDropButton.GetComponent<AspectPosition>().DistanceFromEdge = TownOfUs.ButtonPosition;
-
+                role.DragDropButton.GetComponent<AspectPosition>().Update();
             }
 
             if (role.DragDropButton.graphic.sprite != TownOfUs.DragSprite &&

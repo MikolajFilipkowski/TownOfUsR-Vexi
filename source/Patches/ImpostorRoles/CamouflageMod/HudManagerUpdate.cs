@@ -22,11 +22,10 @@ namespace TownOfUs.ImpostorRoles.CamouflageMod
                 role.CamouflageButton.name = "CamouflageButton";
                 role.CamouflageButton.graphic.enabled = true;
                 role.CamouflageButton.graphic.sprite = Camouflage;
-                role.CamouflageButton.graphic.sprite = Camouflage;
-                role.CamouflageButton.gameObject.SetActive(!PlayerControl.LocalPlayer.Data.IsDead && !MeetingHud.Instance);
                 role.CamouflageButton.GetComponent<AspectPosition>().DistanceFromEdge = TownOfUs.ButtonPosition;
+                role.CamouflageButton.GetComponent<AspectPosition>().Update();
             }
-
+            role.CamouflageButton.gameObject.SetActive(!PlayerControl.LocalPlayer.Data.IsDead && !MeetingHud.Instance);
 
 
             if (role.Enabled)
