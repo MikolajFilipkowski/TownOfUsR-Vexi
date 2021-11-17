@@ -171,7 +171,7 @@ namespace TownOfUs.CustomOption
                 var tabBackground = hatButton.GetChild(1);
 
                 var renderer = hatIcon.GetComponent<SpriteRenderer>();
-                renderer.sprite = TownOfUs.ReviveSprite;
+                renderer.sprite = TownOfUs.SettingsButtonSprite;
                 TOUSettingsHighlight = tabBackground.GetComponent<SpriteRenderer>();
                 PassiveButton passiveButton = __instance.GameSettingsHightlight.GetComponent<PassiveButton>();
                 passiveButton.OnClick = new UnityEngine.UI.Button.ButtonClickedEvent();
