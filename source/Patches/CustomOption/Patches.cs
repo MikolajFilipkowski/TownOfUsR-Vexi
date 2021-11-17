@@ -137,22 +137,17 @@ namespace TownOfUs.CustomOption
             return false;
         }
 
-        //TODO: MOVE TO SEPERATE FILE
-        public static SpriteRenderer TOUSettingsHighlight;
-        public static GameObject TOUSettings;
-        public static GameOptionsMenu TOUGameSettingsMenu;
         [HarmonyPatch(typeof(GameSettingMenu), nameof(GameSettingMenu.Start))]
         private class OptionsMenuBehaviour_Start
         {
             public static void Postfix(GameSettingMenu __instance)
             {
                 var obj = __instance.RolesSettingsHightlight.gameObject.transform.parent.parent;
+                var touSettings = Object.Instantiate(__instance.RegularGameSettings, __instance.RegularGameSettings.transform.parent);
+                touSettings.SetActive(false);
+                touSettings.name = "TOUSettings";
 
-                TOUSettings = Object.Instantiate(__instance.RegularGameSettings, __instance.RegularGameSettings.transform.parent);
-                TOUSettings.SetActive(false);
-                TOUSettings.name = "TOUSettings";
-                
-                var gameGroup = TOUSettings.transform.FindChild("GameGroup");
+                var gameGroup = touSettings.transform.FindChild("GameGroup");
                 var title = gameGroup?.FindChild("Text");
 
                 if (title != null)
@@ -161,7 +156,8 @@ namespace TownOfUs.CustomOption
                     title.GetComponent<TMPro.TextMeshPro>().m_text = "Town Of Us Settings";
                 }
                 var sliderInner = gameGroup?.FindChild("SliderInner");
-                TOUGameSettingsMenu = sliderInner?.GetComponent<GameOptionsMenu>();
+                if (sliderInner != null)
+                    sliderInner.GetComponent<GameOptionsMenu>().name = "TouGameOptionsMenu";
 
                 var ourSettingsButton = Object.Instantiate(obj.gameObject, obj.transform.parent);
                 ourSettingsButton.transform.localPosition = new Vector3(obj.localPosition.x + 0.906f, obj.localPosition.y, obj.localPosition.z);
@@ -172,19 +168,19 @@ namespace TownOfUs.CustomOption
 
                 var renderer = hatIcon.GetComponent<SpriteRenderer>();
                 renderer.sprite = TownOfUs.SettingsButtonSprite;
-                TOUSettingsHighlight = tabBackground.GetComponent<SpriteRenderer>();
+                var touSettingsHighlight = tabBackground.GetComponent<SpriteRenderer>();
                 PassiveButton passiveButton = __instance.GameSettingsHightlight.GetComponent<PassiveButton>();
                 passiveButton.OnClick = new UnityEngine.UI.Button.ButtonClickedEvent();
-                passiveButton.OnClick.AddListener(ToggleButton(__instance, 0));
+                passiveButton.OnClick.AddListener(ToggleButton(__instance, touSettings, touSettingsHighlight, 0));
                 passiveButton = __instance.RolesSettingsHightlight.GetComponent<PassiveButton>();
                 passiveButton.OnClick = new UnityEngine.UI.Button.ButtonClickedEvent();
-                passiveButton.OnClick.AddListener(ToggleButton(__instance, 1));
+                passiveButton.OnClick.AddListener(ToggleButton(__instance, touSettings, touSettingsHighlight, 1));
                 passiveButton = tabBackground.GetComponent<PassiveButton>();
                 passiveButton.OnClick = new UnityEngine.UI.Button.ButtonClickedEvent();
-                passiveButton.OnClick.AddListener(ToggleButton(__instance, 2));
+                passiveButton.OnClick.AddListener(ToggleButton(__instance, touSettings, touSettingsHighlight, 2));
 
                 //fix for scrollbar (bug in among us)
-                TOUSettings.GetComponentInChildren<Scrollbar>().parent = TOUSettings.GetComponentInChildren<Scroller>();
+                touSettings.GetComponentInChildren<Scrollbar>().parent = touSettings.GetComponentInChildren<Scroller>();
                 __instance.RegularGameSettings.GetComponentInChildren<Scrollbar>().parent = __instance.RegularGameSettings.GetComponentInChildren<Scroller>();
                 __instance.RolesSettings.GetComponentInChildren<Scrollbar>().parent = __instance.RolesSettings.GetComponentInChildren<Scroller>();
 
@@ -192,7 +188,7 @@ namespace TownOfUs.CustomOption
             }
         }
 
-        public static System.Action ToggleButton(GameSettingMenu settingMenu, int id)
+        public static System.Action ToggleButton(GameSettingMenu settingMenu, GameObject TouSettings, SpriteRenderer highlight, int id)
         {
             return new System.Action(() =>
             {
@@ -200,12 +196,12 @@ namespace TownOfUs.CustomOption
                 settingMenu.GameSettingsHightlight.enabled = id == 0;
                 settingMenu.RolesSettings.gameObject.SetActive(id == 1);
                 settingMenu.RolesSettingsHightlight.enabled = id == 1;
-                TOUSettingsHighlight.enabled = id == 2;
-                TOUSettings?.SetActive(id == 2);
+                highlight.enabled = id == 2;
+                TouSettings.SetActive(id == 2);
             });
         }
 
-  
+
 
 
         [HarmonyPatch(typeof(GameOptionsMenu), nameof(GameOptionsMenu.Start))]
@@ -214,7 +210,7 @@ namespace TownOfUs.CustomOption
             public static bool Prefix(GameOptionsMenu __instance)
             {
 
-                if (TOUGameSettingsMenu == null || __instance.GetInstanceID() != TOUGameSettingsMenu.GetInstanceID())
+                if (__instance.name != "TouGameOptionsMenu")
                     return true;
                 __instance.Children = new Il2CppReferenceArray<OptionBehaviour>(new OptionBehaviour[0]);
                 var childeren = new Transform[__instance.gameObject.transform.childCount];
