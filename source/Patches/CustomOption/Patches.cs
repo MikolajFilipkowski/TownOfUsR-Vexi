@@ -201,9 +201,6 @@ namespace TownOfUs.CustomOption
             });
         }
 
-
-
-
         [HarmonyPatch(typeof(GameOptionsMenu), nameof(GameOptionsMenu.Start))]
         private class GameOptionsMenu_Start
         {
