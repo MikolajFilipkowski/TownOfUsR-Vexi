@@ -27,6 +27,9 @@ namespace TownOfUs.CrewmateRoles.EngineerMod
             __instance.KillButton.gameObject.SetActive(!PlayerControl.LocalPlayer.Data.IsDead &&
                                                        __instance.UseButton.isActiveAndEnabled && !MeetingHud.Instance);
 
+            __instance.ImpostorVentButton.gameObject.SetActive(!PlayerControl.LocalPlayer.Data.IsDead &&
+                                                      __instance.UseButton.isActiveAndEnabled && !MeetingHud.Instance);
+
             if (PlayerControl.LocalPlayer.Data.IsDead) return;
             if (!ShipStatus.Instance) return;
             var system = ShipStatus.Instance.Systems[SystemTypes.Sabotage].Cast<SabotageSystemType>();
