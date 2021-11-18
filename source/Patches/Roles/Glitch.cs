@@ -448,7 +448,7 @@ namespace TownOfUs.Roles
                 if (!__gInstance.Player.Data.IsImpostor() && Input.GetKeyDown(KeyCode.Q))
                     __instance.KillButton.DoClick();
 
-                __instance.KillButton.gameObject.SetActive(__instance.UseButton.isActiveAndEnabled &&
+                __instance.KillButton.gameObject.SetActive(__instance.UseButton.isActiveAndEnabled && !MeetingHud.Instance &&
                                                            !__gInstance.Player.Data.IsDead);
                 __instance.KillButton.SetCoolDown(
                     CustomGameOptions.GlitchKillCooldown -
@@ -508,10 +508,10 @@ namespace TownOfUs.Roles
 
                 __gInstance.HackButton.graphic.sprite = HackSprite;
 
-                __gInstance.HackButton.gameObject.SetActive(__instance.UseButton.isActiveAndEnabled &&
+                __gInstance.HackButton.gameObject.SetActive(__instance.UseButton.isActiveAndEnabled && !MeetingHud.Instance &&
                                                             !__gInstance.Player.Data.IsDead);
                 __gInstance.HackButton.transform.position = new Vector3(__gInstance.MimicButton.transform.position.x,
-                    __instance.ReportButton.transform.position.y, __instance.ReportButton.transform.position.z);
+                    __gInstance.HackButton.transform.position.y, __instance.ReportButton.transform.position.z);
                 __gInstance.HackButton.SetCoolDown(
                     CustomGameOptions.HackCooldown - (float)(DateTime.UtcNow - __gInstance.LastHack).TotalSeconds,
                     CustomGameOptions.HackCooldown);
@@ -527,7 +527,7 @@ namespace TownOfUs.Roles
                         __gInstance.HackButton,
                         GameOptionsData.KillDistances[CustomGameOptions.GlitchHackDistance]
                     );
-                    __gInstance.HackTarget = closestPlayer;
+                    __gInstance.HackTarget = closestPlayer; 
                 }
 
                 if (__gInstance.HackTarget != null)
@@ -574,7 +574,7 @@ namespace TownOfUs.Roles
 
                 __gInstance.MimicButton.graphic.sprite = MimicSprite;
 
-                __gInstance.MimicButton.gameObject.SetActive(__instance.UseButton.isActiveAndEnabled &&
+                __gInstance.MimicButton.gameObject.SetActive(__instance.UseButton.isActiveAndEnabled && !MeetingHud.Instance &&
                                                              !__gInstance.Player.Data.IsDead);
                 __gInstance.MimicButton.transform.position = new Vector3(
                     Camera.main.ScreenToWorldPoint(new Vector3(0, 0)).x + 0.75f,
