@@ -41,17 +41,16 @@ namespace TownOfUs
 
         public static void Camouflage()
         {
-            var camouFlageOutfit = new GameData.PlayerOutfit()
-            {
-                ColorId = 0,
-                HatId = "",
-                SkinId = "",
-                VisorId = "",
-                _playerName = " "
-            };
             foreach (var player in PlayerControl.AllPlayerControls)
             {
-                player.SetOutfit(CustomPlayerOutfitType.Camouflage, camouFlageOutfit);
+                player.SetOutfit(CustomPlayerOutfitType.Camouflage, new GameData.PlayerOutfit()
+                {
+                    ColorId = player.GetDefaultOutfit().ColorId,
+                    HatId = "",
+                    SkinId = "",
+                    VisorId = "",
+                    _playerName = " "
+                });
                 //player.nameText.text = "";
                 PlayerControl.SetPlayerMaterialColors(Color.grey, player.myRend);
             }

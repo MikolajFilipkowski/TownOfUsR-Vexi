@@ -20,8 +20,9 @@ namespace TownOfUs.ImpostorRoles.SwooperMod
             {
                 role.SwoopButton = Object.Instantiate(__instance.KillButton, __instance.KillButton.transform.parent);
                 role.SwoopButton.graphic.enabled = true;
-                role.SwoopButton.GetComponent<AspectPosition>().DistanceFromEdge = TownOfUs.ButtonPosition;
-                role.SwoopButton.GetComponent<AspectPosition>().Update();
+                var aspectPosition = role.SwoopButton.GetComponent<AspectPosition>();
+                aspectPosition.DistanceFromEdge = TownOfUs.ButtonPosition;
+                aspectPosition.updateAlways = true;
             }
 
             role.SwoopButton.graphic.sprite = SwoopSprite;

@@ -54,7 +54,7 @@ namespace TownOfUs.Roles
 
             Player.SetOutfit(CustomPlayerOutfitType.Swooper, new GameData.PlayerOutfit()
             {
-                ColorId = 0,
+                ColorId = Player.CurrentOutfit.ColorId,
                 HatId = "",
                 SkinId = "",
                 VisorId = "",
