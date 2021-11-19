@@ -7,8 +7,20 @@ using UnityEngine;
 
 namespace TownOfUs
 {
+    [HarmonyPatch(typeof(HudManager))]
+    public static class HudManagerVentPatch
+    {
+        [HarmonyPatch(nameof(HudManager.Update))]
+        public static void Postfix(HudManager __instance)
+        {
+            bool active = PlayerControl.LocalPlayer != null && VentPatches.CanVent(PlayerControl.LocalPlayer, PlayerControl.LocalPlayer._cachedData) && !MeetingHud.Instance;
+            if(active != __instance.ImpostorVentButton.gameObject.active)
+            __instance.ImpostorVentButton.gameObject.SetActive(active);
+        }
+    }
+
     [HarmonyPatch(typeof(Vent), nameof(Vent.CanUse))]
-    public static class PlayerVentTimeExtension
+    public static class VentPatches
     {
         private static bool CheckUndertaker(PlayerControl player)
         {
@@ -16,8 +28,13 @@ namespace TownOfUs
             return player.Data.IsDead || role.CurrentlyDragging != null;
         }
 
-        private static bool CanVent(Vent __instance, PlayerControl player, GameData.PlayerInfo playerInfo)
-        {
+        public static bool CanVent(PlayerControl player, GameData.PlayerInfo playerInfo)
+        { 
+            if (player.inVent)
+                return true;
+
+            if (playerInfo.IsDead)
+                return false;
 
             if (player.Is(RoleEnum.Morphling) && !CustomGameOptions.MorphlingVent
                 || player.Is(RoleEnum.Swooper) && !CustomGameOptions.SwooperVent
@@ -40,7 +57,7 @@ namespace TownOfUs
         {
             float num = float.MaxValue;
             PlayerControl playerControl = playerInfo.Object;
-            couldUse = CanVent(__instance, playerControl, playerInfo) && !playerControl.MustCleanVent(__instance.Id) && !playerInfo.IsDead && (playerControl.CanMove || playerControl.inVent);
+            couldUse = CanVent(playerControl, playerInfo) && !playerControl.MustCleanVent(__instance.Id) && (!playerInfo.IsDead || playerControl.inVent) && (playerControl.CanMove || playerControl.inVent);
 
             var ventitaltionSystem = ShipStatus.Instance.Systems[SystemTypes.Ventilation].Cast<VentilationSystem>();
             if (ventitaltionSystem != null && ventitaltionSystem.PlayersCleaningVents != null)
@@ -61,7 +78,7 @@ namespace TownOfUs
                 canUse = ((canUse ? 1 : 0) & ((double)num > (double)__instance.UsableDistance ? 0 : (!PhysicsHelpers.AnythingBetween(playerControl.Collider, (Vector2)center, (Vector2)position, Constants.ShipOnlyMask, false) ? 1 : 0))) != 0;
             }
             __result = num;
-       
+
         }
     }
 }
