@@ -34,9 +34,8 @@ namespace TownOfUs.NeutralRoles.ArsonistMod
                 role.IgniteButton = Object.Instantiate(__instance.KillButton, __instance.KillButton.transform.parent);
                 role.IgniteButton.graphic.enabled = true;
                 role.IgniteButton.GetComponent<AspectPosition>().DistanceFromEdge = TownOfUs.ButtonPosition;
-                role.IgniteButton.GetComponent<AspectPosition>().Update();
             }
-
+            role.IgniteButton.GetComponent<AspectPosition>().Update();
             role.IgniteButton.graphic.sprite = IgniteSprite;
 
             role.IgniteButton.gameObject.SetActive(!PlayerControl.LocalPlayer.Data.IsDead && !MeetingHud.Instance);

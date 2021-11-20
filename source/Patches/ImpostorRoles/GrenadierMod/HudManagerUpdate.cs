@@ -21,9 +21,9 @@ namespace TownOfUs.ImpostorRoles.GrenadierMod
                 role.FlashButton = Object.Instantiate(__instance.KillButton, __instance.KillButton.transform.parent);
                 role.FlashButton.graphic.enabled = true;
                 role.FlashButton.GetComponent<AspectPosition>().DistanceFromEdge = TownOfUs.ButtonPosition;
-                role.FlashButton.GetComponent<AspectPosition>().Update();
             }
 
+            role.FlashButton.GetComponent<AspectPosition>().Update();
             role.FlashButton.graphic.sprite = FlashSprite;
             role.FlashButton.gameObject.SetActive(!PlayerControl.LocalPlayer.Data.IsDead && !MeetingHud.Instance);
 
