@@ -41,18 +41,22 @@ namespace TownOfUs
 
         public static void Camouflage()
         {
+            PluginSingleton<TownOfUs>.Instance.Log.LogMessage("Camouflage call");
             foreach (var player in PlayerControl.AllPlayerControls)
             {
-                player.SetOutfit(CustomPlayerOutfitType.Camouflage, new GameData.PlayerOutfit()
+                if (player.GetCustomOutfitType() != CustomPlayerOutfitType.Camouflage)
                 {
-                    ColorId = player.GetDefaultOutfit().ColorId,
-                    HatId = "",
-                    SkinId = "",
-                    VisorId = "",
-                    _playerName = " "
-                });
-                //player.nameText.text = "";
-                PlayerControl.SetPlayerMaterialColors(Color.grey, player.myRend);
+                    player.SetOutfit(CustomPlayerOutfitType.Camouflage, new GameData.PlayerOutfit()
+                    {
+                        ColorId = player.GetDefaultOutfit().ColorId,
+                        HatId = "",
+                        SkinId = "",
+                        VisorId = "",
+                        _playerName = " "
+                    });
+                    //player.nameText.text = "";
+                    PlayerControl.SetPlayerMaterialColors(Color.grey, player.myRend);
+                }
             }
         }
 

@@ -52,15 +52,18 @@ namespace TownOfUs.Roles
             var color = Color.clear;
             if (PlayerControl.LocalPlayer.Data.IsImpostor() || PlayerControl.LocalPlayer.Data.IsDead) color.a = 0.1f;
 
-            Player.SetOutfit(CustomPlayerOutfitType.Swooper, new GameData.PlayerOutfit()
+            if (Player.GetCustomOutfitType() != CustomPlayerOutfitType.Swooper)
             {
-                ColorId = Player.CurrentOutfit.ColorId,
-                HatId = "",
-                SkinId = "",
-                VisorId = "",
-                _playerName = " "
-            });
-            Player.MyRend.color = color;
+                Player.SetOutfit(CustomPlayerOutfitType.Swooper, new GameData.PlayerOutfit()
+                {
+                    ColorId = Player.CurrentOutfit.ColorId,
+                    HatId = "",
+                    SkinId = "",
+                    VisorId = "",
+                    _playerName = " "
+                });
+                Player.MyRend.color = color;
+            }
 
         }
 
