@@ -52,7 +52,7 @@ namespace TownOfUs.Roles
         protected float Scale { get; set; } = 1f;
         protected internal Color Color { get; set; }
         protected internal RoleEnum RoleType { get; set; }
-
+        public bool LostByRPC { get; protected set; }
         protected internal bool Hidden { get; set; } = false;
 
         //public static Faction Faction;

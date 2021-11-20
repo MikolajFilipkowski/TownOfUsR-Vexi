@@ -96,7 +96,7 @@ namespace TownOfUs.Roles
 
         public void Loses()
         {
-            Player.Data.SetImpostor(true);
+            LostByRPC = true;
         }
 
         protected override void IntroPrefix(IntroCutscene._CoBegin_d__18 __instance)

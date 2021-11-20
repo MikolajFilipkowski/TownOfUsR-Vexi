@@ -21,7 +21,7 @@ namespace TownOfUs.Roles
 
         public void Loses()
         {
-            Player.Data.SetImpostor(true);
+            LostByRPC = true;
         }
 
         public void Fade()
