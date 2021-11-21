@@ -41,7 +41,6 @@ namespace TownOfUs
 
         public static void Camouflage()
         {
-            PluginSingleton<TownOfUs>.Instance.Log.LogMessage("Camouflage call");
             foreach (var player in PlayerControl.AllPlayerControls)
             {
                 if (player.GetCustomOutfitType() != CustomPlayerOutfitType.Camouflage)

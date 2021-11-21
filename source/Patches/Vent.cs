@@ -13,6 +13,9 @@ namespace TownOfUs
         [HarmonyPatch(nameof(HudManager.Update))]
         public static void Postfix(HudManager __instance)
         {
+            if(__instance.ImpostorVentButton == null || __instance.ImpostorVentButton.gameObject == null || __instance.ImpostorVentButton.IsNullOrDestroyed())
+                return;
+
             bool active = PlayerControl.LocalPlayer != null && VentPatches.CanVent(PlayerControl.LocalPlayer, PlayerControl.LocalPlayer._cachedData) && !MeetingHud.Instance;
             if(active != __instance.ImpostorVentButton.gameObject.active)
             __instance.ImpostorVentButton.gameObject.SetActive(active);

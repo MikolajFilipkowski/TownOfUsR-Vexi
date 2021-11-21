@@ -20,6 +20,7 @@ namespace TownOfUs.ImpostorRoles.JanitorMod
                 role.CleanButton = Object.Instantiate(__instance.KillButton, __instance.KillButton.transform.parent);
                 role.CleanButton.graphic.enabled = true;
                 role.CleanButton.GetComponent<AspectPosition>().DistanceFromEdge = TownOfUs.ButtonPosition;
+                role.CleanButton.gameObject.SetActive(false);
             }
 
             role.CleanButton.GetComponent<AspectPosition>().Update();

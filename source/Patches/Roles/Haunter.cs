@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using TownOfUs.Extensions;
 
 namespace TownOfUs.Roles
 {
@@ -48,15 +49,21 @@ namespace TownOfUs.Roles
             color.a = 0.07f + velocity / Player.MyPhysics.TrueGhostSpeed * 0.13f;
             color.a = Mathf.Lerp(color.a, 0, distPercent);
 
+
+            if (Player.GetCustomOutfitType() != CustomPlayerOutfitType.PlayerNameOnly)
+            {
+                Player.SetOutfit(CustomPlayerOutfitType.PlayerNameOnly, new GameData.PlayerOutfit()
+                {
+                    ColorId = Player.GetDefaultOutfit().ColorId,
+                    HatId = "",
+                    SkinId = "",
+                    VisorId = "",
+                    _playerName = Player.GetDefaultOutfit()._playerName
+                });
+            }
             Player.MyRend.color = color;
-            //TODO: LOOK INTO THIS;
-            Player.HatRenderer.SetHat("", 0);
-            Player.nameText.text = "";
-            if (Player.MyPhysics.Skin.skin.ProdId != DestroyableSingleton<HatManager>.Instance
-                .AllSkins.ToArray()[0].ProdId)
-                Player.MyPhysics.SetSkin("");
-            Player.RawSetPet("", 0);
-               
+
+
         }
     }
 }

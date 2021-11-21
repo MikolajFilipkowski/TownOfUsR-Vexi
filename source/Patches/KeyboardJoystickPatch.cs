@@ -1,12 +1,13 @@
 ﻿using HarmonyLib;
+using Reactor;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace TownOfUs.Patches
+namespace TownOfUs
 {
-    [HarmonyPatch(typeof(ConsoleJoystick), nameof(ConsoleJoystick.HandleHUD))]
-    public static class ConsoleJoystickPatch
+    [HarmonyPatch(typeof(KeyboardJoystick), nameof(KeyboardJoystick.HandleHud))]
+    public class KeyboardJoystickPatch
     {
         [HarmonyPostfix]
         public static void Postfix()
