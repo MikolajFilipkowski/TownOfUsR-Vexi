@@ -94,8 +94,8 @@ namespace TownOfUs
         private static void GenEachRole(List<GameData.PlayerInfo> infected)
         {
 
-            var impostors = Utils.GetImpostors(infected);
-            var crewmates = Utils.GetCrewmates(impostors);
+            var impostors = Utils.GetImpostors(infected);//.Where(o => o.Data.Role.Role == RoleTypes.Impostor).ToList();
+            var crewmates = Utils.GetCrewmates(impostors);//.Where(o => o.Data.Role.Role == RoleTypes.Crewmate).ToList();
             crewmates.Shuffle();
             impostors.Shuffle();
             PluginSingleton<TownOfUs>.Instance.Log.LogMessage($"RPC SET ROLE {impostors.Count} -> {crewmates.Count}");

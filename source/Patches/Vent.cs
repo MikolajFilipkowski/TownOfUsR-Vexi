@@ -46,7 +46,7 @@ namespace TownOfUs
                 || (player.Is(RoleEnum.Undertaker) && Role.GetRole<Undertaker>(player).CurrentlyDragging != null && !CustomGameOptions.UndertakerVentWithBody))
                 return false;
 
-            if (player.Is(RoleEnum.Engineer) || (player.Is(RoleEnum.Glitch) && CustomGameOptions.GlitchVent))
+            if (player.Is(RoleEnum.Engineer) || (player.roleAssigned && playerInfo.Role?.Role == RoleTypes.Engineer)|| (player.Is(RoleEnum.Glitch) && CustomGameOptions.GlitchVent))
                 return true;
 
             return playerInfo.IsImpostor();

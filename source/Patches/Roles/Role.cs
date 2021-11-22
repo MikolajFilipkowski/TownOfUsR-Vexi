@@ -175,7 +175,7 @@ namespace TownOfUs.Roles
                 Player.CurrentOutfit.HatId == "hat_NoHat" ? 1.5f : 2.0f,
                 -0.5f
             );
-            return Player.name + "\n" + Name;
+            return Player.GetDefaultOutfit()._playerName + "\n" + Name;
         }
 
         public static bool operator ==(Role a, Role b)
@@ -230,12 +230,12 @@ namespace TownOfUs.Roles
         public static T Gen<T>(Type type, List<PlayerControl> players, CustomRPC rpc)
         {
             var player = players[Random.RandomRangeInt(0, players.Count)];
-            
+
             var role = Gen<T>(type, player, rpc);
             players.Remove(player);
             return role;
         }
-        
+
         public static Role GetRole(PlayerControl player)
         {
             if (player == null) return null;
@@ -244,7 +244,7 @@ namespace TownOfUs.Roles
 
             return null;
         }
-        
+
         public static T GetRole<T>(PlayerControl player) where T : Role
         {
             return GetRole(player) as T;
@@ -321,10 +321,12 @@ namespace TownOfUs.Roles
                     var alpha = __instance.__4__this.RoleText.color.a;
                     if (role != null && !role.Hidden)
                     {
+                        __instance.__4__this.TeamTitle.text = role.Faction == Faction.Neutral ? "Neutral" : __instance.__4__this.TeamTitle.text;
+                        __instance.__4__this.TeamTitle.color = role.Faction == Faction.Neutral ? Color.white : __instance.__4__this.TeamTitle.color;
                         __instance.__4__this.RoleText.text = role.Name;
                         __instance.__4__this.RoleText.color = role.Color;
                         __instance.__4__this.RoleBlurbText.text = role.ImpostorText();
-                    //    __instance.__4__this.ImpostorText.gameObject.SetActive(true);
+                        //    __instance.__4__this.ImpostorText.gameObject.SetActive(true);
                         __instance.__4__this.BackgroundBar.material.color = role.Color;
                         //                        TestScale = Mathf.Max(__instance.__this.Title.scale, TestScale);
                         //                        __instance.__this.Title.scale = TestScale / role.Scale;
@@ -345,7 +347,7 @@ namespace TownOfUs.Roles
                             __instance.__4__this.transform.position - new Vector3(0f, 2.0f, 0f);
                         ModifierText.gameObject.SetActive(true);
                     }
-                }
+                } 
             }
         }
 
@@ -524,7 +526,7 @@ namespace TownOfUs.Roles
                     {
                         try
                         {
-                            player.NameText.text = role.Player.name;
+                            player.NameText.text = role.Player.GetDefaultOutfit()._playerName;
                         }
                         catch
                         {
