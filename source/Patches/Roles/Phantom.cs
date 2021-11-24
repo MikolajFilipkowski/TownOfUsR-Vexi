@@ -1,3 +1,4 @@
+using TownOfUs.Extensions;
 using UnityEngine;
 
 namespace TownOfUs.Roles
@@ -20,7 +21,7 @@ namespace TownOfUs.Roles
 
         public void Loses()
         {
-            Player.Data.IsImpostor = true;
+            LostByRPC = true;
         }
 
         public void Fade()
@@ -43,20 +44,21 @@ namespace TownOfUs.Roles
             color.a = 0.07f + velocity / Player.MyPhysics.TrueGhostSpeed * 0.13f;
             color.a = Mathf.Lerp(color.a, 0, distPercent);
 
-            Player.MyRend.color = color;
+            if (Player.GetCustomOutfitType() != CustomPlayerOutfitType.PlayerNameOnly)
+            {
+                Player.SetOutfit(CustomPlayerOutfitType.PlayerNameOnly, new GameData.PlayerOutfit()
+                {
+                    ColorId = Player.GetDefaultOutfit().ColorId,
+                    HatId = "",
+                    SkinId = "",
+                    VisorId = "",
+                    _playerName = Player.GetDefaultOutfit()._playerName
+                });
+            }
 
-            Player.HatRenderer.SetHat(0, 0);
-            Player.nameText.text = "";
-            if (Player.MyPhysics.Skin.skin.ProdId != DestroyableSingleton<HatManager>.Instance
-                .AllSkins.ToArray()[0].ProdId)
-                Player.MyPhysics.SetSkin(0);
-            if (Player.CurrentPet != null) Object.Destroy(Player.CurrentPet.gameObject);
-            Player.CurrentPet =
-                Object.Instantiate(
-                    DestroyableSingleton<HatManager>.Instance.AllPets.ToArray()[0]);
-            Player.CurrentPet.transform.position = Player.transform.position;
-            Player.CurrentPet.Source = Player;
-            Player.CurrentPet.Visible = Player.Visible;
+            Player.MyRend.color = color;
+            Player.nameText.color = color;
+
         }
     }
 }

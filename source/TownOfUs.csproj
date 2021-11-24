@@ -1,20 +1,20 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>2.3.4</Version>
+    <Version>2.3.4-test</Version>
     <DebugType>embedded</DebugType>
   </PropertyGroup>
 
 	<PropertyGroup>
 		<GameProvider>Static</GameProvider>
-		<GameVersion>v2021.6.30s</GameVersion>
+		<GameVersion>$(AmongUs)</GameVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Reactor" Version="1.0.0-rc.1" />
 		<PackageReference Include="Reactor.MSBuild" Version="0.1.5" />
 	</ItemGroup>
-
+ 
 	<Target Name="Copy" AfterTargets="Build">
 		<Copy SourceFiles="$(OutputPath)$(AssemblyName).dll" DestinationFolder="$(GameVersion)/BepInEx/plugins/" />
 	</Target>
@@ -23,4 +23,4 @@
     <EmbeddedResource Include="Resources\*" />
     <EmbeddedResource Include="Resources\Hats\**" />
   </ItemGroup>
-</Project>
+</Project> 

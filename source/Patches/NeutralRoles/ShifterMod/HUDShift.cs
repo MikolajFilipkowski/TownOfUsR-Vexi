@@ -28,12 +28,12 @@ namespace TownOfUs.NeutralRoles.ShifterMod
             if (isDead)
             {
                 shiftButton.gameObject.SetActive(false);
-                shiftButton.isActive = false;
+             //   shiftButton.isActive = false;
             }
             else
             {
                 shiftButton.gameObject.SetActive(!MeetingHud.Instance);
-                shiftButton.isActive = !MeetingHud.Instance;
+               // shiftButton.isActive = !MeetingHud.Instance;
                 shiftButton.SetCoolDown(role.ShifterShiftTimer(), CustomGameOptions.ShifterCd);
 
                 Utils.SetTarget(ref role.ClosestPlayer, shiftButton);

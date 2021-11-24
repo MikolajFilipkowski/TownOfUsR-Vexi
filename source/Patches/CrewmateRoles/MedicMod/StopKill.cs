@@ -1,12 +1,13 @@
 using HarmonyLib;
 using Hazel;
 using Reactor;
+using TownOfUs.Extensions;
 using TownOfUs.Roles;
 using UnityEngine;
 
 namespace TownOfUs.CrewmateRoles.MedicMod
 {
-    [HarmonyPatch(typeof(KillButtonManager), nameof(KillButtonManager.PerformKill))]
+    [HarmonyPatch(typeof(KillButton), nameof(KillButton.DoClick))]
     public class StopKill
     {
         public static void BreakShield(byte medicId, byte playerId, bool flag)
@@ -40,11 +41,11 @@ namespace TownOfUs.CrewmateRoles.MedicMod
         }
 
         [HarmonyPriority(Priority.First)]
-        public static bool Prefix(KillButtonManager __instance)
+        public static bool Prefix(KillButton __instance)
         {
             if (__instance != DestroyableSingleton<HudManager>.Instance.KillButton) return true;
-            if (!PlayerControl.LocalPlayer.Data.IsImpostor) return true;
-            var target = __instance.CurrentTarget;
+            if (!PlayerControl.LocalPlayer.Data.IsImpostor()) return true;
+            var target = __instance.currentTarget;
             if (target == null) return true;
             if (target.isShielded())
             {

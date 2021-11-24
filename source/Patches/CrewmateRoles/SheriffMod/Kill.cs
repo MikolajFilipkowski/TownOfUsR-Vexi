@@ -2,15 +2,17 @@
 using HarmonyLib;
 using Hazel;
 using TownOfUs.CrewmateRoles.MedicMod;
+using TownOfUs.Extensions;
 using TownOfUs.Roles;
+using UnityEngine;
 
 namespace TownOfUs.CrewmateRoles.SheriffMod
 {
-    [HarmonyPatch(typeof(KillButtonManager), nameof(KillButtonManager.PerformKill))]
+    [HarmonyPatch(typeof(KillButton), nameof(KillButton.DoClick))]
     public static class Kill
     {
         [HarmonyPriority(Priority.First)]
-        private static bool Prefix(KillButtonManager __instance)
+        private static bool Prefix(KillButton __instance)
         {
             if (__instance != DestroyableSingleton<HudManager>.Instance.KillButton) return true;
             var flag = PlayerControl.LocalPlayer.Is(RoleEnum.Sheriff);
@@ -40,7 +42,7 @@ namespace TownOfUs.CrewmateRoles.SheriffMod
                 return false;
             }
 
-            var flag4 = role.ClosestPlayer.Data.IsImpostor ||
+            var flag4 = role.ClosestPlayer.Data.IsImpostor() ||
                         role.ClosestPlayer.Is(RoleEnum.Jester) && CustomGameOptions.SheriffKillsJester ||
                         role.ClosestPlayer.Is(RoleEnum.Glitch) && CustomGameOptions.SheriffKillsGlitch ||
                         role.ClosestPlayer.Is(RoleEnum.Executioner) && CustomGameOptions.SheriffKillsExecutioner ||

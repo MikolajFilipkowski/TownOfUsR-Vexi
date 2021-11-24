@@ -1,4 +1,5 @@
 using HarmonyLib;
+using TownOfUs.Extensions;
 using TownOfUs.Roles.Modifiers;
 using UnityEngine;
 
@@ -17,7 +18,7 @@ namespace TownOfUs
             }
 
             var switchSystem = __instance.Systems[SystemTypes.Electrical].Cast<SwitchSystem>();
-            if (player.IsImpostor || player._object.Is(RoleEnum.Glitch))
+            if (player.IsImpostor() || player._object.Is(RoleEnum.Glitch))
             {
                 __result = __instance.MaxLightRadius * PlayerControl.GameOptions.ImpostorLightMod;
                 return false;

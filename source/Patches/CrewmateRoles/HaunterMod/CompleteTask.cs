@@ -4,6 +4,7 @@ using Hazel;
 using TownOfUs.Roles;
 using Reactor;
 using UnityEngine;
+using TownOfUs.Extensions;
 
 namespace TownOfUs.CrewmateRoles.HaunterMod
 {
@@ -26,7 +27,7 @@ namespace TownOfUs.CrewmateRoles.HaunterMod
                 {
                     Coroutines.Start(Utils.FlashCoroutine(role.Color));
                 }
-                else if (PlayerControl.LocalPlayer.Data.IsImpostor || (PlayerControl.LocalPlayer.Is(Faction.Neutral) && CustomGameOptions.HaunterRevealsNeutrals))
+                else if (PlayerControl.LocalPlayer.Data.IsImpostor() || (PlayerControl.LocalPlayer.Is(Faction.Neutral) && CustomGameOptions.HaunterRevealsNeutrals))
                 {
                     Coroutines.Start(Utils.FlashCoroutine(role.Color));
                     var gameObj = new GameObject();
@@ -47,7 +48,7 @@ namespace TownOfUs.CrewmateRoles.HaunterMod
                 {
                     Coroutines.Start(Utils.FlashCoroutine(Color.white));
                 }
-                else if (PlayerControl.LocalPlayer.Data.IsImpostor || (PlayerControl.LocalPlayer.Is(Faction.Neutral) && CustomGameOptions.HaunterRevealsNeutrals))
+                else if (PlayerControl.LocalPlayer.Data.IsImpostor() || (PlayerControl.LocalPlayer.Is(Faction.Neutral) && CustomGameOptions.HaunterRevealsNeutrals))
                 {
                     Coroutines.Start(Utils.FlashCoroutine(Color.white));
                 }

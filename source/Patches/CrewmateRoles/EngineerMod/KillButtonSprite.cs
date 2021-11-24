@@ -22,11 +22,10 @@ namespace TownOfUs.CrewmateRoles.EngineerMod
 
             var role = Role.GetRole<Engineer>(PlayerControl.LocalPlayer);
             
-            __instance.KillButton.renderer.sprite = Sprite;
+            __instance.KillButton.graphic.sprite = Sprite;
             __instance.KillButton.SetCoolDown(0f, 10f);
             __instance.KillButton.gameObject.SetActive(!PlayerControl.LocalPlayer.Data.IsDead &&
                                                        __instance.UseButton.isActiveAndEnabled && !MeetingHud.Instance);
-
             if (PlayerControl.LocalPlayer.Data.IsDead) return;
             if (!ShipStatus.Instance) return;
             var system = ShipStatus.Instance.Systems[SystemTypes.Sabotage].Cast<SabotageSystemType>();
@@ -34,7 +33,7 @@ namespace TownOfUs.CrewmateRoles.EngineerMod
             var specials = system.specials.ToArray();
             var dummyActive = system.dummy.IsActive;
             var sabActive = specials.Any(s => s.IsActive);
-            var renderer = __instance.KillButton.renderer;
+            var renderer = __instance.KillButton.graphic;
             if (sabActive & !dummyActive & !role.UsedThisRound & __instance.KillButton.enabled)
             {
                 renderer.color = Palette.EnabledColor;

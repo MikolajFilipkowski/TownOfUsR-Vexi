@@ -28,12 +28,12 @@ namespace TownOfUs.NeutralRoles.ShifterMod
         Crewmate
     }
 
-    [HarmonyPatch(typeof(KillButtonManager), nameof(KillButtonManager.PerformKill))]
+    [HarmonyPatch(typeof(KillButton), nameof(KillButton.DoClick))]
     [HarmonyPriority(Priority.Last)]
     public class PerformKillButton
 
     {
-        public static bool Prefix(KillButtonManager __instance)
+        public static bool Prefix(KillButton __instance)
         {
             if (__instance != DestroyableSingleton<HudManager>.Instance.KillButton) return true;
             var flag = PlayerControl.LocalPlayer.Is(RoleEnum.Shifter);
@@ -218,9 +218,9 @@ namespace TownOfUs.NeutralRoles.ShifterMod
             }
             else
             {
-                shifter.Data.IsImpostor = true;
+                shifter.Data.SetImpostor( true);
                 shifter.MurderPlayer(shifter);
-                shifter.Data.IsImpostor = false;
+                shifter.Data.SetImpostor(false);
                 swapTasks = false;
             }
             if (swapTasks)
@@ -289,7 +289,7 @@ namespace TownOfUs.NeutralRoles.ShifterMod
                 }
 
                 DestroyableSingleton<HudManager>.Instance.KillButton.gameObject.SetActive(false);
-                DestroyableSingleton<HudManager>.Instance.KillButton.isActive = false;
+             //   DestroyableSingleton<HudManager>.Instance.KillButton.isActive = false;
 
                 Lights.SetLights();
             }

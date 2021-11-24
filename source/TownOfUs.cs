@@ -19,7 +19,7 @@ using UnityEngine.SceneManagement;
 
 namespace TownOfUs
 {
-    [BepInPlugin(Id, "Town Of Us", "2.3.4")]
+    [BepInPlugin(Id, "Town Of Us", "2.3.4-test")]
     [BepInDependency(ReactorPlugin.Id)]
     public class TownOfUs : BasePlugin
     {
@@ -53,6 +53,9 @@ namespace TownOfUs
         public static Sprite DragSprite;
         public static Sprite DropSprite;
         public static Sprite FlashSprite;
+        public static Sprite SettingsButtonSprite;
+
+        public static Vector3 ButtonPosition { get; private set; } = new Vector3(2.6f, 0.7f, -9f);
 
         private static DLoadImage _iCallLoadImage;
 
@@ -62,7 +65,6 @@ namespace TownOfUs
         public ConfigEntry<string> Ip { get; set; }
 
         public ConfigEntry<ushort> Port { get; set; }
-
 
         public override void Load()
         {
@@ -100,10 +102,11 @@ namespace TownOfUs
             CycleSprite = CreateSprite("TownOfUs.Resources.Cycle.png");
             GuessSprite = CreateSprite("TownOfUs.Resources.Guess.png");
             FlashSprite = CreateSprite("TownOfUs.Resources.Flash.png");
+            SettingsButtonSprite = CreateSprite("TownOfUs.Resources.SettingsButton.png");
 
             PalettePatch.Load();
             ClassInjector.RegisterTypeInIl2Cpp<RainbowBehaviour>();
-
+             
             // RegisterInIl2CppAttribute.Register();
 
             Ip = Config.Bind("Custom", "Ipv4 or Hostname", "127.0.0.1");
@@ -121,10 +124,10 @@ namespace TownOfUs
 
             ServerManager.DefaultRegions = defaultRegions.ToArray();
 
-            SceneManager.add_sceneLoaded((Action<Scene, LoadSceneMode>) ((scene, loadSceneMode) =>
-            {
-                ModManager.Instance.ShowModStamp();
-            }));
+            //SceneManager.add_sceneLoaded((Action<Scene, LoadSceneMode>) ((scene, loadSceneMode) =>
+            //{
+            //    ModManager.Instance.ShowModStamp();
+            //}));
 
             _harmony.PatchAll();
             DirtyPatches.Initialize(_harmony);

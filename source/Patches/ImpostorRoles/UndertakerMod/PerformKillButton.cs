@@ -8,10 +8,10 @@ using UnityEngine;
 
 namespace TownOfUs.ImpostorRoles.UndertakerMod
 {
-    [HarmonyPatch(typeof(KillButtonManager), nameof(KillButtonManager.PerformKill))]
+    [HarmonyPatch(typeof(KillButton), nameof(KillButton.DoClick))]
     public class PerformKillButton
     {
-        public static bool Prefix(KillButtonManager __instance)
+        public static bool Prefix(KillButton __instance)
         {
             var flag = PlayerControl.LocalPlayer.Is(RoleEnum.Undertaker);
             if (!flag) return true;
@@ -21,7 +21,7 @@ namespace TownOfUs.ImpostorRoles.UndertakerMod
 
             if (__instance == role.DragDropButton)
             {
-                if (role.DragDropButton.renderer.sprite == TownOfUs.DragSprite)
+                if (role.DragDropButton.graphic.sprite == TownOfUs.DragSprite)
                 {
                     if (__instance.isCoolingDown) return false;
                     if (!__instance.enabled) return false;
@@ -39,7 +39,7 @@ namespace TownOfUs.ImpostorRoles.UndertakerMod
                     role.CurrentlyDragging = role.CurrentTarget;
 
                     KillButtonTarget.SetTarget(__instance, null, role);
-                    __instance.renderer.sprite = TownOfUs.DropSprite;
+                    __instance.graphic.sprite = TownOfUs.DropSprite;
                     return false;
                 }
                 else
@@ -56,7 +56,7 @@ namespace TownOfUs.ImpostorRoles.UndertakerMod
                     var body = role.CurrentlyDragging;
                     body.bodyRenderer.material.SetFloat("_Outline", 0f);
                     role.CurrentlyDragging = null;
-                    __instance.renderer.sprite = TownOfUs.DragSprite;
+                    __instance.graphic.sprite = TownOfUs.DragSprite;
                     role.LastDragged = DateTime.UtcNow;
 
                     body.transform.position = position;
