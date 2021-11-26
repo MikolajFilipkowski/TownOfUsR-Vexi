@@ -997,7 +997,8 @@ If you have any bugs or any need to contact me, join the [Discord Server](https:
 [XtraCube](https://github.com/XtraCube) - For the RainbowMod.\
 [PhasmoFireGod](https://twitch.tv/PhasmoFireGod) - Button Art.\
 [TheOtherRoles](https://github.com/Eisbison/TheOtherRoles) - For the inspiration of the Retributionist and Spy roles.\
-[5up](https://www.twitch.tv/5uppp) and the Submarine Team - For the inspiration of the Grenadier role.
+[5up](https://www.twitch.tv/5uppp) and the Submarine Team - For the inspiration of the Grenadier role.\
+[Guus](https://github.com/OhMyGuus) for support for the new Among Us version (v2021.11.9.5).
 
 [Essentials](https://github.com/DorCoMaNdO/Reactor-Essentials) - For created custom game options.\
 v1.0.3 uses [Essentials](https://github.com/DorCoMaNdO/Reactor-Essentials) directly.\
