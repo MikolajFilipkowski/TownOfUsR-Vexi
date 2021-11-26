@@ -19,7 +19,7 @@ using UnityEngine.SceneManagement;
 
 namespace TownOfUs
 {
-    [BepInPlugin(Id, "Town Of Us", "2.3.4-test")]
+    [BepInPlugin(Id, "Town Of Us", "2.4.0")]
     [BepInDependency(ReactorPlugin.Id)]
     public class TownOfUs : BasePlugin
     {
