@@ -7,11 +7,11 @@
 
 	<PropertyGroup>
 		<GameProvider>Static</GameProvider>
-		<GameVersion>v2021.11.9.5s</GameVersion>
-	</PropertyGroup>
+    <GameVersion>$(AmongUs)</GameVersion>
+  </PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Reactor" Version="1.0.0-rc.1" />
+		<PackageReference Include="Reactor" Version="1.1.0" />
 		<PackageReference Include="Reactor.MSBuild" Version="0.1.5" />
 	</ItemGroup>
  
