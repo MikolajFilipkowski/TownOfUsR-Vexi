@@ -465,7 +465,7 @@ namespace TownOfUs.CustomOption
                 var rows = __instance.GameSettings.text.Count(c => c == '\n');
                 var maxY = Mathf.Max(MinY, rows * LobbyTextRowHeight + (rows - 38) * LobbyTextRowHeight);
 
-                Scroller.YBounds = new FloatRange(MinY, maxY);
+                Scroller.ContentYBounds = new FloatRange(MinY, maxY);
 
                 // Prevent scrolling when the player is interacting with a menu
                 if (PlayerControl.LocalPlayer?.CanMove != true)
@@ -494,8 +494,8 @@ namespace TownOfUs.CustomOption
                 Scroller.allowY = true;
                 Scroller.active = true;
                 Scroller.velocity = new Vector2(0, 0);
-                Scroller.ScrollerYRange = new FloatRange(0, 0);
-                Scroller.XBounds = new FloatRange(MinX, MinX);
+                Scroller.ScrollbarYBounds = new FloatRange(0, 0);
+                Scroller.ContentXBounds = new FloatRange(MinX, MinX);
                 Scroller.enabled = true;
 
                 Scroller.Inner = __instance.GameSettings.transform;
