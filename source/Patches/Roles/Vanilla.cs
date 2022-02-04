@@ -22,7 +22,7 @@ namespace TownOfUs.Roles
             Hidden = true;
             Faction = Faction.Crewmates;
             RoleType = RoleEnum.Crewmate;
-            Color = Color.white;
+            Color = Patches.Colors.Crewmate;
         }
     }
 }

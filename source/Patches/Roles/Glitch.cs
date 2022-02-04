@@ -28,7 +28,7 @@ namespace TownOfUs.Roles
         public Glitch(PlayerControl owner) : base(owner)
         {
             Name = "The Glitch";
-            Color = Color.green;
+            Color = Patches.Colors.Glitch;
             LastHack = DateTime.UtcNow;
             LastMimic = DateTime.UtcNow;
             LastKill = DateTime.UtcNow;
@@ -294,7 +294,6 @@ namespace TownOfUs.Roles
                                     HudManager.Instance.UseButton.transform.position.y, -50f);
                             lockImg[1].layer = 5;
                             HudManager.Instance.UseButton.enabled = false;
-                            //TODO: !LOOK INTO THIS USE BUTTON..
                             HudManager.Instance.UseButton.graphic.color = Palette.DisabledClear;
                             HudManager.Instance.UseButton.graphic.material.SetFloat("_Desat", 1f);
                         }
@@ -365,8 +364,6 @@ namespace TownOfUs.Roles
                             HudManager.Instance.UseButton.enabled = true;
                             HudManager.Instance.ReportButton.enabled = true;
                             HudManager.Instance.KillButton.enabled = true;
-                            //TODO: !LOOK INTO THIS USE BUTTON..
-
                             HudManager.Instance.UseButton.graphic.color = Palette.EnabledColor;
                             HudManager.Instance.UseButton.graphic.material.SetFloat("_Desat", 0f);
                             var role = GetRole(PlayerControl.LocalPlayer);
@@ -410,6 +407,10 @@ namespace TownOfUs.Roles
                     __instance.IsUsingMimic = true;
                     __instance.MimicTarget = mimicPlayer;
                     var totalMimickTime = (DateTime.UtcNow - mimicActivation).TotalMilliseconds / 1000;
+                    if (__instance.Player.Data.IsDead)
+                    {
+                        totalMimickTime = CustomGameOptions.MimicDuration;
+                    }
                     mimicText.Text =
                         $"{__instance.ColorString}Mimicking {mimicPlayer.Data.PlayerName} ({CustomGameOptions.MimicDuration - Math.Round(totalMimickTime)}s)</color>";
                     if (totalMimickTime > CustomGameOptions.MimicDuration ||
@@ -472,9 +473,55 @@ namespace TownOfUs.Roles
             {
                 if (__gInstance.KillTarget != null)
                 {
-                    if (__gInstance.KillTarget.isShielded())
+                    if (__gInstance.KillTarget.IsOnAlert())
                     {
-                        var medic = __gInstance.HackTarget.getMedic().Player.PlayerId;
+                        if (__gInstance.KillTarget.IsShielded())
+                        {
+                            var medic = __gInstance.KillTarget.GetMedic().Player.PlayerId;
+                            var writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
+                                (byte)CustomRPC.AttemptSound, SendOption.Reliable, -1);
+                            writer.Write(medic);
+                            writer.Write(__gInstance.KillTarget.PlayerId);
+                            AmongUsClient.Instance.FinishRpcImmediately(writer);
+
+                            if (CustomGameOptions.ShieldBreaks) __gInstance.LastKill = DateTime.UtcNow;
+
+                            StopKill.BreakShield(medic, __gInstance.KillTarget.PlayerId,
+                                CustomGameOptions.ShieldBreaks);
+                            Utils.RpcMurderPlayer(__gInstance.KillTarget, __gInstance.Player);
+                        }
+                        else if (__gInstance.Player.IsShielded())
+                        {
+                            var medic = __gInstance.Player.GetMedic().Player.PlayerId;
+                            var writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
+                                (byte)CustomRPC.AttemptSound, SendOption.Reliable, -1);
+                            writer.Write(medic);
+                            writer.Write(__gInstance.Player.PlayerId);
+                            AmongUsClient.Instance.FinishRpcImmediately(writer);
+
+                            if (CustomGameOptions.ShieldBreaks) __gInstance.LastKill = DateTime.UtcNow;
+
+                            StopKill.BreakShield(medic, __gInstance.Player.PlayerId,
+                                CustomGameOptions.ShieldBreaks);
+                            if (CustomGameOptions.KilledOnAlert)
+                            {
+                                Utils.RpcMurderPlayer(__gInstance.Player, __gInstance.KillTarget);
+                            }
+                        }
+                        else
+                        {
+                            Utils.RpcMurderPlayer(__gInstance.KillTarget, __gInstance.Player);
+                            if (CustomGameOptions.KilledOnAlert)
+                            {
+                                Utils.RpcMurderPlayer(__gInstance.Player, __gInstance.KillTarget);
+                            }
+                        }
+
+                        return;
+                    }
+                    else if (__gInstance.KillTarget.IsShielded())
+                    {
+                        var medic = __gInstance.KillTarget.GetMedic().Player.PlayerId;
                         var writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
                             (byte)CustomRPC.AttemptSound, SendOption.Reliable, -1);
                         writer.Write(medic);
@@ -538,19 +585,25 @@ namespace TownOfUs.Roles
             {
                 if (__gInstance.HackTarget != null)
                 {
-                    if (__gInstance.HackTarget.isShielded())
+                    if (__gInstance.HackTarget.IsOnAlert())
                     {
-                        var medic = __gInstance.HackTarget.getMedic().Player.PlayerId;
-                        var writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
-                            (byte)CustomRPC.AttemptSound, SendOption.Reliable, -1);
-                        writer.Write(medic);
-                        writer.Write(__gInstance.HackTarget.PlayerId);
-                        AmongUsClient.Instance.FinishRpcImmediately(writer);
-                        if (CustomGameOptions.ShieldBreaks) __gInstance.LastHack = DateTime.UtcNow;
+                        if (__gInstance.Player.IsShielded())
+                        {
+                            var writer2 = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
+                                (byte)CustomRPC.AttemptSound, SendOption.Reliable, -1);
+                            writer2.Write(PlayerControl.LocalPlayer.GetMedic().Player.PlayerId);
+                            writer2.Write(PlayerControl.LocalPlayer.PlayerId);
+                            AmongUsClient.Instance.FinishRpcImmediately(writer2);
 
-                        StopKill.BreakShield(medic, __gInstance.HackTarget.PlayerId,
-                            CustomGameOptions.ShieldBreaks);
-
+                            System.Console.WriteLine(CustomGameOptions.ShieldBreaks + "- shield break");
+                            if (CustomGameOptions.ShieldBreaks)
+                                __gInstance.LastHack = DateTime.UtcNow;
+                            StopKill.BreakShield(PlayerControl.LocalPlayer.GetMedic().Player.PlayerId, PlayerControl.LocalPlayer.PlayerId, CustomGameOptions.ShieldBreaks);
+                        }
+                        else
+                        {
+                            Utils.RpcMurderPlayer(__gInstance.HackTarget, __gInstance.Player);
+                        }
                         return;
                     }
 

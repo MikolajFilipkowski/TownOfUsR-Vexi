@@ -43,7 +43,7 @@ namespace TownOfUs.Modifiers.ButtonBarryMod
             role.ButtonButton.SetCoolDown(0f, 1f);
             var renderer = role.ButtonButton.graphic;
 
-            var position1 = __instance.UseButton.transform.position; //TODO: LOOK INTO THIS ONE..
+            var position1 = __instance.UseButton.transform.position;
             role.ButtonButton.transform.position = new Vector3(
                 Camera.main.ScreenToWorldPoint(new Vector3(0, 0)).x + 0.75f, position1.y,
                 position1.z);

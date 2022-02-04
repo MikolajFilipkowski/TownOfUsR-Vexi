@@ -23,12 +23,54 @@ namespace TownOfUs.CrewmateRoles.SheriffMod
             var flag2 = role.SheriffKillTimer() == 0f;
             if (!flag2) return false;
             if (!__instance.enabled || role.ClosestPlayer == null) return false;
-            var distBetweenPlayers = Utils.getDistBetweenPlayers(PlayerControl.LocalPlayer, role.ClosestPlayer);
+            var distBetweenPlayers = Utils.GetDistBetweenPlayers(PlayerControl.LocalPlayer, role.ClosestPlayer);
             var flag3 = distBetweenPlayers < GameOptionsData.KillDistances[PlayerControl.GameOptions.KillDistance];
             if (!flag3) return false;
-            if (role.ClosestPlayer.isShielded())
+            if (role.ClosestPlayer.IsOnAlert())
             {
-                var medic = role.ClosestPlayer.getMedic().Player.PlayerId;
+                if (role.ClosestPlayer.IsShielded())
+                {
+                    var medic = role.ClosestPlayer.GetMedic().Player.PlayerId;
+                    var writer1 = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
+                        (byte)CustomRPC.AttemptSound, SendOption.Reliable, -1);
+                    writer1.Write(medic);
+                    writer1.Write(role.ClosestPlayer.PlayerId);
+                    AmongUsClient.Instance.FinishRpcImmediately(writer1);
+
+                    if (CustomGameOptions.ShieldBreaks) role.LastKilled = DateTime.UtcNow;
+
+                    StopKill.BreakShield(medic, role.ClosestPlayer.PlayerId, CustomGameOptions.ShieldBreaks);
+
+                    Utils.RpcMurderPlayer(role.ClosestPlayer, PlayerControl.LocalPlayer);
+                }
+                else if (role.Player.IsShielded())
+                {
+                    var medic = role.Player.GetMedic().Player.PlayerId;
+                    var writer1 = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
+                        (byte)CustomRPC.AttemptSound, SendOption.Reliable, -1);
+                    writer1.Write(medic);
+                    writer1.Write(role.Player.PlayerId);
+                    AmongUsClient.Instance.FinishRpcImmediately(writer1);
+                    if (CustomGameOptions.ShieldBreaks) role.LastKilled = DateTime.UtcNow;
+                    StopKill.BreakShield(medic, role.Player.PlayerId, CustomGameOptions.ShieldBreaks);
+                    Utils.RpcMurderPlayer(PlayerControl.LocalPlayer, PlayerControl.LocalPlayer);
+                    if (CustomGameOptions.SheriffKillOther)
+                        Utils.RpcMurderPlayer(PlayerControl.LocalPlayer, role.ClosestPlayer);
+                }
+                else
+                {
+                    Utils.RpcMurderPlayer(role.ClosestPlayer, PlayerControl.LocalPlayer);
+                    if (CustomGameOptions.KilledOnAlert && CustomGameOptions.SheriffKillOther)
+                    {
+                        Utils.RpcMurderPlayer(PlayerControl.LocalPlayer, role.ClosestPlayer);
+                    }
+                }
+
+                return false;
+            }
+            else if (role.ClosestPlayer.IsShielded())
+            {
+                var medic = role.ClosestPlayer.GetMedic().Player.PlayerId;
                 var writer1 = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
                     (byte) CustomRPC.AttemptSound, SendOption.Reliable, -1);
                 writer1.Write(medic);
@@ -45,6 +87,7 @@ namespace TownOfUs.CrewmateRoles.SheriffMod
             var flag4 = role.ClosestPlayer.Data.IsImpostor() ||
                         role.ClosestPlayer.Is(RoleEnum.Jester) && CustomGameOptions.SheriffKillsJester ||
                         role.ClosestPlayer.Is(RoleEnum.Glitch) && CustomGameOptions.SheriffKillsGlitch ||
+                        role.ClosestPlayer.Is(RoleEnum.Juggernaut) && CustomGameOptions.SheriffKillsGlitch ||
                         role.ClosestPlayer.Is(RoleEnum.Executioner) && CustomGameOptions.SheriffKillsExecutioner ||
                         role.ClosestPlayer.Is(RoleEnum.Arsonist) && CustomGameOptions.SheriffKillsArsonist;
             if (!flag4)
@@ -56,10 +99,8 @@ namespace TownOfUs.CrewmateRoles.SheriffMod
             else
             {
                 Utils.RpcMurderPlayer(PlayerControl.LocalPlayer, role.ClosestPlayer);
+                role.LastKilled = DateTime.UtcNow;
             }
-
-            role.LastKilled = DateTime.UtcNow;
-
             return false;
         }
     }

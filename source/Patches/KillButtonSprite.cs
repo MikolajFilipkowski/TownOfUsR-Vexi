@@ -15,14 +15,14 @@ namespace TownOfUs
     [HarmonyPatch(typeof(HudManager), nameof(HudManager.Update))]
     public class KillButtonSprite
     {
-        private static Sprite Shift => TownOfUs.Shift;
         private static Sprite Rewind => TownOfUs.Rewind;
         private static Sprite Medic => TownOfUs.MedicSprite;
         private static Sprite Seer => TownOfUs.SeerSprite;
         private static Sprite Douse => TownOfUs.DouseSprite;
-
         private static Sprite Revive => TownOfUs.ReviveSprite;
-
+        private static Sprite Alert => TownOfUs.AlertSprite;
+        private static Sprite Remember => TownOfUs.RememberSprite;
+        private static Sprite Track => TownOfUs.TrackSprite;
         private static Sprite Button => TownOfUs.ButtonSprite;
 
 
@@ -31,12 +31,7 @@ namespace TownOfUs
             if (__instance.KillButton == null) return;
 
             var flag = false;
-            if (PlayerControl.LocalPlayer.Is(RoleEnum.Shifter))
-            {
-                __instance.KillButton.graphic.sprite = Shift;
-                flag = true;
-            }
-            else if (PlayerControl.LocalPlayer.Is(RoleEnum.TimeLord))
+            if (PlayerControl.LocalPlayer.Is(RoleEnum.TimeLord))
             {
                 __instance.KillButton.graphic.sprite = Rewind;
                 flag = true;
@@ -59,6 +54,21 @@ namespace TownOfUs
             else if (PlayerControl.LocalPlayer.Is(RoleEnum.Altruist))
             {
                 __instance.KillButton.graphic.sprite = Revive;
+                flag = true;
+            }
+            else if (PlayerControl.LocalPlayer.Is(RoleEnum.Veteran))
+            {
+                __instance.KillButton.graphic.sprite = Alert;
+                flag = true;
+            }
+            else if (PlayerControl.LocalPlayer.Is(RoleEnum.Amnesiac))
+            {
+                __instance.KillButton.graphic.sprite = Remember;
+                flag = true;
+            }
+            else if (PlayerControl.LocalPlayer.Is(RoleEnum.Tracker))
+            {
+                __instance.KillButton.graphic.sprite = Track;
                 flag = true;
             }
             else

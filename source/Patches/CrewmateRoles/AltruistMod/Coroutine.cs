@@ -9,6 +9,7 @@ using TownOfUs.Extensions;
 using TownOfUs.Roles;
 using UnityEngine;
 using Object = UnityEngine.Object;
+using TownOfUs.Roles.Modifiers;
 
 namespace TownOfUs.CrewmateRoles.AltruistMod
 {
@@ -67,9 +68,9 @@ namespace TownOfUs.CrewmateRoles.AltruistMod
 
             if (target != null) Object.Destroy(target.gameObject);
 
-            if (player.isLover() && CustomGameOptions.BothLoversDie)
+            if (player.IsLover() && CustomGameOptions.BothLoversDie)
             {
-                var lover = Role.GetRole<Lover>(player).OtherLover.Player;
+                var lover = Modifier.GetModifier<Lover>(player).OtherLover.Player;
 
                 lover.Revive();
                 Murder.KilledPlayers.Remove(
@@ -96,7 +97,7 @@ namespace TownOfUs.CrewmateRoles.AltruistMod
                 }
 
 
-            if (PlayerControl.LocalPlayer.Data.IsImpostor() || PlayerControl.LocalPlayer.Is(RoleEnum.Glitch))
+            if (PlayerControl.LocalPlayer.Data.IsImpostor() || PlayerControl.LocalPlayer.Is(RoleEnum.Glitch) || PlayerControl.LocalPlayer.Is(RoleEnum.Juggernaut))
             {
                 var gameObj = new GameObject();
                 Arrow = gameObj.AddComponent<ArrowBehaviour>();

@@ -1,6 +1,7 @@
 using System;
 using TownOfUs.Extensions;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace TownOfUs.Roles
 {
@@ -16,7 +17,7 @@ namespace TownOfUs.Roles
             Name = "Swooper";
             ImpostorText = () => "Turn invisible temporarily";
             TaskText = () => "Turn invisible and sneakily kill";
-            Color = Palette.ImpostorRed;
+            Color = Patches.Colors.Impostor;
             RoleType = RoleEnum.Swooper;
             Faction = Faction.Impostors;
         }
@@ -40,9 +41,9 @@ namespace TownOfUs.Roles
             var timeSpan = utcNow - LastSwooped;
             ;
             var num = CustomGameOptions.SwoopCd * 1000f;
-            var flag2 = num - (float)timeSpan.TotalMilliseconds < 0f;
+            var flag2 = num - (float) timeSpan.TotalMilliseconds < 0f;
             if (flag2) return 0;
-            return (num - (float)timeSpan.TotalMilliseconds) / 1000f;
+            return (num - (float) timeSpan.TotalMilliseconds) / 1000f;
         }
 
         public void Swoop()

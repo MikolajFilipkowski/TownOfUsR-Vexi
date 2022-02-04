@@ -18,14 +18,12 @@ namespace TownOfUs.Roles
 
         public List<ArrowBehaviour> HaunterArrows = new List<ArrowBehaviour>();
 
-        public int TasksLeft = int.MaxValue;
-
         public Haunter(PlayerControl player) : base(player)
         {
             Name = "Haunter";
             ImpostorText = () => "";
             TaskText = () => "Complete all your tasks to reveal impostors!";
-            Color = new Color(0.83f, 0.83f, 0.83f, 1f);
+            Color = Patches.Colors.Haunter;
             RoleType = RoleEnum.Haunter;
         }
 
@@ -58,7 +56,7 @@ namespace TownOfUs.Roles
                     HatId = "",
                     SkinId = "",
                     VisorId = "",
-                    _playerName = Player.GetDefaultOutfit()._playerName
+                    _playerName = ""
                 });
             }
             Player.MyRend.color = color;

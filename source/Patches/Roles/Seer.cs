@@ -15,7 +15,7 @@ namespace TownOfUs.Roles
             Name = "Seer";
             ImpostorText = () => "Investigate roles";
             TaskText = () => "Investigate roles and find the Impostor";
-            Color = new Color(1f, 0.8f, 0.5f, 1f);
+            Color = Patches.Colors.Seer;
             RoleType = RoleEnum.Seer;
         }
 

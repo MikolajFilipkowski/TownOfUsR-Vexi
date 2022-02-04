@@ -3,6 +3,7 @@ using HarmonyLib;
 using Hazel;
 using TownOfUs.Roles;
 using UnityEngine;
+using TownOfUs.CrewmateRoles.MedicMod;
 
 namespace TownOfUs.CrewmateRoles.SeerMod
 {
@@ -24,7 +25,28 @@ namespace TownOfUs.CrewmateRoles.SeerMod
                 PlayerControl.LocalPlayer.GetTruePosition()) > maxDistance) return false;
             if (role.ClosestPlayer == null) return false;
             var playerId = role.ClosestPlayer.PlayerId;
+            if (role.ClosestPlayer.IsOnAlert())
+            {
+                if (role.Player.IsShielded())
+                {
+                    var writer2 = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
+                        (byte)CustomRPC.AttemptSound, SendOption.Reliable, -1);
+                    writer2.Write(PlayerControl.LocalPlayer.GetMedic().Player.PlayerId);
+                    writer2.Write(PlayerControl.LocalPlayer.PlayerId);
+                    AmongUsClient.Instance.FinishRpcImmediately(writer2);
 
+                    System.Console.WriteLine(CustomGameOptions.ShieldBreaks + "- shield break");
+                    if (CustomGameOptions.ShieldBreaks)
+                        role.LastInvestigated = DateTime.UtcNow;
+                    StopKill.BreakShield(PlayerControl.LocalPlayer.GetMedic().Player.PlayerId, PlayerControl.LocalPlayer.PlayerId, CustomGameOptions.ShieldBreaks);
+                }
+                else
+                {
+                    Utils.RpcMurderPlayer(role.ClosestPlayer, PlayerControl.LocalPlayer);
+                }
+
+                return false;
+            }
 
             var writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
                 (byte) CustomRPC.Investigate, SendOption.Reliable, -1);

@@ -137,7 +137,7 @@ namespace TownOfUs.CrewmateRoles.HaunterMod
                 if (MeetingHud.Instance) return;
                 if (PlayerControl.LocalPlayer.Data.IsDead) return;
                 if (CustomGameOptions.HaunterCanBeClickedBy == HaunterCanBeClickedBy.ImpsOnly && !PlayerControl.LocalPlayer.Data.IsImpostor()) return;
-                if (CustomGameOptions.HaunterCanBeClickedBy == HaunterCanBeClickedBy.NonCrew && !(PlayerControl.LocalPlayer.Data.IsImpostor() || PlayerControl.LocalPlayer.Is(RoleEnum.Jester) || PlayerControl.LocalPlayer.Is(RoleEnum.Shifter) || PlayerControl.LocalPlayer.Is(RoleEnum.Glitch) || PlayerControl.LocalPlayer.Is(RoleEnum.Executioner) || PlayerControl.LocalPlayer.Is(RoleEnum.Arsonist))) return;
+                if (CustomGameOptions.HaunterCanBeClickedBy == HaunterCanBeClickedBy.NonCrew && !(PlayerControl.LocalPlayer.Data.IsImpostor() || PlayerControl.LocalPlayer.Is(Faction.Neutral))) return;
                 var taskinfos = player.Data.Tasks.ToArray();
                 var tasksLeft = taskinfos.Count(x => !x.Complete);
                 if (tasksLeft <= CustomGameOptions.HaunterTasksRemainingClicked)

@@ -14,6 +14,7 @@ namespace TownOfUs
     public static class GameSettings
     {
         public static bool AllOptions;
+        public static bool LastTab;
 
         /*public static string StringBuild()
         {
@@ -88,9 +89,9 @@ namespace TownOfUs
                 __result = builder.ToString();
 
 
-                if (CustomOption.CustomOption.LobbyTextScroller && __result.Count(c => c == '\n') > 38)
+                if (CustomOption.CustomOption.LobbyTextScroller && AllOptions)
                     __result = __result.Insert(__result.IndexOf('\n'), " (Scroll for more)");
-                else __result = __result.Insert(__result.IndexOf('\n'), "Press Tab to see All Options");
+                else __result = __result.Insert(__result.IndexOf('\n'), "(Press Tab to see all options)");
 
 
                 __result = $"<size=1.25>{__result}</size>";
@@ -102,7 +103,8 @@ namespace TownOfUs
         {
             private static void Postfix()
             {
-                if (Input.GetKeyInt(KeyCode.Tab)) AllOptions = !AllOptions;
+                if (LastTab && !Input.GetKeyInt(KeyCode.Tab)) AllOptions = !AllOptions;
+                LastTab = Input.GetKeyInt(KeyCode.Tab);
 
                 //                HudManager.Instance.GameSettings.scale = 0.5f;
             }

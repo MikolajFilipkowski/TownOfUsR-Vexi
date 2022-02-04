@@ -18,7 +18,7 @@ namespace TownOfUs
             }
 
             var switchSystem = __instance.Systems[SystemTypes.Electrical].Cast<SwitchSystem>();
-            if (player.IsImpostor() || player._object.Is(RoleEnum.Glitch))
+            if (player.IsImpostor() || player._object.Is(RoleEnum.Glitch) || player._object.Is(RoleEnum.Juggernaut))
             {
                 __result = __instance.MaxLightRadius * PlayerControl.GameOptions.ImpostorLightMod;
                 return false;
@@ -28,7 +28,6 @@ namespace TownOfUs
             if (player._object.Is(ModifierEnum.Torch)) t = 1;
             __result = Mathf.Lerp(__instance.MinLightRadius, __instance.MaxLightRadius, t) *
                        PlayerControl.GameOptions.CrewLightMod;
-
             return false;
         }
     }

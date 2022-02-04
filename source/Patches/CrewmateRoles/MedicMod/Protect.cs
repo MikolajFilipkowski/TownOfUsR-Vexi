@@ -16,6 +16,12 @@ namespace TownOfUs.CrewmateRoles.MedicMod
             if (!PlayerControl.LocalPlayer.CanMove) return false;
             if (PlayerControl.LocalPlayer.Data.IsDead) return false;
             if (role.UsedAbility || role.ClosestPlayer == null) return false;
+            if (role.ClosestPlayer.IsOnAlert())
+            {
+                Utils.RpcMurderPlayer(role.ClosestPlayer, PlayerControl.LocalPlayer);
+
+                return false;
+            }
 
             var writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
                 (byte) CustomRPC.Protect, SendOption.Reliable, -1);

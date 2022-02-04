@@ -2,13 +2,12 @@ namespace TownOfUs
 {
     public enum CustomRPC
     {
-        SetJester = 80,
+        SetJester = 100,
         SetCouple,
         SetMayor,
         SetSheriff,
         SetEngineer,
         SetSwapper,
-        SetShifter,
         SetInvestigator,
         SetTimeLord,
         SetMedic,
@@ -25,10 +24,14 @@ namespace TownOfUs
         SetArsonist,
         SetAltruist,
         SetUndertaker,
-        SetAssassin,
         SetUnderdog,
-        SetRetributionist,
+        SetVigilante,
         SetGrenadier,
+        SetVeteran,
+        SetAmnesiac,
+        SetJuggernaut,
+        SetTracker,
+        SetPoisoner,
 
         SetTorch,
         SetDiseased,
@@ -37,6 +40,8 @@ namespace TownOfUs
         SetDrunk,
         SetBigBoi,
         SetButtonBarry,
+        SetBait,
+        SetAssassin,
 
         SetPhantom,
         PhantomDied,
@@ -52,12 +57,14 @@ namespace TownOfUs
 
         LoveWin,
         GlitchWin,
+        JuggernautWin,
         ArsonistWin,
         PhantomWin,
         JesterLose,
         ExecutionerLose,
-        ShifterLose,
+        AmnesiacLose,
         GlitchLose,
+        JuggernautLose,
         ArsonistLose,
         NobodyWins,
         PhantomLose,
@@ -67,7 +74,6 @@ namespace TownOfUs
         EngineerFix,
         SetExtraVotes,
         SetSwaps,
-        Shift,
         Protect,
         AttemptSound,
         Investigate,
@@ -84,9 +90,12 @@ namespace TownOfUs
         Drag,
         Drop,
         AssassinKill,
-        RetributionistKill,
+        VigilanteKill,
         HaunterFinished,
         FlashGrenade,
+        Alert,
+        Remember,
+        Track,
 
         SetGlitch,
         BypassKill,
@@ -96,10 +105,11 @@ namespace TownOfUs
 
         ExecutionerToJester,
 
+
         Start,
         SyncCustomSettings,
         FixAnimation,
-
+        
         AddMayorVoteBank
     }
 }

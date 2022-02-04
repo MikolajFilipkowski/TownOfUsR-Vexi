@@ -20,7 +20,7 @@ namespace TownOfUs.CrewmateRoles.SnitchMod
 
             var tasksLeft = taskinfos.Count(x => !x.Complete);
             var role = Role.GetRole<Snitch>(__instance);
-            role.TasksLeft = tasksLeft;
+            var localRole = Role.GetRole(PlayerControl.LocalPlayer);
             switch (tasksLeft)
             {
                 case 1:
@@ -28,7 +28,6 @@ namespace TownOfUs.CrewmateRoles.SnitchMod
                 case 3:
                 case 4:
                 case 5:
-
                     if (tasksLeft == CustomGameOptions.SnitchTasksRemaining)
                     {
                         role.RegenTask();
@@ -36,7 +35,7 @@ namespace TownOfUs.CrewmateRoles.SnitchMod
                         {
                             Coroutines.Start(Utils.FlashCoroutine(role.Color));
                         }
-                        else if (PlayerControl.LocalPlayer.Data.IsImpostor() || (PlayerControl.LocalPlayer.Is(RoleEnum.Glitch) && CustomGameOptions.SnitchSeesNeutrals))
+                        else if (PlayerControl.LocalPlayer.Data.IsImpostor() || ((PlayerControl.LocalPlayer.Is(RoleEnum.Glitch) || PlayerControl.LocalPlayer.Is(RoleEnum.Juggernaut)) && CustomGameOptions.SnitchSeesNeutrals))
                         {
                             Coroutines.Start(Utils.FlashCoroutine(role.Color));
                             var gameObj = new GameObject();
@@ -70,7 +69,7 @@ namespace TownOfUs.CrewmateRoles.SnitchMod
                             role.SnitchTargets.Add(imp);
                         }
                     }
-                    else if (PlayerControl.LocalPlayer.Data.IsImpostor() || (PlayerControl.LocalPlayer.Is(RoleEnum.Glitch) && CustomGameOptions.SnitchSeesNeutrals))
+                    else if (PlayerControl.LocalPlayer.Data.IsImpostor() || ((PlayerControl.LocalPlayer.Is(RoleEnum.Glitch) || PlayerControl.LocalPlayer.Is(RoleEnum.Juggernaut)) && CustomGameOptions.SnitchSeesNeutrals))
                     {
                         Coroutines.Start(Utils.FlashCoroutine(Color.green));
                     }

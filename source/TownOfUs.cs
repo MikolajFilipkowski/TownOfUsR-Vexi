@@ -19,7 +19,7 @@ using UnityEngine.SceneManagement;
 
 namespace TownOfUs
 {
-    [BepInPlugin(Id, "Town Of Us", "2.4.2")]
+    [BepInPlugin(Id, "Town Of Us", "2.5.0")]
     [BepInDependency(ReactorPlugin.Id)]
     public class TownOfUs : BasePlugin
     {
@@ -29,11 +29,9 @@ namespace TownOfUs
         public static Sprite EngineerFix;
         public static Sprite SwapperSwitch;
         public static Sprite SwapperSwitchDisabled;
-        public static Sprite Shift;
         public static Sprite Footprint;
         public static Sprite Rewind;
         public static Sprite NormalKill;
-        public static Sprite ShiftKill;
         public static Sprite MedicSprite;
         public static Sprite SeerSprite;
         public static Sprite SampleSprite;
@@ -47,7 +45,6 @@ namespace TownOfUs
         public static Sprite IgniteSprite;
         public static Sprite ReviveSprite;
         public static Sprite ButtonSprite;
-        public static Sprite PolusSprite;
         public static Sprite CycleSprite;
         public static Sprite GuessSprite;
         public static Sprite DragSprite;
@@ -56,6 +53,13 @@ namespace TownOfUs
         public static Sprite SettingsButtonSprite;
 
         public static Vector3 ButtonPosition { get; private set; } = new Vector3(2.6f, 0.7f, -9f);
+        public static Sprite AlertSprite;
+        public static Sprite RememberSprite;
+        public static Sprite TrackSprite;
+        public static Sprite PoisonSprite;
+        public static Sprite PoisonedSprite;
+
+        public static Sprite ToUBanner;
 
         private static DLoadImage _iCallLoadImage;
 
@@ -78,11 +82,9 @@ namespace TownOfUs
             EngineerFix = CreateSprite("TownOfUs.Resources.Engineer.png");
             SwapperSwitch = CreateSprite("TownOfUs.Resources.SwapperSwitch.png");
             SwapperSwitchDisabled = CreateSprite("TownOfUs.Resources.SwapperSwitchDisabled.png");
-            Shift = CreateSprite("TownOfUs.Resources.Shift.png");
             Footprint = CreateSprite("TownOfUs.Resources.Footprint.png");
             Rewind = CreateSprite("TownOfUs.Resources.Rewind.png");
             NormalKill = CreateSprite("TownOfUs.Resources.NormalKill.png");
-            ShiftKill = CreateSprite("TownOfUs.Resources.ShiftKill.png");
             MedicSprite = CreateSprite("TownOfUs.Resources.Medic.png");
             SeerSprite = CreateSprite("TownOfUs.Resources.Seer.png");
             SampleSprite = CreateSprite("TownOfUs.Resources.Sample.png");
@@ -98,15 +100,21 @@ namespace TownOfUs
             ButtonSprite = CreateSprite("TownOfUs.Resources.Button.png");
             DragSprite = CreateSprite("TownOfUs.Resources.Drag.png");
             DropSprite = CreateSprite("TownOfUs.Resources.Drop.png");
-            PolusSprite = CreateSprite("TownOfUs.Resources.polus.gg.png");
             CycleSprite = CreateSprite("TownOfUs.Resources.Cycle.png");
             GuessSprite = CreateSprite("TownOfUs.Resources.Guess.png");
             FlashSprite = CreateSprite("TownOfUs.Resources.Flash.png");
             SettingsButtonSprite = CreateSprite("TownOfUs.Resources.SettingsButton.png");
+            AlertSprite = CreateSprite("TownOfUs.Resources.Alert.png");
+            RememberSprite = CreateSprite("TownOfUs.Resources.Remember.png");
+            TrackSprite = CreateSprite("TownOfUs.Resources.Track.png");
+            PoisonSprite = CreateSprite("TownOfUs.Resources.Poison.png");
+            PoisonedSprite = CreateSprite("TownOfUs.Resources.Poisoned.png");
+
+            ToUBanner = CreateSprite("TownOfUs.Resources.TownOfUsBanner.png");
 
             PalettePatch.Load();
             ClassInjector.RegisterTypeInIl2Cpp<RainbowBehaviour>();
-             
+
             // RegisterInIl2CppAttribute.Register();
 
             Ip = Config.Bind("Custom", "Ipv4 or Hostname", "127.0.0.1");

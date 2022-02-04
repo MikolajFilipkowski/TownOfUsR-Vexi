@@ -43,10 +43,11 @@ namespace TownOfUs
                 || player.Is(RoleEnum.Swooper) && !CustomGameOptions.SwooperVent
                 || player.Is(RoleEnum.Grenadier) && !CustomGameOptions.GrenadierVent
                 || player.Is(RoleEnum.Undertaker) && !CustomGameOptions.UndertakerVent
+                || player.Is(RoleEnum.Poisoner) && !CustomGameOptions.PoisonerVent
                 || (player.Is(RoleEnum.Undertaker) && Role.GetRole<Undertaker>(player).CurrentlyDragging != null && !CustomGameOptions.UndertakerVentWithBody))
                 return false;
 
-            if (player.Is(RoleEnum.Engineer) || (player.roleAssigned && playerInfo.Role?.Role == RoleTypes.Engineer)|| (player.Is(RoleEnum.Glitch) && CustomGameOptions.GlitchVent))
+            if (player.Is(RoleEnum.Engineer) || (player.roleAssigned && playerInfo.Role?.Role == RoleTypes.Engineer)|| (player.Is(RoleEnum.Glitch) && CustomGameOptions.GlitchVent) || (player.Is(RoleEnum.Juggernaut) && CustomGameOptions.GlitchVent))
                 return true;
 
             return playerInfo.IsImpostor();

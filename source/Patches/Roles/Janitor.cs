@@ -9,7 +9,7 @@ namespace TownOfUs.Roles
             Name = "Janitor";
             ImpostorText = () => "Clean up bodies";
             TaskText = () => "Clean bodies to prevent Crewmates from discovering them.";
-            Color = Palette.ImpostorRed;
+            Color = Patches.Colors.Impostor;
             RoleType = RoleEnum.Janitor;
             Faction = Faction.Impostors;
         }

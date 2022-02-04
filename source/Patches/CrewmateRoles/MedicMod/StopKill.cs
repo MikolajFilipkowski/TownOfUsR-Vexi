@@ -37,39 +37,6 @@ namespace TownOfUs.CrewmateRoles.MedicMod
 
             player.myRend.material.SetColor("_VisorColor", Palette.VisorColor);
             player.myRend.material.SetFloat("_Outline", 0f);
-            //System.Console.WriteLine("Broke " + player.name + "'s shield");
-        }
-
-        [HarmonyPriority(Priority.First)]
-        public static bool Prefix(KillButton __instance)
-        {
-            if (__instance != DestroyableSingleton<HudManager>.Instance.KillButton) return true;
-            if (!PlayerControl.LocalPlayer.Data.IsImpostor()) return true;
-            var target = __instance.currentTarget;
-            if (target == null) return true;
-            if (target.isShielded())
-            {
-                if (__instance.isActiveAndEnabled && !__instance.isCoolingDown)
-                {
-                    var writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
-                        (byte) CustomRPC.AttemptSound, SendOption.Reliable, -1);
-                    writer.Write(target.getMedic().Player.PlayerId);
-                    writer.Write(target.PlayerId);
-                    AmongUsClient.Instance.FinishRpcImmediately(writer);
-
-                    System.Console.WriteLine(CustomGameOptions.ShieldBreaks + "- shield break");
-                    if (CustomGameOptions.ShieldBreaks)
-                        PlayerControl.LocalPlayer.SetKillTimer(PlayerControl.GameOptions.KillCooldown);
-
-                    BreakShield(target.getMedic().Player.PlayerId, target.PlayerId, CustomGameOptions.ShieldBreaks);
-                }
-
-
-                return false;
-            }
-
-
-            return true;
         }
     }
 }

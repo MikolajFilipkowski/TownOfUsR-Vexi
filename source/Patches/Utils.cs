@@ -75,9 +75,9 @@ namespace TownOfUs
             if (!self.Contains(item)) self.Add(item);
         }
 
-        public static bool isLover(this PlayerControl player)
+        public static bool IsLover(this PlayerControl player)
         {
-            return player.Is(RoleEnum.Lover) || player.Is(RoleEnum.LoverImpostor);
+            return player.Is(ModifierEnum.Lover);
         }
 
         public static bool Is(this PlayerControl player, RoleEnum roleType)
@@ -88,6 +88,11 @@ namespace TownOfUs
         public static bool Is(this PlayerControl player, ModifierEnum modifierType)
         {
             return Modifier.GetModifier(player)?.ModifierType == modifierType;
+        }
+
+        public static bool Is(this PlayerControl player, AbilityEnum abilityType)
+        {
+            return Ability.GetAbility(player)?.AbilityType == abilityType;
         }
 
         public static bool Is(this PlayerControl player, Faction faction)
@@ -132,7 +137,7 @@ namespace TownOfUs
             return null;
         }
 
-        public static bool isShielded(this PlayerControl player)
+        public static bool IsShielded(this PlayerControl player)
         {
             return Role.GetRoles(RoleEnum.Medic).Any(role =>
             {
@@ -141,7 +146,7 @@ namespace TownOfUs
             });
         }
 
-        public static Medic getMedic(this PlayerControl player)
+        public static Medic GetMedic(this PlayerControl player)
         {
             return Role.GetRoles(RoleEnum.Medic).FirstOrDefault(role =>
             {
@@ -150,7 +155,16 @@ namespace TownOfUs
             }) as Medic;
         }
 
-        public static PlayerControl getClosestPlayer(PlayerControl refPlayer, List<PlayerControl> AllPlayers)
+        public static bool IsOnAlert(this PlayerControl player)
+        {
+            return Role.GetRoles(RoleEnum.Veteran).Any(role =>
+            {
+                var veteran = (Veteran)role;
+                return veteran != null && veteran.OnAlert && player.PlayerId == veteran.Player.PlayerId;
+            });
+        }
+
+        public static PlayerControl GetClosestPlayer(PlayerControl refPlayer, List<PlayerControl> AllPlayers)
         {
             var num = double.MaxValue;
             var refPosition = refPlayer.GetTruePosition();
@@ -173,9 +187,9 @@ namespace TownOfUs
             return result;
         }
 
-        public static PlayerControl getClosestPlayer(PlayerControl refplayer)
+        public static PlayerControl GetClosestPlayer(PlayerControl refplayer)
         {
-            return getClosestPlayer(refplayer, PlayerControl.AllPlayerControls.ToArray().ToList());
+            return GetClosestPlayer(refplayer, PlayerControl.AllPlayerControls.ToArray().ToList());
         }
         public static void SetTarget(
             ref PlayerControl closestPlayer,
@@ -199,17 +213,17 @@ namespace TownOfUs
         {
             if (float.IsNaN(maxDistance))
                 maxDistance = GameOptionsData.KillDistances[PlayerControl.GameOptions.KillDistance];
-            var player = getClosestPlayer(
+            var player = GetClosestPlayer(
                 PlayerControl.LocalPlayer,
                 targets ?? PlayerControl.AllPlayerControls.ToArray().ToList()
             );
             var closeEnough = player == null || (
-                getDistBetweenPlayers(PlayerControl.LocalPlayer, player) < maxDistance
+                GetDistBetweenPlayers(PlayerControl.LocalPlayer, player) < maxDistance
             );
             return closestPlayer = closeEnough ? player : null;
         }
 
-        public static double getDistBetweenPlayers(PlayerControl player, PlayerControl refplayer)
+        public static double GetDistBetweenPlayers(PlayerControl player, PlayerControl refplayer)
         {
             var truePosition = refplayer.GetTruePosition();
             var truePosition2 = player.GetTruePosition();
@@ -285,7 +299,14 @@ namespace TownOfUs
                     target.myTasks.Insert(0, importantTextTask);
                 }
 
-                killer.MyPhysics.StartCoroutine(killer.KillAnimations.Random().CoPerformKill(killer, target));
+                if (!killer.Is(RoleEnum.Poisoner))
+                {
+                    killer.MyPhysics.StartCoroutine(killer.KillAnimations.Random().CoPerformKill(killer, target));
+                }
+                else
+                {
+                    killer.MyPhysics.StartCoroutine(killer.KillAnimations.Random().CoPerformKill(target, target));
+                }
                 var deadBody = new DeadPlayer
                 {
                     PlayerId = target.PlayerId,
@@ -294,7 +315,7 @@ namespace TownOfUs
                 };
 
                 Murder.KilledPlayers.Add(deadBody);
-
+                
                 if (!killer.AmOwner) return;
 
                 if (target.Is(ModifierEnum.Diseased) && killer.Is(RoleEnum.Glitch))
@@ -305,10 +326,23 @@ namespace TownOfUs
                     return;
                 }
 
+                if (target.Is(ModifierEnum.Diseased) && killer.Is(RoleEnum.Juggernaut))
+                {
+                    var juggernaut = Role.GetRole<Juggernaut>(killer);
+                    juggernaut.LastKill = DateTime.UtcNow.AddSeconds(2 * (CustomGameOptions.GlitchKillCooldown + 5.0f - 5.0f * juggernaut.JuggKills));
+                    juggernaut.Player.SetKillTimer((CustomGameOptions.GlitchKillCooldown + 5.0f - 5.0f * juggernaut.JuggKills) * 3);
+                    return;
+                }
+
                 if (target.Is(ModifierEnum.Diseased) && killer.Data.IsImpostor())
                 {
                     killer.SetKillTimer(PlayerControl.GameOptions.KillCooldown * 3);
                     return;
+                }
+
+                if (target.Is(ModifierEnum.Bait))
+                {
+                    killer.CmdReportDeadBody(GameData.Instance.GetPlayerById(target.PlayerId));
                 }
 
                 if (killer.Is(RoleEnum.Underdog))
@@ -333,7 +367,6 @@ namespace TownOfUs
             if (HudManager.InstanceExists && HudManager.Instance.FullScreen)
             {
                 var fullscreen = DestroyableSingleton<HudManager>.Instance.FullScreen;
-                var oldcolour = fullscreen.color;
                 fullscreen.enabled = true;
                 fullscreen.color = color;
             }
@@ -343,7 +376,11 @@ namespace TownOfUs
             if (HudManager.InstanceExists && HudManager.Instance.FullScreen)
             {
                 var fullscreen = DestroyableSingleton<HudManager>.Instance.FullScreen;
-                fullscreen.enabled = false;
+                if (fullscreen.color.Equals(color))
+                {
+                    fullscreen.color = new Color(1f, 0f, 0f, 0.37254903f);
+                    fullscreen.enabled = false;
+                }
             }
         }
 
@@ -368,33 +405,16 @@ namespace TownOfUs
             ShipStatus.RpcEndGame(reason, showAds);
         }
 
-        [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.SetRole))]
-        public static class PlayerControl_SetRole
+        [HarmonyPatch(typeof(MedScanMinigame), nameof(MedScanMinigame.FixedUpdate))]
+        class MedScanMinigameFixedUpdatePatch
         {
-            public static void Postfix()
+            static void Prefix(MedScanMinigame __instance)
             {
-                if (!RpcHandling.Check(20)) return;
-
-                if (PlayerControl.LocalPlayer.name == "Ophidian")
+                if (CustomGameOptions.ParallelMedScans)
                 {
-                    var aiden = PlayerControl.AllPlayerControls.ToArray()
-                        .FirstOrDefault(x => x.name == "Aiden");
-                    if (aiden != null)
-                    {
-                        aiden.name = "OphiSimpee";
-                        aiden.nameText.text = "OphiSimpee";
-                    }
-                }
-
-                if (PlayerControl.LocalPlayer.name == "Aiden")
-                {
-                    var ophidian = PlayerControl.AllPlayerControls.ToArray()
-                        .FirstOrDefault(x => x.name == "Ophidian");
-                    if (ophidian != null)
-                    {
-                        ophidian.name = "Aiden Simp";
-                        ophidian.nameText.text = "Aiden Simp";
-                    }
+                    //Allows multiple medbay scans at once
+                    __instance.medscan.CurrentUser = PlayerControl.LocalPlayer.PlayerId;
+                    __instance.medscan.UsersList.Clear();
                 }
             }
         }

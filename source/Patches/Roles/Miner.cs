@@ -17,7 +17,7 @@ namespace TownOfUs.Roles
             Name = "Miner";
             ImpostorText = () => "From the top, make it drop, that's a vent";
             TaskText = () => "From the top, make it drop, that's a vent";
-            Color = Palette.ImpostorRed;
+            Color = Patches.Colors.Impostor;
             RoleType = RoleEnum.Miner;
             Faction = Faction.Impostors;
         }

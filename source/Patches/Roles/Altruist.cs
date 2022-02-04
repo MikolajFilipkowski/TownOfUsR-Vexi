@@ -14,7 +14,7 @@ namespace TownOfUs.Roles
             Name = "Altruist";
             ImpostorText = () => "Sacrifice yourself to save another";
             TaskText = () => "Revive a dead body at the cost of your own life.";
-            Color = new Color(0.4f, 0f, 0f, 1f);
+            Color = Patches.Colors.Altruist;
             RoleType = RoleEnum.Altruist;
         }
     }

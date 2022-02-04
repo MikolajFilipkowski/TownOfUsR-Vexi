@@ -14,7 +14,7 @@ namespace TownOfUs.Roles
             Name = "Jester";
             ImpostorText = () => "Get voted out";
             TaskText = () => "Get voted out!\nFake Tasks:";
-            Color = new Color(1f, 0.75f, 0.8f, 1f);
+            Color = Patches.Colors.Jester;
             RoleType = RoleEnum.Jester;
             Faction = Faction.Neutral;
         }
