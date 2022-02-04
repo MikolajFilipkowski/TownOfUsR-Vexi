@@ -131,6 +131,7 @@ namespace TownOfUs.NeutralRoles.AmnesiacMod
             {
                 new Impostor(other);
                 amnesiac.Data.Role.TeamType = RoleTeamTypes.Impostor;
+                RoleManager.Instance.SetRole(amnesiac, RoleTypes.Impostor);
                 amnesiac.SetKillTimer(PlayerControl.GameOptions.KillCooldown);
                 foreach (var player in PlayerControl.AllPlayerControls)
                 {
