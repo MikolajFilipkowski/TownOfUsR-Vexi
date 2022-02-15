@@ -16,6 +16,7 @@ namespace TownOfUs.Roles
             TaskText = () => "Revive a dead body at the cost of your own life.";
             Color = Patches.Colors.Altruist;
             RoleType = RoleEnum.Altruist;
+            AddToRoleHistory(RoleType);
         }
     }
 }

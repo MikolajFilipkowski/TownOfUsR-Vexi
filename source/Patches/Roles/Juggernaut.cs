@@ -16,6 +16,7 @@ namespace TownOfUs.Roles
             LastKill = DateTime.UtcNow;
             KillTarget = null;
             RoleType = RoleEnum.Juggernaut;
+            AddToRoleHistory(RoleType);
             ImpostorText = () => "With each kill your kill cooldown decreases";
             TaskText = () => "Your power grows with every kill!";
             Faction = Faction.Neutral;

@@ -13,12 +13,14 @@ using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 using TownOfUs.Extensions;
 using Reactor;
+using TownOfUs.ImpostorRoles.TraitorMod;
 
 namespace TownOfUs.Roles
 {
     public abstract class Role
     {
         public static readonly Dictionary<byte, Role> RoleDictionary = new Dictionary<byte, Role>();
+        public static readonly List<KeyValuePair<byte, RoleEnum>> RoleHistory = new List<KeyValuePair<byte, RoleEnum>>();
 
         public static bool NobodyWins;
 
@@ -65,20 +67,6 @@ namespace TownOfUs.Roles
 
         protected internal Faction Faction { get; set; } = Faction.Crewmates;
 
-        protected internal Color FactionColor
-        {
-            get
-            {
-                return Faction switch
-                {
-                    Faction.Crewmates => Color.green,
-                    Faction.Impostors => Color.red,
-                    Faction.Neutral => CustomGameOptions.NeutralRed ? Color.red : Color.grey,
-                    _ => Color.white
-                };
-            }
-        }
-
         public static uint NetId => PlayerControl.LocalPlayer.NetId;
         public string PlayerName { get; set; }
 
@@ -87,6 +75,11 @@ namespace TownOfUs.Roles
         private bool Equals(Role other)
         {
             return Equals(Player, other.Player) && RoleType == other.RoleType;
+        }
+
+        public void AddToRoleHistory(RoleEnum role)
+        {
+            RoleHistory.Add(KeyValuePair.Create(_player.PlayerId, role));
         }
 
         public override bool Equals(object obj)
@@ -150,7 +143,7 @@ namespace TownOfUs.Roles
 
         internal virtual bool RoleCriteria()
         {
-            return false;
+            return PlayerControl.LocalPlayer.Is(ModifierEnum.Sleuth) && Modifier.GetModifier<Sleuth>(PlayerControl.LocalPlayer).Reported.Contains(Player.PlayerId);
         }
 
         protected virtual void IntroPrefix(IntroCutscene._CoBegin_d__18 __instance)
@@ -218,8 +211,13 @@ namespace TownOfUs.Roles
                     PlayerName += $" {modifier.GetColoredSymbol()}";
             }
 
-            if(revealTasks && (Faction == Faction.Crewmates || RoleType == RoleEnum.Phantom))
-                PlayerName += $" ({TotalTasks - TasksLeft}/{TotalTasks})";
+            if (revealTasks && (Faction == Faction.Crewmates || RoleType == RoleEnum.Phantom))
+            {
+                if ((PlayerControl.LocalPlayer.Data.IsDead && CustomGameOptions.SeeTasksWhenDead) || (MeetingHud.Instance && CustomGameOptions.SeeTasksDuringMeeting) || (!PlayerControl.LocalPlayer.Data.IsDead && !MeetingHud.Instance && CustomGameOptions.SeeTasksDuringRound))
+                {
+                    PlayerName += $" ({TotalTasks - TasksLeft}/{TotalTasks})";
+                }
+            }
 
             if (player != null && (MeetingHud.Instance.state == MeetingHud.VoteStates.Proceeding ||
                                    MeetingHud.Instance.state == MeetingHud.VoteStates.Results)) return PlayerName;
@@ -476,9 +474,16 @@ namespace TownOfUs.Roles
                     var roleIsEnd = role.EABBNOODFGL(__instance);
                     var modifier = Modifier.GetModifier(role.Player);
                     bool modifierIsEnd = true;
+                    var alives = PlayerControl.AllPlayerControls.ToArray().Where(x => !x.Data.IsDead && !x.Data.Disconnected).ToList();
+                    var impsAlive = PlayerControl.AllPlayerControls.ToArray().Where(x => !x.Data.IsDead && !x.Data.Disconnected && x.Data.IsImpostor()).ToList();
+                    var traitorIsEnd = true;
+                    if (SetTraitor.WillBeTraitor != null)
+                    {
+                        traitorIsEnd = SetTraitor.WillBeTraitor.Data.IsDead || SetTraitor.WillBeTraitor.Data.Disconnected || alives.Count < CustomGameOptions.LatestSpawn || impsAlive.Count * 2 >= alives.Count;
+                    }
                     if (modifier != null)
                         modifierIsEnd = modifier.EABBNOODFGL(__instance);
-                    if (!roleIsEnd || !modifierIsEnd) result = false;
+                    if (!roleIsEnd || !modifierIsEnd || !traitorIsEnd) result = false;
                 }
 
                 if (!NobodyEndCriteria(__instance)) result = false;
@@ -499,10 +504,11 @@ namespace TownOfUs.Roles
                 }
                 foreach (var role in AllRoles.Where(x => x.RoleType == RoleEnum.Tracker))
                 {
-                    ((Tracker)role).TrackerArrows.DestroyAll();
+                    ((Tracker)role).DestroyAllArrows();
                 }
 
                 RoleDictionary.Clear();
+                RoleHistory.Clear();
                 Modifier.ModifierDictionary.Clear();
                 Ability.AbilityDictionary.Clear();
                 Lights.SetLights(Color.white);

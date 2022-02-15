@@ -11,6 +11,7 @@ namespace TownOfUs.Roles
             TaskText = () => "Spy on people and find the Impostors";
             Color = Patches.Colors.Spy;
             RoleType = RoleEnum.Spy;
+            AddToRoleHistory(RoleType);
         }
     }
 }

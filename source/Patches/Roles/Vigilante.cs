@@ -23,6 +23,7 @@ namespace TownOfUs.Roles
             TaskText = () => "Guess the roles of impostors mid-meeting to kill them!";
             Color = Patches.Colors.Vigilante;
             RoleType = RoleEnum.Vigilante;
+            AddToRoleHistory(RoleType);
 
             RemainingKills = CustomGameOptions.VigilanteKills;
 
@@ -38,6 +39,7 @@ namespace TownOfUs.Roles
             if (CustomGameOptions.UnderdogOn > 0) ColorMapping.Add("Underdog", Colors.Impostor);
             if (CustomGameOptions.GrenadierOn > 0) ColorMapping.Add("Grenadier", Colors.Impostor);
             if (CustomGameOptions.PoisonerOn > 0) ColorMapping.Add("Poisoner", Colors.Impostor);
+            if (CustomGameOptions.TraitorOn > 0) ColorMapping.Add("Traitor", Colors.Impostor);
             // Add Neutral roles if enabled
             if (CustomGameOptions.VigilanteGuessNeutrals)
             {

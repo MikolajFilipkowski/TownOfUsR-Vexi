@@ -16,6 +16,7 @@ namespace TownOfUs.Roles
             TaskText = () => "Get voted out!\nFake Tasks:";
             Color = Patches.Colors.Jester;
             RoleType = RoleEnum.Jester;
+            AddToRoleHistory(RoleType);
             Faction = Faction.Neutral;
         }
 

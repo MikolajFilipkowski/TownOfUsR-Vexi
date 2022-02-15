@@ -21,6 +21,7 @@ namespace TownOfUs.Roles
             TaskText = () => "Poison the crewmates";
             Color = Palette.ImpostorRed;
             RoleType = RoleEnum.Poisoner;
+            AddToRoleHistory(RoleType);
             Faction = Faction.Impostors;
             PoisonedPlayer = null;
         }

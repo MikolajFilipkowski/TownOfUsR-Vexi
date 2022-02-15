@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using TownOfUs.Extensions;
+using UnityEngine;
 
 namespace TownOfUs.Patches
 {
@@ -12,7 +13,11 @@ namespace TownOfUs.Patches
         {
             foreach (var player in PlayerControl.AllPlayerControls.ToArray())
             {
-                player.transform.localScale = player.GetAppearance().SizeFactor;
+                if (!player.Data.IsDead)
+                    player.transform.localScale = player.GetAppearance().SizeFactor;
+                else
+                    player.transform.localScale = new Vector3(0.7f, 0.7f, 1.0f);
+
             }
 
             // This was previously commented out, so I converted it and left it disabled.

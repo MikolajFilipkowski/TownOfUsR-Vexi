@@ -14,6 +14,7 @@ namespace TownOfUs.Roles
             TaskText = () => "Save your votes to vote multiple times";
             Color = Patches.Colors.Mayor;
             RoleType = RoleEnum.Mayor;
+            AddToRoleHistory(RoleType);
             VoteBank = CustomGameOptions.MayorVoteBank;
         }
 

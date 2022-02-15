@@ -10,6 +10,7 @@ namespace TownOfUs.Roles
             Hidden = true;
             Faction = Faction.Impostors;
             RoleType = RoleEnum.Impostor;
+            AddToRoleHistory(RoleType);
             Color = Palette.ImpostorRed;
         }
     }
@@ -22,6 +23,7 @@ namespace TownOfUs.Roles
             Hidden = true;
             Faction = Faction.Crewmates;
             RoleType = RoleEnum.Crewmate;
+            AddToRoleHistory(RoleType);
             Color = Patches.Colors.Crewmate;
         }
     }

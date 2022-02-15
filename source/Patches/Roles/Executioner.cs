@@ -20,6 +20,7 @@ namespace TownOfUs.Roles
                     : $"Vote {target.name} out\nFake Tasks:";
             Color = Patches.Colors.Executioner;
             RoleType = RoleEnum.Executioner;
+            AddToRoleHistory(RoleType);
             Faction = Faction.Neutral;
             Scale = 1.4f;
         }

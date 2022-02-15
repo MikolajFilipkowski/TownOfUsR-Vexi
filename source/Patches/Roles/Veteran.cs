@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using TMPro;
 
 namespace TownOfUs.Roles
 {
@@ -9,15 +10,22 @@ namespace TownOfUs.Roles
         public DateTime LastAlerted;
         public float TimeRemaining;
 
+        public int UsesLeft;
+        public TextMeshPro UsesText;
+
+        public bool ButtonUsable => UsesLeft != 0;
+
         public Veteran(PlayerControl player) : base(player)
         {
             Name = "Veteran";
             ImpostorText = () => "Alert to kill whoever interacts with you";
-            TaskText = () => "You have " + RemainingAlerts + " alerts left";
+            TaskText = () => "You have " + UsesLeft + " alerts left";
             Color = Patches.Colors.Veteran;
             RoleType = RoleEnum.Veteran;
+            AddToRoleHistory(RoleType);
 
-            RemainingAlerts = CustomGameOptions.MaxAlerts;
+            UsesLeft = CustomGameOptions.MaxAlerts;
+            if (UsesLeft == 0) UsesLeft = -1;
         }
 
         public bool OnAlert => TimeRemaining > 0f;
@@ -45,7 +53,5 @@ namespace TownOfUs.Roles
             Enabled = false;
             LastAlerted = DateTime.UtcNow;
         }
-
-        public int RemainingAlerts { get; set; }
     }
 }

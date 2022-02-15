@@ -12,6 +12,7 @@ namespace TownOfUs.Roles
             TaskText = () => "Kill off the impostor but don't kill crewmates.";
             Color = Patches.Colors.Sheriff;
             RoleType = RoleEnum.Sheriff;
+            AddToRoleHistory(RoleType);
         }
 
         public PlayerControl ClosestPlayer;

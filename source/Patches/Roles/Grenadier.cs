@@ -24,6 +24,7 @@ namespace TownOfUs.Roles
             TaskText = () => "Blind the crewmates to get sneaky kills";
             Color = Patches.Colors.Impostor;
             RoleType = RoleEnum.Grenadier;
+            AddToRoleHistory(RoleType);
             Faction = Faction.Impostors;
         }
 
@@ -175,7 +176,7 @@ namespace TownOfUs.Roles
         public static Il2CppSystem.Collections.Generic.List<PlayerControl> FindClosestPlayers(PlayerControl player)
         {
             Il2CppSystem.Collections.Generic.List<PlayerControl> playerControlList = new Il2CppSystem.Collections.Generic.List<PlayerControl>();
-            float impostorLightMod = PlayerControl.GameOptions.ImpostorLightMod;
+            float flashRadius = CustomGameOptions.FlashRadius * 5;
             Vector2 truePosition = player.GetTruePosition();
             Il2CppSystem.Collections.Generic.List<GameData.PlayerInfo> allPlayers = GameData.Instance.AllPlayers;
             for (int index = 0; index < allPlayers.Count; ++index)
@@ -185,7 +186,7 @@ namespace TownOfUs.Roles
                 {
                     Vector2 vector2 = new Vector2(playerInfo.Object.GetTruePosition().x - truePosition.x, playerInfo.Object.GetTruePosition().y - truePosition.y);
                     float magnitude = ((Vector2) vector2).magnitude;
-                    if (magnitude <= impostorLightMod * 5)
+                    if (magnitude <= flashRadius)
                     {
                         PlayerControl playerControl = playerInfo.Object;
                         playerControlList.Add(playerControl);

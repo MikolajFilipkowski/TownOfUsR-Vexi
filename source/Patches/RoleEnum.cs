@@ -23,6 +23,7 @@ namespace TownOfUs
         Amnesiac,
         Juggernaut,
         Tracker,
+        Transporter,
 
         Miner,
         Swooper,
@@ -33,6 +34,7 @@ namespace TownOfUs
         Underdog,
         Grenadier,
         Poisoner,
+        Traitor,
 
 
         Glitch,
@@ -52,7 +54,8 @@ namespace TownOfUs
         Drunk,
         BigBoi,
         ButtonBarry,
-        Bait
+        Bait,
+        Sleuth
     }
 
     public enum AbilityEnum

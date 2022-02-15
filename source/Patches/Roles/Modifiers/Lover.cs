@@ -5,7 +5,7 @@ using TownOfUs.Patches;
 using TownOfUs.Roles.Modifiers;
 using UnityEngine;
 
-namespace TownOfUs.Roles
+namespace TownOfUs.Roles.Modifiers
 {
     public class Lover : Modifier
     {
@@ -42,7 +42,7 @@ namespace TownOfUs.Roles
             {
                 if (player.Is(Faction.Impostors))
                     impostors.Add(player);
-                else if(player.Is(Faction.Crewmates)||(player.Is(Faction.Neutral) && !player.Is(RoleEnum.Glitch) && !player.Is(RoleEnum.Juggernaut) && CustomGameOptions.NeutralLovers))
+                else if((player.Is(Faction.Crewmates) && !player.Is(RoleEnum.Transporter)) || (player.Is(Faction.Neutral) && !player.Is(RoleEnum.Glitch) && !player.Is(RoleEnum.Juggernaut) && CustomGameOptions.NeutralLovers))
                     crewmates.Add(player);
             }
 

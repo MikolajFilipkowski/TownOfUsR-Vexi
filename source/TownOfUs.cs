@@ -19,7 +19,7 @@ using UnityEngine.SceneManagement;
 
 namespace TownOfUs
 {
-    [BepInPlugin(Id, "Town Of Us", "2.5.1")]
+    [BepInPlugin(Id, "Town Of Us", "2.6.0")]
     [BepInDependency(ReactorPlugin.Id)]
     public class TownOfUs : BasePlugin
     {
@@ -50,16 +50,17 @@ namespace TownOfUs
         public static Sprite DragSprite;
         public static Sprite DropSprite;
         public static Sprite FlashSprite;
-        public static Sprite SettingsButtonSprite;
-
-        public static Vector3 ButtonPosition { get; private set; } = new Vector3(2.6f, 0.7f, -9f);
         public static Sprite AlertSprite;
         public static Sprite RememberSprite;
         public static Sprite TrackSprite;
         public static Sprite PoisonSprite;
         public static Sprite PoisonedSprite;
+        public static Sprite TransportSprite;
 
+        public static Sprite SettingsButtonSprite;
         public static Sprite ToUBanner;
+
+        public static Vector3 ButtonPosition { get; private set; } = new Vector3(2.6f, 0.7f, -9f);
 
         private static DLoadImage _iCallLoadImage;
 
@@ -103,13 +104,14 @@ namespace TownOfUs
             CycleSprite = CreateSprite("TownOfUs.Resources.Cycle.png");
             GuessSprite = CreateSprite("TownOfUs.Resources.Guess.png");
             FlashSprite = CreateSprite("TownOfUs.Resources.Flash.png");
-            SettingsButtonSprite = CreateSprite("TownOfUs.Resources.SettingsButton.png");
             AlertSprite = CreateSprite("TownOfUs.Resources.Alert.png");
             RememberSprite = CreateSprite("TownOfUs.Resources.Remember.png");
             TrackSprite = CreateSprite("TownOfUs.Resources.Track.png");
             PoisonSprite = CreateSprite("TownOfUs.Resources.Poison.png");
             PoisonedSprite = CreateSprite("TownOfUs.Resources.Poisoned.png");
+            TransportSprite = CreateSprite("TownOfUs.Resources.Transport.png");
 
+            SettingsButtonSprite = CreateSprite("TownOfUs.Resources.SettingsButton.png");
             ToUBanner = CreateSprite("TownOfUs.Resources.TownOfUsBanner.png");
 
             PalettePatch.Load();

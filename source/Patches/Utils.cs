@@ -342,7 +342,7 @@ namespace TownOfUs
 
                 if (target.Is(ModifierEnum.Bait))
                 {
-                    killer.CmdReportDeadBody(GameData.Instance.GetPlayerById(target.PlayerId));
+                    Coroutines.Start(BaitReport(killer, GameData.Instance.GetPlayerById(target.PlayerId)));
                 }
 
                 if (killer.Is(RoleEnum.Underdog))
@@ -360,7 +360,31 @@ namespace TownOfUs
                 }
             }
         }
+        public static IEnumerator BaitReport(PlayerControl killer, GameData.PlayerInfo target)
+        {
+            yield return new WaitForSeconds(Time.deltaTime);
 
+            if (AmongUsClient.Instance.AmHost)
+            {
+                MeetingRoomManager.Instance.reporter = killer;
+                MeetingRoomManager.Instance.target = target;
+                AmongUsClient.Instance.DisconnectHandlers.AddUnique(MeetingRoomManager.Instance
+                    .Cast<IDisconnectHandler>());
+                if (!ShipStatus.Instance.CheckTaskCompletion())
+                {
+                    DestroyableSingleton<HudManager>.Instance.OpenMeetingRoom(killer);
+                    killer.RpcStartMeeting(target);
+                }
+            }
+            else
+            {
+                var writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
+                    (byte)CustomRPC.BaitReport, SendOption.Reliable, -1);
+                writer.Write(killer.PlayerId);
+                writer.Write(target.PlayerId);
+                AmongUsClient.Instance.FinishRpcImmediately(writer);
+            }
+        }
         public static IEnumerator FlashCoroutine(Color color, float waitfor = 1f, float alpha = 0.3f)
         {
             color.a = alpha;

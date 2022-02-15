@@ -1,16 +1,21 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Object = UnityEngine.Object;
+using TMPro;
 
 namespace TownOfUs.Roles
 {
     public class Tracker : Role
     {
-        public List<ArrowBehaviour> TrackerArrows = new List<ArrowBehaviour>();
-        public List<PlayerControl> TrackerTargets = new List<PlayerControl>();
+        public Dictionary<byte, ArrowBehaviour> TrackerArrows = new Dictionary<byte, ArrowBehaviour>();
         public PlayerControl ClosestPlayer;
-        public List<byte> Tracked = new List<byte>();
         public DateTime LastTracked { get; set; }
-        public int RemainingTracks { get; set; }
+
+        public int UsesLeft;
+        public TextMeshPro UsesText;
+
+        public bool ButtonUsable => UsesLeft != 0;
 
         public Tracker(PlayerControl player) : base(player)
         {
@@ -19,9 +24,11 @@ namespace TownOfUs.Roles
             TaskText = () => "Track suspicious players";
             Color = Patches.Colors.Tracker;
             RoleType = RoleEnum.Tracker;
+            AddToRoleHistory(RoleType);
 
-            RemainingTracks = CustomGameOptions.MaxTracks;
+            UsesLeft = CustomGameOptions.MaxTracks;
         }
+
         public float TrackerTimer()
         {
             var utcNow = DateTime.UtcNow;
@@ -30,6 +37,33 @@ namespace TownOfUs.Roles
             var flag2 = num - (float) timeSpan.TotalMilliseconds < 0f;
             if (flag2) return 0;
             return (num - (float) timeSpan.TotalMilliseconds) / 1000f;
+        }
+
+        public bool IsTracking(PlayerControl player)
+        {
+            return TrackerArrows.ContainsKey(player.PlayerId);
+        }
+
+        public void DestroyArrow(byte targetPlayerId)
+        {
+            var arrow = TrackerArrows.FirstOrDefault(x => x.Key == targetPlayerId);
+            if (arrow.Value != null)
+                Object.Destroy(arrow.Value);
+            if (arrow.Value.gameObject != null)
+                Object.Destroy(arrow.Value.gameObject);
+            TrackerArrows.Remove(arrow.Key);
+        }
+
+        public void DestroyAllArrows()
+        {
+            foreach (var arrow in TrackerArrows)
+            {
+                if (arrow.Value != null)
+                    Object.Destroy(arrow.Value);
+                if (arrow.Value.gameObject != null)
+                    Object.Destroy(arrow.Value.gameObject);
+            }
+            TrackerArrows.Clear();
         }
     }
 }

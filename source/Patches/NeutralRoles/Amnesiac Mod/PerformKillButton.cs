@@ -110,6 +110,7 @@ namespace TownOfUs.NeutralRoles.AmnesiacMod
             {
                 Role.RoleDictionary.Remove(other.PlayerId);
                 Role.RoleDictionary.Add(amnesiac.PlayerId, newRole);
+                newRole.AddToRoleHistory(newRole.RoleType);
             }
             else
             {
@@ -183,6 +184,7 @@ namespace TownOfUs.NeutralRoles.AmnesiacMod
                 if (other.AmOwner)
                     foreach (var player in PlayerControl.AllPlayerControls)
                         player.nameText.color = Color.white;
+                DestroyableSingleton<HudManager>.Instance.KillButton.gameObject.SetActive(false);
             }
 
             else if (role == RoleEnum.Sheriff)
@@ -207,24 +209,21 @@ namespace TownOfUs.NeutralRoles.AmnesiacMod
             {
                 var mayorRole = Role.GetRole<Mayor>(amnesiac);
                 mayorRole.VoteBank = CustomGameOptions.MayorVoteBank;
+                DestroyableSingleton<HudManager>.Instance.KillButton.gameObject.SetActive(false);
             }
 
             else if (role == RoleEnum.Veteran)
             {
                 var vetRole = Role.GetRole<Veteran>(amnesiac);
-                vetRole.RemainingAlerts = CustomGameOptions.MaxAlerts;
+                vetRole.UsesLeft = CustomGameOptions.MaxAlerts;
                 vetRole.LastAlerted = DateTime.UtcNow;
             }
 
             else if (role == RoleEnum.Tracker)
             {
                 var trackerRole = Role.GetRole<Tracker>(amnesiac);
-                trackerRole.Tracked.RemoveRange(0, trackerRole.Tracked.Count);
-                trackerRole.TrackerArrows.DestroyAll();
-                trackerRole.TrackerArrows.Clear();
-                trackerRole.TrackerArrows.RemoveRange(0, trackerRole.TrackerArrows.Count);
-                trackerRole.TrackerTargets.RemoveRange(0, trackerRole.TrackerTargets.Count);
-                trackerRole.RemainingTracks = CustomGameOptions.MaxTracks;
+                trackerRole.DestroyAllArrows();
+                trackerRole.UsesLeft = CustomGameOptions.MaxTracks;
                 trackerRole.LastTracked = DateTime.UtcNow;
             }
 
@@ -234,6 +233,22 @@ namespace TownOfUs.NeutralRoles.AmnesiacMod
                 tlRole.FinishRewind = DateTime.UtcNow;
                 tlRole.StartRewind = DateTime.UtcNow;
                 tlRole.StartRewind = tlRole.StartRewind.AddSeconds(-10.0f);
+                tlRole.UsesLeft = CustomGameOptions.RewindMaxUses;
+            }
+
+            else if (role == RoleEnum.Transporter)
+            {
+                var tpRole = Role.GetRole<Transporter>(amnesiac);
+                tpRole.PressedButton = false;
+                tpRole.MenuClick = false;
+                tpRole.LastMouse = false;
+                tpRole.TransportList1 = null;
+                tpRole.TransportList2 = null;
+                tpRole.TransportPlayer1 = null;
+                tpRole.TransportPlayer2 = null;
+                tpRole.LastTransported = DateTime.UtcNow;
+                tpRole.UsesLeft = CustomGameOptions.TransportMaxUses;
+                
             }
 
             else if (role == RoleEnum.Seer)

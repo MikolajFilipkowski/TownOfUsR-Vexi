@@ -44,7 +44,6 @@ namespace TownOfUs
 
                 var flag = playerControl.Is(RoleEnum.Glitch)
                            || playerControl.Is(RoleEnum.Jester)
-                           || playerControl.Is(RoleEnum.Amnesiac)
                            || playerControl.Is(RoleEnum.Executioner)
                            || playerControl.Is(RoleEnum.Juggernaut)
                            || playerControl.Is(RoleEnum.Arsonist);

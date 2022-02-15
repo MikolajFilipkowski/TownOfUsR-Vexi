@@ -19,6 +19,7 @@ namespace TownOfUs.Roles
             TaskText = () => "From the top, make it drop, that's a vent";
             Color = Patches.Colors.Impostor;
             RoleType = RoleEnum.Miner;
+            AddToRoleHistory(RoleType);
             Faction = Faction.Impostors;
         }
 

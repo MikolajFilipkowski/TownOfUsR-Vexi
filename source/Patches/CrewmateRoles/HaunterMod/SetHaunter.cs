@@ -58,14 +58,7 @@ namespace TownOfUs.CrewmateRoles.HaunterMod
             if (Role.GetRole<Haunter>(PlayerControl.LocalPlayer).Caught) return;
             var startingVent =
                 ShipStatus.Instance.AllVents[Random.RandomRangeInt(0, ShipStatus.Instance.AllVents.Count)];
-            if (PlayerControl.GameOptions.MapId == 2)
-            {
-                while (startingVent == ShipStatus.Instance.AllVents[5])
-                {
-                    startingVent = ShipStatus.Instance.AllVents[Random.RandomRangeInt(0, ShipStatus.Instance.AllVents.Count)];
-                }
-            }
-            PlayerControl.LocalPlayer.NetTransform.RpcSnapTo(startingVent.transform.position);
+            PlayerControl.LocalPlayer.NetTransform.RpcSnapTo(new Vector2(startingVent.transform.position.x, startingVent.transform.position.y + 0.3636f));
             PlayerControl.LocalPlayer.MyPhysics.RpcEnterVent(startingVent.Id);
         }
 

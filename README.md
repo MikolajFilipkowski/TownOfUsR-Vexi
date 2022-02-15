@@ -9,8 +9,6 @@ An Among Us mod that adds a bunch of roles, modifiers and game settings
 
 Join our [Discord](https://discord.gg/ugyc4EVUYZ) if you have any problems or want to find people to play with!
 
-
-
 **Crewmate Roles**
 - [Haunter](#haunter)
 - [Investigator](#investigator)
@@ -27,6 +25,7 @@ Join our [Discord](https://discord.gg/ugyc4EVUYZ) if you have any problems or wa
 - [Mayor](#mayor)
 - [Swapper](#swapper)
 - [Time Lord](#time-lord)
+- [Transporter](#transporter)
 
 **Neutral Roles**
 - [Amnesiac](#amnesiac)
@@ -42,6 +41,7 @@ Join our [Discord](https://discord.gg/ugyc4EVUYZ) if you have any problems or wa
 - [Morphling](#morphling)
 - [Swooper](#swooper)
 - [Poisoner](#poisoner)
+- [Traitor](#traitor)
 - [Underdog](#underdog)
 - [Janitor](#janitor)
 - [Miner](#miner)
@@ -56,6 +56,7 @@ Join our [Discord](https://discord.gg/ugyc4EVUYZ) if you have any problems or wa
 - [Flash](#flash)
 - [Giant](#giant)
 - [Lovers](#lovers)
+- [Sleuth](#sleuth)
 - [Tiebreaker](#tiebreaker)
 
 
@@ -64,6 +65,8 @@ Join our [Discord](https://discord.gg/ugyc4EVUYZ) if you have any problems or wa
 # Releases
 | Among Us - Version| Mod Version | Link |
 |----------|-------------|-----------------|
+| 2021.12.15s & 2021.12.15e | v2.6.0 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v2.6.0/ToU.v2.6.0.zip) |
+| 2021.6.30s & 2021.6.30e & 2021.7.20e | v2.6.0 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v2.6.0/ToU.v2.6.0.Old.zip) |
 | 2021.12.15s & 2021.12.15e | v2.5.1 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v2.5.1/ToU.v2.5.1.zip) |
 | 2021.12.15s & 2021.12.15e | v2.5.0 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v2.5.0/ToU.v2.5.0.zip) |
 | 2021.6.30s & 2021.6.30e & 2021.7.20e | v2.5.0 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v2.5.0/ToU.v2.5.0.Old.zip) |
@@ -96,6 +99,22 @@ Join our [Discord](https://discord.gg/ugyc4EVUYZ) if you have any problems or wa
 
 <details>
   <summary> Changelog </summary>
+  <details>
+  <summary> v2.6.0 </summary>
+  <ul> <li>Fixed killing the Bait instantly banning everyone</li> </ul>
+  <ul> <li>Fixed Tracker lag</li> </ul>
+  <ul> <li>Seer adjustments</li> </ul>
+  <ul> <li>Settings for task tracking</li> </ul>
+  <ul> <li>Added a flash radius setting for Grenadier</li> </ul>
+  <ul> <li>New Role: Traitor</li> </ul>
+  <ul> <li>New Role: Transporter</li> </ul>
+  <ul> <li>New Modifier: Sleuth</li> </ul>
+  <ul> <li>Fixed Snitch/Haunter meetings when someone disconnects</li> </ul>
+  <ul> <li>Fixed Amnesiac/Snitch and Amnesiac/Mayor interactions</li> </ul>
+  <ul> <li>Jester can vent Setting</li> </ul>
+  <ul> <li>Made Modifiers disable upon death</li> </ul>
+  <ul> <li>Made anything that affects the colour of names disable upon death</li> </ul>
+  </details>
   <details>
   <summary> v2.5.1 </summary>
   <ul> <li>Fixed Amnesiac/Impostor Interaction</li> </ul>
@@ -145,8 +164,6 @@ Join our [Discord](https://discord.gg/ugyc4EVUYZ) if you have any problems or wa
   <ul> <li>Bug Fix: Impostors no longer see their teammate’s name go pink at the end of the meeting if their teammate is a Loving Impostor</li> </ul>
   <ul> <li>Bug Fix: Investigator no longer lags the player into oblivion</li> </ul>
   <ul> <li>Bug Fix: The game no longer infinitely tries to distribute crewmate modifiers when there are more modifiers than crewmates</li> </ul>
-  <ul> <li>Bug Fix: Snitch now always sees Impostors mid-meeting (if setting is on) even when someone dcs</li> </ul>
-  <ul> <li>Bug Fix: Haunter now always reveals Impostors mid-meeting even when someone dcs</li> </ul>
   <ul> <li>Bug Fix: Shield now breaks when Medic disconnects</li> </ul>
   </details>
   <details>
@@ -490,18 +507,18 @@ Every footprint disappears after a set amount of time.
 -----------------------
 ## Seer
 ### **Team: Crewmates**
-The Seer is a Crewmate that can reveal the roles of other players.\
-Based on settings, the Seer can find out whether a role is Good, Evil or Neutral, or they can find out the role itself.\
-A player's name will change color to their team or role.\
-If the Seer investigates someone, the Seer's name will change color to inform that player who the Seer is.
+The Seer is a Crewmate that can reveal the alliance of other players.\
+Based on settings, the Seer can find out whether a role is Good or Evil.\
+A player's name will change color to their team.
 ### Game Options
 | Name | Description | Type | Default |
 |----------|:-------------:|:------:|:------:|
 | Seer | The percentage probability of the Seer appearing | Percentage | 0% |
 | Seer Cooldown | The Cooldown of the Seer's Reveal button | Time | 25s |
-| Info that Seer sees | Whether the Seer sees the Role or the Team of a player | Role / Team | Role |
-| Who Sees That They Are Revealed | Which roles see the Seer's identity once the Seer has seen their role | Crewmates / Impostors + Neutral / All / Nobody | Crewmates |
-| Neutrals show up as Impostors | When the Info is set to Team, Neutral roles show up as Red, like Impostors | Toggle | False |
+| Crewmate Killing show up as Evil | Crewmate Killing roles show up as Red | Toggle | False |
+| Neutral Benign show up as Evil | Neutral Benign roles show up as Red | Toggle | False |
+| Neutral Evil show up as Evil | Neutral Evil roles show up as Red | Toggle | False |
+| Neutral Killing show up as Evil | Neutral Killing roles show up as Red | Toggle | False |
 
 -----------------------
 ## Snitch
@@ -711,7 +728,22 @@ If enabled, the Time Lord can't use Vitals to make things more balanced.
 | Revive During Rewind | Whether the Time Lord revives dead players when rewinding | Toggle | False |
 | Rewind Duration | How far the rewind goes back in time | Time | 2s |
 | Rewind Cooldown | The cooldown of the Time Lord's Rewind button | Time | 25s |
+| Max Uses | The amount of times the Rewind ability can be used | Number | 5 |
 | Time Lord can use Vitals | Whether the Time Lord has the ability to use Vitals | Toggle | False |
+
+-----------------------
+## Transporter
+### **Team: Crewmates**
+The Transporter is a Crewmate that can change the locations of two random players at will.\
+Players who have been transported are alerted with a blue flash on their screen.
+
+### Game Options
+| Name | Description | Type | Default |
+|----------|:-------------:|:------:|:------:|
+| Transporter | The percentage probability of the Transporter appearing | Percentage | 0% |
+| Rewind Cooldown | The cooldown of the Transporter's transport ability | Time | 25s |
+| Max Uses | The amount of times the Transport ability can be used | Number | 5 |
+| Transporter can use Vitals | Whether the Transporter has the ability to use Vitals | Toggle | False |
 
 -----------------------
 # Neutral Roles
@@ -739,6 +771,7 @@ However, the Jester does not win if the Crewmates, Impostors or another Neutral 
 |----------|:-------------:|:------:|:------:|
 | Jester | The percentage probability of the Jester appearing | Percentage | 0% |
 | Jester Can Button | Whether the Jester Can Press the Button | Toggle | True |
+| Jester Can Vent | Whether the Jester Can Vent | Toggle | False |
 
 -----------------------
 ## Executioner
@@ -880,6 +913,20 @@ When they poison a player, the poisoned player dies either upon the start of the
 | Poisoner can Vent | Whether the Poisoner can Vent | Toggle | False |
 
 -----------------------
+## Traitor
+### **Team: Impostors**
+
+If all Impostors die before a certain point in the game, a random crewmate is selected to become the Traitor.\
+The Traitor has no additional abilities and their job is simply to avenge the dead Impostors.\
+Once this player has turned into the Traitor their alliance sits with the Impostors.
+
+### Game Options
+| Name | Description | Type | Default |
+|----------|:-------------:|:------:|:------:|
+| Traitor | The percentage probability of the Traitor appearing | Percentage | 0% |
+| Latest Spawn | The minimum number of people alive when a Traitor can spawn | Number | 5 |
+
+-----------------------
 ## Underdog
 ### **Team: Impostors**
 
@@ -1017,6 +1064,16 @@ However, they can also win with their respective team, hence why the Lovers do n
 | Neutral Roles Can Be Lovers | Whether a Lover can be a Neutral Role | Toggle | True |
 
 -----------------------
+## Sleuth
+### **Applied to: All**
+The Sleuth is a crewmate who gains knowledge from reporting dead bodies.\
+During meetings the Sleuth can see the roles of all players in which they've reported.
+### Game Options
+| Name | Description | Type | Default |
+|----------|:-------------:|:------:|:------:|
+| Sleuth | The percentage probability of the Sleuth appearing | Percentage | 0% |
+
+-----------------------
 ## Tiebreaker
 ### **Applied to: All**
 If any vote is a draw, the Tiebreaker's vote will go through.\
@@ -1034,11 +1091,20 @@ If the Tiebreaker is the Mayor, it applies to the Mayor's __first__ vote.
 | Camouflaged Comms | Whether everyone becomes camouflaged when Comms are sabotaged | Toggle | False |
 | Camouflaged Meetings | Whether everyone is camouflaged during meetings while Comms are sabotaged | Toggle | False |
 | Impostors can see the roles of their team | Whether Impostors are able to see which Impostor roles their teammates have | Toggle | False |
-| Dead can see everyone's roles | Whether dead players are able to see the roles of everyone else | Toggle | False |
+| Dead can see everyone's roles and Votes | Whether dead players are able to see the roles and votes of everyone else | Toggle | False |
 | Max Neutral Roles | The maximum number of Neutral roles a game can have | Number | 1 |
 | Probability of a completely vanilla game | The percentage probability of a vanilla Among Us game happening | Percentage | 0% |
 | Game Start Cooldowns | The cooldown for all roles at the start of the game (excluding Impostor's Kill Cooldown) | Time | 10s |
 | Parallel Medbay Scans | Whether players have to wait for others to scan | Toggle | False |
+| Classic Nameplates | Whether all decorative nameplates are disabled | Toggle | False |
+
+-----------------------
+# Task Tracking Settings
+| Name | Description | Type | Default |
+|----------|:-------------:|:------:|:------:|
+| See Tasks During Round | Whether people see their tasks update in game | Toggle | False |
+| See Tasks During Meetings | Whether people see their task count during meetings | Toggle | False |
+| See Tasks When Dead | Whether people see everyone's tasks when they're dead | Toggle | False |
 
 -----------------------
 ## Assassin Ability
@@ -1053,6 +1119,7 @@ If they guessed wrong, they die instead.
 |----------|:-------------:|:------:|:------:|
 | Number of Assassins | How many Impostors can Assassinate | Number | 1 |
 | Amnesiac Turned Impostor Can Assassinate | Whether former Amnesiacs now Impostor can Assassinate | Toggle | False |
+| Traitor Can Assassinate | If someone turns into a Traitor they can Assassinate | Toggle | False |
 | Assassin Kill | The number of kill the Assassin can do with his ability | Number | 1 |
 | Assassin Guess Crewmate | Whether the Assassin can Guess "Crewmate" | Toggle | False |
 | Assassin Guess Neutral  | Whether the Assassin can Guess Neutral roles | Toggle | False |
@@ -1067,8 +1134,6 @@ New colors are added for crewmates to pick from: watermelon, chocolate, sky blue
 A rainbow color has also been added. Anyone who equips this color will constantly switch between the colors of the rainbow.
 ## Custom Hats!
 Custom hats have been added, made by some very talented artists. These are mostly hats for streamers.
-
-
 
 -----------------------
 # Bug / Suggestions

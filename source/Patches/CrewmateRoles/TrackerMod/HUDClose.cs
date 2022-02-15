@@ -15,14 +15,10 @@ namespace TownOfUs.CrewmateRoles.TrackerMod
             {
                 var tracker = (Tracker) role;
                 tracker.LastTracked = DateTime.UtcNow;
-                tracker.RemainingTracks = CustomGameOptions.MaxTracks;
+                tracker.UsesLeft = CustomGameOptions.MaxTracks;
                 if (CustomGameOptions.ResetOnNewRound)
                 {
-                    tracker.Tracked.RemoveRange(0, tracker.Tracked.Count);
-                    tracker.TrackerArrows.DestroyAll();
-                    tracker.TrackerArrows.Clear();
-                    tracker.TrackerArrows.RemoveRange(0, tracker.TrackerArrows.Count);
-                    tracker.TrackerTargets.RemoveRange(0, tracker.TrackerTargets.Count);
+                    tracker.DestroyAllArrows();
                 }
             }
         }

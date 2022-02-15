@@ -14,7 +14,7 @@ namespace TownOfUs.CrewmateRoles.VeteranMod
             if (!PlayerControl.LocalPlayer.CanMove) return false;
             if (PlayerControl.LocalPlayer.Data.IsDead) return false;
             var role = Role.GetRole<Veteran>(PlayerControl.LocalPlayer);
-            if (role.RemainingAlerts == 0) return false;
+            if (!role.ButtonUsable) return false;
             var alertButton = DestroyableSingleton<HudManager>.Instance.KillButton;
             if (__instance == alertButton)
             {
@@ -22,7 +22,7 @@ namespace TownOfUs.CrewmateRoles.VeteranMod
                 if (!__instance.isActiveAndEnabled) return false;
                 if (role.AlertTimer() != 0) return false;
                 role.TimeRemaining = CustomGameOptions.AlertDuration;
-                role.RemainingAlerts--;
+                role.UsesLeft--;
                 role.RegenTask();
                 role.Alert();
                 var writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,

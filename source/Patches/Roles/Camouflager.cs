@@ -18,6 +18,7 @@ namespace TownOfUs.Roles
             TaskText = () => "Camouflage and get secret kills";
             Color = Patches.Colors.Impostor;
             RoleType = RoleEnum.Camouflager;
+            AddToRoleHistory(RoleType);
             Faction = Faction.Impostors;
         }
 

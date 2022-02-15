@@ -3,6 +3,7 @@ using TownOfUs.Roles;
 using UnityEngine;
 using TownOfUs.ImpostorRoles.CamouflageMod;
 using TownOfUs.Extensions;
+using System;
 
 namespace TownOfUs.CrewmateRoles.TrackerMod
 {
@@ -10,65 +11,54 @@ namespace TownOfUs.CrewmateRoles.TrackerMod
     public class UpdateTrackerArrows
     {
         public static Sprite Sprite => TownOfUs.Arrow;
-        private static float _time = 0f;
-        private static float Interval => CustomGameOptions.UpdateInterval*10;
+        private static DateTime _time = DateTime.UnixEpoch;
+        private static float Interval => CustomGameOptions.UpdateInterval;
         public static void Postfix(PlayerControl __instance)
         {
-            foreach (var role in Role.GetRoles(RoleEnum.Tracker))
+            if (PlayerControl.AllPlayerControls.Count <= 1) return;
+            if (PlayerControl.LocalPlayer == null) return;
+            if (PlayerControl.LocalPlayer.Data == null) return;
+            if (!PlayerControl.LocalPlayer.Is(RoleEnum.Tracker)) return;
+
+            var role = Role.GetRole<Tracker>(PlayerControl.LocalPlayer);
+
+            if (PlayerControl.LocalPlayer.Data.IsDead)
             {
                 var tracker = (Tracker) role;
                 if (PlayerControl.LocalPlayer.Data.IsDead || tracker.Player.Data.IsDead)
                 {
-                    tracker.TrackerArrows.DestroyAll();
-                    tracker.TrackerArrows.Clear();
+                    role.TrackerArrows.Values.DestroyAll();
+                    role.TrackerArrows.Clear();
                     return;
                 }
-                else
+
+                foreach (var arrow in role.TrackerArrows)
                 {
-                    _time += Time.deltaTime;
-                    if (_time >= Interval)
+                    var player = Utils.PlayerById(arrow.Key);
+                    if (player == null || player.Data == null || player.Data.IsDead || player.Data.Disconnected)
                     {
-                        _time -= Interval;
-                        var role2 = Role.GetRole<Tracker>(PlayerControl.LocalPlayer);
-                        tracker.TrackerArrows.DestroyAll();
-                        tracker.TrackerArrows.Clear();
-                        tracker.TrackerArrows.RemoveRange(0, tracker.TrackerArrows.Count);
-                        tracker.TrackerTargets.RemoveRange(0, tracker.TrackerTargets.Count);
-                        foreach (var player in PlayerControl.AllPlayerControls)
-                        {
-                            if (!role2.Tracked.Contains(player.PlayerId)) continue;
-                            if (player.Data.IsDead) continue;
-                            var gameObj = new GameObject();
-                            var arrow = gameObj.AddComponent<ArrowBehaviour>();
-                            gameObj.transform.parent = PlayerControl.LocalPlayer.gameObject.transform;
-                            var renderer = gameObj.AddComponent<SpriteRenderer>();
-                            renderer.sprite = Sprite;
-                            if (!CamouflageUnCamouflage.IsCamoed)
-                            {
-                                if (RainbowUtils.IsRainbow(player.GetDefaultOutfit().ColorId))
-                                {
-                                    renderer.color = RainbowUtils.Rainbow;
-                                }
-                                else
-                                {
-                                    renderer.color = Palette.PlayerColors[player.GetDefaultOutfit().ColorId];
-                                }
-                            }
-                            else
-                            {
-                                renderer.color = new Color(0.2f, 0.2f, 0.2f, 1f);
-                            }
-                            arrow.image = renderer;
-                            gameObj.layer = 5;
-                            role2.TrackerArrows.Add(arrow);
-                            role2.TrackerTargets.Add(player);
-                        }
-                        foreach (var (arrow, target) in Utils.Zip(tracker.TrackerArrows, tracker.TrackerTargets))
-                        {
-                            arrow.target = target.transform.position;
-                        }
+                        role.DestroyArrow(arrow.Key);
+                        continue;
                     }
+                    if (!CamouflageUnCamouflage.IsCamoed)
+                        if (RainbowUtils.IsRainbow(player.GetDefaultOutfit().ColorId))
+                        {
+                            arrow.Value.image.color = RainbowUtils.Rainbow;
+                        }
+                        else
+                        {
+                            arrow.Value.image.color = Palette.PlayerColors[player.GetDefaultOutfit().ColorId];
+                        }
+                    else
+                    {
+                        arrow.Value.image.color = new Color(0.2f, 0.2f, 0.2f, 1f);
+                    }
+
+                    if (_time <= DateTime.UtcNow.AddSeconds(-Interval))
+                        arrow.Value.target = player.transform.position;
                 }
+                if (_time <= DateTime.UtcNow.AddSeconds(-Interval))
+                    _time = DateTime.UtcNow;
             }
         }
     }

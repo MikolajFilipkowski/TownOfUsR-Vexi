@@ -39,6 +39,7 @@ namespace TownOfUs.Roles
             MimicList = null;
             IsUsingMimic = false;
             RoleType = RoleEnum.Glitch;
+            AddToRoleHistory(RoleType);
             ImpostorText = () => "You are the glitch";
             TaskText = () => "Murder players as the Glitch:";
             Faction = Faction.Neutral;
@@ -675,6 +676,9 @@ namespace TownOfUs.Roles
                     __gInstance.MimicList.CharCount.enabled = false;
                     __gInstance.MimicList.CharCount.gameObject.SetActive(false);
 
+                    __gInstance.MimicList.OpenKeyboardButton.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                    __gInstance.MimicList.OpenKeyboardButton.Destroy();
+
                     __gInstance.MimicList.gameObject.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>()
                         .enabled = false;
                     __gInstance.MimicList.gameObject.transform.GetChild(0).gameObject.SetActive(false);
@@ -697,14 +701,25 @@ namespace TownOfUs.Roles
 
                     __gInstance.MimicList.chatBubPool.activeChildren.Clear();
 
-                    foreach (var player in PlayerControl.AllPlayerControls.ToArray()
-                        .Where(x => x != PlayerControl.LocalPlayer))
+                    foreach (var player in PlayerControl.AllPlayerControls.ToArray().Where(x =>
+                        x != null &&
+                        x.Data != null &&
+                        x != PlayerControl.LocalPlayer &&
+                        !x.Data.Disconnected))
                     {
-                        var oldDead = player.Data.IsDead;
-                        player.Data.IsDead = false;
-                        //System.Console.WriteLine(player.PlayerId);
-                        __gInstance.MimicList.AddChat(player, "Click here");
-                        player.Data.IsDead = oldDead;
+                        if (!player.Data.IsDead)
+                            __gInstance.MimicList.AddChat(player, "Click here");
+                        else
+                        {
+                            var deadBodies = Object.FindObjectsOfType<DeadBody>();
+                            foreach (var body in deadBodies)
+                                if (body.ParentId == player.PlayerId)
+                                {
+                                    player.Data.IsDead = false;
+                                    __gInstance.MimicList.AddChat(player, "Click here");
+                                    player.Data.IsDead = true;
+                                }
+                        }
                     }
                 }
                 else

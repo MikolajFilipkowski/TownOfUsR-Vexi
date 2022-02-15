@@ -9,13 +9,17 @@ namespace TownOfUs.CrewmateRoles.HaunterMod
     {
         public static void UpdateMeeting(MeetingHud __instance)
         {
-            foreach (var state in __instance.playerStates)
+            foreach (var player in PlayerControl.AllPlayerControls)
             {
-                var role = Role.GetRole(state);
-                if (role.Faction == Faction.Impostors || role.RoleType == RoleEnum.Impostor)
-                    state.NameText.color = Palette.ImpostorRed;
-                if (role.Faction == Faction.Neutral && CustomGameOptions.HaunterRevealsNeutrals)
-                    state.NameText.color = role.Color;
+                foreach (var state in __instance.playerStates)
+                {
+                    if (player.PlayerId != state.TargetPlayerId) continue;
+                    var role = Role.GetRole(player);
+                    if (player.Is(Faction.Impostors))
+                        state.NameText.color = Palette.ImpostorRed;
+                    if (player.Is(Faction.Neutral) && CustomGameOptions.HaunterRevealsNeutrals)
+                        state.NameText.color = role.Color;
+                }
             }
         }
         public static void Postfix(HudManager __instance)

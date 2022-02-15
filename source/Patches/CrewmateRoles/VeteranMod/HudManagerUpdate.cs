@@ -24,6 +24,22 @@ namespace TownOfUs.CrewmateRoles.VeteranMod
 
             var role = Role.GetRole<Veteran>(PlayerControl.LocalPlayer);
 
+            if (role.UsesText == null && role.UsesLeft > 0)
+            {
+                role.UsesText = Object.Instantiate(alertButton.cooldownTimerText, alertButton.transform);
+                role.UsesText.gameObject.SetActive(true);
+                role.UsesText.transform.localPosition = new Vector3(
+                    role.UsesText.transform.localPosition.x + 0.26f,
+                    role.UsesText.transform.localPosition.y + 0.29f,
+                    role.UsesText.transform.localPosition.z);
+                role.UsesText.transform.localScale = role.UsesText.transform.localScale * 0.65f;
+                role.UsesText.alignment = TMPro.TextAlignmentOptions.Right;
+                role.UsesText.fontStyle = TMPro.FontStyles.Bold;
+            }
+            if (role.UsesText != null)
+            {
+                role.UsesText.text = role.UsesLeft + "";
+            }
 
             if (isDead)
             {
@@ -33,18 +49,30 @@ namespace TownOfUs.CrewmateRoles.VeteranMod
             else if (role.OnAlert)
             {
                 alertButton.SetCoolDown(role.TimeRemaining, CustomGameOptions.AlertDuration);
-                return;
             }
             else
             {
                 alertButton.gameObject.SetActive(!MeetingHud.Instance);
                 // alertButton.isActive = !MeetingHud.Instance;
-                alertButton.SetCoolDown(role.AlertTimer(), CustomGameOptions.AlertCd);
-                if (role.RemainingAlerts == 0) return;
+                if (role.ButtonUsable)
+                    alertButton.SetCoolDown(role.AlertTimer(), CustomGameOptions.AlertCd);
             }
 
-            alertButton.graphic.color = Palette.EnabledColor;
-            alertButton.graphic.material.SetFloat("_Desat", 0f);
+            var renderer = alertButton.graphic;
+            if (role.OnAlert || (!alertButton.isCoolingDown && role.ButtonUsable))
+            {
+                renderer.color = Palette.EnabledColor;
+                renderer.material.SetFloat("_Desat", 0f);
+                role.UsesText.color = Palette.EnabledColor;
+                role.UsesText.material.SetFloat("_Desat", 0f);
+            }
+            else
+            {
+                renderer.color = Palette.DisabledClear;
+                renderer.material.SetFloat("_Desat", 1f);
+                role.UsesText.color = Palette.DisabledClear;
+                role.UsesText.material.SetFloat("_Desat", 1f);
+            }
         }
     }
 }

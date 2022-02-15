@@ -11,6 +11,7 @@ namespace TownOfUs.Roles
             TaskText = () => "Clean bodies to prevent Crewmates from discovering them.";
             Color = Patches.Colors.Impostor;
             RoleType = RoleEnum.Janitor;
+            AddToRoleHistory(RoleType);
             Faction = Faction.Impostors;
         }
 

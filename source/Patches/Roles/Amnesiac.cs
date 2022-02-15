@@ -9,6 +9,7 @@ namespace TownOfUs.Roles
             TaskText = () => "Remember who you were.\nFake Tasks:";
             Color = Patches.Colors.Amnesiac;
             RoleType = RoleEnum.Amnesiac;
+            AddToRoleHistory(RoleType);
             Faction = Faction.Neutral;
         }
 

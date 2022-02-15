@@ -11,6 +11,7 @@ namespace TownOfUs.Roles
             TaskText = () => "Protect a crewmate with a shield";
             Color = Patches.Colors.Medic;
             RoleType = RoleEnum.Medic;
+            AddToRoleHistory(RoleType);
             ShieldedPlayer = null;
         }
 

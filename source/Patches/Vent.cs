@@ -47,7 +47,9 @@ namespace TownOfUs
                 || (player.Is(RoleEnum.Undertaker) && Role.GetRole<Undertaker>(player).CurrentlyDragging != null && !CustomGameOptions.UndertakerVentWithBody))
                 return false;
 
-            if (player.Is(RoleEnum.Engineer) || (player.roleAssigned && playerInfo.Role?.Role == RoleTypes.Engineer)|| (player.Is(RoleEnum.Glitch) && CustomGameOptions.GlitchVent) || (player.Is(RoleEnum.Juggernaut) && CustomGameOptions.GlitchVent))
+            if (player.Is(RoleEnum.Engineer) || (player.roleAssigned && playerInfo.Role?.Role == RoleTypes.Engineer) ||
+                (player.Is(RoleEnum.Glitch) && CustomGameOptions.GlitchVent) || (player.Is(RoleEnum.Juggernaut) && CustomGameOptions.GlitchVent) ||
+                (player.Is(RoleEnum.Jester) && CustomGameOptions.JesterVent))
                 return true;
 
             return playerInfo.IsImpostor();
@@ -83,6 +85,17 @@ namespace TownOfUs
             }
             __result = num;
 
+        }
+    }
+
+    [HarmonyPatch(typeof(Vent), nameof(Vent.SetButtons))]
+    public static class JesterEnterVent
+    {
+        public static bool Prefix(Vent __instance)
+        {
+            if (PlayerControl.LocalPlayer.Is(RoleEnum.Jester) && CustomGameOptions.JesterVent)
+                return false;
+            return true;
         }
     }
 }

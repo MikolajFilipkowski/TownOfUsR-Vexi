@@ -25,6 +25,7 @@ namespace TownOfUs.Roles
             TaskText = () => "Complete all your tasks to reveal impostors!";
             Color = Patches.Colors.Haunter;
             RoleType = RoleEnum.Haunter;
+            AddToRoleHistory(RoleType);
         }
 
         public void Fade()
@@ -60,7 +61,7 @@ namespace TownOfUs.Roles
                 });
             }
             Player.MyRend.color = color;
-            Player.nameText.color = color;
+            Player.nameText.color = Color.clear;
 
         }
     }

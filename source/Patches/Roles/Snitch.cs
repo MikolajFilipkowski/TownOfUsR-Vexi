@@ -24,6 +24,7 @@ namespace TownOfUs.Roles
             Color = Patches.Colors.Snitch;
             Hidden = !CustomGameOptions.SnitchOnLaunch;
             RoleType = RoleEnum.Snitch;
+            AddToRoleHistory(RoleType);
         }
 
         public bool Revealed => TasksLeft <= CustomGameOptions.SnitchTasksRemaining;
@@ -40,7 +41,7 @@ namespace TownOfUs.Roles
             if (Local)
             {
                 if (CustomGameOptions.SnitchOnLaunch) return base.SelfCriteria();
-                return Revealed;
+                return Revealed || base.SelfCriteria();
             }
             return base.SelfCriteria();
         }
@@ -50,13 +51,13 @@ namespace TownOfUs.Roles
             var localPlayer = PlayerControl.LocalPlayer;
             if (localPlayer.Data.IsImpostor() && !Player.Data.IsDead)
             {
-                return Revealed;
+                return Revealed || base.RoleCriteria();
             }
             else if (Role.GetRole(localPlayer).Faction == Faction.Neutral && !Player.Data.IsDead)
             {
-                return Revealed && CustomGameOptions.SnitchSeesNeutrals;
+                return Revealed && CustomGameOptions.SnitchSeesNeutrals || base.RoleCriteria();
             }
-            return false;
+            return false || base.RoleCriteria();
         }
 
         

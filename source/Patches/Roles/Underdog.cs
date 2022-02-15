@@ -11,6 +11,7 @@ namespace TownOfUs.Roles
             TaskText = () => "long kill cooldown when 2 imps, short when 1 imp";
             Color = Patches.Colors.Impostor;
             RoleType = RoleEnum.Underdog;
+            AddToRoleHistory(RoleType);
             Faction = Faction.Impostors;
         }
 

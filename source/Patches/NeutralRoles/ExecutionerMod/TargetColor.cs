@@ -28,6 +28,8 @@ namespace TownOfUs.NeutralRoles.ExecutionerMod
             if (PlayerControl.LocalPlayer == null) return;
             if (PlayerControl.LocalPlayer.Data == null) return;
             if (!PlayerControl.LocalPlayer.Is(RoleEnum.Executioner)) return;
+            if (PlayerControl.LocalPlayer.Data.IsDead) return;
+            
             var role = Role.GetRole<Executioner>(PlayerControl.LocalPlayer);
 
             if (role.target == null)

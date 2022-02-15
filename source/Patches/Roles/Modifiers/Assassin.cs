@@ -43,6 +43,7 @@ namespace TownOfUs.Roles.Modifiers
             if (CustomGameOptions.VigilanteOn > 0) ColorMapping.Add("Vigilante", Colors.Vigilante);
             if (CustomGameOptions.VeteranOn > 0) ColorMapping.Add("Veteran", Colors.Veteran);
             if (CustomGameOptions.TrackerOn > 0) ColorMapping.Add("Tracker", Colors.Tracker);
+            if (CustomGameOptions.TransporterOn > 0) ColorMapping.Add("Transporter", Colors.Transporter);
 
             // Add Neutral roles if enabled
             if (CustomGameOptions.AssassinGuessNeutrals)

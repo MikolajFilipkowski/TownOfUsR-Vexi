@@ -17,6 +17,7 @@ namespace TownOfUs.Roles
             TaskText = () => "Swap two people's votes and wreak havoc!";
             Color = Patches.Colors.Swapper;
             RoleType = RoleEnum.Swapper;
+            AddToRoleHistory(RoleType);
         }
     }
 }

@@ -13,6 +13,7 @@ namespace TownOfUs.Roles
             TaskText = () => "Drag bodies around to hide them from being reported";
             Color = Patches.Colors.Impostor;
             RoleType = RoleEnum.Undertaker;
+            AddToRoleHistory(RoleType);
             Faction = Faction.Impostors;
         }
 

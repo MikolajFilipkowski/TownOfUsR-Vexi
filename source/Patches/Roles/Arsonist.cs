@@ -25,6 +25,7 @@ namespace TownOfUs.Roles
             TaskText = () => "Douse players and ignite to kill everyone\nFake Tasks:";
             Color = Patches.Colors.Arsonist;
             RoleType = RoleEnum.Arsonist;
+            AddToRoleHistory(RoleType);
             Faction = Faction.Neutral;
         }
 

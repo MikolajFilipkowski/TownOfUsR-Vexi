@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Text;
 using System.Linq;
 using Reactor.Extensions;
+using TownOfUs.Roles;
 
 namespace TownOfUs.Patches {
 
@@ -32,7 +33,7 @@ namespace TownOfUs.Patches {
             foreach (var playerControl in PlayerControl.AllPlayerControls)
             {
                 playerRole = "";
-                foreach (var role in RoleTracker.RoleHistory.Where(x => x.Key == playerControl.PlayerId))
+                foreach (var role in Role.RoleHistory.Where(x => x.Key == playerControl.PlayerId))
                 {
                     if (role.Value == RoleEnum.Crewmate) {playerRole += "<color=#"+Patches.Colors.Crewmate.ToHtmlStringRGBA()+">Crewmate</color> > ";}
                     else if (role.Value == RoleEnum.Impostor) {playerRole += "<color=#"+Patches.Colors.Impostor.ToHtmlStringRGBA()+">Impostor</color> > ";}
@@ -69,6 +70,8 @@ namespace TownOfUs.Patches {
                     else if (role.Value == RoleEnum.Juggernaut) { playerRole += "<color=#"+Patches.Colors.Juggernaut.ToHtmlStringRGBA()+">Juggernaut</color> > "; }
                     else if (role.Value == RoleEnum.Tracker) { playerRole += "<color=#"+Patches.Colors.Tracker.ToHtmlStringRGBA()+">Tracker</color> > "; }
                     else if (role.Value == RoleEnum.Poisoner) { playerRole += "<color=#"+Patches.Colors.Impostor.ToHtmlStringRGBA()+">Poisoner</color> > "; }
+                    else if (role.Value == RoleEnum.Transporter) { playerRole += "<color=#" + Patches.Colors.Transporter.ToHtmlStringRGBA() + ">Transporter</color> > "; }
+                    else if (role.Value == RoleEnum.Traitor) { playerRole += "<color=#" + Patches.Colors.Impostor.ToHtmlStringRGBA() + ">Traitor</color> > "; }
                 }
                 playerRole = playerRole.Remove(playerRole.Length - 3);
 
@@ -90,6 +93,8 @@ namespace TownOfUs.Patches {
                     playerRole += " (<color=#FFFF99FF>Torch</color>)";
                 } else if (playerControl.Is(ModifierEnum.Lover)) {
                     playerRole += " (<color=#FF66CCFF>Lover</color>)";
+                } else if (playerControl.Is(ModifierEnum.Sleuth)) {
+                    playerRole += " (<color=#803333FF>Sleuth</color>)";
                 }  
                 AdditionalTempData.playerRoles.Add(new AdditionalTempData.PlayerRoleInfo() { PlayerName = playerControl.Data.PlayerName, Role = playerRole });
             }

@@ -16,6 +16,7 @@ namespace TownOfUs.Roles
             TaskText = () => "You can see everyone's footprints.";
             Color = Patches.Colors.Investigator;
             RoleType = RoleEnum.Investigator;
+            AddToRoleHistory(RoleType);
             Scale = 1.4f;
         }
     }

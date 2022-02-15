@@ -32,6 +32,7 @@ namespace TownOfUs
         SetJuggernaut,
         SetTracker,
         SetPoisoner,
+        SetTransporter,
 
         SetTorch,
         SetDiseased,
@@ -41,6 +42,7 @@ namespace TownOfUs
         SetBigBoi,
         SetButtonBarry,
         SetBait,
+        SetSleuth,
         SetAssassin,
 
         SetPhantom,
@@ -50,6 +52,9 @@ namespace TownOfUs
         SetHaunter,
         HaunterDied,
         CatchHaunter,
+
+        SetTraitor,
+        TraitorSpawn,
 
         SetCrewmate,
         SetImpostor,
@@ -95,7 +100,8 @@ namespace TownOfUs
         FlashGrenade,
         Alert,
         Remember,
-        Track,
+        BaitReport,
+        Transport,
 
         SetGlitch,
         BypassKill,

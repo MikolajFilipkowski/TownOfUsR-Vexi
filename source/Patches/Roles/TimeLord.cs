@@ -1,11 +1,16 @@
 using System;
 using TownOfUs.CrewmateRoles.TimeLordMod;
 using UnityEngine;
+using TMPro;
 
 namespace TownOfUs.Roles
 {
     public class TimeLord : Role
     {
+        public int UsesLeft;
+        public TextMeshPro UsesText;
+
+        public bool ButtonUsable => UsesLeft != 0;
         public TimeLord(PlayerControl player) : base(player)
         {
             Name = "Time Lord";
@@ -13,7 +18,9 @@ namespace TownOfUs.Roles
             TaskText = () => "Rewind Time!";
             Color = Patches.Colors.TimeLord;
             RoleType = RoleEnum.TimeLord;
+            AddToRoleHistory(RoleType);
             Scale = 1.4f;
+            UsesLeft = CustomGameOptions.RewindMaxUses;
         }
 
         public DateTime StartRewind { get; set; }

@@ -23,6 +23,7 @@ namespace TownOfUs
         private static Sprite Alert => TownOfUs.AlertSprite;
         private static Sprite Remember => TownOfUs.RememberSprite;
         private static Sprite Track => TownOfUs.TrackSprite;
+        private static Sprite Transport => TownOfUs.TransportSprite;
         private static Sprite Button => TownOfUs.ButtonSprite;
 
 
@@ -69,6 +70,11 @@ namespace TownOfUs
             else if (PlayerControl.LocalPlayer.Is(RoleEnum.Tracker))
             {
                 __instance.KillButton.graphic.sprite = Track;
+                flag = true;
+            }
+            else if (PlayerControl.LocalPlayer.Is(RoleEnum.Transporter))
+            {
+                __instance.KillButton.graphic.sprite = Transport;
                 flag = true;
             }
             else

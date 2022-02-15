@@ -64,7 +64,7 @@ namespace TownOfUs.CrewmateRoles.AltruistMod
             Murder.KilledPlayers.Remove(
                 Murder.KilledPlayers.FirstOrDefault(x => x.PlayerId == player.PlayerId));
             revived.Add(player);
-            player.NetTransform.SnapTo(position);
+            player.NetTransform.SnapTo(new Vector2(position.x, position.y + 0.3636f));
 
             if (target != null) Object.Destroy(target.gameObject);
 
