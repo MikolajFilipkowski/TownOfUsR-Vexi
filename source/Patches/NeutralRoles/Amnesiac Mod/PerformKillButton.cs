@@ -77,6 +77,7 @@ namespace TownOfUs.NeutralRoles.AmnesiacMod
                 case RoleEnum.Veteran:
                 case RoleEnum.Crewmate:
                 case RoleEnum.Tracker:
+                case RoleEnum.Transporter:
                 case RoleEnum.Haunter:
                 case RoleEnum.Phantom:
 

@@ -65,10 +65,12 @@ Join our [Discord](https://discord.gg/ugyc4EVUYZ) if you have any problems or wa
 # Releases
 | Among Us - Version| Mod Version | Link |
 |----------|-------------|-----------------|
-| 2021.12.15s & 2021.12.15e | v2.6.0 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v2.6.0/ToU.v2.6.0.zip) |
+| 2021.12.15s & 2021.12.15e & 2022.2.8s | v2.6.1 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v2.6.1/ToU.v2.6.1.zip) |
+| 2021.6.30s & 2021.6.30e & 2021.7.20e | v2.6.1 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v2.6.1/ToU.v2.6.1.Old.zip) |
+| 2021.12.15s & 2021.12.15e & 2022.2.8s | v2.6.0 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v2.6.0/ToU.v2.6.0.zip) |
 | 2021.6.30s & 2021.6.30e & 2021.7.20e | v2.6.0 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v2.6.0/ToU.v2.6.0.Old.zip) |
-| 2021.12.15s & 2021.12.15e | v2.5.1 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v2.5.1/ToU.v2.5.1.zip) |
-| 2021.12.15s & 2021.12.15e | v2.5.0 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v2.5.0/ToU.v2.5.0.zip) |
+| 2021.12.15s & 2021.12.15e & 2022.2.8s | v2.5.1 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v2.5.1/ToU.v2.5.1.zip) |
+| 2021.12.15s & 2021.12.15e & 2022.2.8s | v2.5.0 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v2.5.0/ToU.v2.5.0.zip) |
 | 2021.6.30s & 2021.6.30e & 2021.7.20e | v2.5.0 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v2.5.0/ToU.v2.5.0.Old.zip) |
 | 2021.12.15s & 2021.12.15e | v2.4.2 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v2.4.2/ToU.v2.4.2.zip) |
 | 2021.12.15s & 2021.12.15e | v2.4.1 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v2.4.1/ToU.v2.4.1.zip) |
@@ -99,6 +101,16 @@ Join our [Discord](https://discord.gg/ugyc4EVUYZ) if you have any problems or wa
 
 <details>
   <summary> Changelog </summary>
+  <details>
+  <summary> v2.6.1 </summary>
+  <ul> <li>Fixed Traitor sometimes being unable to kill</li> </ul>
+  <ul> <li>Fixed Bait sometimes not making the killer self-report</li> </ul>
+  <ul> <li>Fixed Poisoner killing Bait after another report resulting in a duplicated meeting</li> </ul>
+  <ul> <li>Fixed the issue where the Snitch spawning as Crewmate would see their name gold</li> </ul>
+  <ul> <li>Fixed Amnesiac remembering Transporter becoming an Impostor</li> </ul>
+  <ul> <li>Fixed Tracker Arrows</li> </ul>
+  <ul> <li>Dead bodies are now removed after meetings</li> </ul>
+  </details>
   <details>
   <summary> v2.6.0 </summary>
   <ul> <li>Fixed killing the Bait instantly banning everyone</li> </ul>
@@ -741,7 +753,7 @@ Players who have been transported are alerted with a blue flash on their screen.
 | Name | Description | Type | Default |
 |----------|:-------------:|:------:|:------:|
 | Transporter | The percentage probability of the Transporter appearing | Percentage | 0% |
-| Rewind Cooldown | The cooldown of the Transporter's transport ability | Time | 25s |
+| Transport Cooldown | The cooldown of the Transporter's transport ability | Time | 25s |
 | Max Uses | The amount of times the Transport ability can be used | Number | 5 |
 | Transporter can use Vitals | Whether the Transporter has the ability to use Vitals | Toggle | False |
 

@@ -6,6 +6,7 @@ using TownOfUs.CrewmateRoles.InvestigatorMod;
 using TownOfUs.CrewmateRoles.SnitchMod;
 using TownOfUs.Extensions;
 using UnityEngine;
+using Reactor;
 
 namespace TownOfUs.ImpostorRoles.TraitorMod
 {
@@ -27,7 +28,7 @@ namespace TownOfUs.ImpostorRoles.TraitorMod
                     .Where(x => !x.Data.IsDead && !x.Data.Disconnected).ToList();
             foreach (var player in alives)
             {
-                if (player.Data.IsImpostor())
+                if (player.Data.IsImpostor() || ((player.Is(RoleEnum.Glitch) || player.Is(RoleEnum.Juggernaut)) && CustomGameOptions.GlitchStopsTraitor))
                 {
                     return;
                 }
@@ -106,6 +107,12 @@ namespace TownOfUs.ImpostorRoles.TraitorMod
                     (byte)CustomRPC.SetAssassin, SendOption.Reliable, -1);
                 writer2.Write(player.PlayerId);
                 AmongUsClient.Instance.FinishRpcImmediately(writer2);
+            }
+            
+            if (PlayerControl.LocalPlayer.PlayerId == player.PlayerId)
+            {
+                DestroyableSingleton<HudManager>.Instance.KillButton.gameObject.SetActive(true);
+                Coroutines.Start(Utils.FlashCoroutine(Color.red));
             }
 
             Lights.SetLights();

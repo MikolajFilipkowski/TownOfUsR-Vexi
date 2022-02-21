@@ -41,7 +41,7 @@ namespace TownOfUs.Roles
             if (Local)
             {
                 if (CustomGameOptions.SnitchOnLaunch) return base.SelfCriteria();
-                return Revealed || base.SelfCriteria();
+                return Revealed;
             }
             return base.SelfCriteria();
         }

@@ -10,7 +10,6 @@ namespace TownOfUs.CrewmateRoles.TransporterMod
     {
         public static bool Prefix(KillButton __instance)
         {
-            // if (__instance != DestroyableSingleton<HudManager>.Instance.KillButton) return true;
             if (!PlayerControl.LocalPlayer.Is(RoleEnum.Transporter)) return true;
             var role = Role.GetRole<Transporter>(PlayerControl.LocalPlayer);
             if (!PlayerControl.LocalPlayer.CanMove) return false;

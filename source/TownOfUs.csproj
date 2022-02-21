@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>netstandard2.1</TargetFramework>
-		<Version>2.6.0</Version>
+		<Version>2.6.1</Version>
 		<DebugType>embedded</DebugType>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<GameProvider>Static</GameProvider>
-		<GameVersion>v2021.12.15s</GameVersion>
+		<GameVersion>v2022.2.8s</GameVersion>
 	</PropertyGroup>
 
 	<ItemGroup>

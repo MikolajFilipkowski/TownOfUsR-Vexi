@@ -248,6 +248,7 @@ namespace TownOfUs.CustomOption
 
         public static CustomHeaderOption Traitor;
         public static CustomNumberOption LatestSpawn;
+        public static CustomToggleOption GlitchStopsTraitor;
 
         public static CustomHeaderOption Lovers;
         public static CustomToggleOption BothLoversDie;
@@ -635,6 +636,8 @@ namespace TownOfUs.CustomOption
 
             Traitor = new CustomHeaderOption(num++, "<color=#FF0000FF>Traitor</color>");
             LatestSpawn = new CustomNumberOption(num++, "Minimum People Alive When Traitor Can Spawn", 5, 2, 15, 1);
+            GlitchStopsTraitor =
+                new CustomToggleOption(num++, "Traitor Won't Spawn If Glitch Is Alive", false);
 
             Underdog = new CustomHeaderOption(num++, "<color=#FF0000FF>Underdog</color>");
             UnderdogKillBonus = new CustomNumberOption(num++, "Kill Cooldown Bonus", 5, 2.5f, 30, 2.5f, CooldownFormat);

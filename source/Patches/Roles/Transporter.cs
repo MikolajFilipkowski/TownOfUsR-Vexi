@@ -140,7 +140,7 @@ namespace TownOfUs.Roles
                 if (Minigame.Instance)
                     Minigame.Instance.Close();
 
-                if (!TransportList1.IsOpen || MeetingHud.Instance || Input.GetKeyInt(KeyCode.Escape))
+                if (!TransportList1.IsOpen || MeetingHud.Instance || Input.GetKeyInt(KeyCode.Escape) || PlayerControl.LocalPlayer.Data.IsDead)
                 {
                     TransportList1.Toggle();
                     TransportList1.SetVisible(false);
@@ -275,7 +275,7 @@ namespace TownOfUs.Roles
                 if (Minigame.Instance)
                     Minigame.Instance.Close();
 
-                if (!TransportList2.IsOpen || MeetingHud.Instance || Input.GetKeyInt(KeyCode.Escape))
+                if (!TransportList2.IsOpen || MeetingHud.Instance || Input.GetKeyInt(KeyCode.Escape) || PlayerControl.LocalPlayer.Data.IsDead)
                 {
                     TransportList2.Toggle();
                     TransportList2.SetVisible(false);

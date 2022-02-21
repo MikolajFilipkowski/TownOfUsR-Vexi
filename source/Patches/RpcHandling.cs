@@ -36,6 +36,7 @@ namespace TownOfUs
         private static readonly List<(Type, CustomRPC, int)> ImpostorRoles = new List<(Type, CustomRPC, int)>();
         private static readonly List<(Type, CustomRPC, int)> CrewmateModifiers = new List<(Type, CustomRPC, int)>();
         private static readonly List<(Type, CustomRPC, int)> GlobalModifiers = new List<(Type, CustomRPC, int)>();
+        private static readonly List<(Type, CustomRPC, int)> ButtonModifiers = new List<(Type, CustomRPC, int)>();
         private static readonly List<(Type, CustomRPC, int)> AssassinModifier = new List<(Type, CustomRPC, int)>();
         private static bool PhantomOn;
         private static bool HaunterOn;
@@ -118,6 +119,7 @@ namespace TownOfUs
             SortRoles(ImpostorRoles, impostors.Count);
             SortRoles(CrewmateModifiers, crewmates.Count);
             SortRoles(GlobalModifiers, crewmates.Count + impostors.Count);
+            SortRoles(ButtonModifiers, crewmates.Count + impostors.Count);
 
             var crewAndNeutralRoles = new List<(Type, CustomRPC, int)>();
             crewAndNeutralRoles.AddRange(NeutralRoles);
@@ -130,6 +132,7 @@ namespace TownOfUs
                 NeutralRoles.Clear();
                 CrewmateModifiers.Clear();
                 GlobalModifiers.Clear();
+                ButtonModifiers.Clear();
                 AssassinModifier.Clear();
                 ImpostorRoles.Clear();
                 PhantomOn = false;
@@ -186,7 +189,15 @@ namespace TownOfUs
                 }
             }
 
-            canHaveModifier.RemoveAll(player => (player.Is(RoleEnum.Glitch) || player.Is(RoleEnum.Juggernaut) || player.Is(Faction.Impostors)));
+            canHaveModifier.RemoveAll(player => player.Is(RoleEnum.Glitch));
+
+            foreach (var (type, rpc, _) in ButtonModifiers)
+            {
+                if (canHaveModifier.Count == 0) break;
+                Role.Gen<Modifier>(type, canHaveModifier, rpc);
+            }
+
+            canHaveModifier.RemoveAll(player => player.Is(RoleEnum.Juggernaut) || player.Is(Faction.Impostors));
             canHaveModifier.Shuffle();
 
             while (canHaveModifier.Count > 0 && CrewmateModifiers.Count > 0)
@@ -845,16 +856,22 @@ namespace TownOfUs
                     case CustomRPC.BaitReport:
                         var baitKiller = Utils.PlayerById(reader.ReadByte());
                         var bait = GameData.Instance.GetPlayerById(reader.ReadByte());
-                        if (AmongUsClient.Instance.AmHost)
+                        if (!MeetingHud.Instance)
                         {
-                            MeetingRoomManager.Instance.reporter = baitKiller;
-                            MeetingRoomManager.Instance.target = bait;
-                            AmongUsClient.Instance.DisconnectHandlers.AddUnique(MeetingRoomManager.Instance
-                                .Cast<IDisconnectHandler>());
-                            if (ShipStatus.Instance.CheckTaskCompletion()) return;
+                            if (AmongUsClient.Instance.AmHost)
+                            {
+                                while (!MeetingHud.Instance)
+                                {
+                                    MeetingRoomManager.Instance.reporter = baitKiller;
+                                    MeetingRoomManager.Instance.target = bait;
+                                    AmongUsClient.Instance.DisconnectHandlers.AddUnique(MeetingRoomManager.Instance
+                                        .Cast<IDisconnectHandler>());
+                                    if (ShipStatus.Instance.CheckTaskCompletion()) return;
 
-                            DestroyableSingleton<HudManager>.Instance.OpenMeetingRoom(baitKiller);
-                            baitKiller.RpcStartMeeting(bait);
+                                    DestroyableSingleton<HudManager>.Instance.OpenMeetingRoom(baitKiller);
+                                    baitKiller.RpcStartMeeting(bait);
+                                }
+                            }
                         }
                         break;
                     case CustomRPC.SetUndertaker:
@@ -983,6 +1000,7 @@ namespace TownOfUs
                 ImpostorRoles.Clear();
                 CrewmateModifiers.Clear();
                 GlobalModifiers.Clear();
+                ButtonModifiers.Clear();
                 AssassinModifier.Clear();
 
                 RecordRewind.points.Clear();
@@ -1115,7 +1133,7 @@ namespace TownOfUs
                     GlobalModifiers.Add((typeof(BigBoiModifier), CustomRPC.SetBigBoi, CustomGameOptions.BigBoiOn));
 
                 if (Check(CustomGameOptions.ButtonBarryOn))
-                    GlobalModifiers.Add((typeof(ButtonBarry), CustomRPC.SetButtonBarry, CustomGameOptions.ButtonBarryOn));
+                    ButtonModifiers.Add((typeof(ButtonBarry), CustomRPC.SetButtonBarry, CustomGameOptions.ButtonBarryOn));
 
                 if (Check(CustomGameOptions.LoversOn))
                     GlobalModifiers.Add((typeof(Lover), CustomRPC.SetCouple, CustomGameOptions.LoversOn));
