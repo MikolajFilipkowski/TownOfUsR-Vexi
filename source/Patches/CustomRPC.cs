@@ -116,6 +116,7 @@ namespace TownOfUs
         SyncCustomSettings,
         FixAnimation,
         
-        AddMayorVoteBank
+        AddMayorVoteBank,
+        RemoveAllBodies
     }
 }
