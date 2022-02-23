@@ -981,6 +981,11 @@ namespace TownOfUs
                     case CustomRPC.AddMayorVoteBank:
                         Role.GetRole<Mayor>(Utils.PlayerById(reader.ReadByte())).VoteBank += reader.ReadInt32();
                         break;
+                    case CustomRPC.RemoveAllBodies:
+                        var buggedBodies = Object.FindObjectsOfType<DeadBody>();
+                        foreach (var body in buggedBodies)
+                            body.gameObject.Destroy();
+                        break;
                 }
             }
         }
