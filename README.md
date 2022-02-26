@@ -110,7 +110,7 @@ Join our [Discord](https://discord.gg/ugyc4EVUYZ) if you have any problems or wa
   <ul> <li>Added Olive Colour</li> </ul>
   <ul> <li>Dead bodies are now removed after meetings</li> </ul>
   <ul> <li>Added an option for Amnesiac Arrows</li> </ul>
-  <ul> <li>Fixes the issue where if a player is transported as they jump in a vent they are freezed in place</li> </ul>
+  <ul> <li>Fixed the issue where if a player is transported as they jump in a vent they are freezed in place</li> </ul>
   </details>
   <details>
   <summary> v2.6.1 </summary>
@@ -807,7 +807,7 @@ If that player gets voted out, they win the game.
 | Name | Description | Type | Default |
 |----------|:-------------:|:------:|:------:|
 | Executioner | The percentage probability of the Executioner appearing | Percentage | 0% |
-| Executioner becomes on Target Dead | Which role the Executioner becomes when their target dies | Crewmate / Jester / Shifter | Crewmate |
+| Executioner becomes on Target Dead | Which role the Executioner becomes when their target dies | Crewmate / Jester / Amnesiac | Crewmate |
 | Executioner Can Button | Whether the Executioner Can Press the Button | Toggle | True |
 
 -----------------------
