@@ -65,6 +65,8 @@ Join our [Discord](https://discord.gg/ugyc4EVUYZ) if you have any problems or wa
 # Releases
 | Among Us - Version| Mod Version | Link |
 |----------|-------------|-----------------|
+| 2021.12.15s & 2021.12.15e & 2022.2.8s & 2022.2.23s| v2.6.3 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v2.6.3/ToU.v2.6.3.zip) |
+| 2021.6.30s & 2021.6.30e & 2021.7.20e | v2.6.3 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v2.6.3/ToU.v2.6.3-2021.6.30.zip) |
 | 2021.12.15s & 2021.12.15e & 2022.2.8s & 2022.2.23s| v2.6.2 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v2.6.2/ToU.v2.6.2.zip) |
 | 2021.6.30s & 2021.6.30e & 2021.7.20e | v2.6.2 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v2.6.2/ToU.v2.6.2-2021.6.30.zip) |
 | 2021.12.15s & 2021.12.15e & 2022.2.8s & 2022.2.23s| v2.6.1 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v2.6.1/ToU.v2.6.1.zip) |
@@ -103,6 +105,16 @@ Join our [Discord](https://discord.gg/ugyc4EVUYZ) if you have any problems or wa
 
 <details>
   <summary> Changelog </summary>
+  <details>
+  <summary> v2.6.3 </summary>
+  <ul> <li>Fixed the bug where games don't end (Sorry about that)</li> </ul>
+  <ul> <li>Fixed Amnesiac turned Impostor not being able to kill</li> </ul>
+  <ul> <li>Fixed Traitor not being able to kill</li> </ul>
+  <ul> <li>Fixed Impostors not being able to kill a player revived by an Altruist</li> </ul>
+  <ul> <li>Fixed Flash and Giant not appearing to move at the correct speed for other players</li> </ul>
+  <ul> <li>Changed Giant and Flash colors</li> </ul>
+  <ul> <li>Split Classic Nameplates setting into Disable Level Icon and Disable Background Cosmetics</li> </ul>
+  </details>
   <details>
   <summary> v2.6.2 </summary>
   <ul> <li>Fixed End Game Tracker Bug</li> </ul>
@@ -1119,7 +1131,8 @@ If the Tiebreaker is the Mayor, it applies to the Mayor's __first__ vote.
 | Probability of a completely vanilla game | The percentage probability of a vanilla Among Us game happening | Percentage | 0% |
 | Game Start Cooldowns | The cooldown for all roles at the start of the game (excluding Impostor's Kill Cooldown) | Time | 10s |
 | Parallel Medbay Scans | Whether players have to wait for others to scan | Toggle | False |
-| Classic Nameplates | Whether all decorative nameplates are disabled | Toggle | False |
+| Disable Level Icons | Whether all level icons are removed in meetings | Toggle | False |
+| Disable Player Nameplates | Whether all decorative nameplates are disabled in meetings | Toggle | False |
 
 -----------------------
 # Task Tracking Settings
