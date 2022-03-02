@@ -249,6 +249,7 @@ namespace TownOfUs
                     SoundManager.Instance.PlaySound(PlayerControl.LocalPlayer.KillSfx, false, 0.8f);
 
                 target.gameObject.layer = LayerMask.NameToLayer("Ghost");
+                target.Visible = false;
                 if (target.AmOwner)
                 {
                     try
