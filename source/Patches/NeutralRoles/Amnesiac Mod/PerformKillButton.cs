@@ -162,7 +162,6 @@ namespace TownOfUs.NeutralRoles.AmnesiacMod
                     {
                         var poisonerRole = Role.GetRole<Poisoner>(amnesiac);
                         poisonerRole.LastPoisoned = DateTime.UtcNow;
-                        DestroyableSingleton<HudManager>.Instance.KillButton.enabled = false;
                         DestroyableSingleton<HudManager>.Instance.KillButton.graphic.enabled = false;
                     }
                     else if (PlayerControl.LocalPlayer == other)

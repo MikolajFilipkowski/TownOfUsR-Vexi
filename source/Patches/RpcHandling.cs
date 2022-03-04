@@ -840,7 +840,18 @@ namespace TownOfUs
                         break;
                     case CustomRPC.BarryButton:
                         var buttonBarry = Utils.PlayerById(reader.ReadByte());
-                        buttonBarry.ReportDeadBody(null);
+
+                        if (AmongUsClient.Instance.AmHost)
+                        {
+                            MeetingRoomManager.Instance.reporter = buttonBarry;
+                            MeetingRoomManager.Instance.target = null;
+                            AmongUsClient.Instance.DisconnectHandlers.AddUnique(MeetingRoomManager.Instance
+                                .Cast<IDisconnectHandler>());
+                            if (ShipStatus.Instance.CheckTaskCompletion()) return;
+
+                            DestroyableSingleton<HudManager>.Instance.OpenMeetingRoom(buttonBarry);
+                            buttonBarry.RpcStartMeeting(null);
+                        }
                         break;
                     case CustomRPC.BaitReport:
                         var baitKiller = Utils.PlayerById(reader.ReadByte());
