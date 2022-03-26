@@ -40,7 +40,7 @@ namespace TownOfUs.Modifiers.ButtonBarryMod
                 PlayerControl.LocalPlayer.RpcStartMeeting(null);
             }
 
-                return false;
+            return false;
         }
     }
 }

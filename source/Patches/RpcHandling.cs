@@ -749,6 +749,12 @@ namespace TownOfUs
                     case CustomRPC.Transport:
                         Transporter.TransportPlayers(reader.ReadByte(), reader.ReadByte());
                         break;
+                    case CustomRPC.SetUntransportable:
+                        if (PlayerControl.LocalPlayer.Is(RoleEnum.Transporter))
+                        {
+                            Role.GetRole<Transporter>(PlayerControl.LocalPlayer).UntransportablePlayers.Add(reader.ReadByte(), DateTime.UtcNow);
+                        }
+                        break;
                     case CustomRPC.SetGrenadier:
                         new Grenadier(Utils.PlayerById(reader.ReadByte()));
                         break;

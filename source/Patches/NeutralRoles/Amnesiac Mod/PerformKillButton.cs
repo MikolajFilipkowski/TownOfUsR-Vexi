@@ -251,8 +251,7 @@ namespace TownOfUs.NeutralRoles.AmnesiacMod
                 tpRole.PressedButton = false;
                 tpRole.MenuClick = false;
                 tpRole.LastMouse = false;
-                tpRole.TransportList1 = null;
-                tpRole.TransportList2 = null;
+                tpRole.TransportList = null;
                 tpRole.TransportPlayer1 = null;
                 tpRole.TransportPlayer2 = null;
                 tpRole.LastTransported = DateTime.UtcNow;
