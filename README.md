@@ -114,7 +114,7 @@ Join our [Discord](https://discord.gg/ugyc4EVUYZ) if you have any problems or wa
   <ul> <li>Fixed Button Barry not working during sabotages</li> </ul>
   <ul> <li>Fixed Poisoner interactions against Medic shields and Veteran alerts</li> </ul>
   <ul> <li>Transporting now works a little differently</li> </ul>
-  <ul> <li>If a player is trasnported when they are in a position out of bounds while on somehting like a ladder, it rejects the transport</li> </ul>
+  <ul> <li>If a player is transported when they are in a position out of bounds while on something like a ladder, it rejects the transport</li> </ul>
   <ul> <li>Glitch and Transporter can now be lovers</li> </ul>
   </details>
   <details>
