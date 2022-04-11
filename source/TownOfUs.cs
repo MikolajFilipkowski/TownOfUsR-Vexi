@@ -45,7 +45,8 @@ namespace TownOfUs
         public static Sprite IgniteSprite;
         public static Sprite ReviveSprite;
         public static Sprite ButtonSprite;
-        public static Sprite CycleSprite;
+        public static Sprite CycleBackSprite;
+        public static Sprite CycleForwardSprite;
         public static Sprite GuessSprite;
         public static Sprite DragSprite;
         public static Sprite DropSprite;
@@ -101,7 +102,8 @@ namespace TownOfUs
             ButtonSprite = CreateSprite("TownOfUs.Resources.Button.png");
             DragSprite = CreateSprite("TownOfUs.Resources.Drag.png");
             DropSprite = CreateSprite("TownOfUs.Resources.Drop.png");
-            CycleSprite = CreateSprite("TownOfUs.Resources.Cycle.png");
+            CycleBackSprite = CreateSprite("TownOfUs.Resources.CycleBack.png");
+            CycleForwardSprite = CreateSprite("TownOfUs.Resources.CycleForward.png");
             GuessSprite = CreateSprite("TownOfUs.Resources.Guess.png");
             FlashSprite = CreateSprite("TownOfUs.Resources.Flash.png");
             AlertSprite = CreateSprite("TownOfUs.Resources.Alert.png");
