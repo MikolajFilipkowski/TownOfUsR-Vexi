@@ -114,10 +114,10 @@ namespace TownOfUs.CrewmateRoles.VigilanteMod
                     ? -1
                     : role.PossibleGuesses.IndexOf(currentGuess);
                 if (forwardsCycle) {
-                    if (++guessIndex == role.PossibleGuesses.Count)
+                    if (++guessIndex >= role.PossibleGuesses.Count)
                         guessIndex = 0;
                 } else {
-                    if (--guessIndex == -1)
+                    if (--guessIndex < 0)
                         guessIndex = role.PossibleGuesses.Count - 1;
                 }
 
