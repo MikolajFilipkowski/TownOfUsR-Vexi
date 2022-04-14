@@ -13,7 +13,7 @@ namespace TownOfUs
             {
                 if (CustomGameOptions.WhiteNameplates)
                 {
-                    __instance.Background.sprite = DestroyableSingleton<HatManager>.Instance.GetNamePlateById("nameplate_NoPlate").Image;
+                    __instance.Background.sprite = DestroyableSingleton<HatManager>.Instance.GetNamePlateById("nameplate_NoPlate").viewData.viewData.Image;
                 }
 
                 if (CustomGameOptions.DisableLevels)
@@ -31,7 +31,7 @@ namespace TownOfUs
             {
                 if (CustomGameOptions.WhiteNameplates)
                 {
-                    __instance.Background.sprite = DestroyableSingleton<HatManager>.Instance.GetNamePlateById("nameplate_NoPlate").Image;
+                    __instance.Background.sprite = DestroyableSingleton<HatManager>.Instance.GetNamePlateById("nameplate_NoPlate").viewData.viewData.Image;
                 }
                 
                 if (CustomGameOptions.DisableLevels)

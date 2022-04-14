@@ -16,54 +16,6 @@ namespace TownOfUs
         public static bool AllOptions;
         public static bool LastTab;
 
-        /*public static string StringBuild()
-        {
-            var builder = new StringBuilder("Roles:\n");
-            foreach (var option in TownOfUs.Roles)
-            {
-                builder.AppendLine($"     {option.Name}: {option}");
-            }
-
-            builder.AppendLine("Modifiers:");
-            foreach (var option in TownOfUs.Modifiers)
-            {
-                builder.AppendLine($"     {option.Name}: {option}");
-            }
-            
-            
-            foreach (var option in TownOfUs.AllOptions)
-            {
-                builder.AppendLine($"{option.Name}: {option}");
-            }
-            
-
-            return builder.ToString();
-        }
-
-        [HarmonyPatch(typeof(LobbyBehaviour), nameof(LobbyBehaviour.FixedUpdate))]
-        public static class LobbyFix
-        {
-
-            public static bool Prefix()
-            {
-                
-                DestroyableSingleton<HudManager>.Instance.GameSettings.text = StringBuild();
-                DestroyableSingleton<HudManager>.Instance.GameSettings.gameObject.SetActive(true);
-                return false;
-            }
-        }
-
-
-        [HarmonyPatch(typeof(HudManager), nameof(HudManager.Update))]
-        [HarmonyAfter("com.comando.essentials")]
-        public static class FixScale
-        {
-            public static void Prefix(HudManager __instance)
-            {
-//                __instance.GameSettings.scale = 0.3f;
-            }
-        }*/
-
         [HarmonyPatch] //ToHudString
         private static class GameOptionsDataPatch
         {

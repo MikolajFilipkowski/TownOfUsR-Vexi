@@ -25,7 +25,7 @@ namespace TownOfUs.NeutralRoles.ArsonistMod
                 if (data == null || data.Disconnected || data.IsDead || PlayerControl.LocalPlayer.Data.IsDead)
                     continue;
 
-                player.myRend.material.SetColor("_VisorColor", role.Color);
+                player.MyRend.material.SetColor("_VisorColor", role.Color);
                 player.nameText.color = Color.black;
             }
 

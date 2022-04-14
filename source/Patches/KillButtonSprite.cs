@@ -26,7 +26,6 @@ namespace TownOfUs
         private static Sprite Transport => TownOfUs.TransportSprite;
         private static Sprite Button => TownOfUs.ButtonSprite;
 
-
         public static void Postfix(HudManager __instance)
         {
             if (__instance.KillButton == null) return;
@@ -79,7 +78,7 @@ namespace TownOfUs
             }
             else
             {
-                __instance.KillButton.graphic.sprite = TranslationController.Instance.GetImage(ImageNames.KillButton);
+                //__instance.KillButton.graphic.sprite = TranslationController.Instance.GetImage(ImageNames.KillButton);
                 flag = PlayerControl.LocalPlayer.Is(RoleEnum.Sheriff);
             }
 

@@ -26,11 +26,11 @@ namespace TownOfUs.Roles
             LostByRPC = true;
         }
 
-        protected override void IntroPrefix(IntroCutscene._CoBegin_d__18 __instance)
+        protected override void IntroPrefix(IntroCutscene._ShowTeam_d__21 __instance)
         {
             var amnesiacTeam = new Il2CppSystem.Collections.Generic.List<PlayerControl>();
             amnesiacTeam.Add(PlayerControl.LocalPlayer);
-            __instance.yourTeam = amnesiacTeam;
+            __instance.teamToShow = amnesiacTeam;
         }
 
         public void DestroyArrow(byte targetPlayerId)

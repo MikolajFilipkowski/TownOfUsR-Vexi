@@ -58,6 +58,7 @@ namespace TownOfUs
         public static Sprite PoisonedSprite;
         public static Sprite TransportSprite;
 
+
         public static Sprite SettingsButtonSprite;
         public static Sprite ToUBanner;
 
@@ -113,6 +114,7 @@ namespace TownOfUs
             PoisonedSprite = CreateSprite("TownOfUs.Resources.Poisoned.png");
             TransportSprite = CreateSprite("TownOfUs.Resources.Transport.png");
 
+
             SettingsButtonSprite = CreateSprite("TownOfUs.Resources.SettingsButton.png");
             ToUBanner = CreateSprite("TownOfUs.Resources.TownOfUsBanner.png");
 
@@ -136,10 +138,10 @@ namespace TownOfUs
 
             ServerManager.DefaultRegions = defaultRegions.ToArray();
 
-            SceneManager.add_sceneLoaded((Action<Scene, LoadSceneMode>) ((scene, loadSceneMode) =>
-            {
-                ModManager.Instance.ShowModStamp();
-            }));
+            //SceneManager.add_sceneLoaded((Action<Scene, LoadSceneMode>) ((scene, loadSceneMode) =>
+            //{
+            //    ModManager.Instance.ShowModStamp();
+            //}));
 
             _harmony.PatchAll();
         }

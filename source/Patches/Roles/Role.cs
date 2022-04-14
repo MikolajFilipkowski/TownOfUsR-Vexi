@@ -17,6 +17,7 @@ using TownOfUs.ImpostorRoles.TraitorMod;
 
 namespace TownOfUs.Roles
 {
+
     public abstract class Role
     {
         public static readonly Dictionary<byte, Role> RoleDictionary = new Dictionary<byte, Role>();
@@ -146,7 +147,7 @@ namespace TownOfUs.Roles
             return PlayerControl.LocalPlayer.Is(ModifierEnum.Sleuth) && Modifier.GetModifier<Sleuth>(PlayerControl.LocalPlayer).Reported.Contains(Player.PlayerId);
         }
 
-        protected virtual void IntroPrefix(IntroCutscene._CoBegin_d__18 __instance)
+        protected virtual void IntroPrefix(IntroCutscene._ShowTeam_d__21 __instance)
         {
         }
 
@@ -357,23 +358,23 @@ namespace TownOfUs.Roles
                     Lights.SetLights();
                 }
             }
+            
 
-            [HarmonyPatch(typeof(IntroCutscene._CoBegin_d__18), nameof(IntroCutscene._CoBegin_d__18.MoveNext))]
-            public static class IntroCutscene_CoBegin__d_MoveNext
+            [HarmonyPatch(typeof(IntroCutscene._ShowTeam_d__21), nameof(IntroCutscene._ShowTeam_d__21.MoveNext))]
+            public static class IntroCutscene_ShowTeam__d_MoveNext
             {
-                public static float TestScale;
-
-                public static void Prefix(IntroCutscene._CoBegin_d__18 __instance)
+                public static void Prefix(IntroCutscene._ShowTeam_d__21 __instance)
                 {
                     var role = GetRole(PlayerControl.LocalPlayer);
 
                     if (role != null) role.IntroPrefix(__instance);
                 }
 
-                public static void Postfix(IntroCutscene._CoBegin_d__18 __instance)
+
+                public static void Postfix(IntroCutscene._ShowRole_d__24 __instance)
                 {
                     var role = GetRole(PlayerControl.LocalPlayer);
-                    var alpha = __instance.__4__this.RoleText.color.a;
+                    //var alpha = __instance.__4__this.RoleText.color.a;
                     if (role != null && !role.Hidden)
                     {
                         __instance.__4__this.TeamTitle.text = role.Faction == Faction.Neutral ? "Neutral" : __instance.__4__this.TeamTitle.text;
@@ -381,15 +382,10 @@ namespace TownOfUs.Roles
                         __instance.__4__this.RoleText.text = role.Name;
                         __instance.__4__this.RoleText.color = role.Color;
                         __instance.__4__this.RoleBlurbText.text = role.ImpostorText();
-                        //    __instance.__4__this.ImpostorText.gameObject.SetActive(true);
                         __instance.__4__this.BackgroundBar.material.color = role.Color;
-                        //                        TestScale = Mathf.Max(__instance.__this.Title.scale, TestScale);
-                        //                        __instance.__this.Title.scale = TestScale / role.Scale;
+
                     }
-                    /*else if (!__instance.isImpostor)
-                    {
-                        __instance.__this.ImpostorText.text = "Haha imagine being a boring old crewmate";
-                    }*/
+
 
                     if (ModifierText != null)
                     {
@@ -409,14 +405,94 @@ namespace TownOfUs.Roles
                             __instance.__4__this.transform.position - new Vector3(0f, 1.6f, 0f);
                         ModifierText.gameObject.SetActive(true);
                     }
-                } 
+                }
+            }
+
+            [HarmonyPatch(typeof(IntroCutscene._ShowRole_d__24), nameof(IntroCutscene._ShowRole_d__24.MoveNext))]
+            public static class IntroCutscene_ShowRole_d__24
+            {
+                public static void Postfix(IntroCutscene._ShowRole_d__24 __instance)
+                {
+                    var role = GetRole(PlayerControl.LocalPlayer);
+                    //var alpha = __instance.__4__this.RoleText.color.a;
+                    if (role != null && !role.Hidden)
+                    {
+                        __instance.__4__this.TeamTitle.text = role.Faction == Faction.Neutral ? "Neutral" : __instance.__4__this.TeamTitle.text;
+                        __instance.__4__this.TeamTitle.color = role.Faction == Faction.Neutral ? Color.white : __instance.__4__this.TeamTitle.color;
+                        __instance.__4__this.RoleText.text = role.Name;
+                        __instance.__4__this.RoleText.color = role.Color;
+                        __instance.__4__this.RoleBlurbText.text = role.ImpostorText();
+                        __instance.__4__this.BackgroundBar.material.color = role.Color;
+
+                    }
+                    
+
+                    if (ModifierText != null)
+                    {
+                        var modifier = Modifier.GetModifier(PlayerControl.LocalPlayer);
+                        if (modifier.GetType() == typeof(Lover))
+                        {
+                            ModifierText.text = $"<size=3>{modifier.TaskText()}</size>";
+                        }
+                        else
+                        {
+                            ModifierText.text = "<size=4>Modifier: " + modifier.Name + "</size>";
+                        }
+                        ModifierText.color = modifier.Color;
+
+                        //
+                        ModifierText.transform.position =
+                            __instance.__4__this.transform.position - new Vector3(0f, 1.6f, 0f);
+                        ModifierText.gameObject.SetActive(true);
+                    }
+                }
+            }
+
+            [HarmonyPatch(typeof(IntroCutscene._CoBegin_d__19), nameof(IntroCutscene._CoBegin_d__19.MoveNext))]
+            public static class IntroCutscene_CoBegin_d__19
+            {
+                public static void Postfix(IntroCutscene._CoBegin_d__19 __instance)
+                {
+                    var role = GetRole(PlayerControl.LocalPlayer);
+                    //var alpha = __instance.__4__this.RoleText.color.a;
+                    if (role != null && !role.Hidden)
+                    {
+                        __instance.__4__this.TeamTitle.text = role.Faction == Faction.Neutral ? "Neutral" : __instance.__4__this.TeamTitle.text;
+                        __instance.__4__this.TeamTitle.color = role.Faction == Faction.Neutral ? Color.white : __instance.__4__this.TeamTitle.color;
+                        __instance.__4__this.RoleText.text = role.Name;
+                        __instance.__4__this.RoleText.color = role.Color;
+                        __instance.__4__this.RoleBlurbText.text = role.ImpostorText();
+                        __instance.__4__this.BackgroundBar.material.color = role.Color;
+
+                    }
+
+
+                    if (ModifierText != null)
+                    {
+                        var modifier = Modifier.GetModifier(PlayerControl.LocalPlayer);
+                        if (modifier.GetType() == typeof(Lover))
+                        {
+                            ModifierText.text = $"<size=3>{modifier.TaskText()}</size>";
+                        }
+                        else
+                        {
+                            ModifierText.text = "<size=4>Modifier: " + modifier.Name + "</size>";
+                        }
+                        ModifierText.color = modifier.Color;
+
+                        //
+                        ModifierText.transform.position =
+                            __instance.__4__this.transform.position - new Vector3(0f, 1.6f, 0f);
+                        ModifierText.gameObject.SetActive(true);
+                    }
+                }
             }
         }
 
-        [HarmonyPatch(typeof(PlayerControl._CoSetTasks_d__102), nameof(PlayerControl._CoSetTasks_d__102.MoveNext))]
+        [HarmonyPatch(typeof(PlayerControl._CoSetTasks_d__112), nameof(PlayerControl._CoSetTasks_d__112.MoveNext))]
         public static class PlayerControl_SetTasks
         {
-            public static void Postfix(PlayerControl._CoSetTasks_d__102 __instance)
+            public static void Postfix(PlayerControl._CoSetTasks_d__112 __instance)
             {
                 if (__instance == null) return;
                 var player = __instance.__4__this;
@@ -522,8 +598,7 @@ namespace TownOfUs.Roles
             }
         }
 
-        [HarmonyPatch(typeof(TranslationController), nameof(TranslationController.GetString), typeof(StringNames),
-            typeof(Il2CppReferenceArray<Il2CppSystem.Object>))]
+        [HarmonyPatch(typeof(TranslationController), nameof(TranslationController.GetString), typeof(StringNames),typeof(Il2CppReferenceArray<Il2CppSystem.Object>))]
         public static class TranslationController_GetString
         {
             public static void Postfix(ref string __result, [HarmonyArgument(0)] StringNames name)

@@ -267,11 +267,11 @@ namespace TownOfUs.Roles
                 TP1.MyPhysics.ResetMoveState();
                 TP2.MyPhysics.ResetMoveState();
                 var TempPosition = TP1.GetTruePosition();
-                var TempFacing = TP1.myRend.flipX;
+                var TempFacing = TP1.MyRend.flipX;
                 TP1.NetTransform.SnapTo(new Vector2(TP2.GetTruePosition().x, TP2.GetTruePosition().y + 0.3636f));
-                TP1.myRend.flipX = TP2.myRend.flipX;
+                TP1.MyRend.flipX = TP2.MyRend.flipX;
                 TP2.NetTransform.SnapTo(new Vector2(TempPosition.x, TempPosition.y + 0.3636f));
-                TP2.myRend.flipX = TempFacing;
+                TP2.MyRend.flipX = TempFacing;
             }
             else if (Player1Body != null && Player2Body == null)
             {
