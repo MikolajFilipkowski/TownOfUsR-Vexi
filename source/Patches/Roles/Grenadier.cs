@@ -3,14 +3,11 @@ using UnityEngine;
 using System.Linq;
 using TownOfUs.Extensions;
 
-using BepInEx.Logging;
-using Reactor;
 namespace TownOfUs.Roles
 {
     public class Grenadier : Role
     {
 
-        private static ManualLogSource Log => PluginSingleton<TownOfUs>.Instance.Log;
 
         public KillButton _flashButton;
         public bool Enabled;
