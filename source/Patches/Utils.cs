@@ -54,7 +54,7 @@ namespace TownOfUs
                         _playerName = " "
                     });
                     //player.nameText.text = "";
-                    PlayerControl.SetPlayerMaterialColors(Color.grey, player.myRend);
+                    PlayerControl.SetPlayerMaterialColors(Color.grey, player.MyRend);
                 }
             }
         }

@@ -40,7 +40,7 @@ namespace TownOfUs.ImpostorRoles.PoisonerMod
 
             if (role.ClosestPlayer != null)
             {
-                role.ClosestPlayer.myRend.material.SetColor("_OutlineColor", Palette.Purple);
+                role.ClosestPlayer.MyRend.material.SetColor("_OutlineColor", Palette.Purple);
             }
 
             role.Player.SetKillTimer(1f);

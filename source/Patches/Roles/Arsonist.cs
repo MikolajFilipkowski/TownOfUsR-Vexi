@@ -90,11 +90,11 @@ namespace TownOfUs.Roles
             return true;
         }
 
-        protected override void IntroPrefix(IntroCutscene._CoBegin_d__18 __instance)
+        protected override void IntroPrefix(IntroCutscene._ShowTeam_d__21 __instance)
         {
             var arsonistTeam = new Il2CppSystem.Collections.Generic.List<PlayerControl>();
             arsonistTeam.Add(PlayerControl.LocalPlayer);
-            __instance.yourTeam = arsonistTeam;
+            __instance.teamToShow = arsonistTeam;
         }
 
         public float DouseTimer()
