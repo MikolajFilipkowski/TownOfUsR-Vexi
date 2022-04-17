@@ -39,11 +39,14 @@ namespace TownOfUs.CrewmateRoles.SeerMod
                     if (CustomGameOptions.ShieldBreaks)
                         role.LastInvestigated = DateTime.UtcNow;
                     StopKill.BreakShield(PlayerControl.LocalPlayer.GetMedic().Player.PlayerId, PlayerControl.LocalPlayer.PlayerId, CustomGameOptions.ShieldBreaks);
+                    return false;
                 }
-                else
+                else if (!role.Player.IsProtected())
                 {
                     Utils.RpcMurderPlayer(role.ClosestPlayer, PlayerControl.LocalPlayer);
+                    return false;
                 }
+                role.LastInvestigated = DateTime.UtcNow;
 
                 return false;
             }

@@ -4,7 +4,6 @@ using Hazel;
 using TownOfUs.Roles;
 using UnityEngine;
 using TownOfUs.CrewmateRoles.MedicMod;
-using TownOfUs.ImpostorRoles.CamouflageMod;
 using TownOfUs.Extensions;
 
 namespace TownOfUs.CrewmateRoles.TrackerMod
@@ -43,12 +42,14 @@ namespace TownOfUs.CrewmateRoles.TrackerMod
                     if (CustomGameOptions.ShieldBreaks)
                         role.LastTracked = DateTime.UtcNow;
                     StopKill.BreakShield(PlayerControl.LocalPlayer.GetMedic().Player.PlayerId, PlayerControl.LocalPlayer.PlayerId, CustomGameOptions.ShieldBreaks);
+                    return false;
                 }
-                else
+                else if (!role.Player.IsProtected())
                 {
                     Utils.RpcMurderPlayer(role.ClosestPlayer, PlayerControl.LocalPlayer);
+                    return false;
                 }
-
+                role.LastTracked = DateTime.UtcNow;
                 return false;
             }
 

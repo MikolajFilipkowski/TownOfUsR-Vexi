@@ -18,6 +18,7 @@ namespace TownOfUs.Roles
             ImpostorText = () => "Turn invisible temporarily";
             TaskText = () => "Turn invisible and sneakily kill";
             Color = Patches.Colors.Impostor;
+            LastSwooped = DateTime.UtcNow;
             RoleType = RoleEnum.Swooper;
             AddToRoleHistory(RoleType);
             Faction = Faction.Impostors;

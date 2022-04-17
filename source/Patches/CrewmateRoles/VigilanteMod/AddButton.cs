@@ -65,7 +65,6 @@ namespace TownOfUs.CrewmateRoles.VigilanteMod
             cycleColliderBack.offset = Vector2.zero;
             cycleBack.transform.GetChild(0).gameObject.Destroy();
 
-            
             var cycleForward = Object.Instantiate(confirmButton, voteArea.transform);
             var cycleRendererForward = cycleForward.GetComponent<SpriteRenderer>();
             cycleRendererForward.sprite = CycleForwardSprite;
@@ -80,7 +79,6 @@ namespace TownOfUs.CrewmateRoles.VigilanteMod
             cycleColliderForward.size = cycleRendererForward.sprite.bounds.size;
             cycleColliderForward.offset = Vector2.zero;
             cycleForward.transform.GetChild(0).gameObject.Destroy();
-
 
             var guess = Object.Instantiate(confirmButton, voteArea.transform);
             var guessRenderer = guess.GetComponent<SpriteRenderer>();
@@ -99,7 +97,6 @@ namespace TownOfUs.CrewmateRoles.VigilanteMod
             guessCollider.offset = Vector2.zero;
             guess.transform.GetChild(0).gameObject.Destroy();
 
-
             role.Guesses.Add(targetId, "None");
             role.Buttons[targetId] = (cycleBack, cycleForward, guess, nameText);
         }
@@ -113,10 +110,13 @@ namespace TownOfUs.CrewmateRoles.VigilanteMod
                 var guessIndex = currentGuess == "None"
                     ? -1
                     : role.PossibleGuesses.IndexOf(currentGuess);
-                if (forwardsCycle) {
+                if (forwardsCycle)
+                {
                     if (++guessIndex >= role.PossibleGuesses.Count)
                         guessIndex = 0;
-                } else {
+                }
+                else
+                {
                     if (--guessIndex < 0)
                         guessIndex = role.PossibleGuesses.Count - 1;
                 }
@@ -137,7 +137,7 @@ namespace TownOfUs.CrewmateRoles.VigilanteMod
             {
                 if (
                     MeetingHud.Instance.state == MeetingHud.VoteStates.Discussion ||
-                    IsExempt(voteArea)
+                    IsExempt(voteArea) || PlayerControl.LocalPlayer.Data.IsDead
                 ) return;
                 var targetId = voteArea.TargetPlayerId;
                 var currentGuess = role.Guesses[targetId];

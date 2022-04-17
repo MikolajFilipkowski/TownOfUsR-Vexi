@@ -4,7 +4,7 @@ using TownOfUs.Roles;
 namespace TownOfUs.CrewmateRoles.MedicMod
 {
     [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.FixedUpdate))]
-    public class HUDRewind
+    public class HUDProtect
     {
         public static void Postfix(PlayerControl __instance)
         {

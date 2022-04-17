@@ -14,12 +14,10 @@ using UnityEngine;
 using Object = UnityEngine.Object;
 using HarmonyLib;
 
-
 namespace TownOfUs.Roles
 {
     public class Glitch : Role, IVisualAlteration
     {
-        
         public static AssetBundle bundle = loadBundle();
         public static Sprite MimicSprite = bundle.LoadAsset<Sprite>("MimicSprite").DontUnload();
         public static Sprite HackSprite = bundle.LoadAsset<Sprite>("HackSprite").DontUnload();

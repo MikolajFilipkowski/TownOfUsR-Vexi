@@ -7,8 +7,6 @@ namespace TownOfUs.Roles
 {
     public class Grenadier : Role
     {
-
-
         public KillButton _flashButton;
         public bool Enabled;
         public DateTime LastFlashed;
@@ -25,6 +23,7 @@ namespace TownOfUs.Roles
             ImpostorText = () => "Hinder the Crewmates Vision";
             TaskText = () => "Blind the crewmates to get sneaky kills";
             Color = Patches.Colors.Impostor;
+            LastFlashed = DateTime.UtcNow;
             RoleType = RoleEnum.Grenadier;
             AddToRoleHistory(RoleType);
             Faction = Faction.Impostors;
@@ -73,13 +72,11 @@ namespace TownOfUs.Roles
             {
                 if (PlayerControl.LocalPlayer.PlayerId == player.PlayerId)
                 {
-
                     if (TimeRemaining > CustomGameOptions.GrenadeDuration - 0.5f && (!sabActive | dummyActive))
                     {
                         float fade = (TimeRemaining - CustomGameOptions.GrenadeDuration) * -2.0f;
                         if (ShouldPlayerBeBlinded(player))
                         {
-                            
                             ((Renderer)DestroyableSingleton<HudManager>.Instance.FullScreen).enabled = true;
                             ((Renderer)DestroyableSingleton<HudManager>.Instance.FullScreen).gameObject.active = true;
                             DestroyableSingleton<HudManager>.Instance.FullScreen.color = Color.Lerp(normalVision, blindVision, fade);
@@ -154,7 +151,6 @@ namespace TownOfUs.Roles
                     }
                     else
                     {
-
                         ((Renderer)DestroyableSingleton<HudManager>.Instance.FullScreen).enabled = true;
                         ((Renderer)DestroyableSingleton<HudManager>.Instance.FullScreen).gameObject.active = true;
                         DestroyableSingleton<HudManager>.Instance.FullScreen.color = normalVision;
@@ -185,7 +181,6 @@ namespace TownOfUs.Roles
             Enabled = false;
             LastFlashed = DateTime.UtcNow;
             ((Renderer)DestroyableSingleton<HudManager>.Instance.FullScreen).enabled = true;
-            ((Renderer)DestroyableSingleton<HudManager>.Instance.FullScreen).gameObject.active = false;
             DestroyableSingleton<HudManager>.Instance.FullScreen.color = normalVision;
         }
 

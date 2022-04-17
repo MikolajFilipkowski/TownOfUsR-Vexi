@@ -1,5 +1,4 @@
 using HarmonyLib;
-using System.Linq;
 using UnityEngine;
 
 namespace TownOfUs
@@ -33,7 +32,8 @@ namespace TownOfUs
                 {
                     __instance.Background.sprite = DestroyableSingleton<HatManager>.Instance.GetNamePlateById("nameplate_NoPlate").viewData.viewData.Image;
                 }
-                
+
+
                 if (CustomGameOptions.DisableLevels)
                 {
                     __instance.LevelNumberText.GetComponentInParent<SpriteRenderer>().enabled = false;

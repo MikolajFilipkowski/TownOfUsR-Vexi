@@ -7,6 +7,7 @@ using System.Linq;
 using TMPro;
 using Reactor.Extensions;
 using System.Collections.Generic;
+using TownOfUs.CrewmateRoles.TransporterMod;
 
 namespace TownOfUs.Roles
 {
@@ -34,6 +35,7 @@ namespace TownOfUs.Roles
             ImpostorText = () => "Choose two players to swap locations";
             TaskText = () => "Choose two players to swap locations";
             Color = Patches.Colors.Transporter;
+            LastTransported = DateTime.UtcNow;
             RoleType = RoleEnum.Transporter;
             AddToRoleHistory(RoleType);
             Scale = 1.4f;

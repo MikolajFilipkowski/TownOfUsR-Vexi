@@ -18,7 +18,10 @@ namespace TownOfUs.CrewmateRoles.MedicMod
             if (role.UsedAbility || role.ClosestPlayer == null) return false;
             if (role.ClosestPlayer.IsOnAlert())
             {
-                Utils.RpcMurderPlayer(role.ClosestPlayer, PlayerControl.LocalPlayer);
+                if (!PlayerControl.LocalPlayer.IsProtected())
+                {
+                    Utils.RpcMurderPlayer(role.ClosestPlayer, PlayerControl.LocalPlayer);
+                }
 
                 return false;
             }

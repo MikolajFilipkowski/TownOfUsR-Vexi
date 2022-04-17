@@ -17,6 +17,8 @@ namespace TownOfUs.Roles
             ImpostorText = () => "Rewind Time";
             TaskText = () => "Rewind Time!";
             Color = Patches.Colors.TimeLord;
+            StartRewind = DateTime.UtcNow.AddSeconds(-10.0f);
+            FinishRewind = DateTime.UtcNow;
             RoleType = RoleEnum.TimeLord;
             AddToRoleHistory(RoleType);
             Scale = 1.4f;

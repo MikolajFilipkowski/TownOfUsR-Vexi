@@ -29,7 +29,7 @@ namespace TownOfUs
             {
                 TempData.winners.Remove(toRemoveWinners[i]);
             }
-            
+
             if (Role.NobodyWins)
             {
                 TempData.winners = new List<WinningPlayerData>();

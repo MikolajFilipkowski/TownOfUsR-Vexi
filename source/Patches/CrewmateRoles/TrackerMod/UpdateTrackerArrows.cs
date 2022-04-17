@@ -1,7 +1,6 @@
 using HarmonyLib;
 using TownOfUs.Roles;
 using UnityEngine;
-using TownOfUs.ImpostorRoles.CamouflageMod;
 using TownOfUs.Extensions;
 using System;
 

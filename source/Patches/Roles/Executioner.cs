@@ -27,9 +27,9 @@ namespace TownOfUs.Roles
 
         protected override void IntroPrefix(IntroCutscene._ShowTeam_d__21 __instance)
         {
-            var executionerteam = new List<PlayerControl>();
-            executionerteam.Add(PlayerControl.LocalPlayer);
-            __instance.teamToShow = executionerteam;
+            var exeTeam = new List<PlayerControl>();
+            exeTeam.Add(PlayerControl.LocalPlayer);
+            __instance.teamToShow = exeTeam;
         }
 
         internal override bool EABBNOODFGL(ShipStatus __instance)

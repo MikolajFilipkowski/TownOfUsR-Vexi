@@ -22,9 +22,9 @@ namespace TownOfUs.Roles
 
         protected override void IntroPrefix(IntroCutscene._ShowTeam_d__21 __instance)
         {
-            var jesterTeam = new List<PlayerControl>();
-            jesterTeam.Add(PlayerControl.LocalPlayer);
-            __instance.teamToShow = jesterTeam;
+            var jestTeam = new List<PlayerControl>();
+            jestTeam.Add(PlayerControl.LocalPlayer);
+            __instance.teamToShow = jestTeam;
         }
 
         internal override bool EABBNOODFGL(ShipStatus __instance)

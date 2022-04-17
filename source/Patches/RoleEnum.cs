@@ -24,17 +24,21 @@ namespace TownOfUs
         Juggernaut,
         Tracker,
         Transporter,
+        Medium,
+        Survivor,
+        GuardianAngel,
+        Mystic,
 
         Miner,
         Swooper,
         Morphling,
-        Camouflager,
         Janitor,
         Undertaker,
         Underdog,
         Grenadier,
         Poisoner,
         Traitor,
+        Blackmailer,
 
 
         Glitch,

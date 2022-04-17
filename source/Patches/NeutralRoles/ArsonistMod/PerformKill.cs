@@ -52,12 +52,14 @@ namespace TownOfUs.NeutralRoles.ArsonistMod
                     if (CustomGameOptions.ShieldBreaks)
                         role.LastDoused = DateTime.UtcNow;
                     StopKill.BreakShield(PlayerControl.LocalPlayer.GetMedic().Player.PlayerId, PlayerControl.LocalPlayer.PlayerId, CustomGameOptions.ShieldBreaks);
+                    return false;
                 }
-                else
+                else if (!role.Player.IsProtected())
                 {
                     Utils.RpcMurderPlayer(role.ClosestPlayer, PlayerControl.LocalPlayer);
+                    return false;
                 }
-
+                role.LastDoused = DateTime.UtcNow;
                 return false;
             }
             var writer2 = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,

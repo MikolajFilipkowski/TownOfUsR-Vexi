@@ -1,9 +1,7 @@
 ## *Note: This repository is an unofficial continuation of Town of Us due to the original repository being discontinued.*
 
 ![LOGO](./Images/TOU-logo.png)
-![CrewRoles](./Images/CrewRoles.png)
-![NeutralRoles](./Images/NeutralRoles.png)
-![ImpRoles](./Images/ImpRoles.png)
+![Roles](./Images/Roles.png)
 
 An Among Us mod that adds a bunch of roles, modifiers and game settings
 
@@ -12,6 +10,7 @@ Join our [Discord](https://discord.gg/ugyc4EVUYZ) if you have any problems or wa
 **Crewmate Roles**
 - [Haunter](#haunter)
 - [Investigator](#investigator)
+- [Mystic](#mystic)
 - [Seer](#seer)
 - [Snitch](#snitch)
 - [Spy](#spy)
@@ -23,12 +22,15 @@ Join our [Discord](https://discord.gg/ugyc4EVUYZ) if you have any problems or wa
 - [Medic](#medic)
 - [Engineer](#engineer)
 - [Mayor](#mayor)
+- [Medium](#medium)
 - [Swapper](#swapper)
 - [Time Lord](#time-lord)
 - [Transporter](#transporter)
 
 **Neutral Roles**
 - [Amnesiac](#amnesiac)
+- [Guardian Angel](#guardian-angel)
+- [Survivor](#survivor)
 - [Executioner](#executioner)
 - [Jester](#jester)
 - [Phantom](#phantom)
@@ -36,13 +38,13 @@ Join our [Discord](https://discord.gg/ugyc4EVUYZ) if you have any problems or wa
 - [The Glitch](#the-glitch)
 
 **Impostor Roles**
-- [Camouflager](#camouflager)
 - [Grenadier](#grenadier)
 - [Morphling](#morphling)
 - [Swooper](#swooper)
 - [Poisoner](#poisoner)
 - [Traitor](#traitor)
 - [Underdog](#underdog)
+- [Blackmailer](#blackmailer)
 - [Janitor](#janitor)
 - [Miner](#miner)
 - [Undertaker](#undertaker)
@@ -65,6 +67,7 @@ Join our [Discord](https://discord.gg/ugyc4EVUYZ) if you have any problems or wa
 # Releases
 | Among Us - Version| Mod Version | Link |
 |----------|-------------|-----------------|
+| 2022.3.29s & 2022.3.29e | v3.0.0 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v3.0.0/ToU.v3.0.0.zip) |
 | 2021.12.15s & 2021.12.15e Until 2022.2.24s & 2022.2.24e | v2.6.5 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v2.6.5/ToU.v2.6.5.zip) |
 | 2021.12.15s & 2021.12.15e Until 2022.2.24s & 2022.2.24e | v2.6.4 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v2.6.4/ToU.v2.6.4.zip) |
 | 2021.6.30s & 2021.6.30e & 2021.7.20e | v2.6.4 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v2.6.4/ToU.v2.6.4-2021.6.30.zip) |
@@ -108,6 +111,21 @@ Join our [Discord](https://discord.gg/ugyc4EVUYZ) if you have any problems or wa
 
 <details>
   <summary> Changelog </summary>
+  <details>
+  <summary> v3.0.0 </summary>
+  <ul> <li>New Role: Medium</li> </ul>
+  <ul> <li>New Role: Survivor</li> </ul>
+  <ul> <li>New Role: Guardian Angel</li> </ul>
+  <ul> <li>New Role: Blackmailer</li> </ul>
+  <ul> <li>New Role: Mystic</li> </ul>
+  <ul> <li>Camouflager removed</li> </ul>
+  <ul> <li>New Settings for Vigilante to kill each type of Neutral role</li> </ul>
+  <ul> <li>New Settings for Assassins to kill each type of Neutral role</li> </ul>
+  <ul> <li>Bug Fix: Executioner will always get a target unless there is no feasible target</li> </ul>
+  <ul> <li>Bug Fix: Executioner will always win when their target is voted out</li> </ul>
+  <ul> <li>The future Phantom, Haunter and Traitor will change depending on the current circumstances</li> </ul>
+  <ul> <li>Bug Fix: Abilities can no longer be used while loading into a game</li> </ul>
+  </details>
   <details>
   <summary> v2.6.5 </summary>
   <ul> <li>Fixed Amnesiac remembering Poisoner interaction</li> </ul>
@@ -560,6 +578,17 @@ Every footprint disappears after a set amount of time.
 | Footprint Vent Visible | Whether footprints near vents are shown | Toggle | False
 
 -----------------------
+## Mystic
+### **Team: Crewmates**
+The Mystic is a Crewmate that gets an alert revealing when someone has died.\
+On top of this, the Mystic briefly gets an arrow pointing in the direction of the body.
+### Game Options
+| Name | Description | Type | Default |
+|----------|:-------------:|:------:|:------:|
+| Mystic | The percentage probability of the Mystic appearing | Percentage | 0% |
+| Arrow Duration | The duration of the arrows pointing to the bodies | Time | 0.1s |
+
+-----------------------
 ## Seer
 ### **Team: Crewmates**
 The Seer is a Crewmate that can reveal the alliance of other players.\
@@ -663,8 +692,10 @@ During meetings, the Vigilante can choose to kill someone by guessing their role
 |----------|:-------------:|:------:|:------:|
 | Vigilante | The percentage probability of the Vigilante appearing | Percentage | 0% |
 | Vigilante Kill | The number of kill the Vigilante can do with his ability | Number | 1 |
-| Vigilante Guess Neutral  | Whether the Vigilante can Guess Neutral roles | Toggle | False |
 | Vigilante Multiple Kill  | Whether the Vigilante can kill more than once per meeting | Toggle | False |
+| Vigilante Guess Neutral Benign  | Whether the Vigilante can Guess Neutral Benign roles | Toggle | False |
+| Vigilante Guess Neutral Evil  | Whether the Vigilante can Guess Neutral Evil roles | Toggle | False |
+| Vigilante Guess Neutral Killing  | Whether the Vigilante can Guess Neutral Killing roles | Toggle | False |
 
 -----------------------
 ## Altruist
@@ -755,7 +786,23 @@ As long as not everyone has voted, the Mayor can use as many votes from their Vo
 | Mayor | The percentage probability of the Mayor appearing | Percentage | 0% |
 | Initial Mayor Vote Bank | The number of votes in the Vote Bank at the start of a game | Number | 1 |
 | Mayor Votes Show Anonymous | Whether the Mayor's extra votes will show up anonymously | Toggle | False |
-| Mayor Can Button | Whether the Mayor Can Press the Button | Toggle | True |
+
+-----------------------
+## Medium
+### **Team: Crewmates**
+The Medium is a Crewmate that can see ghosts.\
+During each round the Medium has an ability called Mediate.\
+If the Medium uses this ability and no one is dead, nothing will happen.\
+However, if someone is dead, the Medium and the dead player will be able to see each other and communicate from beyond the grave!
+
+### Game Options
+| Name | Description | Type | Default |
+|----------|:-------------:|:------:|:------:|
+| Medium | The percentage probability of the Medium appearing | Percentage | 0% |
+| Mediate Cooldown | The cooldown of the Medium's Mediate button | Time | 10s |
+| Reveal Appearance of Mediate Target | Whether the Ghosts will show as themselves, or camouflaged | Toggle | True |
+| Reveal the Medium to the Mediate Target | Whether the ghosts can see that the Medium is the Medium | Toggle | True |
+| Who is Revealed | Which players are revealed to the Medium | Oldest Dead / Newest Dead / All Dead | Oldest Dead |
 
 -----------------------
 ## Swapper
@@ -805,7 +852,7 @@ Players who have been transported are alerted with a blue flash on their screen.
 # Neutral Roles
 ## Amnesiac
 ### **Team: Neutral**
-The amnesiac is a Neutral role with no win condition.\
+The Amnesiac is a Neutral role with no win condition.\
 They have zero tasks and are essentially roleless.\
 However, they can remember a role by finding a dead player.\
 Once they remember their role, they go on to try win with their new win condition.
@@ -816,6 +863,39 @@ Once they remember their role, they go on to try win with their new win conditio
 | Amnesiac | The percentage probability of the Amnesiac appearing | Percentage | 0% |
 | Amnesiac Gets Arrows | Whether the Amnesiac has arrows pointing to dead bodies | Toggle | False |
 | Arrow Appear Delay | The delay of the arrows appearing after the person died | Time | 5s |
+
+-----------------------
+## Guardian Angel
+### **Team: Neutral**
+The Guardian Angel is a Neutral role which aligns with the faction of their target.\
+Their job is to protect their target at all costs.\
+If their target loses, they lose.
+
+### Game Options
+| Name | Description | Type | Default |
+|----------|:-------------:|:------:|:------:|
+| Guardian Angel | The percentage probability of the Guardian Angel appearing | Percentage | 0% |
+| Protect Cooldown | The cooldown of the Guardian Angel's Protect button | Time | 25s |
+| Protect Duration | How long The Guardian Angel's Protect lasts | Time | 10s |
+| Kill Cooldown Reset on Attack | The attackers kill cooldown after they attacked the protected target | Time | 2.5s |
+| Max Uses | The amount of times the Protect ability can be used | Number | 5 |
+| Show Protected Player | Who should be able to see who is Protected | Self / GA / Self + GA / Everyone | Self |
+| Guardian Angel becomes on Target Dead | Which role the Guardian Angel becomes when their target dies | Crewmate / Amnesiac / Survivor / Jester | Crewmate |
+
+-----------------------
+## Survivor
+### **Team: Neutral**
+The Survivor is a Neutral role which can win with any non-neutral role.\
+All the Survivor needs to do is live and not let a neutral role win in order to win.
+
+### Game Options
+| Name | Description | Type | Default |
+|----------|:-------------:|:------:|:------:|
+| Survivor | The percentage probability of the Survivor appearing | Percentage | 0% |
+| Vest Cooldown | The cooldown of the Survivor's Vest button | Time | 25s |
+| Vest Duration | How long The Survivor's Vest lasts | Time | 10s |
+| Kill Cooldown Reset on Attack | The attackers kill cooldown after they attacked the veste Survivor | Time | 2.5s |
+| Max Uses | The amount of times the Vest ability can be used | Number | 5 |
 
 -----------------------
 ## Jester
@@ -842,7 +922,7 @@ If that player gets voted out, they win the game.
 | Name | Description | Type | Default |
 |----------|:-------------:|:------:|:------:|
 | Executioner | The percentage probability of the Executioner appearing | Percentage | 0% |
-| Executioner becomes on Target Dead | Which role the Executioner becomes when their target dies | Crewmate / Jester / Amnesiac | Crewmate |
+| Executioner becomes on Target Dead | Which role the Executioner becomes when their target dies | Crewmate / Amnesiac / Survivor / Jester | Crewmate |
 | Executioner Can Button | Whether the Executioner Can Press the Button | Toggle | True |
 
 -----------------------
@@ -871,7 +951,6 @@ Upon Igniting every player, they win the game.
 | Arsonist | The percentage probability of the Arsonist appearing | Percentage | 0% |
 | Douse Cooldown | The cooldown of the Arsonist's Douse button | Time | 25s |
 | Game keeps going so long as Arsonist is alive | Whether the game keeps going while the Arsonist remains | Toggle | False |
-| Arsonist Can Button | Whether the Arsonist Can Press the Button | Toggle | True |
 
 -----------------------
 ## The Glitch
@@ -997,6 +1076,18 @@ When they are the only remaining Impostor, they will have their kill cooldown sh
 | Underdog | The percentage probability of the Underdog appearing | Percentage | 0% |
 | Kill Cooldown Bonus | The amount of time added or removed from the Underdog's Kill Cooldown | Time | 5s |
 | Increased Kill Cooldown  | Whether the Underdog's Kill Cooldown is Increased when 2+ Imps are alive | Toggle | True |
+
+-----------------------
+## Blackmailer
+### **Team: Impostors**
+The Blackmailer is an Impostor that can silence people in meetings.\
+During each round, the Blackmailer can go up to someone and blackmail them.\
+This prevents the blackmailed person from speaking during the next meeting.
+
+### Game Options
+| Name | Description | Type | Default |
+|----------|:-------------:|:------:|:------:|
+| Blackmailer | The percentage probability of the Blackmailer appearing | Percentage | 0% |
 
 -----------------------
 ## Janitor
@@ -1147,7 +1238,6 @@ If the Tiebreaker is the Mayor, it applies to the Mayor's __first__ vote.
 | Name | Description | Type | Default |
 |----------|:-------------:|:------:|:------:|
 | Camouflaged Comms | Whether everyone becomes camouflaged when Comms are sabotaged | Toggle | False |
-| Camouflaged Meetings | Whether everyone is camouflaged during meetings while Comms are sabotaged | Toggle | False |
 | Impostors can see the roles of their team | Whether Impostors are able to see which Impostor roles their teammates have | Toggle | False |
 | Dead can see everyone's roles and Votes | Whether dead players are able to see the roles and votes of everyone else | Toggle | False |
 | Max Neutral Roles | The maximum number of Neutral roles a game can have | Number | 1 |
@@ -1181,9 +1271,11 @@ If they guessed wrong, they die instead.
 | Traitor Can Assassinate | If someone turns into a Traitor they can Assassinate | Toggle | False |
 | Assassin Kill | The number of kill the Assassin can do with his ability | Number | 1 |
 | Assassin Guess Crewmate | Whether the Assassin can Guess "Crewmate" | Toggle | False |
-| Assassin Guess Neutral  | Whether the Assassin can Guess Neutral roles | Toggle | False |
 | Assassin Multiple Kill  | Whether the Assassin can kill more than once per meeting | Toggle | False |
 | Assassinate Snitch via Crewmate Guess  | Whether the Assassin can kill the Snitch by Guessing Crewmate | Toggle | False |
+| Assassin Guess Neutral Benign  | Whether the Assassin can Guess Neutral Benign roles | Toggle | False |
+| Assassin Guess Neutral Evil  | Whether the Assassin can Guess Neutral Evil roles | Toggle | False |
+| Assassin Guess Neutral Killing  | Whether the Assassin can Guess Neutral Killing roles | Toggle | False |
 
 -----------------------
 # Extras

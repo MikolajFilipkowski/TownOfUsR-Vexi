@@ -13,6 +13,7 @@ namespace TownOfUs.Roles
             ImpostorText = () => "Investigate roles";
             TaskText = () => "Investigate roles and find the Impostor";
             Color = Patches.Colors.Seer;
+            LastInvestigated = DateTime.UtcNow;
             RoleType = RoleEnum.Seer;
             AddToRoleHistory(RoleType);
         }

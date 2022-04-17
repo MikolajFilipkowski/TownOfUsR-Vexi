@@ -7,7 +7,6 @@ using System.Linq;
 using Reactor.Extensions;
 using TownOfUs.CrewmateRoles.MedicMod;
 using TownOfUs.Extensions;
-using TownOfUs.ImpostorRoles.CamouflageMod;
 using TownOfUs.Roles;
 using TownOfUs.Roles.Modifiers;
 using UnhollowerBaseLib;
@@ -164,6 +163,25 @@ namespace TownOfUs
             });
         }
 
+        public static bool IsVesting(this PlayerControl player)
+        {
+            return Role.GetRoles(RoleEnum.Survivor).Any(role =>
+            {
+                var surv = (Survivor)role;
+                return surv != null && surv.Vesting && player.PlayerId == surv.Player.PlayerId;
+            });
+        }
+
+        public static bool IsProtected(this PlayerControl player)
+        {
+            return Role.GetRoles(RoleEnum.GuardianAngel).Any(role =>
+            {
+                var gaTarget = ((GuardianAngel)role).target;
+                var ga = (GuardianAngel)role;
+                return gaTarget != null && ga.Protecting && player.PlayerId == gaTarget.PlayerId;
+            });
+        }
+
         public static PlayerControl GetClosestPlayer(PlayerControl refPlayer, List<PlayerControl> AllPlayers)
         {
             var num = double.MaxValue;
@@ -250,6 +268,12 @@ namespace TownOfUs
 
                 target.gameObject.layer = LayerMask.NameToLayer("Ghost");
                 target.Visible = false;
+
+                if (PlayerControl.LocalPlayer.Is(RoleEnum.Mystic) && !PlayerControl.LocalPlayer.Data.IsDead)
+                {
+                    Coroutines.Start(FlashCoroutine(Patches.Colors.Mystic));
+                }
+
                 if (target.AmOwner)
                 {
                     try

@@ -50,7 +50,7 @@ namespace TownOfUs.Modifiers.AssassinMod
             voteArea.NameText.transform.localPosition = new Vector3(0.55f, 0.12f, -0.1f);
             nameText.transform.localPosition = new Vector3(0.55f, -0.12f, -0.1f);
             nameText.text = "Guess";
-            
+
             var cycleBack = Object.Instantiate(confirmButton, voteArea.transform);
             var cycleRendererBack = cycleBack.GetComponent<SpriteRenderer>();
             cycleRendererBack.sprite = CycleBackSprite;
@@ -66,7 +66,6 @@ namespace TownOfUs.Modifiers.AssassinMod
             cycleColliderBack.offset = Vector2.zero;
             cycleBack.transform.GetChild(0).gameObject.Destroy();
 
-            
             var cycleForward = Object.Instantiate(confirmButton, voteArea.transform);
             var cycleRendererForward = cycleForward.GetComponent<SpriteRenderer>();
             cycleRendererForward.sprite = CycleForwardSprite;
@@ -81,7 +80,6 @@ namespace TownOfUs.Modifiers.AssassinMod
             cycleColliderForward.size = cycleRendererForward.sprite.bounds.size;
             cycleColliderForward.offset = Vector2.zero;
             cycleForward.transform.GetChild(0).gameObject.Destroy();
-
 
             var guess = Object.Instantiate(confirmButton, voteArea.transform);
             var guessRenderer = guess.GetComponent<SpriteRenderer>();
@@ -100,7 +98,6 @@ namespace TownOfUs.Modifiers.AssassinMod
             guessCollider.offset = Vector2.zero;
             guess.transform.GetChild(0).gameObject.Destroy();
 
-
             role.Guesses.Add(targetId, "None");
             role.Buttons[targetId] = (cycleBack, cycleForward, guess, nameText);
         }
@@ -114,13 +111,17 @@ namespace TownOfUs.Modifiers.AssassinMod
                 var guessIndex = currentGuess == "None"
                     ? -1
                     : role.PossibleGuesses.IndexOf(currentGuess);
-                if (forwardsCycle) {
+                if (forwardsCycle)
+                {
                     if (++guessIndex >= role.PossibleGuesses.Count)
                         guessIndex = 0;
-                } else {
+                }
+                else
+                {
                     if (--guessIndex < 0)
                         guessIndex = role.PossibleGuesses.Count - 1;
                 }
+
                 var newGuess = role.Guesses[voteArea.TargetPlayerId] = role.PossibleGuesses[guessIndex];
 
                 nameText.text = newGuess == "None"
@@ -137,7 +138,7 @@ namespace TownOfUs.Modifiers.AssassinMod
             {
                 if (
                     MeetingHud.Instance.state == MeetingHud.VoteStates.Discussion ||
-                    IsExempt(voteArea)
+                    IsExempt(voteArea) || PlayerControl.LocalPlayer.Data.IsDead
                 ) return;
                 var targetId = voteArea.TargetPlayerId;
                 var currentGuess = role.Guesses[targetId];

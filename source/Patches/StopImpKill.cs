@@ -33,7 +33,10 @@ namespace TownOfUs
 
                         StopKill.BreakShield(medic, target.PlayerId,
                             CustomGameOptions.ShieldBreaks);
-                        Utils.RpcMurderPlayer(target, PlayerControl.LocalPlayer);
+                        if (!PlayerControl.LocalPlayer.IsProtected())
+                        {
+                            Utils.RpcMurderPlayer(target, PlayerControl.LocalPlayer);
+                        }
                     }
                     else if (PlayerControl.LocalPlayer.IsShielded())
                     {
@@ -48,15 +51,18 @@ namespace TownOfUs
                         else PlayerControl.LocalPlayer.SetKillTimer(0.01f);
 
                         StopKill.BreakShield(medic, PlayerControl.LocalPlayer.PlayerId, CustomGameOptions.ShieldBreaks);
-                        if (CustomGameOptions.KilledOnAlert)
+                        if (CustomGameOptions.KilledOnAlert && !target.IsProtected())
                         {
                             Utils.RpcMurderPlayer(PlayerControl.LocalPlayer, target);
                         }
                     }
                     else
                     {
-                        Utils.RpcMurderPlayer(target, PlayerControl.LocalPlayer);
-                        if (CustomGameOptions.KilledOnAlert)
+                        if (!PlayerControl.LocalPlayer.IsProtected())
+                        {
+                            Utils.RpcMurderPlayer(target, PlayerControl.LocalPlayer);
+                        }
+                        if (CustomGameOptions.KilledOnAlert && !target.IsProtected())
                         {
                             Utils.RpcMurderPlayer(PlayerControl.LocalPlayer, target);
                         }
@@ -78,6 +84,22 @@ namespace TownOfUs
                     if (CustomGameOptions.ShieldBreaks) PlayerControl.LocalPlayer.SetKillTimer(PlayerControl.GameOptions.KillCooldown);
                     else PlayerControl.LocalPlayer.SetKillTimer(0.01f);
                     StopKill.BreakShield(target.GetMedic().Player.PlayerId, target.PlayerId, CustomGameOptions.ShieldBreaks);
+                }
+                return false;
+            }
+            else if (target.IsVesting())
+            {
+                if (__instance.isActiveAndEnabled && !__instance.isCoolingDown)
+                {
+                    PlayerControl.LocalPlayer.SetKillTimer(CustomGameOptions.VestKCReset);
+                }
+                return false;
+            }
+            else if (target.IsProtected())
+            {
+                if (__instance.isActiveAndEnabled && !__instance.isCoolingDown)
+                {
+                    PlayerControl.LocalPlayer.SetKillTimer(CustomGameOptions.ProtectKCReset);
                 }
                 return false;
             }

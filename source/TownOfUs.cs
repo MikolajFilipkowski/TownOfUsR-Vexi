@@ -19,7 +19,7 @@ using UnityEngine.SceneManagement;
 
 namespace TownOfUs
 {
-    [BepInPlugin(Id, "Town Of Us", "2.6.5")]
+    [BepInPlugin(Id, "Town Of Us", "3.0.0")]
     [BepInDependency(ReactorPlugin.Id)]
     public class TownOfUs : BasePlugin
     {
@@ -36,9 +36,7 @@ namespace TownOfUs
         public static Sprite SeerSprite;
         public static Sprite SampleSprite;
         public static Sprite MorphSprite;
-        public static Sprite Camouflage;
         public static Sprite Arrow;
-        public static Sprite Abstain;
         public static Sprite MineSprite;
         public static Sprite SwoopSprite;
         public static Sprite DouseSprite;
@@ -57,7 +55,12 @@ namespace TownOfUs
         public static Sprite PoisonSprite;
         public static Sprite PoisonedSprite;
         public static Sprite TransportSprite;
-
+        public static Sprite MediateSprite;
+        public static Sprite VestSprite;
+        public static Sprite ProtectSprite;
+        public static Sprite BlackmailSprite;
+        public static Sprite BlackmailLetterSprite;
+        public static Sprite BlackmailOverlaySprite;
 
         public static Sprite SettingsButtonSprite;
         public static Sprite ToUBanner;
@@ -92,9 +95,7 @@ namespace TownOfUs
             SeerSprite = CreateSprite("TownOfUs.Resources.Seer.png");
             SampleSprite = CreateSprite("TownOfUs.Resources.Sample.png");
             MorphSprite = CreateSprite("TownOfUs.Resources.Morph.png");
-            Camouflage = CreateSprite("TownOfUs.Resources.Camouflage.png");
             Arrow = CreateSprite("TownOfUs.Resources.Arrow.png");
-            Abstain = CreateSprite("TownOfUs.Resources.Abstain.png");
             MineSprite = CreateSprite("TownOfUs.Resources.Mine.png");
             SwoopSprite = CreateSprite("TownOfUs.Resources.Swoop.png");
             DouseSprite = CreateSprite("TownOfUs.Resources.Douse.png");
@@ -113,7 +114,12 @@ namespace TownOfUs
             PoisonSprite = CreateSprite("TownOfUs.Resources.Poison.png");
             PoisonedSprite = CreateSprite("TownOfUs.Resources.Poisoned.png");
             TransportSprite = CreateSprite("TownOfUs.Resources.Transport.png");
-
+            MediateSprite = CreateSprite("TownOfUs.Resources.Mediate.png");
+            VestSprite = CreateSprite("TownOfUs.Resources.Vest.png");
+            ProtectSprite = CreateSprite("TownOfUs.Resources.Protect.png");
+            BlackmailSprite = CreateSprite("TownOfUs.Resources.Blackmail.png");
+            BlackmailLetterSprite = CreateSprite("TownOfUs.Resources.BlackmailLetter.png");
+            BlackmailOverlaySprite = CreateSprite("TownOfUs.Resources.BlackmailOverlay.png");
 
             SettingsButtonSprite = CreateSprite("TownOfUs.Resources.SettingsButton.png");
             ToUBanner = CreateSprite("TownOfUs.Resources.TownOfUsBanner.png");
@@ -138,10 +144,10 @@ namespace TownOfUs
 
             ServerManager.DefaultRegions = defaultRegions.ToArray();
 
-            //SceneManager.add_sceneLoaded((Action<Scene, LoadSceneMode>) ((scene, loadSceneMode) =>
-            //{
-            //    ModManager.Instance.ShowModStamp();
-            //}));
+            SceneManager.add_sceneLoaded((Action<Scene, LoadSceneMode>) ((scene, loadSceneMode) =>
+            {
+                ModManager.Instance.ShowModStamp();
+            }));
 
             _harmony.PatchAll();
         }

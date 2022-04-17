@@ -33,6 +33,12 @@ namespace TownOfUs
         SetTracker,
         SetPoisoner,
         SetTransporter,
+        SetMedium,
+        SetSurvivor,
+        SetGuardianAngel,
+        SetGATarget,
+        SetMystic,
+        SetBlackmailer,
 
         SetTorch,
         SetDiseased,
@@ -73,6 +79,10 @@ namespace TownOfUs
         ArsonistLose,
         NobodyWins,
         PhantomLose,
+        SurvivorImpWin,
+        SurvivorCrewWin,
+        GAImpWin,
+        GAImpLose,
 
         JanitorClean,
         FixLights,
@@ -103,6 +113,10 @@ namespace TownOfUs
         BaitReport,
         Transport,
         SetUntransportable,
+        Mediate,
+        Vest,
+        GAProtect,
+        Blackmail,
 
         SetGlitch,
         BypassKill,
@@ -111,7 +125,7 @@ namespace TownOfUs
         SetHacked,
 
         ExecutionerToJester,
-
+        GAToSurv,
 
         Start,
         SyncCustomSettings,

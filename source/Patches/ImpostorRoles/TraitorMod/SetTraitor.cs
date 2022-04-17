@@ -77,6 +77,13 @@ namespace TownOfUs.ImpostorRoles.TraitorMod
                     Object.Destroy(veteranRole.UsesText);
                 }
 
+                if (PlayerControl.LocalPlayer.Is(RoleEnum.Medium))
+                {
+                    var medRole = Role.GetRole<Medium>(PlayerControl.LocalPlayer);
+                    medRole.MediatedPlayers.Values.DestroyAll();
+                    medRole.MediatedPlayers.Clear();
+                }
+
                 Role.RoleDictionary.Remove(PlayerControl.LocalPlayer.PlayerId);
                 var role = new Traitor(PlayerControl.LocalPlayer);
                 role.RegenTask();

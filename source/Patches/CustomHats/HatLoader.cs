@@ -73,7 +73,6 @@ namespace TownOfUs.Patches.CustomHats
                     var stream = Assembly.GetManifestResourceStream($"{HAT_RESOURCE_NAMESPACE}.{hatCredit.Id}.png");
                     if (stream != null)
                     {
-                       // Log.LogError($"Debug: Stream hat length: {stream.Length}");
                         var hatBehaviour = GenerateHatBehaviour(stream.ReadFully());
                         hatBehaviour.StoreName = hatCredit.Artist;
                         hatBehaviour.ProductId = hatCredit.Id;
@@ -100,14 +99,14 @@ namespace TownOfUs.Patches.CustomHats
             var tex2D = new Texture2D(1, 1, TextureFormat.ARGB32, false);
             TownOfUs.LoadImage(tex2D, mainImg, false);
             var sprite = Sprite.Create(tex2D, new Rect(0.0f, 0.0f, tex2D.width, tex2D.height), new Vector2(0.5f, 0.5f), 100);
-            
+
+
             var hat = ScriptableObject.CreateInstance<HatData>();
             var a = new HatViewData();
             var b = new AddressableLoadWrapper<HatViewData>();
             b.viewData = a;
             a.MainImage = sprite;
             hat.hatViewData = b;
-            //hat.hatViewData.viewData.MainImage = sprite;
             hat.ChipOffset = new Vector2(-0.1f, 0.35f);
 
             hat.InFront = true;

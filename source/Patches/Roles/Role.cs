@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Reactor.Extensions;
 using TMPro;
-using TownOfUs.ImpostorRoles.CamouflageMod;
 using TownOfUs.Roles.Modifiers;
 using UnhollowerBaseLib;
 using UnityEngine;
@@ -17,7 +16,6 @@ using TownOfUs.ImpostorRoles.TraitorMod;
 
 namespace TownOfUs.Roles
 {
-
     public abstract class Role
     {
         public static readonly Dictionary<byte, Role> RoleDictionary = new Dictionary<byte, Role>();
@@ -358,7 +356,6 @@ namespace TownOfUs.Roles
                     Lights.SetLights();
                 }
             }
-            
 
             [HarmonyPatch(typeof(IntroCutscene._ShowTeam_d__21), nameof(IntroCutscene._ShowTeam_d__21.MoveNext))]
             public static class IntroCutscene_ShowTeam__d_MoveNext
@@ -370,11 +367,10 @@ namespace TownOfUs.Roles
                     if (role != null) role.IntroPrefix(__instance);
                 }
 
-
                 public static void Postfix(IntroCutscene._ShowRole_d__24 __instance)
                 {
                     var role = GetRole(PlayerControl.LocalPlayer);
-                    //var alpha = __instance.__4__this.RoleText.color.a;
+                    // var alpha = __instance.__4__this.RoleText.color.a;
                     if (role != null && !role.Hidden)
                     {
                         __instance.__4__this.TeamTitle.text = role.Faction == Faction.Neutral ? "Neutral" : __instance.__4__this.TeamTitle.text;
@@ -382,10 +378,15 @@ namespace TownOfUs.Roles
                         __instance.__4__this.RoleText.text = role.Name;
                         __instance.__4__this.RoleText.color = role.Color;
                         __instance.__4__this.RoleBlurbText.text = role.ImpostorText();
+                        //    __instance.__4__this.ImpostorText.gameObject.SetActive(true);
                         __instance.__4__this.BackgroundBar.material.color = role.Color;
-
+                        //                        TestScale = Mathf.Max(__instance.__this.Title.scale, TestScale);
+                        //                        __instance.__this.Title.scale = TestScale / role.Scale;
                     }
-
+                    /*else if (!__instance.isImpostor)
+                    {
+                        __instance.__this.ImpostorText.text = "Haha imagine being a boring old crewmate";
+                    }*/
 
                     if (ModifierText != null)
                     {
@@ -425,7 +426,7 @@ namespace TownOfUs.Roles
                         __instance.__4__this.BackgroundBar.material.color = role.Color;
 
                     }
-                    
+
 
                     if (ModifierText != null)
                     {
@@ -465,7 +466,6 @@ namespace TownOfUs.Roles
                         __instance.__4__this.BackgroundBar.material.color = role.Color;
 
                     }
-
 
                     if (ModifierText != null)
                     {
@@ -589,6 +589,16 @@ namespace TownOfUs.Roles
                     ((Amnesiac)role).BodyArrows.Values.DestroyAll();
                     ((Amnesiac)role).BodyArrows.Clear();
                 }
+                foreach (var role in AllRoles.Where(x => x.RoleType == RoleEnum.Medium))
+                {
+                    ((Medium)role).MediatedPlayers.Values.DestroyAll();
+                    ((Medium)role).MediatedPlayers.Clear();
+                }
+                foreach (var role in AllRoles.Where(x => x.RoleType == RoleEnum.Mystic))
+                {
+                    ((Mystic)role).BodyArrows.Values.DestroyAll();
+                    ((Mystic)role).BodyArrows.Clear();
+                }
 
                 RoleDictionary.Clear();
                 RoleHistory.Clear();
@@ -598,7 +608,8 @@ namespace TownOfUs.Roles
             }
         }
 
-        [HarmonyPatch(typeof(TranslationController), nameof(TranslationController.GetString), typeof(StringNames),typeof(Il2CppReferenceArray<Il2CppSystem.Object>))]
+        [HarmonyPatch(typeof(TranslationController), nameof(TranslationController.GetString), typeof(StringNames),
+            typeof(Il2CppReferenceArray<Il2CppSystem.Object>))]
         public static class TranslationController_GetString
         {
             public static void Postfix(ref string __result, [HarmonyArgument(0)] StringNames name)

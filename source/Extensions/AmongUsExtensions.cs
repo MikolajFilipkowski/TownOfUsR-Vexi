@@ -101,10 +101,7 @@ namespace TownOfUs.Extensions
             playerControl.RawSetVisor(newOutfit.VisorId);
             playerControl.RawSetPet(newOutfit.PetId, newOutfit.ColorId);
             playerControl.RawSetSkin(newOutfit.SkinId, newOutfit.ColorId);
-            //playerControl?.MyPhysics?.Skin?.skin?.ProdId
-            /*if (playerControl?.MyPhysics?.Skin?.skin?.ProdId != newOutfit.SkinId)
-                playerControl.RawSetSkin(newOutfit.SkinId, newOutfit.ColorId);
-            */
+
         }
 
 

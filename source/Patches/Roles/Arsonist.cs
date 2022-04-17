@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using HarmonyLib;
 using Hazel;
-using TownOfUs.Extensions;
-using UnityEngine;
 
 namespace TownOfUs.Roles
 {
@@ -24,6 +21,7 @@ namespace TownOfUs.Roles
             ImpostorText = () => "Douse players and ignite the light";
             TaskText = () => "Douse players and ignite to kill everyone\nFake Tasks:";
             Color = Patches.Colors.Arsonist;
+            LastDoused = DateTime.UtcNow;
             RoleType = RoleEnum.Arsonist;
             AddToRoleHistory(RoleType);
             Faction = Faction.Neutral;
