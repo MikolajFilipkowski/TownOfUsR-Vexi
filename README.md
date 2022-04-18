@@ -67,6 +67,7 @@ Join our [Discord](https://discord.gg/ugyc4EVUYZ) if you have any problems or wa
 # Releases
 | Among Us - Version| Mod Version | Link |
 |----------|-------------|-----------------|
+| 2022.3.29s & 2022.3.29e | v3.0.1 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v3.0.1/ToU.v3.0.1.zip) |
 | 2022.3.29s & 2022.3.29e | v3.0.0 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v3.0.0/ToU.v3.0.0.zip) |
 | 2021.12.15s & 2021.12.15e Until 2022.2.24s & 2022.2.24e | v2.6.5 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v2.6.5/ToU.v2.6.5.zip) |
 | 2021.12.15s & 2021.12.15e Until 2022.2.24s & 2022.2.24e | v2.6.4 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v2.6.4/ToU.v2.6.4.zip) |
@@ -112,6 +113,14 @@ Join our [Discord](https://discord.gg/ugyc4EVUYZ) if you have any problems or wa
 <details>
   <summary> Changelog </summary>
   <details>
+  <summary> v3.0.1 </summary>
+  <ul> <li>Bug Fix: All the flashes on screen now work again</li> </ul>
+  <ul> <li>Bug Fix: Amnesiac turned Sheriff/Glitch/Impostor now has a kill button again</li> </ul>
+  <ul> <li>Bug Fix: The kill button now has the word 'Kill' on it again</li> </ul>
+  <ul> <li>Bug Fix: The Blackmailer's blackmail button will now not always show active even when not near someone</li> </ul>
+  <ul> <li>Blackmailer now only has an initial cooldown, meaning the cooldown doesn't reset after a use now</li> </ul>
+  </details>
+  <details>
   <summary> v3.0.0 </summary>
   <ul> <li>New Role: Medium</li> </ul>
   <ul> <li>New Role: Survivor</li> </ul>
@@ -125,6 +134,7 @@ Join our [Discord](https://discord.gg/ugyc4EVUYZ) if you have any problems or wa
   <ul> <li>Bug Fix: Executioner will always win when their target is voted out</li> </ul>
   <ul> <li>The future Phantom, Haunter and Traitor will change depending on the current circumstances</li> </ul>
   <ul> <li>Bug Fix: Abilities can no longer be used while loading into a game</li> </ul>
+  <ul> <li>Added an option to cycle backwards for Assassins and Vigilante</li> </ul>
   </details>
   <details>
   <summary> v2.6.5 </summary>
@@ -1088,6 +1098,7 @@ This prevents the blackmailed person from speaking during the next meeting.
 | Name | Description | Type | Default |
 |----------|:-------------:|:------:|:------:|
 | Blackmailer | The percentage probability of the Blackmailer appearing | Percentage | 0% |
+| Initial Blackmail Cooldown | The initial cooldown of the Blackmailer's Blackmail button | Time | 10s |
 
 -----------------------
 ## Janitor

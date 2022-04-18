@@ -43,9 +43,6 @@ namespace TownOfUs.ImpostorRoles.BlackmailerMod
                 role.Blackmailed.MyRend.material.SetColor("_OutlineColor", new Color(0.3f, 0.0f, 0.0f));
                 role.Blackmailed.nameText.color = new Color(0.3f, 0.0f, 0.0f);
             }
-
-            role.BlackmailButton.graphic.color = Palette.EnabledColor;
-            role.BlackmailButton.graphic.material.SetFloat("_Desat", 0f);
         }
     }
 }

@@ -726,7 +726,7 @@ namespace TownOfUs.CustomOption
 
             Blackmailer = new CustomHeaderOption(num++, "<color=#FF0000FF>Blackmailer</color>");
             BlackmailCooldown =
-                new CustomNumberOption(num++, "Blackmail Cooldown", 10, 1, 15, 1f, CooldownFormat);
+                new CustomNumberOption(num++, "Initial Blackmail Cooldown", 10, 1, 15, 1f, CooldownFormat);
 
             Miner = new CustomHeaderOption(num++, "<color=#FF0000FF>Miner</color>");
             MineCooldown =

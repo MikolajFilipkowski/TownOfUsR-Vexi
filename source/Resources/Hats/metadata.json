@@ -1006,6 +1006,26 @@
       "artist": "Ophidian"
     },
     {
+      "id": "hats0201",
+      "name": "Monkeh hat",
+      "artist": "Pigoletto"
+    },
+    {
+      "id": "hats0202",
+      "name": "Pink hat",
+      "artist": "Pigoletto"
+    },
+    {
+      "id": "hats0203",
+      "name": "Sugarcat hat",
+      "artist": "Pigoletto"
+    },
+    {
+      "id": "hats0204",
+      "name": "Zombie hat",
+      "artist": "Pigoletto"
+    },
+    {
       "id": "misc0000",
       "name": "ZeroXFusionz hat",
       "artist": "TheLastShaymin"

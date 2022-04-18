@@ -65,6 +65,7 @@ namespace TownOfUs
                         if (CustomGameOptions.KilledOnAlert && !target.IsProtected())
                         {
                             Utils.RpcMurderPlayer(PlayerControl.LocalPlayer, target);
+                            PlayerControl.LocalPlayer.SetKillTimer(PlayerControl.GameOptions.KillCooldown);
                         }
                     }
                 }
@@ -91,7 +92,7 @@ namespace TownOfUs
             {
                 if (__instance.isActiveAndEnabled && !__instance.isCoolingDown)
                 {
-                    PlayerControl.LocalPlayer.SetKillTimer(CustomGameOptions.VestKCReset);
+                    PlayerControl.LocalPlayer.SetKillTimer(CustomGameOptions.VestKCReset + 0.01f);
                 }
                 return false;
             }
@@ -99,7 +100,7 @@ namespace TownOfUs
             {
                 if (__instance.isActiveAndEnabled && !__instance.isCoolingDown)
                 {
-                    PlayerControl.LocalPlayer.SetKillTimer(CustomGameOptions.ProtectKCReset);
+                    PlayerControl.LocalPlayer.SetKillTimer(CustomGameOptions.ProtectKCReset + 0.01f);
                 }
                 return false;
             }

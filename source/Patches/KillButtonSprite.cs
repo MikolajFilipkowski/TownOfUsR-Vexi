@@ -28,6 +28,7 @@ namespace TownOfUs
         private static Sprite Vest => TownOfUs.VestSprite;
         private static Sprite Protect => TownOfUs.ProtectSprite;
         private static Sprite Button => TownOfUs.ButtonSprite;
+        private static Sprite Kill;
 
 
         public static void Postfix(HudManager __instance)
@@ -97,7 +98,13 @@ namespace TownOfUs
             }
             else
             {
-                // __instance.KillButton.graphic.sprite = TranslationController.Instance.GetImage(ImageNames.KillButton);
+                if (!Kill) Kill = __instance.KillButton.graphic.sprite;
+                else
+                {
+                    __instance.KillButton.graphic.sprite = Kill;
+                    __instance.KillButton.buttonLabelText.gameObject.SetActive(true);
+                    __instance.KillButton.buttonLabelText.text = "Kill";
+                }
                 flag = PlayerControl.LocalPlayer.Is(RoleEnum.Sheriff);
             }
 

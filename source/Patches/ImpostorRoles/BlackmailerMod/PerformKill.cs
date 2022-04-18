@@ -51,7 +51,6 @@ namespace TownOfUs.ImpostorRoles.BlackmailerMod
                 writer.Write(PlayerControl.LocalPlayer.PlayerId);
                 writer.Write(target.PlayerId);
                 AmongUsClient.Instance.FinishRpcImmediately(writer);
-                role.LastBlackmailed = DateTime.UtcNow;
                 return false;
             }
             return true;
