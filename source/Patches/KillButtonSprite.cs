@@ -37,7 +37,6 @@ namespace TownOfUs
 
             if (!Kill) Kill = __instance.KillButton.graphic.sprite;
 
-
             var flag = false;
             if (PlayerControl.LocalPlayer.Is(RoleEnum.TimeLord))
             {
@@ -97,6 +96,9 @@ namespace TownOfUs
             else if (PlayerControl.LocalPlayer.Is(RoleEnum.GuardianAngel))
             {
                 __instance.KillButton.graphic.sprite = Protect;
+                flag = true;
+            } else if (PlayerControl.LocalPlayer.Is(RoleEnum.Engineer))
+            {
                 flag = true;
             }
             else

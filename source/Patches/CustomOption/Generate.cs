@@ -84,6 +84,7 @@ namespace TownOfUs.CustomOption
         public static CustomNumberOption VanillaGame;
         public static CustomNumberOption InitialCooldowns;
         public static CustomToggleOption ParallelMedScans;
+        public static CustomStringOption SkipButtonDisable;
 
         public static CustomHeaderOption TaskTrackingSettings;
         public static CustomToggleOption SeeTasksDuringRound;
@@ -207,6 +208,8 @@ namespace TownOfUs.CustomOption
         public static CustomToggleOption AssassinGuessNeutralBenign;
         public static CustomToggleOption AssassinGuessNeutralEvil;
         public static CustomToggleOption AssassinGuessNeutralKilling;
+        public static CustomToggleOption AssassinGuessModifiers;
+        public static CustomToggleOption AssassinateAfterVoting;
 
         public static CustomHeaderOption Underdog;
         public static CustomNumberOption UnderdogKillBonus;
@@ -218,6 +221,7 @@ namespace TownOfUs.CustomOption
         public static CustomToggleOption VigilanteGuessNeutralBenign;
         public static CustomToggleOption VigilanteGuessNeutralEvil;
         public static CustomToggleOption VigilanteGuessNeutralKilling;
+        public static CustomToggleOption VigilanteAfterVoting;
 
         public static CustomHeaderOption Haunter;
         public static CustomNumberOption HaunterTasksRemainingClicked;
@@ -228,6 +232,7 @@ namespace TownOfUs.CustomOption
         public static CustomHeaderOption Grenadier;
         public static CustomNumberOption GrenadeCooldown;
         public static CustomNumberOption GrenadeDuration;
+        public static CustomToggleOption GrenadierIndicators;
         public static CustomToggleOption GrenadierVent;
         public static CustomNumberOption FlashRadius;
 
@@ -275,12 +280,27 @@ namespace TownOfUs.CustomOption
         public static CustomNumberOption MaxProtects;
         public static CustomStringOption ShowProtect;
         public static CustomStringOption GaOnTargetDeath;
+        public static CustomToggleOption GATargetKnows;
+        public static CustomToggleOption GAKnowsTargetRole;
 
         public static CustomHeaderOption Mystic;
         public static CustomNumberOption MysticArrowDuration;
 
         public static CustomHeaderOption Blackmailer;
         public static CustomNumberOption BlackmailCooldown;
+
+        public static CustomHeaderOption Giant;
+        public static CustomNumberOption GiantSlow;
+
+        public static CustomHeaderOption Flash;
+        public static CustomNumberOption FlashSpeed;
+
+        public static CustomHeaderOption Diseased;
+        public static CustomNumberOption DiseasedKillMultiplier;
+
+        public static CustomHeaderOption Bait;
+        public static CustomNumberOption BaitMinDelay;
+        public static CustomNumberOption BaitMaxDelay;
 
         public static CustomHeaderOption Lovers;
         public static CustomToggleOption BothLoversDie;
@@ -430,6 +450,7 @@ namespace TownOfUs.CustomOption
             InitialCooldowns =
                 new CustomNumberOption(num++, "Game Start Cooldowns", 10, 10, 30, 2.5f, CooldownFormat);
             ParallelMedScans = new CustomToggleOption(num++, "Parallel Medbay Scans", false);
+            SkipButtonDisable = new CustomStringOption(num++, "Disable Meeting Skip Button", new[] { "No", "Emergency", "Always" });
             DisableLevels = new CustomToggleOption(num++, "Disable Level Icons", false);
             WhiteNameplates = new CustomToggleOption(num++, "Disable Player Nameplates", false);
 
@@ -450,6 +471,8 @@ namespace TownOfUs.CustomOption
             AssassinGuessNeutralBenign = new CustomToggleOption(num++, "Assassin Can Guess Neutral Benign Roles", false);
             AssassinGuessNeutralEvil = new CustomToggleOption(num++, "Assassin Can Guess Neutral Evil Roles", false);
             AssassinGuessNeutralKilling = new CustomToggleOption(num++, "Assassin Can Guess Neutral Killing Roles", false);
+            AssassinGuessModifiers = new CustomToggleOption(num++, "Assassin Can Guess Crewmate Modifiers", false);
+            AssassinateAfterVoting = new CustomToggleOption(num++, "Assassin Can Guess After Voting", false);
 
             Haunter =
                 new CustomHeaderOption(num++, "<color=#d3d3d3FF>Haunter</color>");
@@ -536,6 +559,7 @@ namespace TownOfUs.CustomOption
             VigilanteGuessNeutralBenign = new CustomToggleOption(num++, "Vigilante Can Guess Neutral Benign Roles", false);
             VigilanteGuessNeutralEvil = new CustomToggleOption(num++, "Vigilante Can Guess Neutral Evil Roles", false);
             VigilanteGuessNeutralKilling = new CustomToggleOption(num++, "Vigilante Can Guess Neutral Killing Roles", false);
+            VigilanteAfterVoting = new CustomToggleOption(num++, "Vigilante Can Guess After Voting", false);
 
             Altruist = new CustomHeaderOption(num++, "<color=#660000FF>Altruist</color>");
             ReviveDuration =
@@ -628,6 +652,10 @@ namespace TownOfUs.CustomOption
                     new[] { "Self", "Guardian Angel", "Self+GA", "Everyone" });
             GaOnTargetDeath = new CustomStringOption(num++, "GA Becomes On Target Dead",
                 new[] { "Crew", "Amnesiac", "Survivor", "Jester" });
+            GATargetKnows =
+                new CustomToggleOption(num++, "Target Knows GA Exists", false);
+            GAKnowsTargetRole =
+                new CustomToggleOption(num++, "GA Knows Targets Role", false);
 
             Survivor =
                 new CustomHeaderOption(num++, "<color=#FFE64DFF>Survivor</color>");
@@ -685,6 +713,8 @@ namespace TownOfUs.CustomOption
                 new CustomNumberOption(num++, "Flash Grenade Duration", 10, 5, 15, 1f, CooldownFormat);
             FlashRadius =
                 new CustomNumberOption(num++, "Flash Radius", 1f, 0.25f, 5f, 0.25f, MultiplierFormat);
+            GrenadierIndicators =
+                new CustomToggleOption(num++, "Indicate Flashed Crewmates", false);
             GrenadierVent =
                 new CustomToggleOption(num++, "Grenadier Can Vent", false);
 
@@ -738,6 +768,19 @@ namespace TownOfUs.CustomOption
                 new CustomToggleOption(num++, "Undertaker Can Vent", false);
             UndertakerVentWithBody =
                 new CustomToggleOption(num++, "Undertaker Can Vent While Dragging", false);
+
+            Bait = new CustomHeaderOption(num++, "<color=#00B3B3FF>Bait</color>");
+            BaitMinDelay = new CustomNumberOption(num++, "Minimum Delay for the Bait Report", 0f, 0f, 15f, 0.5f, CooldownFormat);
+            BaitMaxDelay = new CustomNumberOption(num++, "Maximum Delay for the Bait Report", 1f, 0f, 15f, 0.5f, CooldownFormat);
+
+            Diseased = new CustomHeaderOption(num++, "<color=#808080FF>Diseased</color>");
+            DiseasedKillMultiplier = new CustomNumberOption(num++, "Diseased Kill Multiplier", 3f, 1.5f, 5f, 0.5f, MultiplierFormat);
+
+            Flash = new CustomHeaderOption(num++, "<color=#FF8080FF>Flash</color>");
+            FlashSpeed = new CustomNumberOption(num++, "Flash Speed", 1.25f, 1.05f, 2.5f, 0.05f, MultiplierFormat);
+
+            Giant = new CustomHeaderOption(num++, "<color=#FFB34DFF>Giant</color>");
+            GiantSlow = new CustomNumberOption(num++, "Giant Speed", 0.75f, 0.5f, 1f, 0.05f, MultiplierFormat);
 
             Lovers =
                 new CustomHeaderOption(num++, "<color=#FF66CCFF>Lovers</color>");

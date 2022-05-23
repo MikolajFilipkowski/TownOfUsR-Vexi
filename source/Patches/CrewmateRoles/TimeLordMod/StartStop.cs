@@ -27,6 +27,7 @@ namespace TownOfUs.CrewmateRoles.TimeLordMod
             role.FinishRewind = DateTime.UtcNow;
             RecordRewind.rewinding = false;
             PlayerControl.LocalPlayer.moveable = true;
+            Patches.SubmergedCompatibility.CheckOutOfBoundsElevator(PlayerControl.LocalPlayer);
             HudManager.Instance.FullScreen.enabled = false;
             HudManager.Instance.FullScreen.color = oldColor;
         }
