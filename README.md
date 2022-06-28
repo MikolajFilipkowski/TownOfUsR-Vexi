@@ -615,8 +615,8 @@ If the player the Detective examines has killed recently the Detective will be a
 | Examine Cooldown | The cooldown of the Detective's Examine button | Time | 10s |
 | Bloody Duration | How long players remain bloody after a kill | Time | 25s |
 | Show Detective Reports | Whether the Detective should get information when reporting a body | Toggle | True |
-| Time Where Medic Reports Will Have Role | If a body has been dead for shorter than this amount, the Medic's report will contain the killer's role | Time | 15s |
-| Time Where Medic Reports Will Have Faction | If a body has been dead for shorter than this amount, the Medic's report will contain the killer's faction | Time | 30s |
+| Time Where Detective Reports Will Have Role | If a body has been dead for shorter than this amount, the Detective's report will contain the killer's role | Time | 15s |
+| Time Where Detective Reports Will Have Faction | If a body has been dead for shorter than this amount, the Detective's report will contain the killer's faction | Time | 30s |
 
 -----------------------
 ## Haunter
