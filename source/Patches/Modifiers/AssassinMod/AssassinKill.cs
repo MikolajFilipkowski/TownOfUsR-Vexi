@@ -9,6 +9,7 @@ using TownOfUs.CrewmateRoles.SwapperMod;
 using TownOfUs.CrewmateRoles.VigilanteMod;
 using TownOfUs.ImpostorRoles.BlackmailerMod;
 using TownOfUs.Roles.Modifiers;
+using TownOfUs.Extensions;
 
 namespace TownOfUs.Modifiers.AssassinMod
 {
@@ -54,7 +55,7 @@ namespace TownOfUs.Modifiers.AssassinMod
             {
                 Utils.ShowDeadBodies = true;
                 hudManager.ShadowQuad.gameObject.SetActive(false);
-                player.nameText.GetComponent<MeshRenderer>().material.SetInt("_Mask", 0);
+                player.nameText().GetComponent<MeshRenderer>().material.SetInt("_Mask", 0);
                 player.RpcSetScanner(false);
                 ImportantTextTask importantTextTask = new GameObject("_Player").AddComponent<ImportantTextTask>();
                 importantTextTask.transform.SetParent(AmongUsClient.Instance.transform, false);
@@ -105,7 +106,10 @@ namespace TownOfUs.Modifiers.AssassinMod
             }
             player.Die(DeathReason.Kill);
             if (checkLover && player.IsLover() && CustomGameOptions.BothLoversDie)
-                MurderPlayer(Modifier.GetModifier<Lover>(player).OtherLover.Player, false);
+            {
+                var otherLover = Modifier.GetModifier<Lover>(player).OtherLover.Player;
+                if (!otherLover.Is(RoleEnum.Pestilence)) MurderPlayer(otherLover, false);
+            }
 
             var meetingHud = MeetingHud.Instance;
             if (amOwner)

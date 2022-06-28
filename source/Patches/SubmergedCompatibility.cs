@@ -57,57 +57,7 @@ namespace TownOfUs.Patches
     {
         public static void Postfix(PlayerPhysics __instance)
         {
-            if (SubmergedCompatibility.Loaded && __instance.myPlayer.Data.IsDead)
-            {
-                PlayerControl player = __instance.myPlayer;
-                if (player.Is(RoleEnum.Phantom))
-                {
-                    if (!Role.GetRole<Phantom>(player).Caught)
-                    {
-                        if (player.AmOwner) SubmergedCompatibility.MoveDeadPlayerElevator(player);
-                        Transform transform = __instance.transform;
-                        Vector3 position = transform.position;
-                        if (SubmergedCompatibility.isSubmerged())
-                        {
-                            if (position.y > -7f)
-                            {
-                                position.z = 0.0208f;
-                            }
-                            else
-                            {
-                                position.z = -0.0208f;
-                            }
-                        }
-                        else position.z = 0f;
-                        
-                        transform.position = position;
-                        __instance.myPlayer.gameObject.layer = 8;
-                    }
-                }
-                if (player.Is(RoleEnum.Haunter))
-                {
-                    if (!Role.GetRole<Haunter>(player).Caught)
-                    {
-                        if (player.AmOwner) SubmergedCompatibility.MoveDeadPlayerElevator(player);
-                        Transform transform = __instance.transform;
-                        Vector3 position = transform.position;
-                        if (SubmergedCompatibility.isSubmerged())
-                        {
-                            if (position.y > -7f)
-                            {
-                                position.z = 0.0208f;
-                            }
-                            else
-                            {
-                                position.z = -0.0208f;
-                            }
-                        }
-                        else position.z = 0f;
-                        transform.position = position;
-                        __instance.myPlayer.gameObject.layer = 8;
-                    }
-                }
-            }
+            SubmergedCompatibility.Ghostrolefix(__instance);
         }
     }
     [HarmonyPatch(typeof(PlayerPhysics), nameof(PlayerPhysics.LateUpdate))]
@@ -116,58 +66,7 @@ namespace TownOfUs.Patches
     {
         public static void Postfix(PlayerPhysics __instance)
         {
-            if (SubmergedCompatibility.Loaded && __instance.myPlayer.Data.IsDead)
-            {
-                PlayerControl player = __instance.myPlayer;
-                if (player.Is(RoleEnum.Phantom))
-                {
-                    if (!Role.GetRole<Phantom>(player).Caught)
-                    {
-                        if (player.AmOwner) SubmergedCompatibility.MoveDeadPlayerElevator(player);
-                        Transform transform = __instance.transform;
-                        Vector3 position = transform.position;
-                        if (SubmergedCompatibility.isSubmerged())
-                        {
-                            if (position.y > -7f)
-                            {
-                                position.z = 0.0208f;
-                            }
-                            else
-                            {
-                                position.z = -0.0208f;
-                            }
-                        }
-                        else position.z = 0f;
-
-                        transform.position = position;
-                        __instance.myPlayer.gameObject.layer = 8;
-                    }
-                }
-                if (player.Is(RoleEnum.Haunter))
-                {
-                    if (!Role.GetRole<Haunter>(player).Caught)
-                    {
-                        if (player.AmOwner) SubmergedCompatibility.MoveDeadPlayerElevator(player);
-                        Transform transform = __instance.transform;
-                        Vector3 position = transform.position;
-                        if (SubmergedCompatibility.isSubmerged())
-                        {
-                            if (position.y > -7f)
-                            {
-                                position.z = 0.0208f;
-                            }
-                            else
-                            {
-                                position.z = -0.0208f;
-                            }
-                        }
-                        else position.z = 0f;
-
-                        transform.position = position;
-                        __instance.myPlayer.gameObject.layer = 8;
-                    }
-                }
-            }
+            SubmergedCompatibility.Ghostrolefix(__instance);
         }
     }
 
@@ -463,7 +362,44 @@ namespace TownOfUs.Patches
             }
         }
 
+        public static void Ghostrolefix(PlayerPhysics __instance)
+        {
+            if (Loaded && __instance.myPlayer.Data.IsDead)
+            {
+                PlayerControl player = __instance.myPlayer;
+                if (player.Is(RoleEnum.Phantom))
+                {
 
+                    if (!Role.GetRole<Phantom>(player).Caught)
+                    {
+
+                        if (player.AmOwner) MoveDeadPlayerElevator(player);
+                        else player.Collider.enabled = false;
+                        Transform transform = __instance.transform;
+                        Vector3 position = transform.position;
+                        position.z = position.y/1000;
+
+                        transform.position = position;
+                        __instance.myPlayer.gameObject.layer = 8;
+                    }
+                }
+                if (player.Is(RoleEnum.Haunter))
+                {
+                    if (!Role.GetRole<Haunter>(player).Caught)
+                    {
+
+                        if (player.AmOwner) MoveDeadPlayerElevator(player);
+                        else player.Collider.enabled = false;
+                        Transform transform = __instance.transform;
+                        Vector3 position = transform.position;
+                        position.z = position.y / 1000;
+
+                        transform.position = position;
+                        __instance.myPlayer.gameObject.layer = 8;
+                    }
+                }
+            }
+        }
         public static MonoBehaviour AddSubmergedComponent(this GameObject obj, string typeName)
         {
             if (!Loaded) return obj.AddComponent<MissingSubmergedBehaviour>();

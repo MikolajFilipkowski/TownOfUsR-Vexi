@@ -42,7 +42,6 @@ namespace TownOfUs {
                     particles.Start();
                 }
             }));
-            
         }
     }
 }

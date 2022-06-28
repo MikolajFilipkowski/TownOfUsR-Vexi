@@ -11,12 +11,14 @@ namespace TownOfUs
         {
             SpriteRenderer spriteRenderer = Object.Instantiate<SpriteRenderer>(__instance.PlayerVotePrefab);
             if (PlayerControl.GameOptions.AnonymousVotes && (!CustomGameOptions.DeadSeeRoles || !PlayerControl.LocalPlayer.Data.IsDead))
-            { 
-                PlayerControl.SetPlayerMaterialColors(Palette.DisabledGrey, spriteRenderer);
+            {
+                //PlayerControl.SetPlayerMaterialColors(Palette.DisabledGrey, spriteRenderer);
+                PlayerMaterial.SetColors(Palette.DisabledGrey, spriteRenderer);
             }
             else
             {
-                PlayerControl.SetPlayerMaterialColors(voterPlayer.DefaultOutfit.ColorId, spriteRenderer);
+                //PlayerControl.SetPlayerMaterialColors(voterPlayer.DefaultOutfit.ColorId, spriteRenderer);
+                PlayerMaterial.SetColors(voterPlayer.DefaultOutfit.ColorId, spriteRenderer);
             }
             spriteRenderer.transform.SetParent(parent);
             spriteRenderer.transform.localScale = Vector3.zero;

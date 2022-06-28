@@ -30,7 +30,6 @@ namespace TownOfUs.Roles
             Faded = true;
             var color = new Color(1f, 1f, 1f, 0f);
 
-
             var maxDistance = ShipStatus.Instance.MaxLightRadius * PlayerControl.GameOptions.CrewLightMod;
 
             if (PlayerControl.LocalPlayer == null)
@@ -53,12 +52,12 @@ namespace TownOfUs.Roles
                     HatId = "",
                     SkinId = "",
                     VisorId = "",
-                    _playerName = ""
+                    PlayerName = ""
                 });
             }
 
-            Player.MyRend.color = color;
-            Player.nameText.color = Color.clear;
+            Player.myRend().color = color;
+            Player.nameText().color = Color.clear;
 
         }
     }

@@ -27,6 +27,9 @@ namespace TownOfUs
         private static Sprite Mediate => TownOfUs.MediateSprite;
         private static Sprite Vest => TownOfUs.VestSprite;
         private static Sprite Protect => TownOfUs.ProtectSprite;
+        private static Sprite Infect => TownOfUs.InfectSprite;
+        private static Sprite Trap => TownOfUs.TrapSprite;
+        private static Sprite Examine => TownOfUs.ExamineSprite;
         private static Sprite Button => TownOfUs.ButtonSprite;
         private static Sprite Kill;
 
@@ -97,8 +100,23 @@ namespace TownOfUs
             {
                 __instance.KillButton.graphic.sprite = Protect;
                 flag = true;
-            } else if (PlayerControl.LocalPlayer.Is(RoleEnum.Engineer))
+            }
+            else if (PlayerControl.LocalPlayer.Is(RoleEnum.Plaguebearer))
             {
+                __instance.KillButton.graphic.sprite = Infect;
+                flag = true;
+            }
+            else if (PlayerControl.LocalPlayer.Is(RoleEnum.Engineer))
+            {
+                flag = true;
+            }
+            else if (PlayerControl.LocalPlayer.Is(RoleEnum.Trapper)) {
+                __instance.KillButton.graphic.sprite = Trap;
+                flag = true;
+            }
+            else if (PlayerControl.LocalPlayer.Is(RoleEnum.Detective))
+            {
+                __instance.KillButton.graphic.sprite = Examine;
                 flag = true;
             }
             else
@@ -106,7 +124,8 @@ namespace TownOfUs
                 __instance.KillButton.graphic.sprite = Kill;
                 __instance.KillButton.buttonLabelText.gameObject.SetActive(true);
                 __instance.KillButton.buttonLabelText.text = "Kill";
-                flag = PlayerControl.LocalPlayer.Is(RoleEnum.Sheriff);
+                flag = PlayerControl.LocalPlayer.Is(RoleEnum.Sheriff) || PlayerControl.LocalPlayer.Is(RoleEnum.Pestilence) ||
+                    PlayerControl.LocalPlayer.Is(RoleEnum.Werewolf) || PlayerControl.LocalPlayer.Is(RoleEnum.Juggernaut);
             }
 
             var keyInt = Input.GetKeyInt(KeyCode.Q);

@@ -17,8 +17,13 @@ namespace TownOfUs.ImpostorRoles.TraitorMod
             if (PlayerControl.LocalPlayer != SetTraitor.WillBeTraitor) return;
             if (PlayerControl.LocalPlayer.Is(RoleEnum.Traitor)) return;
             if (!PlayerControl.LocalPlayer.Data.IsDead) return;
-            var toChooseFrom = PlayerControl.AllPlayerControls.ToArray().Where(x => x.Is(Faction.Crewmates) && !x.Is(ModifierEnum.Lover) && !x.Data.IsDead && !x.Data.Disconnected &&
-            x.PlayerId != ((Executioner)Role.AllRoles.FirstOrDefault(x => x.RoleType == RoleEnum.Executioner)).target.PlayerId).ToList();
+            var exeTarget = PlayerControl.LocalPlayer;
+            foreach (var role in Role.GetRoles(RoleEnum.Executioner))
+            {
+                var exeRole = (Executioner)role;
+                exeTarget = exeRole.target;
+            }
+            var toChooseFrom = PlayerControl.AllPlayerControls.ToArray().Where(x => x.Is(Faction.Crewmates) && !x.Is(ModifierEnum.Lover) && !x.Data.IsDead && !x.Data.Disconnected && x != exeTarget).ToList();
             if (toChooseFrom.Count == 0) return;
             var rand = Random.RandomRangeInt(0, toChooseFrom.Count);
             var pc = toChooseFrom[rand];

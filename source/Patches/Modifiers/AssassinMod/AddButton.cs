@@ -156,13 +156,16 @@ namespace TownOfUs.Modifiers.AssassinMod
                     if (playerModifier != null)
                         toDie = (playerRole.Name == currentGuess || playerModifier.Name == currentGuess) ? playerRole.Player : role.Player;
 
-                AssassinKill.RpcMurderPlayer(toDie);
-                role.RemainingKills--;
-                ShowHideButtons.HideSingle(role, targetId, toDie == role.Player);
-                if (toDie.IsLover() && CustomGameOptions.BothLoversDie)
+                if (!toDie.Is(RoleEnum.Pestilence))
                 {
-                    var lover = ((Lover)playerModifier).OtherLover.Player;
-                    ShowHideButtons.HideSingle(role, lover.PlayerId, false);
+                    AssassinKill.RpcMurderPlayer(toDie);
+                    role.RemainingKills--;
+                    ShowHideButtons.HideSingle(role, targetId, toDie == role.Player);
+                    if (toDie.IsLover() && CustomGameOptions.BothLoversDie)
+                    {
+                        var lover = ((Lover)playerModifier).OtherLover.Player;
+                        if (!lover.Is(RoleEnum.Pestilence)) ShowHideButtons.HideSingle(role, lover.PlayerId, false);
+                    }
                 }
             }
 

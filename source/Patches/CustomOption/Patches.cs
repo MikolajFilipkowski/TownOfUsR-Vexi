@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
-using Reactor;
 using Reactor.Extensions;
-using TownOfUs.Extensions;
 using UnhollowerBaseLib;
 using UnityEngine;
 
@@ -183,8 +181,6 @@ namespace TownOfUs.CustomOption
                 touSettings.GetComponentInChildren<Scrollbar>().parent = touSettings.GetComponentInChildren<Scroller>();
                 __instance.RegularGameSettings.GetComponentInChildren<Scrollbar>().parent = __instance.RegularGameSettings.GetComponentInChildren<Scroller>();
                 __instance.RolesSettings.GetComponentInChildren<Scrollbar>().parent = __instance.RolesSettings.GetComponentInChildren<Scroller>();
-
-
             }
         }
 
@@ -206,7 +202,6 @@ namespace TownOfUs.CustomOption
         {
             public static bool Prefix(GameOptionsMenu __instance)
             {
-
                 if (__instance.name != "TouGameOptionsMenu")
                     return true;
                 __instance.Children = new Il2CppReferenceArray<OptionBehaviour>(new OptionBehaviour[0]);
@@ -231,7 +226,6 @@ namespace TownOfUs.CustomOption
 
                 __instance.Children = new Il2CppReferenceArray<OptionBehaviour>(customOptions.ToArray());
                 return false;
-
             }
         }
 
@@ -259,6 +253,15 @@ namespace TownOfUs.CustomOption
                 var i = 0;
                 foreach (var option in __instance.Children)
                     option.transform.localPosition = new Vector3(x, y - i++ * 0.5f, z);
+
+                var commonTasks = __instance.Children.FirstOrDefault(x => x.name == "NumCommonTasks").TryCast<NumberOption>();
+                if (commonTasks != null) commonTasks.ValidRange = new FloatRange(0f, 4f);
+
+                var shortTasks = __instance.Children.FirstOrDefault(x => x.name == "NumShortTasks").TryCast<NumberOption>();
+                if (shortTasks != null) shortTasks.ValidRange = new FloatRange(0f, 26f);
+
+                var longTasks = __instance.Children.FirstOrDefault(x => x.name == "NumLongTasks").TryCast<NumberOption>();
+                if (longTasks != null) longTasks.ValidRange = new FloatRange(0f, 15f);
             }
         }
 

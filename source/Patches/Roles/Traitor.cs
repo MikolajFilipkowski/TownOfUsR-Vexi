@@ -4,7 +4,7 @@ namespace TownOfUs.Roles
 {
     public class Traitor : Role
     {
-
+        public RoleEnum formerRole = new RoleEnum();
         public Traitor(PlayerControl player) : base(player)
         {
             Name = "Traitor";

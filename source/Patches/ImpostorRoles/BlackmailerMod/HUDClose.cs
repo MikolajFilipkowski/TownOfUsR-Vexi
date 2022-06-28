@@ -1,5 +1,6 @@
 using System;
 using HarmonyLib;
+using TownOfUs.Extensions;
 using TownOfUs.Roles;
 using Object = UnityEngine.Object;
 
@@ -16,7 +17,7 @@ namespace TownOfUs.ImpostorRoles.BlackmailerMod
                 var blackmailer = (Blackmailer)role;
                 if (blackmailer.Player.PlayerId == PlayerControl.LocalPlayer.PlayerId)
                 {
-                    blackmailer.Blackmailed?.MyRend.material.SetFloat("_Outline", 0f);
+                    blackmailer.Blackmailed?.myRend().material.SetFloat("_Outline", 0f);
                 }
                 blackmailer.Blackmailed = null;
                 blackmailer.LastBlackmailed = DateTime.UtcNow;

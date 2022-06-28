@@ -5,6 +5,7 @@ namespace TownOfUs.CustomOption
     public class Generate
     {
         public static CustomHeaderOption CrewInvestigativeRoles;
+        public static CustomNumberOption DetectiveOn;
         public static CustomNumberOption HaunterOn;
         public static CustomNumberOption InvestigatorOn;
         public static CustomNumberOption MysticOn;
@@ -12,6 +13,7 @@ namespace TownOfUs.CustomOption
         public static CustomNumberOption SnitchOn;
         public static CustomNumberOption SpyOn;
         public static CustomNumberOption TrackerOn;
+        public static CustomNumberOption TrapperOn;
 
         public static CustomHeaderOption CrewProtectiveRoles;
         public static CustomNumberOption AltruistOn;
@@ -41,8 +43,10 @@ namespace TownOfUs.CustomOption
         public static CustomNumberOption PhantomOn;
 
         public static CustomHeaderOption NeutralKillingRoles;
-        public static CustomNumberOption GlitchOn;
         public static CustomNumberOption ArsonistOn;
+        public static CustomNumberOption PlaguebearerOn;
+        public static CustomNumberOption GlitchOn;
+        public static CustomNumberOption WerewolfOn;
 
         public static CustomHeaderOption ImpostorConcealingRoles;
         public static CustomNumberOption MorphlingOn;
@@ -66,8 +70,8 @@ namespace TownOfUs.CustomOption
         public static CustomNumberOption TorchOn;
 
         public static CustomHeaderOption GlobalModifiers;
+        public static CustomNumberOption BlindOn;
         public static CustomNumberOption ButtonBarryOn;
-        public static CustomNumberOption DrunkOn;
         public static CustomNumberOption FlashOn;
         public static CustomNumberOption GiantOn;
         public static CustomNumberOption LoversOn;
@@ -80,11 +84,16 @@ namespace TownOfUs.CustomOption
         public static CustomToggleOption DeadSeeRoles;
         public static CustomToggleOption DisableLevels;
         public static CustomToggleOption WhiteNameplates;
-        public static CustomNumberOption MaxNeutralRoles;
         public static CustomNumberOption VanillaGame;
         public static CustomNumberOption InitialCooldowns;
         public static CustomToggleOption ParallelMedScans;
         public static CustomStringOption SkipButtonDisable;
+
+        public static CustomHeaderOption RoleCountSettings;
+        public static CustomNumberOption MinNeutralNonKillingRoles;
+        public static CustomNumberOption MaxNeutralNonKillingRoles;
+        public static CustomNumberOption MinNeutralKillingRoles;
+        public static CustomNumberOption MaxNeutralKillingRoles;
 
         public static CustomHeaderOption TaskTrackingSettings;
         public static CustomToggleOption SeeTasksDuringRound;
@@ -101,6 +110,8 @@ namespace TownOfUs.CustomOption
         public static CustomToggleOption SheriffKillsGlitch;
         public static CustomToggleOption SheriffKillsExecutioner;
         public static CustomToggleOption SheriffKillsArsonist;
+        public static CustomToggleOption SheriffKillsWerewolf;
+        public static CustomToggleOption SheriffKillsPlaguebearer;
         public static CustomNumberOption SheriffKillCd;
         public static CustomToggleOption SheriffBodyReport;
 
@@ -136,6 +147,7 @@ namespace TownOfUs.CustomOption
         public static CustomToggleOption NeutBenignRed;
         public static CustomToggleOption NeutEvilRed;
         public static CustomToggleOption NeutKillingRed;
+        public static CustomToggleOption TraitorColourSwap;
 
         public static CustomHeaderOption Swapper;
         public static CustomToggleOption SwapperButton;
@@ -190,7 +202,7 @@ namespace TownOfUs.CustomOption
 
         public static CustomHeaderOption Arsonist;
         public static CustomNumberOption DouseCooldown;
-        public static CustomToggleOption ArsonistGameEnd;
+        public static CustomNumberOption MaxDoused;
 
         public static CustomHeaderOption Undertaker;
         public static CustomNumberOption DragCooldown;
@@ -209,6 +221,7 @@ namespace TownOfUs.CustomOption
         public static CustomToggleOption AssassinGuessNeutralEvil;
         public static CustomToggleOption AssassinGuessNeutralKilling;
         public static CustomToggleOption AssassinGuessModifiers;
+        public static CustomToggleOption AssassinGuessLovers;
         public static CustomToggleOption AssassinateAfterVoting;
 
         public static CustomHeaderOption Underdog;
@@ -221,6 +234,7 @@ namespace TownOfUs.CustomOption
         public static CustomToggleOption VigilanteGuessNeutralBenign;
         public static CustomToggleOption VigilanteGuessNeutralEvil;
         public static CustomToggleOption VigilanteGuessNeutralKilling;
+        public static CustomToggleOption VigilanteGuessLovers;
         public static CustomToggleOption VigilanteAfterVoting;
 
         public static CustomHeaderOption Haunter;
@@ -248,6 +262,14 @@ namespace TownOfUs.CustomOption
         public static CustomToggleOption ResetOnNewRound;
         public static CustomNumberOption MaxTracks;
 
+        public static CustomHeaderOption Trapper;
+        public static CustomNumberOption TrapCooldown;
+        public static CustomToggleOption TrapsRemoveOnNewRound;
+        public static CustomNumberOption MaxTraps;
+        public static CustomNumberOption MinAmountOfTimeInTrap;
+        public static CustomNumberOption TrapSize;
+        public static CustomNumberOption MinAmountOfPlayersInTrap;
+
         public static CustomHeaderOption Poisoner;
         public static CustomNumberOption PoisonCooldown;
         public static CustomNumberOption PoisonDuration;
@@ -255,7 +277,7 @@ namespace TownOfUs.CustomOption
 
         public static CustomHeaderOption Traitor;
         public static CustomNumberOption LatestSpawn;
-        public static CustomToggleOption GlitchStopsTraitor;
+        public static CustomToggleOption NeutralKillingStopsTraitor;
 
         public static CustomHeaderOption Amnesiac;
         public static CustomToggleOption RememberArrows;
@@ -289,6 +311,25 @@ namespace TownOfUs.CustomOption
         public static CustomHeaderOption Blackmailer;
         public static CustomNumberOption BlackmailCooldown;
 
+        public static CustomHeaderOption Plaguebearer;
+        public static CustomNumberOption InfectCooldown;
+        public static CustomNumberOption PestKillCooldown;
+        public static CustomToggleOption PestVent;
+
+        public static CustomHeaderOption Werewolf;
+        public static CustomNumberOption RampageCooldown;
+        public static CustomNumberOption RampageDuration;
+        public static CustomNumberOption RampageKillCooldown;
+        public static CustomToggleOption WerewolfVent;
+
+        public static CustomHeaderOption Detective;
+        public static CustomNumberOption InitialExamineCooldown;
+        public static CustomNumberOption ExamineCooldown;
+        public static CustomNumberOption RecentKill;
+        public static CustomToggleOption DetectiveReportOn;
+        public static CustomNumberOption DetectiveRoleDuration;
+        public static CustomNumberOption DetectiveFactionDuration;
+
         public static CustomHeaderOption Giant;
         public static CustomNumberOption GiantSlow;
 
@@ -321,6 +362,8 @@ namespace TownOfUs.CustomOption
 
 
             CrewInvestigativeRoles = new CustomHeaderOption(num++, "Crewmate Investigative Roles");
+            DetectiveOn = new CustomNumberOption(true, num++, "<color=#4D4DFFFF>Detective</color>", 0f, 0f, 100f, 10f,
+                PercentFormat);
             HaunterOn = new CustomNumberOption(true, num++, "<color=#D3D3D3FF>Haunter</color>", 0f, 0f, 100f, 10f,
                 PercentFormat);
             InvestigatorOn = new CustomNumberOption(true, num++, "<color=#00B3B3FF>Investigator</color>", 0f, 0f, 100f, 10f,
@@ -334,6 +377,8 @@ namespace TownOfUs.CustomOption
             SpyOn = new CustomNumberOption(true, num++, "<color=#CCA3CCFF>Spy</color>", 0f, 0f, 100f, 10f,
                 PercentFormat);
             TrackerOn = new CustomNumberOption(true, num++, "<color=#009900FF>Tracker</color>", 0f, 0f, 100f, 10f,
+                PercentFormat);
+            TrapperOn = new CustomNumberOption(true, num++, "<color=#A7D1B3FF>Trapper</color>", 0f, 0f, 100f, 10f,
                 PercentFormat);
 
             CrewKillingRoles = new CustomHeaderOption(num++, "Crewmate Killing Roles");
@@ -384,7 +429,11 @@ namespace TownOfUs.CustomOption
             NeutralKillingRoles = new CustomHeaderOption(num++, "Neutral Killing Roles");
             ArsonistOn = new CustomNumberOption(true, num++, "<color=#FF4D00FF>Arsonist</color>", 0f, 0f, 100f, 10f,
                 PercentFormat);
+            PlaguebearerOn = new CustomNumberOption(true, num++, "<color=#E6FFB3FF>Plaguebearer</color>", 0f, 0f, 100f, 10f,
+                PercentFormat);
             GlitchOn = new CustomNumberOption(true, num++, "<color=#00FF00FF>The Glitch</color>", 0f, 0f, 100f, 10f,
+                PercentFormat);
+            WerewolfOn = new CustomNumberOption(true, num++, "<color=#A86629FF>Werewolf</color>", 0f, 0f, 100f, 10f,
                 PercentFormat);
 
             ImpostorConcealingRoles = new CustomHeaderOption(num++, "Impostor Concealing Roles");
@@ -422,9 +471,9 @@ namespace TownOfUs.CustomOption
                 PercentFormat);
 
             GlobalModifiers = new CustomHeaderOption(num++, "Global Modifiers");
-            ButtonBarryOn = new CustomNumberOption(true, num++, "<color=#E600FFFF>Button Barry</color>", 0f, 0f, 100f, 10f,
+            BlindOn = new CustomNumberOption(true, num++, "<color=#AAAAAAFF>Blind</color>", 0f, 0f, 100f, 10f,
                 PercentFormat);
-            DrunkOn = new CustomNumberOption(true, num++, "<color=#758000FF>Drunk</color>", 0f, 0f, 100f, 10f,
+            ButtonBarryOn = new CustomNumberOption(true, num++, "<color=#E600FFFF>Button Barry</color>", 0f, 0f, 100f, 10f,
                 PercentFormat);
             FlashOn = new CustomNumberOption(true, num++, "<color=#FF8080FF>Flash</color>", 0f, 0f, 100f, 10f,
                 PercentFormat);
@@ -443,8 +492,6 @@ namespace TownOfUs.CustomOption
             ImpostorSeeRoles = new CustomToggleOption(num++, "Impostors Can See The Roles Of Their Team", false);
             DeadSeeRoles =
                 new CustomToggleOption(num++, "Dead Can See Everyone's Roles/Votes", false);
-            MaxNeutralRoles =
-                new CustomNumberOption(num++, "Max Neutral Roles", 1f, 1f, 5f, 1f);
             VanillaGame = new CustomNumberOption(num++, "Probability Of A Completely Vanilla Game", 0f, 0f, 100f, 5f,
                 PercentFormat);
             InitialCooldowns =
@@ -453,6 +500,17 @@ namespace TownOfUs.CustomOption
             SkipButtonDisable = new CustomStringOption(num++, "Disable Meeting Skip Button", new[] { "No", "Emergency", "Always" });
             DisableLevels = new CustomToggleOption(num++, "Disable Level Icons", false);
             WhiteNameplates = new CustomToggleOption(num++, "Disable Player Nameplates", false);
+
+            RoleCountSettings =
+                new CustomHeaderOption(num++, "Role Count Settings");
+            MinNeutralNonKillingRoles =
+                new CustomNumberOption(num++, "Min Neutral Non-Killing Roles", 1f, 0f, 5f, 1f);
+            MaxNeutralNonKillingRoles =
+                new CustomNumberOption(num++, "Max Neutral Non-Killing Roles", 1f, 0f, 5f, 1f);
+            MinNeutralKillingRoles =
+                new CustomNumberOption(num++, "Min Neutral Killing Roles", 1f, 0f, 4f, 1f);
+            MaxNeutralKillingRoles =
+                new CustomNumberOption(num++, "Max Neutral Killing Roles", 1f, 0f, 4f, 1f);
 
             TaskTrackingSettings =
                 new CustomHeaderOption(num++, "Task Tracking Settings");
@@ -472,7 +530,24 @@ namespace TownOfUs.CustomOption
             AssassinGuessNeutralEvil = new CustomToggleOption(num++, "Assassin Can Guess Neutral Evil Roles", false);
             AssassinGuessNeutralKilling = new CustomToggleOption(num++, "Assassin Can Guess Neutral Killing Roles", false);
             AssassinGuessModifiers = new CustomToggleOption(num++, "Assassin Can Guess Crewmate Modifiers", false);
+            AssassinGuessLovers = new CustomToggleOption(num++, "Assassin Can Guess Lovers", false);
             AssassinateAfterVoting = new CustomToggleOption(num++, "Assassin Can Guess After Voting", false);
+
+            Detective =
+                new CustomHeaderOption(num++, "<color=#4D4DFFFF>Detective</color>");
+            InitialExamineCooldown =
+                new CustomNumberOption(num++, "Initial Examine Cooldown", 25f, 10f, 60f, 2.5f, CooldownFormat);
+            ExamineCooldown =
+                new CustomNumberOption(num++, "Examine Cooldown", 10f, 1f, 15f, 1f, CooldownFormat);
+            RecentKill =
+                new CustomNumberOption(num++, "How Long Players Stay Bloody For", 25f, 10f, 60f, 2.5f, CooldownFormat);
+            DetectiveReportOn = new CustomToggleOption(num++, "Show Detective Reports", true);
+            DetectiveRoleDuration =
+                new CustomNumberOption(num++, "Time Where Detective Will Have Role", 15, 0, 60, 2.5f,
+                    CooldownFormat);
+            DetectiveFactionDuration =
+                new CustomNumberOption(num++, "Time Where Detective Will Have Faction", 30, 0, 120, 2.5f,
+                    CooldownFormat);
 
             Haunter =
                 new CustomHeaderOption(num++, "<color=#d3d3d3FF>Haunter</color>");
@@ -509,6 +584,8 @@ namespace TownOfUs.CustomOption
                 new CustomToggleOption(num++, "Neutral Evil Roles Show Evil", false);
             NeutKillingRed =
                 new CustomToggleOption(num++, "Neutral Killing Roles Show Evil", false);
+            TraitorColourSwap =
+                new CustomToggleOption(num++, "Traitor Does Not Swap Colours", false);
 
             Snitch = new CustomHeaderOption(num++, "<color=#D4AF37FF>Snitch</color>");
             SnitchOnLaunch =
@@ -527,6 +604,21 @@ namespace TownOfUs.CustomOption
             ResetOnNewRound = new CustomToggleOption(num++, "Tracker Arrows Reset After Each Round", false);
             MaxTracks = new CustomNumberOption(num++, "Maximum Number Of Tracks Per Round", 5, 1, 15, 1);
 
+            Trapper =
+                new CustomHeaderOption(num++, "<color=#A7D1B3FF>Trapper</color>");
+            MinAmountOfTimeInTrap =
+                new CustomNumberOption(num++, "Min Amount Of Time In Trap To Register", 1f, 0f, 15f, 0.5f, CooldownFormat);
+            TrapCooldown =
+                new CustomNumberOption(num++, "Trap Cooldown", 25f, 10f, 40f, 2.5f, CooldownFormat);
+            TrapsRemoveOnNewRound =
+                new CustomToggleOption(num++, "Traps Removed After Each Round", true);
+            MaxTraps =
+                new CustomNumberOption(num++, "Maximum Number Of Traps Per Game", 5, 1, 15, 1);
+            TrapSize =
+                new CustomNumberOption(num++, "Trap Size", 1f, 0.5f, 5f, 0.5f, MultiplierFormat);
+            MinAmountOfPlayersInTrap =
+                new CustomNumberOption(num++, "Minimum Number Of Roles Required To Trigger Trap", 3, 1, 5, 1);
+
             Sheriff =
                 new CustomHeaderOption(num++, "<color=#FFFF00FF>Sheriff</color>");
             SheriffKillOther =
@@ -539,6 +631,10 @@ namespace TownOfUs.CustomOption
                 new CustomToggleOption(num++, "Sheriff Kills Executioner", false);
             SheriffKillsArsonist =
                 new CustomToggleOption(num++, "Sheriff Kills Arsonist", false);
+            SheriffKillsWerewolf =
+                new CustomToggleOption(num++, "Sheriff Kills Werewolf", false);
+            SheriffKillsPlaguebearer =
+                new CustomToggleOption(num++, "Sheriff Kills Plaguebearer", false);
             SheriffKillCd =
                 new CustomNumberOption(num++, "Sheriff Kill Cooldown", 25f, 10f, 40f, 2.5f, CooldownFormat);
             SheriffBodyReport = new CustomToggleOption(num++, "Sheriff Can Report Who They've Killed");
@@ -559,6 +655,7 @@ namespace TownOfUs.CustomOption
             VigilanteGuessNeutralBenign = new CustomToggleOption(num++, "Vigilante Can Guess Neutral Benign Roles", false);
             VigilanteGuessNeutralEvil = new CustomToggleOption(num++, "Vigilante Can Guess Neutral Evil Roles", false);
             VigilanteGuessNeutralKilling = new CustomToggleOption(num++, "Vigilante Can Guess Neutral Killing Roles", false);
+            VigilanteGuessLovers = new CustomToggleOption(num++, "Vigilante Can Guess Lovers", false);
             VigilanteAfterVoting = new CustomToggleOption(num++, "Vigilante Can Guess After Voting", false);
 
             Altruist = new CustomHeaderOption(num++, "<color=#660000FF>Altruist</color>");
@@ -689,8 +786,17 @@ namespace TownOfUs.CustomOption
 
             Arsonist = new CustomHeaderOption(num++, "<color=#FF4D00FF>Arsonist</color>");
             DouseCooldown =
-                new CustomNumberOption(num++, "Douse Cooldown", 25f, 10f, 40f, 2.5f, CooldownFormat);
-            ArsonistGameEnd = new CustomToggleOption(num++, "Game Continues As Long As Arsonist Is Alive", false);
+                new CustomNumberOption(num++, "Douse Cooldown", 25f, 10f, 60f, 2.5f, CooldownFormat);
+            MaxDoused =
+                new CustomNumberOption(num++, "Maximum Alive Players Doused", 5, 1, 15, 1);
+
+            Plaguebearer = new CustomHeaderOption(num++, "<color=#E6FFB3FF>Plaguebearer</color>");
+            InfectCooldown =
+                new CustomNumberOption(num++, "Infect Cooldown", 25f, 10f, 60f, 2.5f, CooldownFormat);
+            PestKillCooldown =
+                new CustomNumberOption(num++, "Pestilence Kill Cooldown", 25f, 10f, 60f, 2.5f, CooldownFormat);
+            PestVent =
+                new CustomToggleOption(num++, "Pestilence Can Vent", false);
 
             TheGlitch =
                 new CustomHeaderOption(num++, "<color=#00FF00FF>The Glitch</color>");
@@ -704,6 +810,16 @@ namespace TownOfUs.CustomOption
                 new CustomStringOption(num++, "Glitch Hack Distance", new[] { "Short", "Normal", "Long" });
             GlitchVent =
                 new CustomToggleOption(num++, "Glitch Can Vent", false);
+
+            Werewolf = new CustomHeaderOption(num++, "<color=#A86629FF>Werewolf</color>");
+            RampageCooldown =
+                new CustomNumberOption(num++, "Rampage Cooldown", 25f, 10f, 60f, 2.5f, CooldownFormat);
+            RampageDuration =
+                new CustomNumberOption(num++, "Rampage Duration", 25f, 10f, 60f, 2.5f, CooldownFormat);
+            RampageKillCooldown =
+                new CustomNumberOption(num++, "Rampage Kill Cooldown", 10f, 0.5f, 15f, 0.5f, CooldownFormat);
+            WerewolfVent =
+                new CustomToggleOption(num++, "Werewolf Can Vent When Rampaged", false);
 
             Grenadier =
                 new CustomHeaderOption(num++, "<color=#FF0000FF>Grenadier</color>");
@@ -746,9 +862,9 @@ namespace TownOfUs.CustomOption
                 new CustomToggleOption(num++, "Poisoner Can Vent", false);
 
             Traitor = new CustomHeaderOption(num++, "<color=#FF0000FF>Traitor</color>");
-            LatestSpawn = new CustomNumberOption(num++, "Minimum People Alive When Traitor Can Spawn", 5, 2, 15, 1);
-            GlitchStopsTraitor =
-                new CustomToggleOption(num++, "Traitor Won't Spawn If Glitch Is Alive", false);
+            LatestSpawn = new CustomNumberOption(num++, "Minimum People Alive When Traitor Can Spawn", 5, 3, 15, 1);
+            NeutralKillingStopsTraitor =
+                new CustomToggleOption(num++, "Traitor Won't Spawn If Any Neutral Killing Is Alive", false);
 
             Underdog = new CustomHeaderOption(num++, "<color=#FF0000FF>Underdog</color>");
             UnderdogKillBonus = new CustomNumberOption(num++, "Kill Cooldown Bonus", 5, 2.5f, 30, 2.5f, CooldownFormat);

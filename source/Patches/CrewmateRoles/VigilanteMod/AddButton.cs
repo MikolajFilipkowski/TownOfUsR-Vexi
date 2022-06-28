@@ -147,14 +147,19 @@ namespace TownOfUs.CrewmateRoles.VigilanteMod
                 var playerModifier = Modifier.GetModifier(voteArea);
 
                 var toDie = playerRole.Name == currentGuess ? playerRole.Player : role.Player;
+                if (playerModifier != null)
+                    toDie = (playerRole.Name == currentGuess || playerModifier.Name == currentGuess) ? playerRole.Player : role.Player;
 
-                VigilanteKill.RpcMurderPlayer(toDie);
-                role.RemainingKills--;
-                ShowHideButtonsVigi.HideSingle(role, targetId, toDie == role.Player);
-                if (toDie.IsLover() && CustomGameOptions.BothLoversDie)
+                if (!toDie.Is(RoleEnum.Pestilence))
                 {
-                    var lover = ((Lover)playerModifier).OtherLover.Player;
-                    ShowHideButtonsVigi.HideSingle(role, lover.PlayerId, false);
+                    VigilanteKill.RpcMurderPlayer(toDie);
+                    role.RemainingKills--;
+                    ShowHideButtonsVigi.HideSingle(role, targetId, toDie == role.Player);
+                    if (toDie.IsLover() && CustomGameOptions.BothLoversDie)
+                    {
+                        var lover = ((Lover)playerModifier).OtherLover.Player;
+                        if (!lover.Is(RoleEnum.Pestilence)) ShowHideButtonsVigi.HideSingle(role, lover.PlayerId, false);
+                    }
                 }
             }
 

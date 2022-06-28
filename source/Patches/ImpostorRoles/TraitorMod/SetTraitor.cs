@@ -29,7 +29,9 @@ namespace TownOfUs.ImpostorRoles.TraitorMod
                     .Where(x => !x.Data.IsDead && !x.Data.Disconnected).ToList();
             foreach (var player in alives)
             {
-                if (player.Data.IsImpostor() || ((player.Is(RoleEnum.Glitch) || player.Is(RoleEnum.Juggernaut)) && CustomGameOptions.GlitchStopsTraitor))
+                if (player.Data.IsImpostor() || ((player.Is(RoleEnum.Glitch) || player.Is(RoleEnum.Juggernaut)
+                    || player.Is(RoleEnum.Arsonist) || player.Is(RoleEnum.Plaguebearer) || player.Is(RoleEnum.Pestilence)
+                    || player.Is(RoleEnum.Werewolf)) && CustomGameOptions.NeutralKillingStopsTraitor))
                 {
                     return;
                 }
@@ -84,8 +86,10 @@ namespace TownOfUs.ImpostorRoles.TraitorMod
                     medRole.MediatedPlayers.Clear();
                 }
 
+                var oldRole = Role.GetRole(PlayerControl.LocalPlayer).RoleType;
                 Role.RoleDictionary.Remove(PlayerControl.LocalPlayer.PlayerId);
                 var role = new Traitor(PlayerControl.LocalPlayer);
+                role.formerRole = oldRole;
                 role.RegenTask();
 
                 var writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
@@ -108,7 +112,7 @@ namespace TownOfUs.ImpostorRoles.TraitorMod
             {
                 if (player2.Data.IsImpostor() && PlayerControl.LocalPlayer.Data.IsImpostor())
                 {
-                    player2.nameText.color = Patches.Colors.Impostor;
+                    player2.nameText().color = Patches.Colors.Impostor;
                 }
             }
 

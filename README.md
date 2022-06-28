@@ -8,6 +8,7 @@ An Among Us mod that adds a bunch of roles, modifiers and game settings
 Join our [Discord](https://discord.gg/ugyc4EVUYZ) if you have any problems or want to find people to play with!
 
 **Crewmate Roles**
+- [Detective](#detective)
 - [Haunter](#haunter)
 - [Investigator](#investigator)
 - [Mystic](#mystic)
@@ -15,6 +16,7 @@ Join our [Discord](https://discord.gg/ugyc4EVUYZ) if you have any problems or wa
 - [Snitch](#snitch)
 - [Spy](#spy)
 - [Tracker](#tracker)
+- [Trapper](#trapper)
 - [Sheriff](#sheriff)
 - [Veteran](#veteran)
 - [Vigilante](#vigilante)
@@ -35,7 +37,9 @@ Join our [Discord](https://discord.gg/ugyc4EVUYZ) if you have any problems or wa
 - [Jester](#jester)
 - [Phantom](#phantom)
 - [Arsonist](#arsonist)
+- [Plaguebearer](#plaguebearer)
 - [The Glitch](#the-glitch)
+- [Werewolf](#werewolf)
 
 **Impostor Roles**
 - [Grenadier](#grenadier)
@@ -53,8 +57,8 @@ Join our [Discord](https://discord.gg/ugyc4EVUYZ) if you have any problems or wa
 - [Bait](#bait)
 - [Diseased](#diseased)
 - [Torch](#torch)
+- [Blind](#blind)
 - [Button Barry](#button-barry)
-- [Drunk](#drunk)
 - [Flash](#flash)
 - [Giant](#giant)
 - [Lovers](#lovers)
@@ -67,6 +71,7 @@ Join our [Discord](https://discord.gg/ugyc4EVUYZ) if you have any problems or wa
 # Releases
 | Among Us - Version| Mod Version | Link |
 |----------|-------------|-----------------|
+| 2022.6.21s & 2022.6.21e | v3.2.0 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v3.2.0/ToU.v3.2.0.zip) |
 | 2022.3.29s & 2022.3.29e & 2022.4.19e | v3.1.0 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v3.1.0/ToU.v3.1.0.zip) |
 | 2022.3.29s & 2022.3.29e & 2022.4.19e | v3.0.1 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v3.0.1/ToU.v3.0.1.zip) |
 | 2022.3.29s & 2022.3.29e & 2022.4.19e | v3.0.0 | [Download](https://github.com/eDonnes124/Town-Of-Us/releases/download/v3.0.0/ToU.v3.0.0.zip) |
@@ -113,6 +118,31 @@ Join our [Discord](https://discord.gg/ugyc4EVUYZ) if you have any problems or wa
 
 <details>
   <summary> Changelog </summary>
+  <details>
+  <summary> v3.2.0 </summary>
+  <ul> <li>Compatability with the new Among Us version thanks to MyDragonBreath</li> </ul>
+  <ul> <li>New Role: Plaguebearer/Pestilence</li> </ul>
+  <ul> <li>New Role: Werewolf</li> </ul>
+  <ul> <li>New Role: Trapper</li> </ul>
+  <ul> <li>New Role: Detective</li> </ul>
+  <ul> <li>New Modifier: Blind (replacing Drunk)</li> </ul>
+  <ul> <li>Arsonist Rework: Douse and Ignite are on the same cooldown, however to ignite they must be standing next to one of their douses</li> </ul>
+  <ul> <li>New Settings: Vigilante/Assassin can guess lovers</li> </ul>
+  <ul> <li>New Setting: Traitor does not swap colours for Seer</li> </ul>
+  <ul> <li>New Settings: Sheriff can shoot Werewolf/Plaguebearer</li> </ul>
+  <ul> <li>New Settings: Min and Max Neutral Killing/Non-Killing Roles</li> </ul>
+  <ul> <li>Setting Change: Traitor does not spawn if Glitch is alive to Traitor does not spawn if Neutral Killing is alive</li> </ul>
+  <ul> <li>Survivor can now win with neutral killing roles and can get a Survivor only win</li> </ul>
+  <ul> <li>Tasks can now be set above the maximum default values</li> </ul>
+  <ul> <li>Transporter can now die to a Veteran on alert if they transport the Veteran</li> </ul>
+  <ul> <li>Bug Fix: Impostors on high ping can no longer kill multiple players</li> </ul>
+  <ul> <li>Bug Fix: Poisoned players now die before a meeting and not during a meeting</li> </ul>
+  <ul> <li>Bug Fix: Glitch and Poisoner can no longer kill/poison in vents</li> </ul>
+  <ul> <li>Bug Fix: Underdog now gets the correct cooldown when killing a diseased player</li> </ul>
+  <ul> <li>Bug Fix: Phantom/Haunter now appear in the correct places</li> </ul>
+  <ul> <li>Bug Fix: The Blackmailer now sees the correct colour name of their teammates depending on if they are blackmailed or not</li> </ul>
+  <ul> <li>Bug Fix: Lag is no longer caused when attempting to repick the Traitor</li> </ul>
+  </details>
   <details>
   <summary> v3.1.0 </summary>
   <ul> <li>Submerged Compatibility mostly thanks to MyDragonBreath</li> </ul>
@@ -572,6 +602,23 @@ If you have issues installing Town of Us, you can join our [Discord](https://dis
 -----------------------
 # Roles
 # Crewmate Roles
+## Detective
+### **Team: Crewmates**
+The Detective is a Crewmate that can examine other players for suspicious behaviour.\
+If the player the Detective examines has killed recently the Detective will be alerted about it.
+
+### Game Options
+| Name | Description | Type | Default |
+|----------|:-------------:|:------:|:------:|
+| Detective | The percentage probability of the Detective appearing | Percentage | 0% |
+| Initial Examine Cooldown | The initial cooldown of the Detective's Examine button | Time | 25s |
+| Examine Cooldown | The cooldown of the Detective's Examine button | Time | 10s |
+| Bloody Duration | How long players remain bloody after a kill | Time | 25s |
+| Show Detective Reports | Whether the Detective should get information when reporting a body | Toggle | True |
+| Time Where Medic Reports Will Have Role | If a body has been dead for shorter than this amount, the Medic's report will contain the killer's role | Time | 15s |
+| Time Where Medic Reports Will Have Faction | If a body has been dead for shorter than this amount, the Medic's report will contain the killer's faction | Time | 30s |
+
+-----------------------
 ## Haunter
 ### **Team: Crewmates**
 
@@ -600,8 +647,8 @@ Every footprint disappears after a set amount of time.
 | Footprint Size | The size of the footprint on a scale of 1 to 10 | Number | 4 |
 | Footprint Interval | The time interval between two footprints | Time | 0.1s |
 | Footprint Duration | The amount of time that the footprint stays on the ground for | Time | 10s |
-| Anonymous Footprint | When enabled, all footprints are grey instead of the player's colors | Toggle | False
-| Footprint Vent Visible | Whether footprints near vents are shown | Toggle | False
+| Anonymous Footprint | When enabled, all footprints are grey instead of the player's colors | Toggle | False |
+| Footprint Vent Visible | Whether footprints near vents are shown | Toggle | False |
 
 -----------------------
 ## Mystic
@@ -629,6 +676,7 @@ A player's name will change color to their team.
 | Neutral Benign show up as Evil | Neutral Benign roles show up as Red | Toggle | False |
 | Neutral Evil show up as Evil | Neutral Evil roles show up as Red | Toggle | False |
 | Neutral Killing show up as Evil | Neutral Killing roles show up as Red | Toggle | False |
+| Traitor does not swap Colours | The Traitor remains their original colour | Toggle | False |
 
 -----------------------
 ## Snitch
@@ -675,6 +723,25 @@ Once they track someone, an arrow is continuously pointing to them, which update
 | Maximum Number of Tracks Per Round | The number of new people they can track each round | Number | 3 |
 
 -----------------------
+## Trapper
+### **Team: Crewmates**
+
+The Trapper is a Crewmate that can place traps around the map.\
+When players enter a trap they trigger the trap.\
+In the following meeting, all players who triggered a trap will have their role displayed to the trapper.\
+However, this is done so in a random order, not stating who entered the trap, nor what role a specific player is.
+### Game Options
+| Name | Description | Type | Default |
+|----------|:-------------:|:------:|:------:|
+| Trapper | The percentage probability of the Trapper appearing | Percentage | 0% |
+| Min Amount of Time in Trap to Register | How long a player must stay in the trap for it to trigger | Time | 1s |
+| Trap Cooldown | The cooldown on the Trapper's trap button | Time | 25s |
+| Traps Removed Each Round | Whether the Trapper's traps are removed after each meeting | Toggle | True |
+| Maximum Number of Traps Per Game | The number of traps they can place in a game | Number | 5 |
+| Trap Size | The size of each trap | Factor | 1x |
+| Minimum Number of Roles required to Trigger Trap | The number of players that must enter the trap for it to be triggered | Number | 3 |
+
+-----------------------
 ## Sheriff
 ### **Team: Crewmates**
 The Sheriff is a Crewmate that has the ability to eliminate the Impostors using their kill button.\
@@ -689,6 +756,8 @@ However, if they kill a Crewmate or a Neutral player they can't kill, they inste
 | Sheriff Kills The Glitch | Whether the Sheriff is able to kill The Glitch | Toggle | False |
 | Sheriff Kills Executioner | Whether the Sheriff is able to kill the Executioner | Toggle | False |
 | Sheriff Kills Arsonist | Whether the Sheriff is able to kill the Arsonist | Toggle | False |
+| Sheriff Kills Werewolf | Whether the Sheriff is able to kill the Werewolf | Toggle | False |
+| Sheriff Kills Plaguebearer | Whether the Sheriff is able to kill the Plaguebearer | Toggle | False |
 | Sheriff Kill Cooldown | The cooldown on the Sheriff's kill button | Time | 25s |
 | Sheriff can report who they've killed | Whether the Sheriff is able to report their own kills | Toggle | True |
 
@@ -722,6 +791,7 @@ During meetings, the Vigilante can choose to kill someone by guessing their role
 | Vigilante Guess Neutral Benign  | Whether the Vigilante can Guess Neutral Benign roles | Toggle | False |
 | Vigilante Guess Neutral Evil  | Whether the Vigilante can Guess Neutral Evil roles | Toggle | False |
 | Vigilante Guess Neutral Killing  | Whether the Vigilante can Guess Neutral Killing roles | Toggle | False |
+| Vigilante Guess Lovers  | Whether the Vigilante can Guess Lovers | Toggle | False |
 | Vigilante Guess After Voting  | Whether the Vigilante can Guess after they have voted | Toggle | False |
 
 -----------------------
@@ -914,8 +984,8 @@ If their target loses, they lose.
 -----------------------
 ## Survivor
 ### **Team: Neutral**
-The Survivor is a Neutral role which can win with any non-neutral role.\
-All the Survivor needs to do is live and not let a neutral role win in order to win.
+The Survivor is a Neutral role which can wins by simply surviving.\
+However, if Lovers, or a Neutral Evil role wins the game, the survivor loses.
 
 ### Game Options
 | Name | Description | Type | Default |
@@ -971,22 +1041,40 @@ They become half-invisible when they die and has to complete all their tasks wit
 ### **Team: Neutral**
 
 The Arsonist is a Neutral role with its own win condition.\
-They have the ability to douse other players with gasoline.\
-Once they have doused every player remaining, they can Ignite everyone at once.\
-Upon Igniting every player, they win the game.
+They have two abilities, one is to douse other players with gasoline.\
+The other is to ingite all doused players.\
+The Arsonist needs to be the last killer alive to win the game.
 ### Game Options
 | Name | Description | Type | Default |
 |----------|:-------------:|:------:|:------:|
 | Arsonist | The percentage probability of the Arsonist appearing | Percentage | 0% |
 | Douse Cooldown | The cooldown of the Arsonist's Douse button | Time | 25s |
-| Game keeps going so long as Arsonist is alive | Whether the game keeps going while the Arsonist remains | Toggle | False |
+| Maximum Alive Players Doused | The maximum amount of players that the Arsonist can have doused | Number | 5 |
+
+-----------------------
+## Plaguebearer
+### **Team: Neutral**
+
+The Plaguebearer is a Neutral role with its own win condition, as well as an ability to transform into another role.\
+The Plaguebearer has one ability, which allows them to infect other players.\
+Once infected, the infected player can go and infect other players via interacting with them.\
+Once all players are infected, the Plaguebearer becomes Pestilence.\
+The Pestilence is a unkillable force which can only be killed by being voted out, even their lover dying won't kill them.\
+The Plaguebearer or Pestilence needs to be the last killer alive to win the game.
+### Game Options
+| Name | Description | Type | Default |
+|----------|:-------------:|:------:|:------:|
+| Plaguebearer | The percentage probability of the Plaguebearer appearing | Percentage | 0% |
+| Infect Cooldown | The cooldown of the Plaguebearer's Infect button | Time | 25s |
+| Pestilence Kill Cooldown | The cooldown of the Pestilence's Kill button | Time | 25s |
+| Pestilence can Vent | Whether the Pestilence can Vent | Toggle | False |
 
 -----------------------
 ## The Glitch
 ### **Team: Neutral**
 
 The Glitch is a Neutral role with its own win condition.\
-The Glitch's aim is to kill __everyone__ and be the last person standing.\
+The Glitch's aim is to kill everyone and be the last person standing.\
 The Glitch can Hack players, resulting in them being unable to report bodies and do tasks.\
 Hacking prevents the hacked player from doing anything but walk around the map.\
 The Glitch can Mimic someone, which results in them looking exactly like the other person.
@@ -1004,6 +1092,24 @@ The Glitch can Mimic someone, which results in them looking exactly like the oth
 | Glitch can Vent | Whether the Glitch can Vent | Toggle | False |
 
 -----------------------
+## Werewolf
+### **Team: Neutral**
+
+The Werewolf is a Neutral role with its own win condition.\
+Although the Werwolf has a kill button, they can't use it unless they are Rampaged.\
+Once the Werewolf rampages they gain Impostor vision and the ability to kill.\
+However, unlike most killers their kill cooldown is really short.\
+The Werewolf needs to be the last killer alive to win the game.
+### Game Options
+| Name | Description | Type | Default |
+|----------|:-------------:|:------:|:------:|
+| Werewolf | The percentage probability of the Werewolf appearing | Percentage | 0% |
+| Rampage Cooldown | The cooldown of the Werewolf's Rampage button | Time | 25s |
+| Rampage Duration | The duration of the Werewolf's Rampage | Time | 25s |
+| Rampage Kill Cooldown | The cooldown of the Werewolf's Kill button | Time | 10s |
+| Werewolf can Vent when Rampaged | Whether the Werewolf can Vent when Rampaged | Toggle | False |
+
+-----------------------
 # Impostor Roles
 ## Grenadier
 ### **Team: Impostors**
@@ -1018,7 +1124,7 @@ However, a sabotage and a smoke grenade can not be active at the same time.
 | Grenadier | The percentage probability of the Grenadier appearing | Percentage | 0% |
 | Flash Grenade Cooldown | The cooldown of the Grenadier's Flash button | Time | 25s |
 | Flash Grenade Duration | How long the Flash Grenade lasts for | Time | 10s |
-| Flash Radius | How wide the flash radius is | Time | 1x |
+| Flash Radius | How wide the flash radius is | Factor | 1x |
 | Indicate Flashed Crewmates | Whether the Grenadier can see who has been flashed | Toggle | False |
 | Grenadier can Vent | Whether the Grenadier can Vent | Toggle | False |
 -----------------------
@@ -1079,6 +1185,7 @@ Once this player has turned into the Traitor their alliance sits with the Impost
 |----------|:-------------:|:------:|:------:|
 | Traitor | The percentage probability of the Traitor appearing | Percentage | 0% |
 | Latest Spawn | The minimum number of people alive when a Traitor can spawn | Number | 5 |
+| Traitor Won't Spawn if Neutral Killing are Alive | Whether the Traitor won't spawn if any Neutral Killing roles are alive | Toggle | False |
 
 -----------------------
 ## Underdog
@@ -1167,7 +1274,7 @@ Killing the Diseased triples the killer's Kill cooldown.
 | Name | Description | Type | Default |
 |----------|:-------------:|:------:|:------:|
 | Diseased | The percentage probability of the Diseased appearing | Percentage | 0% |
-| Kill Multiplier | How much the Kill Cooldown of the Impostor is increased by | Time | 3x |
+| Kill Multiplier | How much the Kill Cooldown of the Impostor is increased by | Factor | 3x |
 
 -----------------------
 ## Torch
@@ -1179,6 +1286,15 @@ The Torch's vision doesn't get reduced when the lights are sabotaged.
 | Torch | The percentage probability of the Torch appearing | Percentage | 0% |
 
 -----------------------
+## Blind
+### **Applied to: All**
+The Blind's report button does not light up.
+### Game Options
+| Name | Description | Type | Default |
+|----------|:-------------:|:------:|:------:|
+| Blind | The percentage probability of the Blind appearing | Percentage | 0% |
+
+-----------------------
 ## Button Barry
 ### **Applied to: All**
 Button Barry has the ability to call a meeting from anywhere on the map, even during sabotages.
@@ -1187,15 +1303,6 @@ They have the same amount of meetings as a regular player.
 | Name | Description | Type | Default |
 |----------|:-------------:|:------:|:------:|
 | Button Barry | The percentage probability of Button Barry appearing | Percentage | 0% |
-
------------------------
-## Drunk
-### **Applied to: All**
-The Drunk's controls are inverted.
-### Game Options
-| Name | Description | Type | Default |
-|----------|:-------------:|:------:|:------:|
-| Drunk | The percentage probability of the Drunk appearing | Percentage | 0% |
 
 -----------------------
 ## Flash
@@ -1219,7 +1326,7 @@ The Giant is a gigantic Crewmate, that has a decreased walk speed.
 
 -----------------------
 ## Lovers
-### **Applied to All**
+### **Applied to: All**
 The Lovers are two players who are linked together.\
 These two players get picked randomly between Crewmates and Impostors.\
 They gain the primary objective to stay alive together.\
@@ -1263,13 +1370,21 @@ If the Tiebreaker is the Mayor, it applies to the Mayor's __first__ vote.
 | Camouflaged Comms | Whether everyone becomes camouflaged when Comms are sabotaged | Toggle | False |
 | Impostors can see the roles of their team | Whether Impostors are able to see which Impostor roles their teammates have | Toggle | False |
 | Dead can see everyone's roles and Votes | Whether dead players are able to see the roles and votes of everyone else | Toggle | False |
-| Max Neutral Roles | The maximum number of Neutral roles a game can have | Number | 1 |
 | Probability of a completely vanilla game | The percentage probability of a vanilla Among Us game happening | Percentage | 0% |
 | Game Start Cooldowns | The cooldown for all roles at the start of the game (excluding Impostor's Kill Cooldown) | Time | 10s |
 | Parallel Medbay Scans | Whether players have to wait for others to scan | Toggle | False |
 | Disable Meeting Skip Button | Whether the meeting button is disabled | No / Emergency / Always | No |
 | Disable Level Icons | Whether all level icons are removed in meetings | Toggle | False |
 | Disable Player Nameplates | Whether all decorative nameplates are disabled in meetings | Toggle | False |
+
+-----------------------
+# Role Count Settings
+| Name | Description | Type | Default |
+|----------|:-------------:|:------:|:------:|
+| Min Neutral Non-Killing Roles | The minimum number of Neutral non-killing roles a game can have | Number | 1 |
+| Max Neutral Non-Killing Roles | The maximum number of Neutral non-killing roles a game can have | Number | 1 |
+| Min Neutral Killing Roles | The minimum number of Neutral killing roles a game can have | Number | 1 |
+| Max Neutral Killing Roles | The maximum number of Neutral killing roles a game can have | Number | 1 |
 
 -----------------------
 # Task Tracking Settings
@@ -1301,6 +1416,7 @@ If they guessed wrong, they die instead.
 | Assassin Guess Neutral Evil  | Whether the Assassin can Guess Neutral Evil roles | Toggle | False |
 | Assassin Guess Neutral Killing  | Whether the Assassin can Guess Neutral Killing roles | Toggle | False |
 | Assassin Guess Crewmate Modifiers  | Whether the Assassin can Guess Crewmate Modifiers | Toggle | False |
+| Assassin Can Guess Lovers  | Whether the Assassin can Guess Lovers | Toggle | False |
 | Assassin Can Guess After Voting  | Whether the Assassin can Guess after voting | Toggle | False |
 
 -----------------------
@@ -1329,11 +1445,11 @@ If you have any bugs or any need to contact me, join the [Discord Server](https:
 [PhasmoFireGod](https://twitch.tv/PhasmoFireGod) and [Ophidian](https://www.instagram.com/ixean.studio) - Button Art.\
 [TheOtherRoles](https://github.com/Eisbison/TheOtherRoles) - For the inspiration of the Vigilante, Tracker and Spy roles, as well as the Bait modifier.\
 [5up](https://www.twitch.tv/5uppp) and the Submarine Team - For the inspiration of the Grenadier role.\
-[Guus](https://github.com/OhMyGuus) - For support for the new Among Us versions (v2021.11.9.5 and v2021.12.15).\
-[MyDragonBreath](https://github.com/MyDragonBreath) - For Submerged Compatibility.\
-[ItsTheNumberH](https://github.com/itsTheNumberH/Town-Of-H) - For the code used for Bait, Poisoner and partially for Tracker.\
+[Guus](https://github.com/OhMyGuus) - For support for the old Among Us versions (v2021.11.9.5 and v2021.12.15).\
+[MyDragonBreath](https://github.com/MyDragonBreath) - For Submerged Compatibility, the Trapper role and support for the new Among Us version (v2022.6.21).\
+[ItsTheNumberH](https://github.com/itsTheNumberH/Town-Of-H) - For the code used for Blind, Bait, Poisoner and partially for Tracker, as well as other bug fixes.\
 [Ruiner](https://github.com/ruiner189/Town-Of-Us-Redux) - For lovers changed into a modifier and Task Tracking.\
-[Term](https://www.twitch.tv/termboii) - For creating Transporter, Sleuth, and porting v2.5.0 to the new Among Us version (v2021.12.15).
+[Term](https://www.twitch.tv/termboii) - For creating Transporter, Medium, Blackmailer, Plaguebearer, Sleuth, and porting v2.5.0 to the new Among Us version (v2021.12.15).
 
 [Essentials](https://github.com/DorCoMaNdO/Reactor-Essentials) - For created custom game options.\
 v1.0.3 uses [Essentials](https://github.com/DorCoMaNdO/Reactor-Essentials) directly.\

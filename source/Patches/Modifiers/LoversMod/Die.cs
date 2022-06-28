@@ -23,7 +23,7 @@ namespace TownOfUs.Modifiers.LoversMod
                 KillButtonTarget.DontRevive = __instance.PlayerId;
                 otherLover.Exiled();
             }
-            else if (AmongUsClient.Instance.AmHost) Utils.RpcMurderPlayer(otherLover, otherLover);
+            else if (AmongUsClient.Instance.AmHost && !otherLover.Is(RoleEnum.Pestilence)) Utils.RpcMurderPlayer(otherLover, otherLover);
 
             return true;
         }

@@ -21,7 +21,7 @@ namespace TownOfUs.Roles
         public Vigilante(PlayerControl player) : base(player)
         {
             Name = "Vigilante";
-            ImpostorText = () => "Kill impostors during meetings if you can guess their roles";
+            ImpostorText = () => "Kill impostors if you can guess their roles";
             TaskText = () => "Guess the roles of impostors mid-meeting to kill them!";
             Color = Patches.Colors.Vigilante;
             RoleType = RoleEnum.Vigilante;
@@ -59,8 +59,11 @@ namespace TownOfUs.Roles
             {
                 if (CustomGameOptions.ArsonistOn > 0) ColorMapping.Add("Arsonist", Colors.Arsonist);
                 if (CustomGameOptions.GlitchOn > 0) ColorMapping.Add("The Glitch", Colors.Glitch);
-                if (CustomGameOptions.GlitchOn > 0) ColorMapping.Add("Juggernaut", Colors.Juggernaut);
+                if (CustomGameOptions.PlaguebearerOn > 0) ColorMapping.Add("Plaguebearer", Colors.Plaguebearer);
+                if (CustomGameOptions.WerewolfOn > 0) ColorMapping.Add("Werewolf", Colors.Werewolf);
+                ColorMapping.Add("Juggernaut", Colors.Juggernaut);
             }
+            if (CustomGameOptions.VigilanteGuessLovers && CustomGameOptions.LoversOn > 0) ColorMapping.Add("Lover", Colors.Lovers);
 
             // Sorts the list alphabetically. 
             SortedColorMapping = ColorMapping.OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);

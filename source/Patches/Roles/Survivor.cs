@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using TMPro;
+using System.Linq;
 
 namespace TownOfUs.Roles
 {

@@ -52,11 +52,14 @@ namespace TownOfUs.Roles
         }
         public void PoisonKill()
         {
-            Utils.RpcMurderPlayer(Player, PoisonedPlayer);
+            if (!PoisonedPlayer.Is(RoleEnum.Pestilence))
+            {
+                Utils.RpcMurderPlayer(Player, PoisonedPlayer);
+                if (!PoisonedPlayer.Data.IsDead) SoundManager.Instance.PlaySound(PlayerControl.LocalPlayer.KillSfx, false, 0.5f);
+            }
             PoisonedPlayer = null;
             Enabled = false;
             LastPoisoned = DateTime.UtcNow;
-            SoundManager.Instance.PlaySound(PlayerControl.LocalPlayer.KillSfx, false, 0.5f);
         }
         public float PoisonTimer()
         {

@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using HarmonyLib;
+using TownOfUs.Extensions;
 using TownOfUs.Roles;
 using UnityEngine;
 
@@ -25,8 +26,8 @@ namespace TownOfUs.NeutralRoles.ArsonistMod
                 if (data == null || data.Disconnected || data.IsDead || PlayerControl.LocalPlayer.Data.IsDead)
                     continue;
 
-                player.MyRend.material.SetColor("_VisorColor", role.Color);
-                player.nameText.color = Color.black;
+                player.myRend().material.SetColor("_VisorColor", role.Color);
+                player.nameText().color = Color.black;
             }
 
             if (role.IgniteButton == null)
@@ -41,26 +42,30 @@ namespace TownOfUs.NeutralRoles.ArsonistMod
 
             role.IgniteButton.gameObject.SetActive(!PlayerControl.LocalPlayer.Data.IsDead && !MeetingHud.Instance);
             __instance.KillButton.gameObject.SetActive(!PlayerControl.LocalPlayer.Data.IsDead && !MeetingHud.Instance);
-            role.IgniteButton.SetCoolDown(0f, 1f);
-            __instance.KillButton.SetCoolDown(role.DouseTimer(), CustomGameOptions.DouseCd);
+            role.IgniteButton.SetCoolDown(role.DouseTimer(), CustomGameOptions.DouseCd);
+            if (role.DousedAlive < CustomGameOptions.MaxDoused)
+            {
+                __instance.KillButton.SetCoolDown(role.DouseTimer(), CustomGameOptions.DouseCd);
+            }
 
             var notDoused = PlayerControl.AllPlayerControls.ToArray().Where(
                 player => !role.DousedPlayers.Contains(player.PlayerId)
             ).ToList();
+            var doused = PlayerControl.AllPlayerControls.ToArray().Where(
+                player => role.DousedPlayers.Contains(player.PlayerId)
+            ).ToList();
 
-            Utils.SetTarget(ref role.ClosestPlayer, __instance.KillButton, float.NaN, notDoused);
-
-
-            if (!role.IgniteButton.isCoolingDown & role.IgniteButton.isActiveAndEnabled & !role.IgniteUsed &
-                role.CheckEveryoneDoused())
+            if (role.DousedAlive < CustomGameOptions.MaxDoused)
             {
-                role.IgniteButton.graphic.color = Palette.EnabledColor;
-                role.IgniteButton.graphic.material.SetFloat("_Desat", 0f);
-                return;
+                Utils.SetTarget(ref role.ClosestPlayerDouse, __instance.KillButton, float.NaN, notDoused);
             }
 
-            role.IgniteButton.graphic.color = Palette.DisabledClear;
-            role.IgniteButton.graphic.material.SetFloat("_Desat", 1f);
+            if (role.DousedAlive > 0)
+            {
+                Utils.SetTarget(ref role.ClosestPlayerIgnite, role.IgniteButton, float.NaN, doused);
+            }
+
+            return;
         }
     }
 }

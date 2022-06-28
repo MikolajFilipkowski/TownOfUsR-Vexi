@@ -12,7 +12,6 @@ using TownOfUs.Extensions;
 using TownOfUs.Roles.Modifiers;
 using UnityEngine;
 using Object = UnityEngine.Object;
-using HarmonyLib;
 
 namespace TownOfUs.Roles
 {
@@ -71,11 +70,14 @@ namespace TownOfUs.Roles
         {
             if (Player.Data.IsDead || Player.Data.Disconnected) return true;
 
-            if (PlayerControl.AllPlayerControls.ToArray().Count(x => !x.Data.IsDead && !x.Data.Disconnected) == 1)
+            if (PlayerControl.AllPlayerControls.ToArray().Count(x => !x.Data.IsDead && !x.Data.Disconnected) <= 2 &&
+                    PlayerControl.AllPlayerControls.ToArray().Count(x => !x.Data.IsDead && !x.Data.Disconnected &&
+                    (x.Data.IsImpostor() || x.Is(RoleEnum.Arsonist) || x.Is(RoleEnum.Juggernaut) ||
+                    x.Is(RoleEnum.Werewolf) || x.Is(RoleEnum.Plaguebearer) || x.Is(RoleEnum.Pestilence))) == 0)
             {
                 var writer = AmongUsClient.Instance.StartRpcImmediately(
                     PlayerControl.LocalPlayer.NetId,
-                    (byte)CustomRPC.GlitchWin,
+                    (byte) CustomRPC.GlitchWin,
                     SendOption.Reliable,
                     -1
                 );
@@ -114,7 +116,7 @@ namespace TownOfUs.Roles
                 Utils.SetClosestPlayer(ref ClosestPlayer);
             }
 
-            Player.nameText.color = Color;
+            Player.nameText().color = Color;
 
             if (MeetingHud.Instance != null)
                 foreach (var player in MeetingHud.Instance.playerStates)
@@ -467,13 +469,23 @@ namespace TownOfUs.Roles
                 }
 
                 if (__gInstance.KillTarget != null)
-                    __gInstance.KillTarget.MyRend.material.SetColor("_OutlineColor", __gInstance.Color);
+                    __gInstance.KillTarget.myRend().material.SetColor("_OutlineColor", __gInstance.Color);
             }
 
             public static void KillButtonPress(Glitch __gInstance, KillButton __instance)
             {
                 if (__gInstance.KillTarget != null)
                 {
+                    if (__gInstance.Player.inVent) return;
+                    if (__gInstance.KillTarget.Is(RoleEnum.Pestilence))
+                    {
+                        Utils.RpcMurderPlayer(__gInstance.KillTarget, __gInstance.Player);
+                        return;
+                    }
+                    if (__gInstance.KillTarget.IsInfected() || __gInstance.Player.IsInfected())
+                    {
+                        foreach (var pb in Role.GetRoles(RoleEnum.Plaguebearer)) ((Plaguebearer)pb).RpcSpreadInfection(__gInstance.KillTarget, __gInstance.Player);
+                    }
                     if (__gInstance.KillTarget.IsOnAlert())
                     {
                         if (__gInstance.KillTarget.IsShielded())
@@ -519,6 +531,10 @@ namespace TownOfUs.Roles
                         {
                             Utils.RpcMurderPlayer(__gInstance.Player, __gInstance.KillTarget);
                             __gInstance.Player.SetKillTimer(CustomGameOptions.GlitchKillCooldown);
+                        }
+                        else if (!CustomGameOptions.KilledOnAlert && __gInstance.Player.IsProtected())
+                        {
+                            __gInstance.Player.SetKillTimer(CustomGameOptions.ProtectKCReset);
                         }
                         else
                         {
@@ -604,13 +620,22 @@ namespace TownOfUs.Roles
                 }
 
                 if (__gInstance.HackTarget != null)
-                    __gInstance.HackTarget.MyRend.material.SetColor("_OutlineColor", __gInstance.Color);
+                    __gInstance.HackTarget.myRend().material.SetColor("_OutlineColor", __gInstance.Color);
             }
 
             public static void HackButtonPress(Glitch __gInstance, KillButton __instance)
             {
                 if (__gInstance.HackTarget != null)
                 {
+                    if (__gInstance.HackTarget.Is(RoleEnum.Pestilence))
+                    {
+                        Utils.RpcMurderPlayer(__gInstance.HackTarget, __gInstance.Player);
+                        return;
+                    }
+                    if (__gInstance.HackTarget.IsInfected() || __gInstance.Player.IsInfected())
+                    {
+                        foreach (var pb in Role.GetRoles(RoleEnum.Plaguebearer)) ((Plaguebearer)pb).RpcSpreadInfection(__gInstance.HackTarget, __gInstance.Player);
+                    }
                     if (__gInstance.HackTarget.IsOnAlert())
                     {
                         if (__gInstance.Player.IsShielded())

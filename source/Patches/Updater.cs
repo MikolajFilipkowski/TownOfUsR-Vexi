@@ -191,10 +191,16 @@ namespace TownOfUs {
                         hasTOUUpdate = true;
                     }
                 } else if (updateType == "Submerged") {
-                    diff = Patches.SubmergedCompatibility.Version.CompareTo(SemanticVersioning.Version.Parse(tagname.Replace("v", "")));;
-                    if (diff < 0) { // Submerged update required
-                        hasSubmergedUpdate = true;
-                    }
+                    //account for broken version
+                    if (Patches.SubmergedCompatibility.Version == null) hasSubmergedUpdate = true;
+                    else
+                    {
+                        diff = Patches.SubmergedCompatibility.Version.CompareTo(SemanticVersioning.Version.Parse(tagname.Replace("v", ""))); ;
+                        if (diff < 0)
+                        { // Submerged update required
+                            hasSubmergedUpdate = true;
+                        }
+                    } 
                 }
                 JToken assets = data["assets"];
                 if (!assets.HasValues)

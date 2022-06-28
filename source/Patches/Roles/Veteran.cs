@@ -18,15 +18,14 @@ namespace TownOfUs.Roles
         public Veteran(PlayerControl player) : base(player)
         {
             Name = "Veteran";
-            ImpostorText = () => "Alert to kill whoever interacts with you";
-            TaskText = () => "You have " + UsesLeft + " alerts left";
+            ImpostorText = () => "Alert to kill anyone who interacts with you";
+            TaskText = () => "Alert to kill whoever interacts with you";
             Color = Patches.Colors.Veteran;
             LastAlerted = DateTime.UtcNow;
             RoleType = RoleEnum.Veteran;
             AddToRoleHistory(RoleType);
 
             UsesLeft = CustomGameOptions.MaxAlerts;
-            if (UsesLeft == 0) UsesLeft = -1;
         }
 
         public bool OnAlert => TimeRemaining > 0f;

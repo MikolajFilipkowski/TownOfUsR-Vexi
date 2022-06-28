@@ -40,9 +40,11 @@ namespace TownOfUs.Roles.Modifiers
 
             foreach(var player in canHaveModifiers)
             {
-                if (player.Is(Faction.Impostors) || ((player.Is(RoleEnum.Glitch) || player.Is(RoleEnum.Juggernaut)) && CustomGameOptions.NeutralLovers))
+                if (player.Is(Faction.Impostors) || ((player.Is(RoleEnum.Glitch) || player.Is(RoleEnum.Arsonist) || player.Is(RoleEnum.Plaguebearer)
+                    || player.Is(RoleEnum.Werewolf) || player.Is(RoleEnum.Juggernaut)) && CustomGameOptions.NeutralLovers))
                     impostors.Add(player);
-                else if (player.Is(Faction.Crewmates) || (player.Is(Faction.Neutral) && !player.Is(RoleEnum.Glitch) && !player.Is(RoleEnum.Juggernaut) && CustomGameOptions.NeutralLovers))
+                else if (player.Is(Faction.Crewmates) || (player.Is(Faction.Neutral) && !player.Is(RoleEnum.Glitch) && !player.Is(RoleEnum.Arsonist)
+                    && !player.Is(RoleEnum.Plaguebearer) && !player.Is(RoleEnum.Werewolf) && !player.Is(RoleEnum.Juggernaut) && CustomGameOptions.NeutralLovers))
                     crewmates.Add(player);
             }
 

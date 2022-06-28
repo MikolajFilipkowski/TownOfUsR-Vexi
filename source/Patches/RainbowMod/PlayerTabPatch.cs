@@ -29,7 +29,7 @@ namespace TownOfUs.RainbowMod
             {
                 if (RainbowUtils.IsRainbow(i))
                 {
-                    __instance.ColorChips[i].Inner.color = RainbowUtils.Rainbow;
+                    __instance.ColorChips[i].Inner.SpriteColor = RainbowUtils.Rainbow;
                     break;
                 }
             }

@@ -3,6 +3,7 @@ using TownOfUs.Roles;
 using UnityEngine;
 using System.Linq;
 using Hazel;
+using TownOfUs.Extensions;
 
 namespace TownOfUs.ImpostorRoles.PoisonerMod
 {
@@ -40,7 +41,7 @@ namespace TownOfUs.ImpostorRoles.PoisonerMod
 
             if (role.ClosestPlayer != null)
             {
-                role.ClosestPlayer.MyRend.material.SetColor("_OutlineColor", Palette.Purple);
+                role.ClosestPlayer.myRend().material.SetColor("_OutlineColor", Palette.Purple);
             }
 
             role.Player.SetKillTimer(1f);
@@ -55,7 +56,7 @@ namespace TownOfUs.ImpostorRoles.PoisonerMod
                 else
                 {
                     role.PoisonButton.graphic.sprite = PoisonSprite;
-                    if (role.PoisonedPlayer && !role.PoisonedPlayer.Data.IsDead && !role.PoisonedPlayer == PlayerControl.LocalPlayer)
+                    if (role.PoisonedPlayer && role.PoisonedPlayer != PlayerControl.LocalPlayer)
                     {
                         role.PoisonKill();
                     }

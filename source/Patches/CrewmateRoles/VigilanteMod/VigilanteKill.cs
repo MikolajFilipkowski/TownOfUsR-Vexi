@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using TownOfUs.CrewmateRoles.MedicMod;
 using TownOfUs.Modifiers.AssassinMod;
 using TownOfUs.ImpostorRoles.BlackmailerMod;
+using TownOfUs.Extensions;
 
 namespace TownOfUs.CrewmateRoles.VigilanteMod
 {
@@ -54,7 +55,7 @@ namespace TownOfUs.CrewmateRoles.VigilanteMod
             {
                 Utils.ShowDeadBodies = true;
                 hudManager.ShadowQuad.gameObject.SetActive(false);
-                player.nameText.GetComponent<MeshRenderer>().material.SetInt("_Mask", 0);
+                player.nameText().GetComponent<MeshRenderer>().material.SetInt("_Mask", 0);
                 player.RpcSetScanner(false);
                 ImportantTextTask importantTextTask = new GameObject("_Player").AddComponent<ImportantTextTask>();
                 importantTextTask.transform.SetParent(AmongUsClient.Instance.transform, false);
@@ -90,7 +91,10 @@ namespace TownOfUs.CrewmateRoles.VigilanteMod
             }
             player.Die(DeathReason.Kill);
             if (checkLover && player.IsLover() && CustomGameOptions.BothLoversDie)
-                MurderPlayer(Modifier.GetModifier<Lover>(player).OtherLover.Player, false);
+            {
+                var otherLover = Modifier.GetModifier<Lover>(player).OtherLover.Player;
+                if (!otherLover.Is(RoleEnum.Pestilence)) MurderPlayer(otherLover, false);
+            }
 
             var meetingHud = MeetingHud.Instance;
             if (amOwner)

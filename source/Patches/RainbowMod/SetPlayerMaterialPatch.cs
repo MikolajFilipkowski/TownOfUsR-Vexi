@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TownOfUs.RainbowMod
 {
-    [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.SetPlayerMaterialColors), typeof(int), typeof(Renderer))]
+    [HarmonyPatch(typeof(PlayerMaterial), nameof(PlayerMaterial.SetColors), typeof(int), typeof(Renderer))]
     public class SetPlayerMaterialPatch
     {
         public static bool Prefix([HarmonyArgument(0)] int colorId, [HarmonyArgument(1)] Renderer rend)
@@ -19,7 +19,7 @@ namespace TownOfUs.RainbowMod
         }
     }
 
-    [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.SetPlayerMaterialColors), typeof(Color), typeof(Renderer))]
+    [HarmonyPatch(typeof(PlayerMaterial), nameof(PlayerMaterial.SetColors), typeof(Color), typeof(Renderer))]
     public class SetPlayerMaterialPatch2
     {
         public static bool Prefix([HarmonyArgument(1)] Renderer rend)

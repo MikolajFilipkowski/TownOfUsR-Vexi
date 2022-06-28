@@ -39,7 +39,7 @@ namespace TownOfUs.Roles.Modifiers
             get => _player;
             set
             {
-                if (_player != null) _player.nameText.color = Color.white;
+                if (_player != null) _player.nameText().color = Color.white;
 
                 _player = value;
                 PlayerName = value.Data.PlayerName;
@@ -132,7 +132,7 @@ namespace TownOfUs.Roles.Modifiers
             get => _player;
             set
             {
-                if (_player != null) _player.nameText.color = Color.white;
+                if (_player != null) _player.nameText().color = Color.white;
 
                 _player = value;
                 PlayerName = value.Data.PlayerName;

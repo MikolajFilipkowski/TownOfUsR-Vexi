@@ -25,9 +25,14 @@ namespace TownOfUs
         Tracker,
         Transporter,
         Medium,
+        Trapper,
         Survivor,
         GuardianAngel,
         Mystic,
+        Plaguebearer,
+        Pestilence,
+        Werewolf,
+        Detective,
 
         Miner,
         Swooper,
@@ -55,11 +60,11 @@ namespace TownOfUs
         Diseased,
         Flash,
         Tiebreaker,
-        Drunk,
         Giant,
         ButtonBarry,
         Bait,
-        Sleuth
+        Sleuth,
+        Blind
     }
 
     public enum AbilityEnum

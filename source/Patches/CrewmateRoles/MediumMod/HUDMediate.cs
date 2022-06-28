@@ -44,10 +44,11 @@ namespace TownOfUs.CrewmateRoles.MediumMod
                                 HatId = "",
                                 SkinId = "",
                                 VisorId = "",
-                                _playerName = " "
+                                PlayerName = " "
                             });
-                            //player.nameText.text = "";
-                            PlayerControl.SetPlayerMaterialColors(Color.grey, player.MyRend);
+                            //player.nameText().text = "";
+                            //PlayerControl.SetPlayerMaterialColors(Color.grey, player.MyRend);
+                            PlayerMaterial.SetColors(Color.grey, player.myRend());
                         }
                     }
                 }

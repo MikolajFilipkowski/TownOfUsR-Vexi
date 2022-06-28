@@ -1,4 +1,5 @@
 using HarmonyLib;
+using TownOfUs.Extensions;
 using TownOfUs.Roles;
 using UnityEngine;
 
@@ -35,8 +36,8 @@ namespace TownOfUs.CrewmateRoles.MedicMod
                 if (exPlayer != null)
                 {
                     System.Console.WriteLine(exPlayer.name + " is ex-Shielded and unvisored");
-                    exPlayer.MyRend.material.SetColor("_VisorColor", Palette.VisorColor);
-                    exPlayer.MyRend.material.SetFloat("_Outline", 0f);
+                    exPlayer.myRend().material.SetColor("_VisorColor", Palette.VisorColor);
+                    exPlayer.myRend().material.SetFloat("_Outline", 0f);
                     medic.exShielded = null;
                     continue;
                 }
@@ -54,24 +55,24 @@ namespace TownOfUs.CrewmateRoles.MedicMod
                 var showShielded = CustomGameOptions.ShowShielded;
                 if (showShielded == ShieldOptions.Everyone)
                 {
-                    player.MyRend.material.SetColor("_VisorColor", ProtectedColor);
-                    player.MyRend.material.SetFloat("_Outline", 1f);
-                    player.MyRend.material.SetColor("_OutlineColor", ProtectedColor);
+                    player.myRend().material.SetColor("_VisorColor", ProtectedColor);
+                    player.myRend().material.SetFloat("_Outline", 1f);
+                    player.myRend().material.SetColor("_OutlineColor", ProtectedColor);
                 }
                 else if (PlayerControl.LocalPlayer.PlayerId == player.PlayerId && (showShielded == ShieldOptions.Self ||
                     showShielded == ShieldOptions.SelfAndMedic))
                 {
                     //System.Console.WriteLine("Setting " + PlayerControl.LocalPlayer.name + "'s shield");
-                    player.MyRend.material.SetColor("_VisorColor", ProtectedColor);
-                    player.MyRend.material.SetFloat("_Outline", 1f);
-                    player.MyRend.material.SetColor("_OutlineColor", ProtectedColor);
+                    player.myRend().material.SetColor("_VisorColor", ProtectedColor);
+                    player.myRend().material.SetFloat("_Outline", 1f);
+                    player.myRend().material.SetColor("_OutlineColor", ProtectedColor);
                 }
                 else if (PlayerControl.LocalPlayer.Is(RoleEnum.Medic) &&
                          (showShielded == ShieldOptions.Medic || showShielded == ShieldOptions.SelfAndMedic))
                 {
-                    player.MyRend.material.SetColor("_VisorColor", ProtectedColor);
-                    player.MyRend.material.SetFloat("_Outline", 1f);
-                    player.MyRend.material.SetColor("_OutlineColor", ProtectedColor);
+                    player.myRend().material.SetColor("_VisorColor", ProtectedColor);
+                    player.myRend().material.SetFloat("_Outline", 1f);
+                    player.myRend().material.SetColor("_OutlineColor", ProtectedColor);
                 }
             }
         }

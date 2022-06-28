@@ -1,5 +1,6 @@
 using HarmonyLib;
 using Hazel;
+using TownOfUs.Extensions;
 using TownOfUs.Roles;
 using UnityEngine;
 
@@ -36,7 +37,7 @@ namespace TownOfUs.NeutralRoles.GuardianAngelMod
 
             if (MeetingHud.Instance != null) UpdateMeeting(MeetingHud.Instance, role);
 
-            if (!CustomGameOptions.GAKnowsTargetRole) role.target.nameText.color = new Color(1f, 0.85f, 0f, 1f);
+            if (!CustomGameOptions.GAKnowsTargetRole) role.target.nameText().color = new Color(1f, 0.85f, 0f, 1f);
 
             if (!role.target.Data.IsDead && !role.target.Data.Disconnected) return;
 

@@ -7,9 +7,10 @@ using System.Linq;
 using TMPro;
 using Reactor.Extensions;
 using System.Collections.Generic;
-using TownOfUs.CrewmateRoles.TransporterMod;
 using TownOfUs.Patches;
 using System.Collections;
+using TownOfUs.Extensions;
+using TownOfUs.CrewmateRoles.MedicMod;
 
 namespace TownOfUs.Roles
 {
@@ -199,14 +200,88 @@ namespace TownOfUs.Roles
 
                                                     if (!UntransportablePlayers.ContainsKey(TransportPlayer1.PlayerId) && !UntransportablePlayers.ContainsKey(TransportPlayer2.PlayerId))
                                                     {
+                                                        if (Player.IsInfected() || TransportPlayer1.IsInfected())
+                                                        {
+                                                            foreach (var pb in Role.GetRoles(RoleEnum.Plaguebearer)) ((Plaguebearer)pb).RpcSpreadInfection(Player, TransportPlayer1);
+                                                        }
+                                                        if (Player.IsInfected() || TransportPlayer2.IsInfected())
+                                                        {
+                                                            foreach (var pb in Role.GetRoles(RoleEnum.Plaguebearer)) ((Plaguebearer)pb).RpcSpreadInfection(Player, TransportPlayer2);
+                                                        }
+                                                        var role = GetRole(Player);
+                                                        var transRole = (Transporter)role;
+                                                        if (TransportPlayer1.Is(RoleEnum.Pestilence) || TransportPlayer1.IsOnAlert())
+                                                        {
+                                                            if (Player.IsShielded())
+                                                            {
+                                                                var writer2 = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
+                                                                    (byte)CustomRPC.AttemptSound, SendOption.Reliable, -1);
+                                                                writer2.Write(Player.GetMedic().Player.PlayerId);
+                                                                writer2.Write(Player.PlayerId);
+                                                                AmongUsClient.Instance.FinishRpcImmediately(writer2);
+
+                                                                System.Console.WriteLine(CustomGameOptions.ShieldBreaks + "- shield break");
+                                                                if (CustomGameOptions.ShieldBreaks)
+                                                                    transRole.LastTransported = DateTime.UtcNow;
+                                                                StopKill.BreakShield(Player.GetMedic().Player.PlayerId, Player.PlayerId, CustomGameOptions.ShieldBreaks);
+                                                                return;
+                                                            }
+                                                            else if (!Player.IsProtected())
+                                                            {
+                                                                Coroutines.Start(TransportPlayers(TransportPlayer1.PlayerId, Player.PlayerId, true));
+
+                                                                var write2 = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
+                                                                    (byte)CustomRPC.Transport, SendOption.Reliable, -1);
+                                                                write2.Write(TransportPlayer1.PlayerId);
+                                                                write2.Write(Player.PlayerId);
+                                                                write2.Write(true);
+                                                                AmongUsClient.Instance.FinishRpcImmediately(write2);
+                                                                return;
+                                                            }
+                                                            transRole.LastTransported = DateTime.UtcNow;
+                                                            return;
+                                                        }
+                                                        else if (TransportPlayer2.Is(RoleEnum.Pestilence) || TransportPlayer2.IsOnAlert())
+                                                        {
+                                                            if (Player.IsShielded())
+                                                            {
+                                                                var writer2 = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
+                                                                    (byte)CustomRPC.AttemptSound, SendOption.Reliable, -1);
+                                                                writer2.Write(Player.GetMedic().Player.PlayerId);
+                                                                writer2.Write(Player.PlayerId);
+                                                                AmongUsClient.Instance.FinishRpcImmediately(writer2);
+
+                                                                System.Console.WriteLine(CustomGameOptions.ShieldBreaks + "- shield break");
+                                                                if (CustomGameOptions.ShieldBreaks)
+                                                                    transRole.LastTransported = DateTime.UtcNow;
+                                                                StopKill.BreakShield(Player.GetMedic().Player.PlayerId, Player.PlayerId, CustomGameOptions.ShieldBreaks);
+                                                                return;
+                                                            }
+                                                            else if (!Player.IsProtected())
+                                                            {
+                                                                Coroutines.Start(TransportPlayers(TransportPlayer2.PlayerId, Player.PlayerId, true));
+
+                                                                var write2 = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
+                                                                    (byte)CustomRPC.Transport, SendOption.Reliable, -1);
+                                                                write2.Write(TransportPlayer2.PlayerId);
+                                                                write2.Write(Player.PlayerId);
+                                                                write2.Write(true);
+                                                                AmongUsClient.Instance.FinishRpcImmediately(write2);
+                                                                return;
+                                                            }
+                                                            transRole.LastTransported = DateTime.UtcNow;
+                                                            return;
+                                                        }
                                                         LastTransported = DateTime.UtcNow;
                                                         UsesLeft--;
-                                                        Coroutines.Start(TransportPlayers(TransportPlayer1.PlayerId, TransportPlayer2.PlayerId));
-                                                        
+
+                                                        Coroutines.Start(TransportPlayers(TransportPlayer1.PlayerId, TransportPlayer2.PlayerId, false));
+
                                                         var write = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
-                                                            (byte) CustomRPC.Transport, SendOption.Reliable, -1);
+                                                            (byte)CustomRPC.Transport, SendOption.Reliable, -1);
                                                         write.Write(TransportPlayer1.PlayerId);
                                                         write.Write(TransportPlayer2.PlayerId);
+                                                        write.Write(false);
                                                         AmongUsClient.Instance.FinishRpcImmediately(write);
                                                     }
                                                     else
@@ -241,7 +316,7 @@ namespace TownOfUs.Roles
             }
         }
 
-        public static IEnumerator TransportPlayers(byte player1, byte player2)
+        public static IEnumerator TransportPlayers(byte player1, byte player2, bool die)
         {
             var TP1 = Utils.PlayerById(player1);
             var TP2 = Utils.PlayerById(player2);
@@ -279,11 +354,15 @@ namespace TownOfUs.Roles
                 TP1.MyPhysics.ResetMoveState();
                 TP2.MyPhysics.ResetMoveState();
                 var TempPosition = TP1.GetTruePosition();
-                var TempFacing = TP1.MyRend.flipX;
+                var TempFacing = TP1.myRend().flipX;
                 TP1.NetTransform.SnapTo(new Vector2(TP2.GetTruePosition().x, TP2.GetTruePosition().y + 0.3636f));
-                TP1.MyRend.flipX = TP2.MyRend.flipX;
-                TP2.NetTransform.SnapTo(new Vector2(TempPosition.x, TempPosition.y + 0.3636f));
-                TP2.MyRend.flipX = TempFacing;
+                TP1.myRend().flipX = TP2.myRend().flipX;
+                if (die) Utils.MurderPlayer(TP1, TP2);
+                else
+                {
+                    TP2.NetTransform.SnapTo(new Vector2(TempPosition.x, TempPosition.y + 0.3636f));
+                    TP2.myRend().flipX = TempFacing;
+                }
 
                 if (SubmergedCompatibility.isSubmerged())
                 {
@@ -297,8 +376,6 @@ namespace TownOfUs.Roles
                         SubmergedCompatibility.ChangeFloor(TP2.GetTruePosition().y > -7);
                         SubmergedCompatibility.CheckOutOfBoundsElevator(PlayerControl.LocalPlayer);
                     }
-
-                    
                 }
                 
             }

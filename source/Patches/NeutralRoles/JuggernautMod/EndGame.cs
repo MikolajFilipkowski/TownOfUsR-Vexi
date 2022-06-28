@@ -13,10 +13,10 @@ namespace TownOfUs.NeutralRoles.JuggernautMod
 
             foreach (var role in Role.AllRoles)
                 if (role.RoleType == RoleEnum.Juggernaut)
-                    ((Juggernaut) role).Loses();
+                    ((Juggernaut)role).Loses();
 
             var writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
-                (byte) CustomRPC.JuggernautLose,
+                (byte)CustomRPC.JuggernautLose,
                 SendOption.Reliable, -1);
             AmongUsClient.Instance.FinishRpcImmediately(writer);
 

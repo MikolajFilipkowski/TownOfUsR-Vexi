@@ -32,7 +32,8 @@ namespace TownOfUs.CrewmateRoles.SpyMod
                 }
                 if (sprite != null)
                 {
-                    PlayerControl.SetPlayerMaterialColors(colorMapping[i], sprite);
+                    //PlayerControl.SetPlayerMaterialColors(colorMapping[i], sprite);
+                    PlayerMaterial.SetColors(colorMapping[i], sprite);
                 }
             }
         }

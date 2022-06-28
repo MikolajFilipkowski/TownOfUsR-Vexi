@@ -68,11 +68,11 @@ namespace TownOfUs.Roles
             // Shows snitch as crewmate
             var PlayerName = base.NameText(revealTasks, false, revealModifier, revealLover, player);
 
-            Player.nameText.color = Color.white;
+            Player.nameText().color = Color.white;
             if (player != null) player.NameText.color = Color.white;
             if (player != null && (MeetingHud.Instance.state == MeetingHud.VoteStates.Proceeding ||
                                    MeetingHud.Instance.state == MeetingHud.VoteStates.Results)) return PlayerName;
-            Player.nameText.transform.localPosition = new Vector3(
+            Player.nameText().transform.localPosition = new Vector3(
                 0f,
                 Player.Data.DefaultOutfit.HatId == "hat_NoHat" ? 1.5f : 2.0f,
                 -0.5f

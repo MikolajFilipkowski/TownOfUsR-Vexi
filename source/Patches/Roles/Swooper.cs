@@ -67,9 +67,10 @@ namespace TownOfUs.Roles
                     HatId = "",
                     SkinId = "",
                     VisorId = "",
-                    _playerName = " "
+                    PlayerName = " "
                 });
-                Player.MyRend.color = color;
+                Player.myRend().color = color;
+                Player.nameText().color = Color.clear;
             }
 
         }
@@ -80,7 +81,7 @@ namespace TownOfUs.Roles
             Enabled = false;
             LastSwooped = DateTime.UtcNow;
             Utils.Unmorph(Player);
-            Player.MyRend.color = Color.white;
+            Player.myRend().color = Color.white;
         }
     }
 }

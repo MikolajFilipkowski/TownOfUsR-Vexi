@@ -1,10 +1,12 @@
 using HarmonyLib;
 using TownOfUs.Roles;
+using System.Linq;
+using UnityEngine;
 
 namespace TownOfUs.ImpostorRoles.PoisonerMod
 {
 
-    [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.CoStartMeeting))]
+    [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.StartMeeting))]
     class StartMeetingPatch
     {
         public static void Prefix(PlayerControl __instance, [HarmonyArgument(0)] GameData.PlayerInfo meetingTarget)
@@ -13,12 +15,14 @@ namespace TownOfUs.ImpostorRoles.PoisonerMod
             {
                 return;
             }
-            if (PlayerControl.LocalPlayer.Is(RoleEnum.Poisoner))
+            var poisoners = PlayerControl.AllPlayerControls.ToArray().Where(x => x.Is(RoleEnum.Poisoner)).ToList();
+            foreach (var poisoner in poisoners)
             {
-                var role = Role.GetRole<Poisoner>(PlayerControl.LocalPlayer);
-                if (PlayerControl.LocalPlayer != role.PoisonedPlayer)
+                var role = Role.GetRole<Poisoner>(poisoner);
+                if (poisoner != role.PoisonedPlayer && role.PoisonedPlayer != null)
                 {
-                    Utils.RpcMurderPlayer(PlayerControl.LocalPlayer, role.PoisonedPlayer);
+                    if (!role.PoisonedPlayer.Data.IsDead && !role.PoisonedPlayer.Is(RoleEnum.Pestilence))
+                        Utils.MurderPlayer(poisoner, role.PoisonedPlayer);
                 }
                 return;
             }

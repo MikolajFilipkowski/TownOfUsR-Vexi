@@ -1,8 +1,9 @@
 using HarmonyLib;
 using Hazel;
 using TownOfUs.Roles;
-using System;
 using TownOfUs.CrewmateRoles.MedicMod;
+using TownOfUs.Extensions;
+using UnityEngine;
 
 namespace TownOfUs.ImpostorRoles.BlackmailerMod
 {
@@ -20,7 +21,11 @@ namespace TownOfUs.ImpostorRoles.BlackmailerMod
             {
                 if (!__instance.isActiveAndEnabled || role.ClosestPlayer == null) return false;
 
-                if (role.ClosestPlayer.IsOnAlert())
+                if (role.ClosestPlayer.IsInfected() || role.Player.IsInfected())
+                {
+                    foreach (var pb in Role.GetRoles(RoleEnum.Plaguebearer)) ((Plaguebearer)pb).RpcSpreadInfection(role.ClosestPlayer, role.Player);
+                }
+                if (role.ClosestPlayer.IsOnAlert() || role.ClosestPlayer.Is(RoleEnum.Pestilence))
                 {
                     if (role.Player.IsShielded())
                     {
@@ -43,7 +48,13 @@ namespace TownOfUs.ImpostorRoles.BlackmailerMod
                 if (__instance.isCoolingDown) return false;
                 if (!__instance.isActiveAndEnabled) return false;
                 if (role.BlackmailTimer() != 0) return false;
-                role.Blackmailed?.MyRend.material.SetFloat("_Outline", 0f);
+                role.Blackmailed?.myRend().material.SetFloat("_Outline", 0f);
+                if (role.Blackmailed != null && role.Blackmailed.Data.IsImpostor()) {
+                    if (role.Blackmailed.GetCustomOutfitType() != CustomPlayerOutfitType.Camouflage &&
+                        role.Blackmailed.GetCustomOutfitType() != CustomPlayerOutfitType.Swooper)
+                        role.Blackmailed.nameText().color = Patches.Colors.Impostor;
+                    else role.Blackmailed.nameText().color = Color.clear;
+                }
                 role.Blackmailed = target;
                 role.BlackmailButton.SetCoolDown(1f, 1f);
                 var writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,

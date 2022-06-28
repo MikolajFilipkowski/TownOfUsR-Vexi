@@ -29,6 +29,11 @@ namespace TownOfUs.CrewmateRoles.AltruistMod
             if (Vector2.Distance(role.CurrentTarget.TruePosition,
                 PlayerControl.LocalPlayer.GetTruePosition()) > maxDistance) return false;
             var playerId = role.CurrentTarget.ParentId;
+            var player = Utils.PlayerById(playerId);
+            if (player.IsInfected() || role.Player.IsInfected())
+            {
+                foreach (var pb in Role.GetRoles(RoleEnum.Plaguebearer)) ((Plaguebearer)pb).RpcSpreadInfection(player, role.Player);
+            }
 
             var writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
                 (byte) CustomRPC.AltruistRevive, SendOption.Reliable, -1);
