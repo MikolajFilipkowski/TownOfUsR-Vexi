@@ -1385,7 +1385,7 @@ If the Tiebreaker is the Mayor, it applies to the Mayor's __first__ vote.
 # Game Mode Settings
 | Name | Description | Type | Default |
 |----------|:-------------:|:------:|:------:|
-| Game Mode | What game mode the next game will be | Classic / All Any | Classic |
+| Game Mode | What game mode the next game will be | Classic / All Any / Killing Only | Classic |
 
 -----------------------
 # Classic Game Mode Settings
@@ -1403,10 +1403,19 @@ If the Tiebreaker is the Mayor, it applies to the Mayor's __first__ vote.
 | Random Number of Impostors | Whether there are a random number of Impostors | Toggle | True |
 
 -----------------------
+# Killing Only Settings
+| Name | Description | Type | Default |
+|----------|:-------------:|:------:|:------:|
+| Neutral Roles | How many neutrals roles will spawn | Number | 1 |
+| Veteran Count | How many Veterans will spawn | Number | 1 |
+| Vigilante Count | How many Vigilantes will spawn | Number | 1 |
+| Add Arsonist | Whether Arsonist will be added to the role list | Toggle | True |
+| Add Plaguebearer | Whether Plaguebearer will be added to the role list | Toggle | True |
+
+-----------------------
 # Map Settings
 | Name | Description | Type | Default |
 |----------|:-------------:|:------:|:------:|
-| Reverse Map | Whether the Map is mirrored on the y-axis | Toggle | False |
 | Choose Random Map | Whether the Map is randomly picked at the start of the game | Toggle | False |
 | Skeld Chance | The percentage probability of the Skeld map being chosen | Percentage | 0% |
 | Mira HQ Chance | The percentage probability of the Mira HQ map being chosen | Percentage | 0% |
