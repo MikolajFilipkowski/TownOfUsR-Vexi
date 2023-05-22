@@ -11,6 +11,7 @@ using Object = UnityEngine.Object;
 
 namespace TownOfUs.Patches
 {
+
     [HarmonyPatch(typeof(IntroCutscene._CoBegin_d__33), nameof(IntroCutscene._CoBegin_d__33.MoveNext))]
     public static class Start
     {
@@ -231,7 +232,11 @@ namespace TownOfUs.Patches
                 werewolf.LastRampaged = werewolf.LastRampaged.AddSeconds(CustomGameOptions.InitialCooldowns - CustomGameOptions.RampageCd);
                 werewolf.LastKilled = werewolf.LastKilled.AddSeconds(CustomGameOptions.InitialCooldowns - CustomGameOptions.RampageKillCd);
             }
-
+            if (PlayerControl.LocalPlayer.Is(RoleEnum.Vulture))
+            {
+                var vulture = Role.GetRole<Vulture>(PlayerControl.LocalPlayer);
+                vulture.BodyEatten = 0;
+            }
             if (PlayerControl.LocalPlayer.Is(ModifierEnum.Radar))
             {
                 var radar = Modifier.GetModifier<Radar>(PlayerControl.LocalPlayer);

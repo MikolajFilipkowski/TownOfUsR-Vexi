@@ -28,8 +28,8 @@ namespace TownOfUs
     [ReactorModFlags(Reactor.Networking.ModFlags.RequireOnAllClients)]
     public class TownOfUs : BasePlugin
     {
-        public const string Id = "com.slushiegoose.townofus";
-        public const string VersionString = "4.0.5";
+        public const string Id = "com.vexi.townofus";
+        public const string VersionString = "1.0";
         public static System.Version Version = System.Version.Parse(VersionString);
         
         public static Sprite JanitorClean;
@@ -110,7 +110,7 @@ namespace TownOfUs
         {
             System.Console.WriteLine("000.000.000.000/000000000000000000");
 
-            _harmony = new Harmony("com.slushiegoose.townofus");
+            _harmony = new Harmony("com.vexi.townofus");
 
             Generate.GenerateAll();
 

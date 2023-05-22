@@ -165,7 +165,8 @@ namespace TownOfUs {
             try {
                 string githubURI = "";
                 if (updateType == "TOU") {
-                    githubURI = "https://api.github.com/repos/eDonnes124/Town-Of-Us-R/releases/latest";
+                    //githubURI = "https://api.github.com/repos/eDonnes124/Town-Of-Us-R/releases/latest";
+                    githubURI = "";
                 } else if (updateType == "Submerged") {
                     githubURI = "https://api.github.com/repos/SubmergedAmongUs/Submerged/releases/latest";
                 }

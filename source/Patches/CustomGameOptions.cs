@@ -42,6 +42,7 @@ namespace TownOfUs
         public static int GlitchOn => (int)Generate.GlitchOn.Get();
         public static int MorphlingOn => (int)Generate.MorphlingOn.Get();
         public static int ExecutionerOn => (int)Generate.ExecutionerOn.Get();
+        public static int VultureOn => (int)Generate.VultureOn.Get();
         public static int SpyOn => (int)Generate.SpyOn.Get();
         public static int SnitchOn => (int)Generate.SnitchOn.Get();
         public static int MinerOn => (int)Generate.MinerOn.Get();
@@ -319,5 +320,7 @@ namespace TownOfUs
         public static float ReviveCooldown => Generate.ReviveCooldown.Get();
         public static float IncreasedCooldownPerRevive => Generate.IncreasedCooldownPerRevive.Get();
         public static int MaxReveals => (int)Generate.MaxReveals.Get();
+
+        public static bool DebugMode => Generate.DebugMode.Get();
     }
 }

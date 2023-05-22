@@ -46,6 +46,8 @@ namespace TownOfUs
         Escapist, // 37
         Bomber, // 41
 
+        Vulture, //47
+
         Crewmate, // 38
         Impostor, // 39
 

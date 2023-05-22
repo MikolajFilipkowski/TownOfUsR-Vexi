@@ -31,6 +31,7 @@ namespace TownOfUs.Patches
         // Neutral Colors
         public readonly static Color Jester = new Color(1f, 0.75f, 0.8f, 1f);
         public readonly static Color Executioner = new Color(0.55f, 0.25f, 0.02f, 1f);
+        public readonly static Color Vulture = new Color(0.55f, 0.25f, 0.02f, 1f);
         public readonly static Color Glitch = Color.green;
         public readonly static Color Arsonist = new Color(1f, 0.3f, 0f);
         public readonly static Color Phantom = new Color(0.4f, 0.16f, 0.38f, 1f);

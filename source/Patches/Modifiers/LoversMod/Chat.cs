@@ -13,7 +13,7 @@ namespace TownOfUs.Modifiers.LoversMod
                 var localPlayer = PlayerControl.LocalPlayer;
                 if (localPlayer == null) return true;
                 return MeetingHud.Instance != null || LobbyBehaviour.Instance != null || localPlayer.Data.IsDead ||
-                       localPlayer.IsLover() || sourcePlayer.PlayerId == PlayerControl.LocalPlayer.PlayerId;
+                       localPlayer.IsLover() || CustomGameOptions.DebugMode || sourcePlayer.PlayerId == PlayerControl.LocalPlayer.PlayerId;
             }
         }
 

@@ -9,7 +9,7 @@ namespace TownOfUs
         public static void Postfix(VersionShower __instance)
         {
             var text = __instance.text;
-            text.text += " - <color=#00FF00FF>TownOfUs v" + TownOfUs.VersionString + "</color>";
+            text.text += " - <color=#00FF00FF>TownOfUs Vexi v" + TownOfUs.VersionString + "</color>";
         }
     }
 }

@@ -41,9 +41,12 @@ namespace TownOfUs
         PestilenceLose,
         WerewolfWin,
         WerewolfLose,
+        VultureWin,
+        VultureLose,
         SurvivorOnlyWin,
 
         JanitorClean,
+        VultureEat,
         FixLights,
         EngineerFix,
         SetExtraVotes,

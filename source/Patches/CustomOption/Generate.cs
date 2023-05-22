@@ -41,6 +41,7 @@ namespace TownOfUs.CustomOption
         public static CustomNumberOption ExecutionerOn;
         public static CustomNumberOption JesterOn;
         public static CustomNumberOption PhantomOn;
+        public static CustomNumberOption VultureOn;
 
         public static CustomHeaderOption NeutralKillingRoles;
         public static CustomNumberOption ArsonistOn;
@@ -425,6 +426,8 @@ namespace TownOfUs.CustomOption
         public static CustomNumberOption LovingImpPercent;
         public static CustomToggleOption NeutralLovers;
 
+        public static CustomToggleOption DebugMode;
+
         public static Func<object, string> PercentFormat { get; } = value => $"{value:0}%";
         private static Func<object, string> CooldownFormat { get; } = value => $"{value:0.0#}s";
         private static Func<object, string> MultiplierFormat { get; } = value => $"{value:0.0#}x";
@@ -500,6 +503,8 @@ namespace TownOfUs.CustomOption
             JesterOn = new CustomNumberOption(num++, MultiMenu.neutral, "<color=#FFBFCCFF>Jester</color>", 0f, 0f, 100f, 10f,
                 PercentFormat);
             PhantomOn = new CustomNumberOption(num++, MultiMenu.neutral, "<color=#662962FF>Phantom</color>", 0f, 0f, 100f, 10f,
+                PercentFormat);
+            VultureOn = new CustomNumberOption(num++, MultiMenu.neutral, "<color=#FF0000FF>Vulture</color>", 0f, 0f, 100f, 10f,
                 PercentFormat);
 
             NeutralKillingRoles = new CustomHeaderOption(num++, MultiMenu.neutral, "Neutral Killing Roles");
@@ -577,6 +582,8 @@ namespace TownOfUs.CustomOption
             GameModeSettings =
                 new CustomHeaderOption(num++, MultiMenu.main, "Game Mode Settings");
             GameMode = new CustomStringOption(num++, MultiMenu.main, "Game Mode", new[] {"Classic", "All Any", "Killing Only", "Cultist" });
+
+            DebugMode = new CustomToggleOption(num++, MultiMenu.main, "Debug Mode", false);
 
             ClassicSettings =
                 new CustomHeaderOption(num++, MultiMenu.main, "Classic Game Mode Settings");

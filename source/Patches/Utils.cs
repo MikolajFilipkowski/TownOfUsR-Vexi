@@ -486,6 +486,7 @@ namespace TownOfUs
                 {
                     var sheriff = Role.GetRole<Sheriff>(killer);
                     if (target.Is(Faction.Impostors) ||
+                        target.Is(RoleEnum.Vulture) ||
                         target.Is(RoleEnum.Glitch) && CustomGameOptions.SheriffKillsGlitch ||
                         target.Is(RoleEnum.Arsonist) && CustomGameOptions.SheriffKillsArsonist ||
                         target.Is(RoleEnum.Plaguebearer) && CustomGameOptions.SheriffKillsPlaguebearer ||
