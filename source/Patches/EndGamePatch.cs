@@ -182,7 +182,7 @@ namespace TownOfUs.Patches {
                 {
                     playerRole += " |<color=#" + Patches.Colors.Impostor.ToHtmlStringRGBA() + $"> Incorrect Guesses: {player.IncorrectAssassinKills}</color>";
                 }
-                if (player.BodyEatten > 0)
+                if (playerControl.Is(RoleEnum.Vulture))
                 {
                     playerRole += " |<color=#" + Patches.Colors.Vulture.ToHtmlStringRGBA() + $"> Body eatten: {player.BodyEatten}</color>";
                 }

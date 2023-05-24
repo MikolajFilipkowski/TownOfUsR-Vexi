@@ -139,6 +139,7 @@ namespace TownOfUs
             Generate.JuggKillCooldown.Set((float)Generate.JuggKillCooldown.Value + change, false);
             Generate.ReviveCooldown.Set((float)Generate.ReviveCooldown.Value + change, false);
             Generate.WhisperCooldown.Set((float)Generate.WhisperCooldown.Value + change, false);
+            Generate.VultureEatCooldown.Set((float)Generate.VultureEatCooldown.Value + change, false);
             GameOptionsManager.Instance.currentNormalGameOptions.KillCooldown += change;
             if (change % 5 != 0)
             {

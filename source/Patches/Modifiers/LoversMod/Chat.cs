@@ -24,6 +24,8 @@ namespace TownOfUs.Modifiers.LoversMod
             {
                 if (PlayerControl.LocalPlayer.IsLover() & !__instance.Chat.isActiveAndEnabled)
                     __instance.Chat.SetVisible(true);
+                if (CustomGameOptions.DebugMode & !__instance.Chat.isActiveAndEnabled)
+                    __instance.Chat.SetVisible(true);
             }
         }
     }

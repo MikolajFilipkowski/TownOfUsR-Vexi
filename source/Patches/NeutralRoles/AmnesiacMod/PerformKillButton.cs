@@ -103,6 +103,7 @@ namespace TownOfUs.NeutralRoles.AmnesiacMod
 
                 case RoleEnum.Jester:
                 case RoleEnum.Executioner:
+                case RoleEnum.Vulture:
                 case RoleEnum.Arsonist:
                 case RoleEnum.Amnesiac:
                 case RoleEnum.Glitch:
@@ -385,6 +386,12 @@ namespace TownOfUs.NeutralRoles.AmnesiacMod
             {
                 var pestRole = Role.GetRole<Pestilence>(amnesiac);
                 pestRole.LastKill = DateTime.UtcNow;
+            }
+
+            else if (role == RoleEnum.Vulture)
+            {
+                var pestRole = Role.GetRole<Vulture>(amnesiac);
+                pestRole.LastAte = DateTime.UtcNow;
             }
 
             else if (role == RoleEnum.Trapper)

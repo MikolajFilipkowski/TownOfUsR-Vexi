@@ -236,6 +236,8 @@ namespace TownOfUs.Patches
             {
                 var vulture = Role.GetRole<Vulture>(PlayerControl.LocalPlayer);
                 vulture.BodyEatten = 0;
+                vulture.LastAte = DateTime.UtcNow;
+                vulture.LastAte = vulture.LastAte.AddSeconds(CustomGameOptions.InitialCooldowns - CustomGameOptions.TrackCd);
             }
             if (PlayerControl.LocalPlayer.Is(ModifierEnum.Radar))
             {

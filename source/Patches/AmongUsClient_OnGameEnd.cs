@@ -80,6 +80,17 @@ namespace TownOfUs
                         return;
                     }
                 }
+                else if (type == RoleEnum.Vulture)
+                {
+                    var vulture = (Vulture)role;
+                    if (vulture.VultureWins)
+                    {
+                        var winners = Utils.potentialWinners.Where(x => x.PlayerName == vulture.PlayerName).ToList();
+                        TempData.winners = new List<WinningPlayerData>();
+                        foreach (var win in winners) TempData.winners.Add(win);
+                        return;
+                    }
+                }
             }
             foreach (var role in Role.AllRoles)
             {

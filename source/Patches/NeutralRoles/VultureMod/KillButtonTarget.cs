@@ -21,7 +21,7 @@ namespace TownOfUs.NeutralRoles.VultureMod
             }
 
             role.CurrentTarget = target;
-            if (role.CurrentTarget && __instance.enabled)
+            if (role.CurrentTarget && __instance.enabled && role.EatTimer()==0)
             {
                 SpriteRenderer component = null;
                 foreach (var body in role.CurrentTarget.bodyRenderers) component = body;

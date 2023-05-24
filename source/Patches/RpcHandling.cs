@@ -808,9 +808,11 @@ namespace TownOfUs
                         readByte = reader.ReadByte();
                         var deadBodies2 = Object.FindObjectsOfType<DeadBody>();
                         foreach (var body in deadBodies2)
-                            if (body.ParentId == readByte)
+                            if (body.ParentId == readByte) {
                                 Coroutines.Start(Coroutine2.CleanCoroutine(body, vultureRole));
                                 vultureRole.BodyEatten++;
+                                vultureRole.CheckIfWon();
+                            }
                         break;
                     case CustomRPC.EngineerFix:
                         var engineer = Utils.PlayerById(reader.ReadByte());

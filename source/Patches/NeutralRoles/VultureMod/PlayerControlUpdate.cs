@@ -10,7 +10,7 @@ namespace TownOfUs.NeutralRoles.VultureMod
     {
         public static void Postfix(HudManager __instance)
         {
-            if (PlayerControl.AllPlayerControls.Count <= 1) return;
+            if (PlayerControl.AllPlayerControls.Count < 1) return;
             if (PlayerControl.LocalPlayer == null) return;
             if (PlayerControl.LocalPlayer.Data == null) return;
             if (!PlayerControl.LocalPlayer.Is(RoleEnum.Vulture)) return;
@@ -26,7 +26,7 @@ namespace TownOfUs.NeutralRoles.VultureMod
             role.EatButton.gameObject.SetActive((__instance.UseButton.isActiveAndEnabled || __instance.PetButton.isActiveAndEnabled)
                     && !MeetingHud.Instance && !PlayerControl.LocalPlayer.Data.IsDead
                     && AmongUsClient.Instance.GameState == InnerNet.InnerNetClient.GameStates.Started);
-            role.EatButton.graphic.sprite = TownOfUs.JanitorClean;
+            role.EatButton.graphic.sprite = TownOfUs.EatSprite;
 
 
             var data = PlayerControl.LocalPlayer.Data;
@@ -56,7 +56,8 @@ namespace TownOfUs.NeutralRoles.VultureMod
             }
 
             KillButtonTarget.SetTarget(killButton, closestBody, role);
-            role.EatButton.SetCoolDown(PlayerControl.LocalPlayer.killTimer, GameOptionsManager.Instance.currentNormalGameOptions.KillCooldown);
+            role.EatButton.SetCoolDown(PlayerControl.LocalPlayer.killTimer, CustomGameOptions.VultureEatCooldown);
+            __instance.KillButton.SetCoolDown(role.EatTimer(), CustomGameOptions.VultureEatCooldown);
         }
     }
 }

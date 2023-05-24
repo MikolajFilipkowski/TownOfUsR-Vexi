@@ -89,6 +89,7 @@ namespace TownOfUs
         public static bool BothLoversDie => Generate.BothLoversDie.Get();
         public static bool NeutralLovers => Generate.NeutralLovers.Get();
         public static bool SheriffKillOther => Generate.SheriffKillOther.Get();
+        public static bool SheriffKillsVulture => Generate.SheriffKillsVulture.Get();
         public static bool SheriffKillsExecutioner => Generate.SheriffKillsExecutioner.Get();
         public static bool SheriffKillsJester => Generate.SheriffKillsJester.Get();
         public static bool SheriffKillsArsonist => Generate.SheriffKillsArsonist.Get();
@@ -108,6 +109,12 @@ namespace TownOfUs
         public static bool JesterButton => Generate.JesterButton.Get();
         public static bool JesterVent => Generate.JesterVent.Get();
         public static bool JesterImpVision => Generate.JesterImpVision.Get();
+
+        public static float VultureEatCooldown => Generate.VultureEatCooldown.Get();
+        public static int VultureBodiesToEat => (int)Generate.VultureBodiesToEat.Get();
+        public static bool VultureVent => Generate.VultureVent.Get();
+        public static bool VultureImpVision => Generate.VultureImpVision.Get();
+
         public static ShieldOptions ShowShielded => (ShieldOptions)Generate.ShowShielded.Get();
 
         public static NotificationOptions NotificationShield =>

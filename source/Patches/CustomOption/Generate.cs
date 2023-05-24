@@ -171,6 +171,7 @@ namespace TownOfUs.CustomOption
 
         public static CustomHeaderOption Sheriff;
         public static CustomToggleOption SheriffKillOther;
+        public static CustomToggleOption SheriffKillsVulture;
         public static CustomToggleOption SheriffKillsExecutioner;
         public static CustomToggleOption SheriffKillsJester;
         public static CustomToggleOption SheriffKillsArsonist;
@@ -222,6 +223,12 @@ namespace TownOfUs.CustomOption
         public static CustomToggleOption JesterButton;
         public static CustomToggleOption JesterVent;
         public static CustomToggleOption JesterImpVision;
+
+        public static CustomHeaderOption Vulture;
+        public static CustomNumberOption VultureEatCooldown;
+        public static CustomNumberOption VultureBodiesToEat;
+        public static CustomToggleOption VultureVent;
+        public static CustomToggleOption VultureImpVision;
 
         public static CustomHeaderOption TheGlitch;
         public static CustomNumberOption MimicCooldownOption;
@@ -815,6 +822,8 @@ namespace TownOfUs.CustomOption
                 new CustomHeaderOption(num++, MultiMenu.crewmate, "<color=#FFFF00FF>Sheriff</color>");
             SheriffKillOther =
                 new CustomToggleOption(num++, MultiMenu.crewmate, "Sheriff Miskill Kills Crewmate", false);
+            SheriffKillsVulture =
+                new CustomToggleOption(num++, MultiMenu.crewmate, "Sheriff Kills Vulture", false);
             SheriffKillsExecutioner =
                 new CustomToggleOption(num++, MultiMenu.crewmate, "Sheriff Kills Executioner", false);
             SheriffKillsJester =
@@ -969,6 +978,17 @@ namespace TownOfUs.CustomOption
                 new CustomHeaderOption(num++, MultiMenu.neutral, "<color=#662962FF>Phantom</color>");
             PhantomTasksRemaining =
                  new CustomNumberOption(num++, MultiMenu.neutral, "Tasks Remaining When Phantom Can Be Clicked", 5, 1, 15, 1);
+
+            Vulture =
+                new CustomHeaderOption(num++, MultiMenu.neutral, $"<color=#994c19>Vulture</color>");
+            VultureEatCooldown =
+                new CustomNumberOption(num++, MultiMenu.neutral, "Vulture Eat Cooldown", 15f, 5f, 30f, 2.5f, CooldownFormat);
+            VultureBodiesToEat =
+                 new CustomNumberOption(num++, MultiMenu.neutral, "How many bodies must the Vulture eat", 3, 2, 5, 1);
+            VultureImpVision =
+                new CustomToggleOption(num++, MultiMenu.neutral, "Vulture Has Impostor Vision", false);
+            VultureVent =
+                new CustomToggleOption(num++, MultiMenu.neutral, "Vulture Can Hide In Vents", false);
 
             Arsonist = new CustomHeaderOption(num++, MultiMenu.neutral, "<color=#FF4D00FF>Arsonist</color>");
             DouseCooldown =

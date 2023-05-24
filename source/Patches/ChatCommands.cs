@@ -17,6 +17,7 @@ namespace TownOfUs.Patches
         }
     }
 
+    /*
     [HarmonyPatch]
     public static class IntrodCutScenePatch
     {
@@ -27,7 +28,7 @@ namespace TownOfUs.Patches
             return true;
         }
     }
-
+    */
 
     /*[HarmonyPatch(typeof(PlayerControl), nameof(ChatController.SendChat))]
     public class Forceclass

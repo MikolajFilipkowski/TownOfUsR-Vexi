@@ -12,7 +12,7 @@ namespace TownOfUs.NeutralRoles.VultureMod
         public static IEnumerator CleanCoroutine(DeadBody body, Vulture role)
         {
             KillButtonTarget.SetTarget(DestroyableSingleton<HudManager>.Instance.KillButton, null, role);
-            role.Player.SetKillTimer(GameOptionsManager.Instance.currentNormalGameOptions.KillCooldown);
+            role.Player.SetKillTimer(CustomGameOptions.VultureEatCooldown);
             SpriteRenderer renderer = null;
             foreach (var body2 in body.bodyRenderers) renderer = body2;
             var backColor = renderer.material.GetColor(BackColor);

@@ -4,6 +4,7 @@ using Reactor.Utilities;
 using TownOfUs.Roles;
 using UnityEngine;
 using AmongUs.GameOptions;
+using System;
 
 namespace TownOfUs.NeutralRoles.VultureMod
 {
@@ -24,6 +25,7 @@ namespace TownOfUs.NeutralRoles.VultureMod
                 var flag2 = __instance.isCoolingDown;
                 if (flag2) return false;
                 if (!__instance.enabled) return false;
+                if (role.EatTimer() != 0) return false;
                 var maxDistance = GameOptionsData.KillDistances[GameOptionsManager.Instance.currentNormalGameOptions.KillDistance];
                 if (Vector2.Distance(role.CurrentTarget.TruePosition,
                     PlayerControl.LocalPlayer.GetTruePosition()) > maxDistance) return false;
@@ -33,6 +35,8 @@ namespace TownOfUs.NeutralRoles.VultureMod
                 {
                     foreach (var pb in Role.GetRoles(RoleEnum.Plaguebearer)) ((Plaguebearer)pb).RpcSpreadInfection(player, role.Player);
                 }
+
+                role.LastAte = DateTime.UtcNow;
 
                 var writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
                     (byte) CustomRPC.VultureEat, SendOption.Reliable, -1);

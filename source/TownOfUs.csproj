@@ -4,6 +4,7 @@
 		<Version>1.0</Version>
 		<DebugType>embedded</DebugType>
 		<LangVersion>latest</LangVersion>
+		<Configurations>Debug;Release;Vexi Debug</Configurations>
 	</PropertyGroup>
 
 	<PropertyGroup>

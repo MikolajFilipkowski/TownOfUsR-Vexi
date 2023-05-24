@@ -48,7 +48,7 @@ namespace TownOfUs.CrewmateRoles.DetectiveMod
                  || player.Is(RoleEnum.Medium) || player.Is(RoleEnum.Undertaker))
                 return "Your target has an unusual obsession with dead bodies";
             else if (player.Is(RoleEnum.Grenadier) || player.Is(RoleEnum.GuardianAngel) || player.Is(RoleEnum.Medic)
-                 || player.Is(RoleEnum.Survivor) || player.Is(RoleEnum.Veteran))
+                 || player.Is(RoleEnum.Survivor) || player.Is(RoleEnum.Veteran) || player.Is(RoleEnum.Vulture))
                 return "Your target tries to protect themselves or others by any means necessary";
             else if (player.Is(RoleEnum.Bomber) || player.Is(RoleEnum.Executioner) || player.Is(RoleEnum.Jester)
                  || player.Is(RoleEnum.Swapper) || player.Is(RoleEnum.Transporter))
