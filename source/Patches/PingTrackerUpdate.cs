@@ -1,29 +1,31 @@
 using HarmonyLib;
+using InnerNet;
 using UnityEngine;
 
 namespace TownOfUs
 {
-    //[HarmonyPriority(Priority.VeryHigh)] // to show this message first, or be overrided if any plugins do
+    [HarmonyPriority(Priority.VeryHigh)] // to show this message first, or be overrided if any plugins do
     [HarmonyPatch(typeof(PingTracker), nameof(PingTracker.Update))]
-    public static class PingTracker_Update
+    public static class PingTrackerPatch
     {
-
-        [HarmonyPostfix]
         public static void Postfix(PingTracker __instance)
         {
-            var position = __instance.GetComponent<AspectPosition>();
-            position.DistanceFromEdge = new Vector3(3.6f, 0.1f, 0);
+            AspectPosition position = __instance.GetComponent<AspectPosition>();
+            position.DistanceFromEdge = new Vector3(4f, 0.1f, 0);
             position.AdjustPosition();
 
             __instance.text.text =
-                "<color=#00FF00FF>TownOfUs v" + TownOfUs.VersionString + "</color>\n" +
-                $"Ping: {AmongUsClient.Instance.Ping}ms\n" +
-                (!MeetingHud.Instance
-                    ? "<color=#00FF00FF>Reworked by: <b>Vexi</b></color>\n" +
-                    "<color=#00FF00FF>Modded By: Donners, Term,</color>\n" +
-                    "<color=#00FF00FF>-H & MyDragonBreath</color>\n" : "") +
-                (AmongUsClient.Instance.GameState != InnerNet.InnerNetClient.GameStates.Started
-                    ? "<color=#00FF00FF>Formerly: Slushiegoose & Polus.gg</color>" : "");
+                $"Ping: {AmongUsClient.Instance.Ping} ms" +
+                $"\n<size=50%><color=#FEA600><b>TownOfUsReborn v{TownOfUs.VersionString}</b></color> <color=red>(MODIFIED)</color></size>";
+
+            if (!MeetingHud.Instance)
+                __instance.text.text +=
+                    "\n<size=30%><alpha=#99>Modified by: <b>Vexi & Tajemniczy Typiarz</b>";
+
+            if (AmongUsClient.Instance.GameState == InnerNetClient.GameStates.Joined)
+                __instance.text.text +=
+                    "\nReborn Version by: <b>Donners, Term, -H & MyDragonBreath</b>" +
+                    "\nFormerly made by: <b>Slushiegoose & Polus.gg</b>";
         }
     }
 }
