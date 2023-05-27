@@ -645,6 +645,9 @@ namespace TownOfUs
                             case 47:
                                 new Vulture(player);
                                 break;
+                            case 48:
+                                new Pelican(player);
+                                break;
                             case 100:
                                 new Necromancer(player);
                                 break;
@@ -1048,6 +1051,15 @@ namespace TownOfUs
                             if (role.RoleType == RoleEnum.Werewolf)
                                 ((Werewolf)role).Loses();
                         break;
+                    case CustomRPC.PelicanWin:
+                        var thePelicanTheRole = Role.AllRoles.FirstOrDefault(x => x.RoleType == RoleEnum.Pelican);
+                        ((Pelican)thePelicanTheRole)?.Wins();
+                        break;
+                    case CustomRPC.PelicanLose:
+                        foreach (var role in Role.AllRoles)
+                            if (role.RoleType == RoleEnum.Pelican)
+                                ((Pelican)role).Loses();
+                        break;
                     case CustomRPC.VultureWin:
                         var theVultureTheRole = Role.AllRoles.FirstOrDefault(x => x.RoleType == RoleEnum.Vulture);
                         ((Vulture)theVultureTheRole)?.Wins();
@@ -1448,6 +1460,8 @@ namespace TownOfUs
 
                     if (CustomGameOptions.WerewolfOn == 100)
                         NeutralKillingRoles.Add((typeof(Werewolf), 27, CustomGameOptions.WerewolfOn, true));
+                    if (CustomGameOptions.PelicanOn == 100)
+                        NeutralKillingRoles.Add((typeof(Pelican), 48, CustomGameOptions.PelicanOn, true));
                     #endregion
                     #region Impostor Roles
                     if (CustomGameOptions.UndertakerOn == 100)
@@ -1619,6 +1633,8 @@ namespace TownOfUs
 
                     if (CustomGameOptions.WerewolfOn > 0)
                         NeutralKillingRoles.Add((typeof(Werewolf), 27, CustomGameOptions.WerewolfOn, true));
+                    if (CustomGameOptions.PelicanOn > 0)
+                        NeutralKillingRoles.Add((typeof(Pelican), 48, CustomGameOptions.PelicanOn, true));
 
                     if (CustomGameOptions.GameMode == GameMode.AllAny && CustomGameOptions.HiddenRoles)
                         NeutralKillingRoles.Add((typeof(Juggernaut), 18, 10, true));

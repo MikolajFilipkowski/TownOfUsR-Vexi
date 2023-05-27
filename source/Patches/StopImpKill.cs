@@ -15,6 +15,7 @@ namespace TownOfUs
             var target = __instance.currentTarget;
             if (target == null) return true;
             if (!__instance.isActiveAndEnabled || __instance.isCoolingDown) return true;
+            if (Utils.IsDevoured(PlayerControl.LocalPlayer)) return false;
             if (GameOptionsManager.Instance.CurrentGameOptions.GameMode == GameModes.HideNSeek)
             {
                 if (!target.inVent) Utils.RpcMurderPlayer(PlayerControl.LocalPlayer, target);

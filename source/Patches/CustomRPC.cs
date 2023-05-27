@@ -43,6 +43,8 @@ namespace TownOfUs
         WerewolfLose,
         VultureWin,
         VultureLose,
+        PelicanWin,
+        PelicanLose,
         SurvivorOnlyWin,
 
         JanitorClean,

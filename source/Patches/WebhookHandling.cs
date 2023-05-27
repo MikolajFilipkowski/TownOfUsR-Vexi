@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using HarmonyLib;
+using InnerNet;
 using Reactor.Utilities;
 
 namespace TownOfUs.Patches
@@ -92,8 +94,9 @@ namespace TownOfUs.Patches
                         new Embed
                         {
                             color = GetPlayerColor(PlayerControl.LocalPlayer),
-                            description = $"||# {__instance.GameRoomNameCode.text}||",
+                            description = $"||# {GameCode.IntToGameName(AmongUsClient.Instance.GameId)}||",
                             author = new EmbedAuthor(PlayerControl.LocalPlayer.name, null, GetPlayerAvatar(PlayerControl.LocalPlayer)),
+                            footer = new EmbedFooter(ServerManager.Instance.CurrentRegion.Name, null)
                         }
                     }
                 };
@@ -102,7 +105,7 @@ namespace TownOfUs.Patches
 
                 try
                 {
-                    await httpClient.PostAsync("https://discord.com/api/webhooks/1110703756212977785/NQarnqV2YDlGhJxvzdkuBSPvfxYe7NMFMRiJVtv7dg1jZPdaU_tO-j1k8LwnKD6BwBaw", webhookStringContent);
+                    await httpClient.PostAsync(WebhookUrl.Url, webhookStringContent);
                 }
                 catch (Exception ex){
                     PluginSingleton<TownOfUs>.Instance.Log.LogMessage(ex);
@@ -129,6 +132,19 @@ namespace TownOfUs.Patches
             public string title { get; set; }
             public string url { get; set; }
             public string description { get; set; }
+            public EmbedFooter footer { get; set; }
+        }
+
+        public class EmbedFooter
+        {
+            public EmbedFooter(string text, string iconUrl)
+            {
+                this.text = text;
+                icon_url = iconUrl;
+            }
+
+            public string text { get; set; }
+            public string icon_url { get; set; }
         }
 
         public class EmbedAuthor

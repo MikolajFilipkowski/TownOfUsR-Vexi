@@ -48,6 +48,7 @@ namespace TownOfUs.CustomOption
         public static CustomNumberOption PlaguebearerOn;
         public static CustomNumberOption GlitchOn;
         public static CustomNumberOption WerewolfOn;
+        public static CustomNumberOption PelicanOn;
 
         public static CustomHeaderOption ImpostorConcealingRoles;
         public static CustomNumberOption EscapistOn;
@@ -511,7 +512,7 @@ namespace TownOfUs.CustomOption
                 PercentFormat);
             PhantomOn = new CustomNumberOption(num++, MultiMenu.neutral, "<color=#662962FF>Phantom</color>", 0f, 0f, 100f, 10f,
                 PercentFormat);
-            VultureOn = new CustomNumberOption(num++, MultiMenu.neutral, "<color=#FF0000FF>Vulture</color>", 0f, 0f, 100f, 10f,
+            VultureOn = new CustomNumberOption(num++, MultiMenu.neutral, "<color=#994c19>Vulture</color>", 0f, 0f, 100f, 10f,
                 PercentFormat);
 
             NeutralKillingRoles = new CustomHeaderOption(num++, MultiMenu.neutral, "Neutral Killing Roles");
@@ -522,6 +523,8 @@ namespace TownOfUs.CustomOption
             GlitchOn = new CustomNumberOption(num++, MultiMenu.neutral, "<color=#00FF00FF>The Glitch</color>", 0f, 0f, 100f, 10f,
                 PercentFormat);
             WerewolfOn = new CustomNumberOption(num++, MultiMenu.neutral, "<color=#A86629FF>Werewolf</color>", 0f, 0f, 100f, 10f,
+                PercentFormat);
+            PelicanOn = new CustomNumberOption(num++, MultiMenu.neutral, "<color=#00FF00FF>Pelican</color>", 0f, 0f, 100f, 10f,
                 PercentFormat);
 
             ImpostorConcealingRoles = new CustomHeaderOption(num++, MultiMenu.imposter, "Impostor Concealing Roles");

@@ -405,3 +405,5 @@ Desktop.ini
 # Misc
 
 .editorconfig
+
+**/webhookUrl.cs

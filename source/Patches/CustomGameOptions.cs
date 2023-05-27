@@ -66,6 +66,7 @@ namespace TownOfUs
         public static int BlackmailerOn => (int)Generate.BlackmailerOn.Get();
         public static int PlaguebearerOn => (int)Generate.PlaguebearerOn.Get();
         public static int WerewolfOn => (int)Generate.WerewolfOn.Get();
+        public static int PelicanOn => (int)Generate.PelicanOn.Get();
         public static int DetectiveOn => (int)Generate.DetectiveOn.Get();
         public static int EscapistOn => (int)Generate.EscapistOn.Get();
         public static int ImitatorOn => (int)Generate.ImitatorOn.Get();
@@ -114,6 +115,8 @@ namespace TownOfUs
         public static int VultureBodiesToEat => (int)Generate.VultureBodiesToEat.Get();
         public static bool VultureVent => Generate.VultureVent.Get();
         public static bool VultureImpVision => Generate.VultureImpVision.Get();
+
+        public static float DevourCd => 10f;
 
         public static ShieldOptions ShowShielded => (ShieldOptions)Generate.ShowShielded.Get();
 

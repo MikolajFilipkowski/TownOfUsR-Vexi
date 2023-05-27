@@ -46,6 +46,7 @@ namespace TownOfUs
         Bomber, // 41
 
         Vulture, //47
+        Pelican, //48
 
         Crewmate, // 38
         Impostor, // 39

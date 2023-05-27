@@ -70,6 +70,11 @@ namespace TownOfUs
             }
         }
 
+        public static bool IsDevoured(this PlayerControl player)
+        {
+            return Role.GetRole(player).Devoured;
+        }
+
         public static void UnCamouflage()
         {
             foreach (var player in PlayerControl.AllPlayerControls) Unmorph(player);
@@ -535,6 +540,10 @@ namespace TownOfUs
                 if (PlayerControl.LocalPlayer.Is(RoleEnum.Mystic) && !PlayerControl.LocalPlayer.Data.IsDead)
                 {
                     Coroutines.Start(FlashCoroutine(Patches.Colors.Mystic));
+                }
+                else if (PlayerControl.LocalPlayer.Is(RoleEnum.Vulture) && !PlayerControl.LocalPlayer.Data.IsDead)
+                {
+                    Coroutines.Start(FlashCoroutine(Patches.Colors.Vulture));
                 }
 
                 if (target.AmOwner)

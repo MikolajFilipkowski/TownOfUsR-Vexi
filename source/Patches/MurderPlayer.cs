@@ -22,7 +22,7 @@ namespace TownOfUs.Patches
         {
             public static bool Prefix(KillButton __instance)
             {
-                if (__instance.isActiveAndEnabled && __instance.currentTarget && !__instance.isCoolingDown && !PlayerControl.LocalPlayer.Data.IsDead && PlayerControl.LocalPlayer.CanMove)
+                if (__instance.isActiveAndEnabled && __instance.currentTarget && !__instance.isCoolingDown && !PlayerControl.LocalPlayer.Data.IsDead && PlayerControl.LocalPlayer.CanMove && !Utils.IsDevoured(PlayerControl.LocalPlayer))
                 {
                     if (AmongUsClient.Instance.AmHost)
                     {
