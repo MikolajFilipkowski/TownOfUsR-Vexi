@@ -138,6 +138,7 @@ namespace TownOfUs.CustomOption
         public static CustomNumberOption VigilanteCount;
         public static CustomToggleOption AddArsonist;
         public static CustomToggleOption AddPlaguebearer;
+        public static CustomToggleOption AddPelican;
 
         public static CustomHeaderOption CultistSettings;
         public static CustomNumberOption MayorCultistOn;
@@ -180,6 +181,7 @@ namespace TownOfUs.CustomOption
         public static CustomToggleOption SheriffKillsPlaguebearer;
         public static CustomToggleOption SheriffKillsGlitch;
         public static CustomToggleOption SheriffKillsWerewolf;
+        public static CustomToggleOption SheriffKillsPelican;
         public static CustomNumberOption SheriffKillCd;
         public static CustomToggleOption SheriffBodyReport;
 
@@ -397,6 +399,9 @@ namespace TownOfUs.CustomOption
         public static CustomNumberOption RampageKillCooldown;
         public static CustomToggleOption WerewolfVent;
 
+        public static CustomHeaderOption Pelican;
+        public static CustomNumberOption DevourCooldown;
+
         public static CustomHeaderOption Detective;
         public static CustomNumberOption InitialExamineCooldown;
         public static CustomNumberOption ExamineCooldown;
@@ -524,7 +529,7 @@ namespace TownOfUs.CustomOption
                 PercentFormat);
             WerewolfOn = new CustomNumberOption(num++, MultiMenu.neutral, "<color=#A86629FF>Werewolf</color>", 0f, 0f, 100f, 10f,
                 PercentFormat);
-            PelicanOn = new CustomNumberOption(num++, MultiMenu.neutral, "<color=#00FF00FF>Pelican</color>", 0f, 0f, 100f, 10f,
+            PelicanOn = new CustomNumberOption(num++, MultiMenu.neutral, "<color=#b50965>Pelican</color>", 0f, 0f, 100f, 10f,
                 PercentFormat);
 
             ImpostorConcealingRoles = new CustomHeaderOption(num++, MultiMenu.imposter, "Impostor Concealing Roles");
@@ -620,6 +625,7 @@ namespace TownOfUs.CustomOption
                 new CustomNumberOption(num++, MultiMenu.main, "Vigilante Count", 1, 0, 5, 1);
             AddArsonist = new CustomToggleOption(num++, MultiMenu.main, "Add Arsonist", true);
             AddPlaguebearer = new CustomToggleOption(num++, MultiMenu.main, "Add Plaguebearer", true);
+            AddPelican = new CustomToggleOption(num++, MultiMenu.main, "Add Pelican", true);
 
             CultistSettings =
                 new CustomHeaderOption(num++, MultiMenu.main, "Cultist Settings");
@@ -841,6 +847,8 @@ namespace TownOfUs.CustomOption
                 new CustomToggleOption(num++, MultiMenu.crewmate, "Sheriff Kills Plaguebearer", false);
             SheriffKillsWerewolf =
                 new CustomToggleOption(num++, MultiMenu.crewmate, "Sheriff Kills Werewolf", false);
+            SheriffKillsPelican =
+                new CustomToggleOption(num++, MultiMenu.crewmate, "Sheriff Kills Pelican", false);
             SheriffKillCd =
                 new CustomNumberOption(num++, MultiMenu.crewmate, "Sheriff Kill Cooldown", 25f, 10f, 40f, 2.5f, CooldownFormat);
             SheriffBodyReport = new CustomToggleOption(num++, MultiMenu.crewmate, "Sheriff Can Report Who They've Killed");
@@ -1040,6 +1048,9 @@ namespace TownOfUs.CustomOption
                 new CustomNumberOption(num++, MultiMenu.neutral, "Rampage Kill Cooldown", 10f, 0.5f, 15f, 0.5f, CooldownFormat);
             WerewolfVent =
                 new CustomToggleOption(num++, MultiMenu.neutral, "Werewolf Can Vent When Rampaged", false);
+
+            Pelican = new CustomHeaderOption(num++, MultiMenu.neutral, "<color=#b50965>Pelican</color>");
+            DevourCooldown = new CustomNumberOption(num++, MultiMenu.neutral, "Devour Cooldown", 30f, 10f, 60f, 2.5f, CooldownFormat);
 
             Escapist =
                 new CustomHeaderOption(num++, MultiMenu.imposter, "<color=#FF0000FF>Escapist</color>");

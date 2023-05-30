@@ -221,9 +221,16 @@ namespace TownOfUs
             bool abilityUsed = false;
             if (target.IsInfected() || player.IsInfected())
             {
-                foreach (var pb in Role.GetRoles(RoleEnum.Plaguebearer)) ((Plaguebearer)pb).RpcSpreadInfection(target, player);
+                if (!IsDevoured(target))
+                {
+                    foreach (var pb in Role.GetRoles(RoleEnum.Plaguebearer)) ((Plaguebearer)pb).RpcSpreadInfection(target, player);
+                }
             }
-            if (target.Is(RoleEnum.Pestilence))
+            if (IsDevoured(target))
+            {
+                zeroSecReset = true;
+            }
+            else if (target.Is(RoleEnum.Pestilence))
             {
                 if (player.IsShielded())
                 {
@@ -301,6 +308,11 @@ namespace TownOfUs
                             var ww = Role.GetRole<Werewolf>(player);
                             ww.LastKilled = DateTime.UtcNow;
                         }
+                        else if (player.Is(RoleEnum.Pelican))
+                        {
+                            var peli = Role.GetRole<Pelican>(player);
+                            peli.LastHack = DateTime.UtcNow;
+                        }
                         RpcMurderPlayer(player, target);
                         abilityUsed = true;
                         fullCooldownReset = true;
@@ -352,6 +364,11 @@ namespace TownOfUs
                 {
                     var ww = Role.GetRole<Werewolf>(player);
                     ww.LastKilled = DateTime.UtcNow;
+                }
+                else if (player.Is(RoleEnum.Pelican))
+                {
+                    var peli = Role.GetRole<Pelican>(player);
+                    peli.LastHack = DateTime.UtcNow;
                 }
                 RpcMurderPlayer(player, target);
                 abilityUsed = true;
@@ -497,6 +514,7 @@ namespace TownOfUs
                         target.Is(RoleEnum.Plaguebearer) && CustomGameOptions.SheriffKillsPlaguebearer ||
                         target.Is(RoleEnum.Pestilence) && CustomGameOptions.SheriffKillsPlaguebearer ||
                         target.Is(RoleEnum.Werewolf) && CustomGameOptions.SheriffKillsWerewolf ||
+                        target.Is(RoleEnum.Pelican) && CustomGameOptions.SheriffKillsPelican ||
                         target.Is(RoleEnum.Juggernaut) && CustomGameOptions.SheriffKillsJuggernaut ||
                         target.Is(RoleEnum.Executioner) && CustomGameOptions.SheriffKillsExecutioner ||
                         target.Is(RoleEnum.Jester) && CustomGameOptions.SheriffKillsJester) sheriff.CorrectKills += 1;
@@ -1062,6 +1080,11 @@ namespace TownOfUs
             {
                 var pest = Role.GetRole<Pestilence>(PlayerControl.LocalPlayer);
                 pest.LastKill = DateTime.UtcNow;
+            }
+            if (PlayerControl.LocalPlayer.Is(RoleEnum.Pelican))
+            {
+                var peli = Role.GetRole<Pelican>(PlayerControl.LocalPlayer);
+                peli.LastHack = DateTime.UtcNow;
             }
             #endregion
             #region ImposterRoles

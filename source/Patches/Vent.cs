@@ -3,6 +3,7 @@ using TownOfUs.Extensions;
 using TownOfUs.Roles;
 using UnityEngine;
 using AmongUs.GameOptions;
+using InnerNet;
 
 namespace TownOfUs
 {
@@ -14,6 +15,8 @@ namespace TownOfUs
         {
             if(__instance.ImpostorVentButton == null || __instance.ImpostorVentButton.gameObject == null || __instance.ImpostorVentButton.IsNullOrDestroyed())
                 return;
+
+            if (AmongUsClient.Instance.GameState == InnerNetClient.GameStates.Joined) return;
 
             bool active = PlayerControl.LocalPlayer != null && VentPatches.CanVent(PlayerControl.LocalPlayer, PlayerControl.LocalPlayer._cachedData) && !MeetingHud.Instance;
             if(active != __instance.ImpostorVentButton.gameObject.active)
@@ -32,6 +35,8 @@ namespace TownOfUs
                 return true;
 
             if (playerInfo.IsDead)
+                return false;
+            if (player.IsDevoured())
                 return false;
 
             if (CustomGameOptions.GameMode == GameMode.Cultist && !player.Is(RoleEnum.Engineer)) return false;

@@ -232,6 +232,12 @@ namespace TownOfUs.Patches
                 werewolf.LastRampaged = werewolf.LastRampaged.AddSeconds(CustomGameOptions.InitialCooldowns - CustomGameOptions.RampageCd);
                 werewolf.LastKilled = werewolf.LastKilled.AddSeconds(CustomGameOptions.InitialCooldowns - CustomGameOptions.RampageKillCd);
             }
+            if (PlayerControl.LocalPlayer.Is(RoleEnum.Pelican))
+            {
+                var pelican = Role.GetRole<Pelican>(PlayerControl.LocalPlayer);
+                pelican.LastHack = DateTime.UtcNow;
+                pelican.LastHack = pelican.LastHack.AddSeconds(CustomGameOptions.InitialCooldowns - CustomGameOptions.DevourCd);
+            }
             if (PlayerControl.LocalPlayer.Is(RoleEnum.Vulture))
             {
                 var vulture = Role.GetRole<Vulture>(PlayerControl.LocalPlayer);

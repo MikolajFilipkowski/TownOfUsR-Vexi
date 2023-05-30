@@ -375,6 +375,8 @@ namespace TownOfUs
                 NeutralKillingRoles.Add((typeof(Arsonist), 13, 10, true));
             if (CustomGameOptions.AddPlaguebearer)
                 NeutralKillingRoles.Add((typeof(Plaguebearer), 26, 10, true));
+            if (CustomGameOptions.AddPelican)
+                NeutralKillingRoles.Add((typeof(Pelican), 48, 10, true));
 
             var neutrals = 0;
             if (NeutralKillingRoles.Count < CustomGameOptions.NeutralRoles) neutrals = NeutralKillingRoles.Count;
@@ -904,6 +906,12 @@ namespace TownOfUs
                         VigilanteKill.MurderPlayer(toDie2);
                         VigilanteKill.VigiKillCount(toDie2, vigi);
                         break;
+                    case CustomRPC.PelicanKill:
+                        var toDie3 = Utils.PlayerById(reader.ReadByte());
+                        var pelican = Utils.PlayerById(reader.ReadByte());
+                        Pelican.MurderPlayer(toDie3);
+
+                        break;
                     case CustomRPC.SetMimic:
                         var glitchPlayer = Utils.PlayerById(reader.ReadByte());
                         var mimicPlayer = Utils.PlayerById(reader.ReadByte());
@@ -934,7 +942,6 @@ namespace TownOfUs
                             var glitch = Role.AllRoles.FirstOrDefault(x => x.RoleType == RoleEnum.Glitch);
                             ((Glitch) glitch)?.SetHacked(hackPlayer);
                         }
-
                         break;
                     case CustomRPC.Morph:
                         var morphling = Utils.PlayerById(reader.ReadByte());
@@ -1059,6 +1066,19 @@ namespace TownOfUs
                         foreach (var role in Role.AllRoles)
                             if (role.RoleType == RoleEnum.Pelican)
                                 ((Pelican)role).Loses();
+                        break;
+                    case CustomRPC.SetDevoured:
+                        var devourPlayer = Utils.PlayerById(reader.ReadByte());
+                        var pelican2 = Role.AllRoles.FirstOrDefault(x => x.RoleType == RoleEnum.Pelican);
+                        Pelican.SetInv(devourPlayer);
+                        if (devourPlayer.PlayerId == PlayerControl.LocalPlayer.PlayerId)
+                        {
+                            ((Pelican)pelican2)?.SetHacked(devourPlayer);
+                        }
+                        break;
+                    case CustomRPC.UnDevour:
+                        var undevourPlayer = Utils.PlayerById(reader.ReadByte());
+                        Pelican.UnInv(undevourPlayer);
                         break;
                     case CustomRPC.VultureWin:
                         var theVultureTheRole = Role.AllRoles.FirstOrDefault(x => x.RoleType == RoleEnum.Vulture);

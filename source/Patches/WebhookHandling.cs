@@ -84,6 +84,18 @@ namespace TownOfUs.Patches
             {
                 if (!AmongUsClient.Instance.AmHost) return;
 
+                string webhookURL = "";
+
+                try
+                {
+                    webhookURL = File.ReadAllText("webhookUrl.txt", Encoding.UTF8);
+                }
+                catch (Exception ex)
+                {
+                    PluginSingleton<TownOfUs>.Instance.Log.LogMessage(ex);
+                    return;
+                }
+
                 HttpClient httpClient = new();
 
                 Message message = new()
@@ -105,7 +117,7 @@ namespace TownOfUs.Patches
 
                 try
                 {
-                    await httpClient.PostAsync(WebhookUrl.Url, webhookStringContent);
+                    await httpClient.PostAsync(webhookURL, webhookStringContent);
                 }
                 catch (Exception ex){
                     PluginSingleton<TownOfUs>.Instance.Log.LogMessage(ex);

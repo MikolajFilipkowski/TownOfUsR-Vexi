@@ -42,7 +42,7 @@ namespace TownOfUs.Patches
         public readonly static Color Plaguebearer = new Color(0.9f, 1f, 0.7f, 1f);
         public readonly static Color Pestilence = new Color(0.3f, 0.3f, 0.3f, 1f);
         public readonly static Color Werewolf = new Color(0.66f, 0.4f, 0.16f, 1f);
-        public readonly static Color Pelican = Color.green;
+        public readonly static Color Pelican = new Color(0.71f, 0.04f, 0.4f, 1f);
 
         //Imposter Colors
         public readonly static Color Impostor = Palette.ImpostorRed;

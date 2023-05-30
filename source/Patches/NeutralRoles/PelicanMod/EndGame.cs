@@ -13,7 +13,7 @@ namespace TownOfUs.NeutralRoles.PelicanMod
 
             foreach (var role in Role.AllRoles)
                 if (role.RoleType == RoleEnum.Pelican)
-                    ((Werewolf) role).Loses();
+                    ((Pelican) role).Loses();
 
             var writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
                 (byte) CustomRPC.PelicanLose,

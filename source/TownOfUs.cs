@@ -29,7 +29,7 @@ namespace TownOfUs
     public class TownOfUs : BasePlugin
     {
         public const string Id = "com.vexi.townofus";
-        public const string VersionString = "1.0";
+        public const string VersionString = "1.1";
         public static System.Version Version = System.Version.Parse(VersionString);
         
         public static Sprite JanitorClean;

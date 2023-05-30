@@ -107,6 +107,11 @@ namespace TownOfUs
                 __instance.KillButton.graphic.sprite = Infect;
                 flag = true;
             }
+            else if (PlayerControl.LocalPlayer.Is(RoleEnum.Pelican))
+            {
+                __instance.KillButton.graphic.sprite = Eat;
+                flag = true;
+            }
             else if (PlayerControl.LocalPlayer.Is(RoleEnum.Engineer) && CustomGameOptions.GameMode != GameMode.Cultist)
             {
                 __instance.KillButton.graphic.sprite = Fix;

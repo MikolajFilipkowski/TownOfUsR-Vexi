@@ -98,6 +98,7 @@ namespace TownOfUs
         public static bool SheriffKillsPlaguebearer => Generate.SheriffKillsPlaguebearer.Get();
         public static bool SheriffKillsGlitch => Generate.SheriffKillsGlitch.Get();
         public static bool SheriffKillsWerewolf => Generate.SheriffKillsWerewolf.Get();
+        public static bool SheriffKillsPelican => Generate.SheriffKillsPelican.Get();
         public static float SheriffKillCd => Generate.SheriffKillCd.Get();
         public static int MayorVoteBank => (int)Generate.MayorVoteBank.Get();
         public static bool MayorAnonymous => Generate.MayorAnonymous.Get();
@@ -116,7 +117,7 @@ namespace TownOfUs
         public static bool VultureVent => Generate.VultureVent.Get();
         public static bool VultureImpVision => Generate.VultureImpVision.Get();
 
-        public static float DevourCd => 10f;
+        public static float DevourCd => Generate.DevourCooldown.Get();
 
         public static ShieldOptions ShowShielded => (ShieldOptions)Generate.ShowShielded.Get();
 
@@ -179,6 +180,7 @@ namespace TownOfUs
         public static int VigilanteCount => (int)Generate.VigilanteCount.Get();
         public static bool AddArsonist => Generate.AddArsonist.Get();
         public static bool AddPlaguebearer => Generate.AddPlaguebearer.Get();
+        public static bool AddPelican => Generate.AddPelican.Get();
         public static bool ParallelMedScans => Generate.ParallelMedScans.Get();
         public static int MaxFixes => (int)Generate.MaxFixes.Get();
         public static float ReviveDuration => Generate.ReviveDuration.Get();

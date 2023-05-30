@@ -61,6 +61,7 @@ namespace TownOfUs.Roles
                     if (CustomGameOptions.GlitchOn > 0) ColorMapping.Add("The Glitch", Colors.Glitch);
                     if (CustomGameOptions.PlaguebearerOn > 0) ColorMapping.Add("Plaguebearer", Colors.Plaguebearer);
                     if (CustomGameOptions.WerewolfOn > 0) ColorMapping.Add("Werewolf", Colors.Werewolf);
+                    if (CustomGameOptions.PelicanOn > 0) ColorMapping.Add("Pelican", Colors.Pelican);
                     if (CustomGameOptions.HiddenRoles) ColorMapping.Add("Juggernaut", Colors.Juggernaut);
                 }
                 if (CustomGameOptions.VigilanteGuessLovers && CustomGameOptions.LoversOn > 0) ColorMapping.Add("Lover", Colors.Lovers);
@@ -79,6 +80,7 @@ namespace TownOfUs.Roles
                 {
                     if (CustomGameOptions.AddArsonist) ColorMapping.Add("Arsonist", Colors.Arsonist);
                     if (CustomGameOptions.AddPlaguebearer) ColorMapping.Add("Plaguebearer", Colors.Plaguebearer);
+                    if (CustomGameOptions.AddPelican) ColorMapping.Add("Pelican", Colors.Pelican);
                     ColorMapping.Add("The Glitch", Colors.Glitch);
                     ColorMapping.Add("Werewolf", Colors.Werewolf);
                     if (CustomGameOptions.HiddenRoles) ColorMapping.Add("Juggernaut", Colors.Juggernaut);

@@ -66,7 +66,7 @@ namespace TownOfUs.Roles
         protected internal int CorrectAssassinKills { get; set; } = 0;
         protected internal int IncorrectAssassinKills { get; set; } = 0;
         protected internal int BodyEatten { get; set; } = 0;
-        protected internal bool Devoured { get; set; } = true;
+        protected internal bool Devoured { get; set; } = false;
 
         public bool Local => PlayerControl.LocalPlayer.PlayerId == Player.PlayerId;
 

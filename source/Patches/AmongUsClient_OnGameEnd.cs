@@ -210,6 +210,25 @@ namespace TownOfUs
                         return;
                     }
                 }
+                else if (type == RoleEnum.Pelican)
+                {
+                    var pelican = (Pelican)role;
+                    if (pelican.PelicanWins)
+                    {
+                        var winners = Utils.potentialWinners.Where(x => x.PlayerName == pelican.PlayerName).ToList();
+                        foreach (var role2 in Role.GetRoles(RoleEnum.Survivor))
+                        {
+                            var surv = (Survivor)role2;
+                            if (!surv.Player.Data.IsDead && !surv.Player.Data.Disconnected)
+                            {
+                                winners.Add(Utils.potentialWinners.Where(x => x.PlayerName == surv.PlayerName).ToList()[0]);
+                            }
+                        }
+                        TempData.winners = new List<WinningPlayerData>();
+                        foreach (var win in winners) TempData.winners.Add(win);
+                        return;
+                    }
+                }
                 else if (type == RoleEnum.Phantom)
                 {
                     var phantom = (Phantom)role;

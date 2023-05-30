@@ -373,7 +373,11 @@ namespace TownOfUs.NeutralRoles.AmnesiacMod
                 wwRole.LastRampaged = DateTime.UtcNow;
                 wwRole.LastKilled = DateTime.UtcNow;
             }
-
+            else if (role == RoleEnum.Pelican)
+            {
+                var peli = Role.GetRole<Pelican>(amnesiac);
+                peli.LastHack = DateTime.UtcNow;
+            }
             else if (role == RoleEnum.Plaguebearer)
             {
                 var plagueRole = Role.GetRole<Plaguebearer>(amnesiac);

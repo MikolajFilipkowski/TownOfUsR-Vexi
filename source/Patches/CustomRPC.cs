@@ -64,6 +64,7 @@ namespace TownOfUs
         Drop,
         AssassinKill,
         VigilanteKill,
+        PelicanKill,
         HaunterFinished,
         FlashGrenade,
         Alert,
@@ -90,6 +91,8 @@ namespace TownOfUs
         SetMimic,
         RpcResetAnim,
         SetHacked,
+        SetDevoured,
+        UnDevour,
 
         ExecutionerToJester,
         GAToSurv,

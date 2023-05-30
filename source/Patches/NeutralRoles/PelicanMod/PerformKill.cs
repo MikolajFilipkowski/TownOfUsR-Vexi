@@ -1,16 +1,18 @@
-﻿using System;
-using HarmonyLib;
+﻿using HarmonyLib;
 using TownOfUs.Roles;
-using AmongUs.GameOptions;
 
 namespace TownOfUs.NeutralRoles.PelicanMod
 {
     [HarmonyPatch(typeof(KillButton), nameof(KillButton.DoClick))]
-    public class PerformKill
+    internal class PerformKill
     {
         public static bool Prefix(KillButton __instance)
         {
-            return false;
+            if (PlayerControl.LocalPlayer.Is(RoleEnum.Pelican) && __instance.isActiveAndEnabled &&
+                !__instance.isCoolingDown)
+                return Role.GetRole<Pelican>(PlayerControl.LocalPlayer).UseAbility(__instance);
+
+            return true;
         }
     }
 }
