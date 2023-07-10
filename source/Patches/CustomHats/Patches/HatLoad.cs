@@ -58,5 +58,15 @@ namespace TownOfUs.Patches.CustomHats.Patches
             }
         }
 
+        [HarmonyPatch(typeof(HatParent), nameof(HatParent.SetClimbAnim))]
+        public static class PF_climb_patch
+        {
+            public static bool Prefix(HatParent __instance)
+            {
+                if (!HatCache.hatViewDatas.ContainsKey(__instance.Hat.ProductId)) return true;
+                __instance.FrontLayer.sprite = null;
+                return false;
+            }
+        }
     }
 }
