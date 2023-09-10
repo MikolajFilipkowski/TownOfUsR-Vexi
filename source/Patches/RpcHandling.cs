@@ -332,6 +332,8 @@ namespace TownOfUs
             foreach (var impostor in impostors)
                 Role.GenRole<Role>(typeof(Impostor), impostor);
 
+            //INSERT INSANE MODIFIER HERE!
+
             var canHaveModifier = PlayerControl.AllPlayerControls.ToArray().ToList();
             var canHaveImpModifier = PlayerControl.AllPlayerControls.ToArray().ToList();
             canHaveImpModifier.RemoveAll(player => !player.Is(Faction.Impostors));

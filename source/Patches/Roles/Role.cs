@@ -433,7 +433,7 @@ namespace TownOfUs.Roles
                 public static void Postfix(IntroCutscene __instance)
                 {
                     var modifier = Modifier.GetModifier(PlayerControl.LocalPlayer);
-                    if (modifier != null)
+                    if (modifier != null && !modifier.IsHidden)
                         ModifierText = Object.Instantiate(__instance.RoleText, __instance.RoleText.transform.parent, false);
                     else
                         ModifierText = null;
@@ -446,7 +446,7 @@ namespace TownOfUs.Roles
                 public static void Postfix(IntroCutscene __instance)
                 {
                     var modifier = Modifier.GetModifier(PlayerControl.LocalPlayer);
-                    if (modifier != null)
+                    if (modifier != null && !modifier.IsHidden)
                         ModifierText = Object.Instantiate(__instance.RoleText, __instance.RoleText.transform.parent, false);
                     else
                         ModifierText = null;
@@ -490,6 +490,7 @@ namespace TownOfUs.Roles
                     if (ModifierText != null)
                     {
                         var modifier = Modifier.GetModifier(PlayerControl.LocalPlayer);
+
                         if (modifier.GetType() == typeof(Lover))
                         {
                             ModifierText.text = $"<size=3>{modifier.TaskText()}</size>";
@@ -607,9 +608,11 @@ namespace TownOfUs.Roles
                 {
                     var modTask = new GameObject(modifier.Name + "Task").AddComponent<ImportantTextTask>();
                     modTask.transform.SetParent(player.transform, false);
-                    modTask.Text =
-                        $"{modifier.ColorString}Modifier: {modifier.Name}\n{modifier.TaskText()}</color>";
-                    player.myTasks.Insert(0, modTask);
+                    if(!modifier.IsHidden)
+                    {
+                        modTask.Text = $"{modifier.ColorString}Modifier: {modifier.Name}\n{modifier.TaskText()}</color>";
+                        player.myTasks.Insert(0, modTask);
+                    }
                 }
 
                 if (role == null || role.Hidden) return;

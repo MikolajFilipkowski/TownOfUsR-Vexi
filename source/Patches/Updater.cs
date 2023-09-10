@@ -209,7 +209,7 @@ namespace TownOfUs {
                 if (updateType == "TOU") { //Check TOU version
                     diff = TownOfUs.Version.CompareTo(ver);
                     if (diff < 0) { // TOU update required
-                        hasTOUUpdate = true;
+                        hasTOUUpdate = false; //Prevent auto update on modified ToU
                     }
                 } else if (updateType == "Submerged") {
                     //account for broken version

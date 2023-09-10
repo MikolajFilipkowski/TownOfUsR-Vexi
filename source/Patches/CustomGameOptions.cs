@@ -367,5 +367,10 @@ namespace TownOfUs
         public static float ReviveCooldown => Generate.ReviveCooldown.Get();
         public static float IncreasedCooldownPerRevive => Generate.IncreasedCooldownPerRevive.Get();
         public static int MaxReveals => (int)Generate.MaxReveals.Get();
+        public static int InsaneOn => (int)Generate.InsaneOn.Get();
+        public static bool InsaneJester => Generate.InsaneJester.Get();
+        public static bool InsaneGuardianAngel => Generate.InsaneGuardianAngel.Get();
+
+        //ADD CONFIG OPTION FOR EVERY POSSIBLE ROLE! 
     }
 }

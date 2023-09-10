@@ -12,6 +12,8 @@ namespace TownOfUs.Roles.Modifiers
         public static readonly Dictionary<byte, Modifier> ModifierDictionary = new Dictionary<byte, Modifier>();
         public Func<string> TaskText;
 
+        public bool IsHidden = false;
+
         protected Modifier(PlayerControl player)
         {
             Player = player;

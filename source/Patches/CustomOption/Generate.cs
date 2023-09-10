@@ -88,6 +88,7 @@ namespace TownOfUs.CustomOption
         public static CustomNumberOption RadarOn;
         public static CustomNumberOption SleuthOn;
         public static CustomNumberOption TiebreakerOn;
+        public static CustomNumberOption InsaneOn;
 
         public static CustomHeaderOption ImpostorModifiers;
         public static CustomNumberOption DisperserOn;
@@ -488,6 +489,10 @@ namespace TownOfUs.CustomOption
         public static CustomNumberOption ChillDuration;
         public static CustomNumberOption ChillStartSpeed;
 
+        public static CustomHeaderOption Insane;
+        public static CustomToggleOption InsaneJester;
+        public static CustomToggleOption InsaneGuardianAngel;
+
         public static Func<object, string> PercentFormat { get; } = value => $"{value:0}%";
         private static Func<object, string> CooldownFormat { get; } = value => $"{value:0.0#}s";
         private static Func<object, string> MultiplierFormat { get; } = value => $"{value:0.0#}x";
@@ -645,6 +650,8 @@ namespace TownOfUs.CustomOption
             SleuthOn = new CustomNumberOption(num++, MultiMenu.modifiers, "<color=#803333FF>Sleuth</color>", 0f, 0f, 100f, 10f,
                 PercentFormat);
             TiebreakerOn = new CustomNumberOption(num++, MultiMenu.modifiers, "<color=#99E699FF>Tiebreaker</color>", 0f, 0f, 100f, 10f,
+                PercentFormat);
+            InsaneOn = new CustomNumberOption(num++, MultiMenu.modifiers, "<color=#808080FF>Insane</color>", 0f, 0f, 100f, 10f,
                 PercentFormat);
 
             ImpostorModifiers = new CustomHeaderOption(num++, MultiMenu.modifiers, "Impostor Modifiers");
@@ -1269,6 +1276,10 @@ namespace TownOfUs.CustomOption
             Underdog = new CustomHeaderOption(num++, MultiMenu.modifiers, "<color=#FF0000FF>Underdog</color>");
             UnderdogKillBonus = new CustomNumberOption(num++, MultiMenu.modifiers, "Kill Cooldown Bonus", 5f, 2.5f, 10f, 2.5f, CooldownFormat);
             UnderdogIncreasedKC = new CustomToggleOption(num++, MultiMenu.modifiers, "Increased Kill Cooldown When 2+ Imps", true);
+
+            Insane = new CustomHeaderOption(num++, MultiMenu.modifiers, "<color=#808080FF>Insane</color>");
+            InsaneGuardianAngel = new CustomToggleOption(num++, MultiMenu.modifiers, "Guardian Angel Can Be Insane");
+            InsaneJester = new CustomToggleOption(num++, MultiMenu.modifiers, "Jester Can Be Insane", false);
         }
     }
 }
