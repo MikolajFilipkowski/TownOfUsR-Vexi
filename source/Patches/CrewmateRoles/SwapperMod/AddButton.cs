@@ -2,9 +2,11 @@ using System;
 using System.Linq;
 using HarmonyLib;
 using Hazel;
+using Reactor.Utilities.Extensions;
 using TownOfUs.Roles;
 using UnityEngine;
 using UnityEngine.UI;
+using static Rewired.Utils.Classes.Utility.ObjectInstanceTracker;
 using Object = UnityEngine.Object;
 
 namespace TownOfUs.CrewmateRoles.SwapperMod
@@ -83,7 +85,14 @@ namespace TownOfUs.CrewmateRoles.SwapperMod
                     return;
                 }
 
-                Utils.Rpc(CustomRPC.SetSwaps, SwapVotes.Swap1.TargetPlayerId, SwapVotes.Swap2.TargetPlayerId);
+                if (role.Player.Is(ModifierEnum.Insane))
+                {
+                    byte fake1 = PlayerControl.AllPlayerControls.ToArray().Where(x => !x.Data.IsDead && x != role.Player).Random().PlayerId;
+                    byte fake2 = PlayerControl.AllPlayerControls.ToArray().Where(x => !x.Data.IsDead && x != role.Player && x.PlayerId != fake1).Random().PlayerId;
+                    Utils.Rpc(CustomRPC.SetSwaps, fake1, fake2);
+                }
+                else
+                    Utils.Rpc(CustomRPC.SetSwaps, SwapVotes.Swap1.TargetPlayerId, SwapVotes.Swap2.TargetPlayerId);
             }
 
             return Listener;
