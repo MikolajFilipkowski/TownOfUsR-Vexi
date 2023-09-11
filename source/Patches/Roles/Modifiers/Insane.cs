@@ -10,6 +10,7 @@ namespace TownOfUs.Patches.Roles.Modifiers
     public class Insane : Modifier
     {
         // Finish list based on custom game options
+
         /*
         public static List<RoleEnum> InsaneRoles 
         { 
@@ -17,7 +18,7 @@ namespace TownOfUs.Patches.Roles.Modifiers
             {
                 List<RoleEnum> _rolesToReturn = new List<RoleEnum>();
                 
-
+                if(CustomGameOptions.insane)
             } 
         }
         */
@@ -30,5 +31,18 @@ namespace TownOfUs.Patches.Roles.Modifiers
             ModifierType = ModifierEnum.Insane;
             IsHidden = true;
         }
+    }
+
+    public enum SeerSees
+    {
+        Random = 0,
+        Opposite = 1
+    }
+
+    public enum AltruistRevive
+    {
+        DiesAndReport = 0,
+        Dies = 1,
+        Report = 2
     }
 }

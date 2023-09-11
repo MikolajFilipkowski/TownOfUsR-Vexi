@@ -5,6 +5,7 @@ using TownOfUs.CrewmateRoles.HaunterMod;
 using TownOfUs.CrewmateRoles.MediumMod;
 using TownOfUs.CrewmateRoles.VampireHunterMod;
 using TownOfUs.NeutralRoles.GuardianAngelMod;
+using TownOfUs.Patches.Roles.Modifiers;
 
 namespace TownOfUs
 {
@@ -369,6 +370,20 @@ namespace TownOfUs
         public static float IncreasedCooldownPerRevive => Generate.IncreasedCooldownPerRevive.Get();
         public static int MaxReveals => (int)Generate.MaxReveals.Get();
         public static int InsaneOn => (int)Generate.InsaneOn.Get();
+        public static bool InsaneDetective => Generate.InsaneDetective.Get();
+        public static bool InsaneSeer => Generate.InsaneSeer.Get();
+        public static SeerSees InsaneSeerAbility => (SeerSees)Generate.InsaneSeerAbility.Get();
+        public static bool InsaneSnitch => Generate.InsaneSnitch.Get();
+        public static bool InsaneTrapper => Generate.InsaneTrapper.Get();
+        public static bool InsaneMystic => Generate.InsaneMystic.Get();
+        public static bool InsaneAurial => Generate.InsaneAurial.Get();
+        public static bool InsaneOracle => Generate.InsaneOracle.Get();
+        public static bool InsaneMedic => Generate.InsaneMedic.Get();
+        public static bool InsaneAltruist => Generate.InsaneAltruist.Get();
+        public static AltruistRevive InsaneAltruistRevive => (AltruistRevive)Generate.InsaneAltruistRevive.Get();
+        public static bool InsaneSwapper => Generate.InsaneSwapper.Get();
+        public static bool InsaneTransporter => Generate.InsaneTransporter.Get();
+        public static bool InsaneProsecutor => Generate.InsaneProsecutor.Get();
         public static bool InsaneJester => Generate.InsaneJester.Get();
         public static bool InsaneGuardianAngel => Generate.InsaneGuardianAngel.Get();
 
