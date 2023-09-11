@@ -509,7 +509,7 @@ namespace TownOfUs.CustomOption
         public static CustomToggleOption InsaneSwapper;
         public static CustomToggleOption InsaneTransporter;
         public static CustomToggleOption InsaneProsecutor;
-        public static CustomToggleOption InsaneJester;
+        //public static CustomToggleOption InsaneJester;
         public static CustomToggleOption InsaneGuardianAngel;
 
         public static Func<object, string> PercentFormat { get; } = value => $"{value:0}%";
@@ -1319,7 +1319,7 @@ namespace TownOfUs.CustomOption
             InsaneProsecutor = new CustomToggleOption(num++, MultiMenu.modifiers, "Prosecutor Can Be Insane", true);
 
             InsaneGuardianAngel = new CustomToggleOption(num++, MultiMenu.modifiers, "Guardian Angel Can Be Insane", false);
-            InsaneJester = new CustomToggleOption(num++, MultiMenu.modifiers, "Jester Can Be Insane", false);
+            //InsaneJester = new CustomToggleOption(num++, MultiMenu.modifiers, "Jester Can Be Insane", false);
         }
     }
 }
