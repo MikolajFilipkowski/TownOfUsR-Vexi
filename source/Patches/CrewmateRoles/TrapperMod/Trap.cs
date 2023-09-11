@@ -52,10 +52,10 @@ namespace TownOfUs.CrewmateRoles.TrapperMod
                             {
                                 RoleEnum fakeRole = Utils.GetRole(PlayerControl.AllPlayerControls.ToArray().Where(x 
                                 => x != t.Player 
-                                && !t.trappedPlayers.Contains(Utils.GetRole(x))
                                 && (!CustomGameOptions.InsaneTrapperSeesDead && !x.Data.IsDead) || CustomGameOptions.InsaneTrapperSeesDead).Random());
 
-                                t.trappedPlayers.Add(fakeRole);
+                                if(!t.trappedPlayers.Contains(fakeRole))
+                                    t.trappedPlayers.Add(fakeRole);
                             }
                             else
                             {

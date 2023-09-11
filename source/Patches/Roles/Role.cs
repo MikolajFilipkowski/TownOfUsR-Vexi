@@ -294,7 +294,7 @@ namespace TownOfUs.Roles
             { 
                 if (modifier.ModifierType == ModifierEnum.Lover && (revealModifier || revealLover))
                     PlayerName += $" {modifier.GetColoredSymbol()}";
-                else if (modifier.ModifierType != ModifierEnum.Lover && revealModifier)
+                else if (modifier.ModifierType != ModifierEnum.Lover && revealModifier && modifier.ModifierType != ModifierEnum.Insane)
                     PlayerName += $" {modifier.GetColoredSymbol()}";
 
                 bool seesInsane = false;
@@ -302,6 +302,9 @@ namespace TownOfUs.Roles
                 if(modifier.ModifierType == ModifierEnum.Insane)
                 {
                     if (PlayerControl.LocalPlayer.Data.IsDead && revealRole)
+                        seesInsane = true;
+
+                    if (TasksLeft < 1 && CustomGameOptions.InsaneRevealOnTasksDone)
                         seesInsane = true;
                 }
 

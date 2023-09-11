@@ -33,14 +33,14 @@ namespace TownOfUs.CrewmateRoles.SwapperMod
                     if (oracleRole.Player.Is(ModifierEnum.Insane) && UnityEngine.Random.Range(0, 100) > CustomGameOptions.InsaneOracleSavesTarget)
                         blessTarget = false;
 
-                    if(blessTarget)
+                    if (blessTarget)
                     {
                         oracleRole.SavedConfessor = true;
                         Utils.Rpc(CustomRPC.Bless, oracleRole.Player.PlayerId);
-                    }
 
-                    var dictionary = new Dictionary<byte, int>();
-                    return dictionary;
+                        var dictionary = new Dictionary<byte, int>();
+                        return dictionary;
+                    }
                 }
             }
 

@@ -29,13 +29,13 @@ namespace TownOfUs.CrewmateRoles.AurialMod
                 {
                     if(!role.InsaneKnownRoles.Any(x => x.Key == player.PlayerId))
                     {
-                        var pRole = Utils.GetRole(player);
+                        var pRole = Role.GetRole(player);
                         Color newColor;
 
                         switch(CustomGameOptions.InsaneAurialAbility)
                         {
                             case Patches.Roles.Modifiers.SeerSees.Opposite:
-                                if (role.Faction == Faction.NeutralKilling || role.Faction == Faction.NeutralBenign || role.Faction == Faction.NeutralEvil || role.Faction == Faction.Impostors)
+                                if (pRole.Faction == Faction.NeutralKilling || pRole.Faction == Faction.NeutralBenign || pRole.Faction == Faction.NeutralEvil || pRole.Faction == Faction.Impostors)
                                     newColor = Color.green;
                                 else
                                     newColor = Color.red;

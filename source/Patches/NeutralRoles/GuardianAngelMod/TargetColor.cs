@@ -2,6 +2,7 @@ using HarmonyLib;
 using Hazel;
 using TownOfUs.Extensions;
 using TownOfUs.Roles;
+using TownOfUs.Roles.Modifiers;
 using UnityEngine;
 
 namespace TownOfUs.NeutralRoles.GuardianAngelMod
@@ -53,6 +54,11 @@ namespace TownOfUs.NeutralRoles.GuardianAngelMod
         {
             player.myTasks.RemoveAt(0);
             Role.RoleDictionary.Remove(player.PlayerId);
+
+            if(player.Is(ModifierEnum.Insane))
+            {
+                Modifier.GetModifier(player).RemoveModifier(player);
+            }
 
             if (CustomGameOptions.GaOnTargetDeath == BecomeOptions.Jester)
             {

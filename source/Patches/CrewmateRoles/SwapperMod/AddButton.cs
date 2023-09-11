@@ -89,7 +89,15 @@ namespace TownOfUs.CrewmateRoles.SwapperMod
                 {
                     byte fake1 = PlayerControl.AllPlayerControls.ToArray().Where(x => !x.Data.IsDead && x != role.Player).Random().PlayerId;
                     byte fake2 = PlayerControl.AllPlayerControls.ToArray().Where(x => !x.Data.IsDead && x != role.Player && x.PlayerId != fake1).Random().PlayerId;
-                    Utils.Rpc(CustomRPC.SetSwaps, fake1, fake2);
+
+                    try
+                    {
+                        SwapVotes.Swap1 = MeetingHud.Instance.playerStates.Where(x => x.TargetPlayerId == fake1).First();
+                        SwapVotes.Swap2 = MeetingHud.Instance.playerStates.Where(x => x.TargetPlayerId == fake2).First();
+                    }
+                    catch { }
+
+                    Utils.Rpc(CustomRPC.SetSwaps, SwapVotes.Swap1.TargetPlayerId, SwapVotes.Swap2.TargetPlayerId);
                 }
                 else
                     Utils.Rpc(CustomRPC.SetSwaps, SwapVotes.Swap1.TargetPlayerId, SwapVotes.Swap2.TargetPlayerId);

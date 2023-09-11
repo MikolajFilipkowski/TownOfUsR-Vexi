@@ -334,8 +334,12 @@ namespace TownOfUs
                 Role.GenRole<Role>(typeof(Impostor), impostor);
 
             //INSERT INSANE MODIFIER HERE!
+
             var canHaveInsaneModifier = PlayerControl.AllPlayerControls.ToArray().Where(x => Insane.InsaneRoles.Contains(Utils.GetRole(x))).ToList();
-            Role.GenModifier<Insane>(typeof(Insane), canHaveInsaneModifier);
+            if(UnityEngine.Random.Range(0, 100) <= CustomGameOptions.InsaneOn)
+            {
+                Role.GenModifier<Insane>(typeof(Insane), canHaveInsaneModifier);
+            }
 
             var canHaveModifier = PlayerControl.AllPlayerControls.ToArray().Where(x => !canHaveInsaneModifier.Contains(x)).ToList();
             var canHaveImpModifier = PlayerControl.AllPlayerControls.ToArray().Where(x => !canHaveInsaneModifier.Contains(x)).ToList();

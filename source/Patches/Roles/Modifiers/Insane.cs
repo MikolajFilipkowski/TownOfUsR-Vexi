@@ -15,6 +15,8 @@ namespace TownOfUs.Patches.Roles.Modifiers
 {
     public class Insane : Modifier
     {
+        public static List<Insane> RunningCoroutines = new List<Insane>();
+
         public static List<RoleEnum> InsaneRoles 
         { 
             get 
@@ -43,12 +45,8 @@ namespace TownOfUs.Patches.Roles.Modifiers
                     _rolesToReturn.Add(RoleEnum.Swapper);
                 if (CustomGameOptions.InsaneTransporter)
                     _rolesToReturn.Add(RoleEnum.Transporter);
-                if (CustomGameOptions.InsaneProsecutor)
-                    _rolesToReturn.Add(RoleEnum.Prosecutor);
                 if (CustomGameOptions.InsaneGuardianAngel)
                     _rolesToReturn.Add(RoleEnum.GuardianAngel);
-                if (CustomGameOptions.InsaneJester)
-                    _rolesToReturn.Add(RoleEnum.Jester);
 
                 return _rolesToReturn;
             } 
@@ -62,42 +60,68 @@ namespace TownOfUs.Patches.Roles.Modifiers
             Color = Patches.Colors.Insane;
             ModifierType = ModifierEnum.Insane;
             IsHidden = true;
-            Coroutines.Start(InsaneEvents());
+
+            if(Player == PlayerControl.LocalPlayer)
+            {
+                Coroutines.Start(InsaneEvents());
+                RunningCoroutines.Add(this);
+            }
+        }
+
+        public IEnumerator RemoveBodyArrows(float delay, List<byte> ids)
+        {
+            yield return new WaitForSeconds(delay);
+
+            if (Role.GetRole(Player).RoleType != RoleEnum.Mystic)
+                yield return new WaitForEndOfFrame();
+
+            Mystic mystic = Role.GetRole<Mystic>(Player);
+
+            foreach (byte id in ids)
+            {
+                try
+                {
+                    if(mystic.BodyArrows.ContainsKey(id))
+                    {
+                        if (mystic.BodyArrows[id] != null)
+                        {
+                            mystic.BodyArrows[id].Destroy();
+                            mystic.BodyArrows.Remove(id);
+                        }
+                    }
+                }
+                catch { }
+            }
         }
 
         public IEnumerator InsaneEvents()
         {
-            Logger<TownOfUs>.Info("Insane coroutine started");
-            while (!Player.Data.IsDead)
+            Logger<TownOfUs>.Info($"Insane coroutine started for {Player.PlayerId}");
+            while (!Player.Data.IsDead && AmongUsClient.Instance.GameState == InnerNet.InnerNetClient.GameStates.Started)
             {
                 yield return new WaitForSeconds(UnityEngine.Random.Range(45, 90));
-                Logger<TownOfUs>.Info("Insane coroutine looped. Selecting effects...");
-
-                if (Player.Data.IsDead)
-                    yield return new WaitForSeconds(1);
+                Logger<TownOfUs>.Info($"Insane coroutine for {Player.PlayerId} looped. Selecting effects...");
 
                 if(Player.Is(RoleEnum.Mystic))
                 {
                     var fakeBody = PlayerControl.AllPlayerControls.ToArray().Where(x => x != Player && !x.Data.IsDead).First();
 
-                    var gameObj = new GameObject();
-                    var arrow = gameObj.AddComponent<ArrowBehaviour>();
-                    gameObj.transform.parent = PlayerControl.LocalPlayer.gameObject.transform;
-                    var renderer = gameObj.AddComponent<SpriteRenderer>();
-                    renderer.sprite = TownOfUs.Arrow;
-                    arrow.image = renderer;
-                    gameObj.layer = 5;
-                    Role.GetRole<Mystic>(Player).BodyArrows.Add(fakeBody.PlayerId, arrow);
-                    Role.GetRole<Mystic>(Player).BodyArrows.GetValueSafe(fakeBody.PlayerId).target = fakeBody.GetTruePosition();
-
-                    yield return new WaitForSeconds(CustomGameOptions.MysticArrowDuration);
-
-                    try
+                    if(CustomGameOptions.MysticArrowDuration > 0.1f)
                     {
-                        Role.GetRole<Mystic>(Player).BodyArrows[fakeBody.PlayerId].Destroy();
-                        Role.GetRole<Mystic>(Player).BodyArrows.Remove(fakeBody.PlayerId);
+                        var gameObj = new GameObject();
+                        var arrow = gameObj.AddComponent<ArrowBehaviour>();
+                        gameObj.transform.parent = PlayerControl.LocalPlayer.gameObject.transform;
+                        var renderer = gameObj.AddComponent<SpriteRenderer>();
+                        renderer.sprite = TownOfUs.Arrow;
+                        arrow.image = renderer;
+                        gameObj.layer = 5;
+                        Role.GetRole<Mystic>(Player).BodyArrows.Add(fakeBody.PlayerId, arrow);
+                        Role.GetRole<Mystic>(Player).BodyArrows.GetValueSafe(fakeBody.PlayerId).target = fakeBody.GetTruePosition();
+
+                        Coroutines.Start(Utils.FlashCoroutine(Colors.Mystic));
+
+                        Coroutines.Start(RemoveBodyArrows(CustomGameOptions.MysticArrowDuration, new List<byte>() { fakeBody.PlayerId }));
                     }
-                    catch { }
                 }
 
                 if(Player.Is(RoleEnum.Medic))

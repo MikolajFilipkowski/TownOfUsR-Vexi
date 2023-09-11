@@ -8,6 +8,9 @@ using TownOfUs.Roles;
 using TownOfUs.Extensions;
 using AmongUs.GameOptions;
 using TownOfUs.Patches.ScreenEffects;
+using TownOfUs.Patches.Roles.Modifiers;
+using TownOfUs.Roles.Modifiers;
+using Reactor.Utilities;
 
 namespace TownOfUs.Patches {
 
@@ -34,6 +37,13 @@ namespace TownOfUs.Patches {
             AdditionalTempData.clear();
             var playerRole = "";
             // Theres a better way of doing this e.g. switch statement or dictionary. But this works for now.
+
+            for(int i = 0; i < Insane.RunningCoroutines.Count(); i++)
+            {
+                Coroutines.Stop(Insane.RunningCoroutines[i].InsaneEvents());
+                Insane.RunningCoroutines.Remove(Insane.RunningCoroutines[i]);
+            }
+
             foreach (var playerControl in PlayerControl.AllPlayerControls)
             {
                 playerRole = "";
@@ -169,6 +179,10 @@ namespace TownOfUs.Patches {
                 else if (playerControl.Is(ModifierEnum.Frosty))
                 {
                     playerRole += " (<color=#" + Patches.Colors.Frosty.ToHtmlStringRGBA() + ">Frosty</color>)";
+                }
+                else if (playerControl.Is(ModifierEnum.Insane))
+                {
+                    playerRole += " (<color=#" + Patches.Colors.Insane.ToHtmlStringRGBA() + ">Insane</color>)";
                 }
                 var player = Role.GetRole(playerControl);
                 if (playerControl.Is(RoleEnum.Phantom) || playerControl.Is(Faction.Crewmates))

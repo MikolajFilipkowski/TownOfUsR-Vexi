@@ -12,15 +12,16 @@ namespace TownOfUs.CrewmateRoles.SnitchMod
         {
             if(PlayerControl.LocalPlayer.Is(ModifierEnum.Insane))
             {
-                var role = (Snitch)Role.GetRole(PlayerControl.LocalPlayer);
                 foreach(var player in PlayerControl.AllPlayerControls)
                 {
                     foreach(var state in __instance.playerStates)
                     {
-                        if (player.PlayerId != state.TargetPlayerId) 
+                        if (player.PlayerId != state.TargetPlayerId)
                             continue;
 
-                        if (!role.InsaneImpostors.Contains(player.PlayerId)) 
+                        Snitch role = (Snitch)Role.GetRole(PlayerControl.LocalPlayer);
+
+                        if (!role.InsaneImpostors.Contains(player.PlayerId))
                             continue;
 
                         state.NameText.color = Palette.ImpostorRed;
@@ -54,9 +55,11 @@ namespace TownOfUs.CrewmateRoles.SnitchMod
 
             if(PlayerControl.LocalPlayer.Is(ModifierEnum.Insane))
             {
-                foreach(var playerId in role.InsaneImpostors)
+                foreach(var player in PlayerControl.AllPlayerControls)
                 {
-                    var player = Utils.PlayerById(playerId);
+                    if (!role.InsaneImpostors.Contains(player.PlayerId))
+                        continue;
+
                     player.nameText().color = Palette.ImpostorRed;
                 }
                 return;

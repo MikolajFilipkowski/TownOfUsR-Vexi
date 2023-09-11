@@ -20,6 +20,12 @@ namespace TownOfUs.Roles.Modifiers
             ModifierDictionary.Add(player.PlayerId, this);
         }
 
+        public void RemoveModifier(PlayerControl player)
+        {
+            Player = null;
+            ModifierDictionary.Remove(player.PlayerId);
+        }
+
         public static IEnumerable<Modifier> AllModifiers => ModifierDictionary.Values.ToList();
         protected internal string Name { get; set; }
         protected internal string SymbolName { get; set; }
