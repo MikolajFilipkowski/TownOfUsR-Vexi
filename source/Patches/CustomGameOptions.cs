@@ -369,11 +369,13 @@ namespace TownOfUs
         public static float IncreasedCooldownPerRevive => Generate.IncreasedCooldownPerRevive.Get();
         public static int MaxReveals => (int)Generate.MaxReveals.Get();
         public static int InsaneOn => (int)Generate.InsaneOn.Get();
+        public static bool InsaneRevealOnTasksDone => Generate.InsaneRevealOnTasksDone.Get();
         public static bool InsaneDetective => Generate.InsaneDetective.Get();
         public static bool InsaneSeer => Generate.InsaneSeer.Get();
         public static SeerSees InsaneSeerAbility => (SeerSees)Generate.InsaneSeerAbility.Get();
         public static bool InsaneSnitch => Generate.InsaneSnitch.Get();
         public static bool InsaneTrapper => Generate.InsaneTrapper.Get();
+        public static bool InsaneTrapperSeesDead => Generate.InsaneTrapperSeesDead.Get();
         public static bool InsaneMystic => Generate.InsaneMystic.Get();
         public static bool InsaneAurial => Generate.InsaneAurial.Get();
         public static bool InsaneOracle => Generate.InsaneOracle.Get();

@@ -490,11 +490,13 @@ namespace TownOfUs.CustomOption
         public static CustomNumberOption ChillStartSpeed;
 
         public static CustomHeaderOption Insane;
+        public static CustomToggleOption InsaneRevealOnTasksDone;
         public static CustomToggleOption InsaneDetective;
         public static CustomToggleOption InsaneSeer;
         public static CustomStringOption InsaneSeerAbility;
         public static CustomToggleOption InsaneSnitch;
         public static CustomToggleOption InsaneTrapper;
+        public static CustomToggleOption InsaneTrapperSeesDead;
         public static CustomToggleOption InsaneMystic;
         public static CustomToggleOption InsaneAurial;
         public static CustomToggleOption InsaneOracle;
@@ -1293,12 +1295,14 @@ namespace TownOfUs.CustomOption
             UnderdogIncreasedKC = new CustomToggleOption(num++, MultiMenu.modifiers, "Increased Kill Cooldown When 2+ Imps", true);
 
             Insane = new CustomHeaderOption(num++, MultiMenu.modifiers, "<color=#808080FF>Insane</color>");
+            InsaneRevealOnTasksDone = new CustomToggleOption(num++, MultiMenu.modifiers, "Insane Reveals On Tasks Done", false);
 
             InsaneDetective = new CustomToggleOption(num++, MultiMenu.modifiers, "Detective Can Be Insane", true);
             InsaneSeer = new CustomToggleOption(num++, MultiMenu.modifiers, "Seer Can Be Insane", true);
             InsaneSeerAbility = new CustomStringOption(num++, MultiMenu.modifiers, "Insane Seer Sees", new string[] { "Random Faction", "Opposite Faction" });
             InsaneSnitch = new CustomToggleOption(num++, MultiMenu.modifiers, "Snitch Can Be Insane", true);
             InsaneTrapper = new CustomToggleOption(num++, MultiMenu.modifiers, "Trapper Can Be Insane", true);
+            InsaneTrapperSeesDead = new CustomToggleOption(num++, MultiMenu.modifiers, "Trapper Can See Dead Roles", true);
             InsaneMystic = new CustomToggleOption(num++, MultiMenu.modifiers, "Mystic Can Be Insane", true);
             InsaneAurial = new CustomToggleOption(num++, MultiMenu.modifiers, "Aurial Can Be Insane", true);
             InsaneOracle = new CustomToggleOption(num++, MultiMenu.modifiers, "Oracle Can Be Insane", true);

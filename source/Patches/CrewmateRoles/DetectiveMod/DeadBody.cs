@@ -18,7 +18,7 @@ namespace TownOfUs.CrewmateRoles.DetectiveMod
             if(br.Reporter.Is(ModifierEnum.Insane))
             {
                 RoleEnum[] randomKiller = new RoleEnum[]
-{
+                {
                     RoleEnum.Sheriff,
                     RoleEnum.Veteran,
                     RoleEnum.Werewolf,
@@ -38,7 +38,7 @@ namespace TownOfUs.CrewmateRoles.DetectiveMod
                     RoleEnum.Miner,
                     RoleEnum.Undertaker,
                     RoleEnum.Blackmailer
-};
+                };
 
                 role = $"{randomKiller.Random()}";
             }
