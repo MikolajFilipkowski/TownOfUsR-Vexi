@@ -499,6 +499,7 @@ namespace TownOfUs.CustomOption
         public static CustomToggleOption InsaneTrapperSeesDead;
         public static CustomToggleOption InsaneMystic;
         public static CustomToggleOption InsaneAurial;
+        public static CustomStringOption InsaneAurialAbility;
         public static CustomToggleOption InsaneOracle;
         public static CustomNumberOption InsaneOracleSavesTarget;
         public static CustomToggleOption InsaneMedic;
@@ -1306,6 +1307,7 @@ namespace TownOfUs.CustomOption
             InsaneTrapperSeesDead = new CustomToggleOption(num++, MultiMenu.modifiers, "Trapper Can See Dead Roles", true);
             InsaneMystic = new CustomToggleOption(num++, MultiMenu.modifiers, "Mystic Can Be Insane", true);
             InsaneAurial = new CustomToggleOption(num++, MultiMenu.modifiers, "Aurial Can Be Insane", true);
+            InsaneAurialAbility = new CustomStringOption(num++, MultiMenu.modifiers, "Insane Aurial Sees", new string[] { "Random Faction", "Opposite Faction" });
             InsaneOracle = new CustomToggleOption(num++, MultiMenu.modifiers, "Oracle Can Be Insane", true);
             InsaneOracleSavesTarget = new CustomNumberOption(num++, MultiMenu.modifiers, "Insane Oracle Saves Target Chance", 50f, 0f, 100f, 10f, PercentFormat);
             InsaneMedic = new CustomToggleOption(num++, MultiMenu.modifiers, "Medic Can Be Insane", true);

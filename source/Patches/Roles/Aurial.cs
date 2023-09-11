@@ -8,6 +8,7 @@ namespace TownOfUs.Roles
     public class Aurial : Role
     {
         public Dictionary<byte,int> knownPlayerRoles = new Dictionary<byte,int>();
+        public List<KeyValuePair<byte, Color>> InsaneKnownRoles = new List<KeyValuePair<byte, Color>>();
         public static Material ViewMat = TownOfUs.bundledAssets.Get<Material>("SoundV");
         public DateTime LastRadiated { get; set; }
         public DateTime CannotSeeDelay { get; set; }
