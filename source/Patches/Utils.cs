@@ -522,7 +522,8 @@ namespace TownOfUs
 
                 if (PlayerControl.LocalPlayer.Is(RoleEnum.Mystic) && !PlayerControl.LocalPlayer.Data.IsDead)
                 {
-                    Coroutines.Start(FlashCoroutine(Patches.Colors.Mystic));
+                    if(!PlayerControl.LocalPlayer.Is(ModifierEnum.Insane))
+                        Coroutines.Start(FlashCoroutine(Patches.Colors.Mystic));
                 }
 
                 if (target.AmOwner)

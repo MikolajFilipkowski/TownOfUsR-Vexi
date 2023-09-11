@@ -502,6 +502,7 @@ namespace TownOfUs.CustomOption
         public static CustomToggleOption InsaneOracle;
         public static CustomNumberOption InsaneOracleSavesTarget;
         public static CustomToggleOption InsaneMedic;
+        public static CustomToggleOption InsaneMedicDoesNotProtect;
         public static CustomToggleOption InsaneAltruist;
         public static CustomStringOption InsaneAltruistRevive;
         public static CustomToggleOption InsaneSwapper;
@@ -1308,6 +1309,7 @@ namespace TownOfUs.CustomOption
             InsaneOracle = new CustomToggleOption(num++, MultiMenu.modifiers, "Oracle Can Be Insane", true);
             InsaneOracleSavesTarget = new CustomNumberOption(num++, MultiMenu.modifiers, "Insane Oracle Saves Target Chance", 50f, 0f, 100f, 10f, PercentFormat);
             InsaneMedic = new CustomToggleOption(num++, MultiMenu.modifiers, "Medic Can Be Insane", true);
+            InsaneMedicDoesNotProtect = new CustomToggleOption(num++, MultiMenu.modifiers, "Insane Medic Does Not Protect", false);
             InsaneAltruist = new CustomToggleOption(num++, MultiMenu.modifiers, "Altruist Can Be Insane", true);
             InsaneAltruistRevive = new CustomStringOption(num++, MultiMenu.modifiers, "Insane Altruist On Revive", new string[] { "Dies+Report", "Dies", "Report" });
             InsaneSwapper = new CustomToggleOption(num++, MultiMenu.modifiers, "Swapper Can Be Insane", true);

@@ -27,6 +27,9 @@ namespace TownOfUs.CrewmateRoles.MysticMod
 
             if (!PlayerControl.LocalPlayer.Data.IsDead)
             {
+                if (PlayerControl.LocalPlayer.Is(ModifierEnum.Insane))
+                    return;
+
                 var validBodies = Object.FindObjectsOfType<DeadBody>().Where(x =>
                     Murder.KilledPlayers.Any(y => y.PlayerId == x.ParentId && y.KillTime.AddSeconds(CustomGameOptions.MysticArrowDuration) > System.DateTime.UtcNow));
 

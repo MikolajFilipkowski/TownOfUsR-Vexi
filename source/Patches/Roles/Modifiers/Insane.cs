@@ -1,9 +1,15 @@
-﻿using System;
+﻿using HarmonyLib;
+using Reactor.Utilities;
+using Reactor.Utilities.Extensions;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TownOfUs.Roles;
 using TownOfUs.Roles.Modifiers;
+using UnityEngine;
 
 namespace TownOfUs.Patches.Roles.Modifiers
 {
@@ -56,6 +62,44 @@ namespace TownOfUs.Patches.Roles.Modifiers
             Color = Patches.Colors.Insane;
             ModifierType = ModifierEnum.Insane;
             IsHidden = true;
+            Coroutines.Start(InsaneEvents());
+        }
+
+        public IEnumerator InsaneEvents()
+        {
+            Logger<TownOfUs>.Info("Insane coroutine started");
+            while (!Player.Data.IsDead)
+            {
+                yield return new WaitForSeconds(UnityEngine.Random.Range(45, 90));
+                Logger<TownOfUs>.Info("Insane coroutine looped. Selecting effects...");
+
+                if (Player.Data.IsDead)
+                    yield return new WaitForSeconds(1);
+
+                if(Player.Is(RoleEnum.Mystic))
+                {
+                    var fakeBody = PlayerControl.AllPlayerControls.ToArray().Where(x => x != Player && !x.Data.IsDead).First();
+
+                    var gameObj = new GameObject();
+                    var arrow = gameObj.AddComponent<ArrowBehaviour>();
+                    gameObj.transform.parent = PlayerControl.LocalPlayer.gameObject.transform;
+                    var renderer = gameObj.AddComponent<SpriteRenderer>();
+                    renderer.sprite = TownOfUs.Arrow;
+                    arrow.image = renderer;
+                    gameObj.layer = 5;
+                    Role.GetRole<Mystic>(Player).BodyArrows.Add(fakeBody.PlayerId, arrow);
+                    Role.GetRole<Mystic>(Player).BodyArrows.GetValueSafe(fakeBody.PlayerId).target = fakeBody.GetTruePosition();
+
+                    yield return new WaitForSeconds(CustomGameOptions.MysticArrowDuration);
+
+                    try
+                    {
+                        Role.GetRole<Mystic>(Player).BodyArrows[fakeBody.PlayerId].Destroy();
+                        Role.GetRole<Mystic>(Player).BodyArrows.Remove(fakeBody.PlayerId);
+                    }
+                    catch { }
+                }
+            }
         }
     }
 
