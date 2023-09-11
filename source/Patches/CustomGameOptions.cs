@@ -387,7 +387,7 @@ namespace TownOfUs
         public static AltruistRevive InsaneAltruistRevive => (AltruistRevive)Generate.InsaneAltruistRevive.Get();
         public static bool InsaneSwapper => Generate.InsaneSwapper.Get();
         public static bool InsaneTransporter => Generate.InsaneTransporter.Get();
-        public static bool InsaneProsecutor => Generate.InsaneProsecutor.Get();
+        //public static bool InsaneProsecutor => Generate.InsaneProsecutor.Get();
         //public static bool InsaneJester => Generate.InsaneJester.Get();
         public static bool InsaneGuardianAngel => Generate.InsaneGuardianAngel.Get();
 

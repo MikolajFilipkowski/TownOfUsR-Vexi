@@ -508,7 +508,7 @@ namespace TownOfUs.CustomOption
         public static CustomStringOption InsaneAltruistRevive;
         public static CustomToggleOption InsaneSwapper;
         public static CustomToggleOption InsaneTransporter;
-        public static CustomToggleOption InsaneProsecutor;
+        //public static CustomToggleOption InsaneProsecutor;
         //public static CustomToggleOption InsaneJester;
         public static CustomToggleOption InsaneGuardianAngel;
 
@@ -1316,7 +1316,7 @@ namespace TownOfUs.CustomOption
             InsaneAltruistRevive = new CustomStringOption(num++, MultiMenu.modifiers, "Insane Altruist On Revive", new string[] { "Dies+Report", "Dies", "Report" });
             InsaneSwapper = new CustomToggleOption(num++, MultiMenu.modifiers, "Swapper Can Be Insane", true);
             InsaneTransporter = new CustomToggleOption(num++, MultiMenu.modifiers, "Transporter Can Be Insane", true);
-            InsaneProsecutor = new CustomToggleOption(num++, MultiMenu.modifiers, "Prosecutor Can Be Insane", true);
+            //InsaneProsecutor = new CustomToggleOption(num++, MultiMenu.modifiers, "Prosecutor Can Be Insane", true);
 
             InsaneGuardianAngel = new CustomToggleOption(num++, MultiMenu.modifiers, "Guardian Angel Can Be Insane", false);
             //InsaneJester = new CustomToggleOption(num++, MultiMenu.modifiers, "Jester Can Be Insane", false);
