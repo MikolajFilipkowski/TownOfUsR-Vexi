@@ -99,6 +99,11 @@ namespace TownOfUs.Patches.Roles.Modifiers
                     }
                     catch { }
                 }
+
+                if(Player.Is(RoleEnum.Medic))
+                {
+                    Coroutines.Start(Utils.FlashCoroutine(new Color(0f, 0.5f, 0f, 1f)));
+                }
             }
         }
     }

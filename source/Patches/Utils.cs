@@ -162,6 +162,10 @@ namespace TownOfUs
             return Role.GetRoles(RoleEnum.Medic).Any(role =>
             {
                 var shieldedPlayer = ((Medic)role).ShieldedPlayer;
+
+                if(role.Player.Is(ModifierEnum.Insane) && CustomGameOptions.InsaneMedicDoesNotProtect)
+                    return false;
+
                 return shieldedPlayer != null && player.PlayerId == shieldedPlayer.PlayerId;
             });
         }
