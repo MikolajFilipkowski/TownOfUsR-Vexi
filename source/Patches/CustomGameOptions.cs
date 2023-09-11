@@ -380,6 +380,7 @@ namespace TownOfUs
         public static bool InsaneAurial => Generate.InsaneAurial.Get();
         public static SeerSees InsaneAurialAbility => (SeerSees)Generate.InsaneAurialAbility.Get();
         public static bool InsaneOracle => Generate.InsaneOracle.Get();
+        public static float InsaneOracleSavesTarget => Generate.InsaneOracleSavesTarget.Get();
         public static bool InsaneMedic => Generate.InsaneMedic.Get();
         public static bool InsaneMedicDoesNotProtect => Generate.InsaneMedicDoesNotProtect.Get();
         public static bool InsaneAltruist => Generate.InsaneAltruist.Get();

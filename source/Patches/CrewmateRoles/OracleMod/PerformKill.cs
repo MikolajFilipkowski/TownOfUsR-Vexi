@@ -4,6 +4,7 @@ using TownOfUs.Roles;
 using UnityEngine;
 using AmongUs.GameOptions;
 using Hazel;
+using Reactor.Utilities.Extensions;
 
 namespace TownOfUs.CrewmateRoles.OracleMod
 {
@@ -53,6 +54,12 @@ namespace TownOfUs.CrewmateRoles.OracleMod
                 if (faction == 0) role.RevealedFaction = Faction.Crewmates;
                 else if (faction == 1) role.RevealedFaction = Faction.NeutralEvil;
                 else role.RevealedFaction = Faction.Impostors;
+
+                if(role.Player.Is(ModifierEnum.Insane))
+                {
+                    role.RevealedFaction = Enum.GetValues<Faction>().Random();
+                }
+
                 Utils.Rpc(CustomRPC.Confess, PlayerControl.LocalPlayer.PlayerId, role.Confessor.PlayerId, faction);
             }
             if (interact[0] == true)

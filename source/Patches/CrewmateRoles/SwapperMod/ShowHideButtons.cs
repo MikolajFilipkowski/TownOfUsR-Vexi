@@ -28,8 +28,16 @@ namespace TownOfUs.CrewmateRoles.SwapperMod
                 if (oracleRole.Player.Data.IsDead || oracleRole.Player.Data.Disconnected || exiled == null || oracleRole.Confessor == null) continue;
                 if (oracleRole.Confessor.PlayerId == exiled.PlayerId)
                 {
-                    oracleRole.SavedConfessor = true;
-                    Utils.Rpc(CustomRPC.Bless, oracleRole.Player.PlayerId);
+                    bool blessTarget = true;
+                    if (oracleRole.Player.Is(ModifierEnum.Insane) && UnityEngine.Random.Range(0, 100) > CustomGameOptions.InsaneOracleSavesTarget)
+                        blessTarget = false;
+
+                    if(blessTarget)
+                    {
+                        oracleRole.SavedConfessor = true;
+                        Utils.Rpc(CustomRPC.Bless, oracleRole.Player.PlayerId);
+                    }
+
                     var dictionary = new Dictionary<byte, int>();
                     return dictionary;
                 }

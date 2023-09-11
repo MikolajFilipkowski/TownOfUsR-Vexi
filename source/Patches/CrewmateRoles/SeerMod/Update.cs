@@ -13,11 +13,16 @@ namespace TownOfUs.CrewmateRoles.SeerMod
         {
             if(seer.Player.Is(ModifierEnum.Insane))
             {
-                foreach(var state in __instance.playerStates)
+                foreach(var player in PlayerControl.AllPlayerControls)
                 {
-                    if(seer.InsaneInvestigated.Any(x => x.Key == state.TargetPlayerId))
+                    if (!seer.InsaneInvestigated.Any(x => x.Key == player.PlayerId)) continue;
+                    foreach(var state in __instance.playerStates)
                     {
-                        state.NameText.color = seer.InsaneInvestigated.First(x => x.Key == state.TargetPlayerId).Value;
+                        if(player.PlayerId != state.TargetPlayerId) continue;
+                        if(seer.InsaneInvestigated.Any(x => x.Key == player.PlayerId))
+                        {
+                            state.NameText.color = seer.InsaneInvestigated.First(x => x.Key == state.TargetPlayerId).Value;
+                        }
                     }
                 }
                 return;
