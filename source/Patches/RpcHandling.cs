@@ -35,6 +35,7 @@ using AmongUs.GameOptions;
 using TownOfUs.NeutralRoles.VampireMod;
 using TownOfUs.CrewmateRoles.MayorMod;
 using System.Reflection;
+using TownOfUs.Patches.Roles.Modifiers;
 
 namespace TownOfUs
 {
@@ -333,9 +334,12 @@ namespace TownOfUs
                 Role.GenRole<Role>(typeof(Impostor), impostor);
 
             //INSERT INSANE MODIFIER HERE!
+            var canHaveInsaneModifier = PlayerControl.AllPlayerControls.ToArray().Where(x => Insane.InsaneRoles.Contains(Utils.GetRole(x))).ToList();
+            Role.GenModifier<Insane>(typeof(Insane), canHaveInsaneModifier);
 
-            var canHaveModifier = PlayerControl.AllPlayerControls.ToArray().ToList();
-            var canHaveImpModifier = PlayerControl.AllPlayerControls.ToArray().ToList();
+            var canHaveModifier = PlayerControl.AllPlayerControls.ToArray().Where(x => !canHaveInsaneModifier.Contains(x)).ToList();
+            var canHaveImpModifier = PlayerControl.AllPlayerControls.ToArray().Where(x => !canHaveInsaneModifier.Contains(x)).ToList();
+
             canHaveImpModifier.RemoveAll(player => !player.Is(Faction.Impostors));
             var canHaveAbility = PlayerControl.AllPlayerControls.ToArray().ToList();
             var canHaveAbility2 = PlayerControl.AllPlayerControls.ToArray().ToList();
