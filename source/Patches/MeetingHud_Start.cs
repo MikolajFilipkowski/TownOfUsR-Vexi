@@ -4,6 +4,9 @@ using Hazel;
 using Reactor.Utilities.Extensions;
 using UnityEngine;
 using TownOfUs.Patches;
+using TownOfUs.Roles;
+using TownOfUs.Roles.Modifiers;
+using TownOfUs.Patches.Roles.Modifiers;
 
 namespace TownOfUs
 {
@@ -13,6 +16,11 @@ namespace TownOfUs
         public static void Postfix(MeetingHud __instance)
         {
             Utils.ShowDeadBodies = PlayerControl.LocalPlayer.Data.IsDead;
+            if(Utils.Is(PlayerControl.LocalPlayer, ModifierEnum.Insane))
+            {
+                if (Utils.ShowDeadBodies)
+                    Modifier.GetModifier<Insane>(PlayerControl.LocalPlayer).IsHidden = false;
+            }
 
             foreach (var player in PlayerControl.AllPlayerControls)
             {
@@ -52,6 +60,11 @@ namespace TownOfUs
         public static void Postfix(ExileController __instance, [HarmonyArgument(0)] GameData.PlayerInfo exiled, [HarmonyArgument(1)] bool tie)
         {
             Utils.ShowDeadBodies = PlayerControl.LocalPlayer.Data.IsDead || exiled?.PlayerId == PlayerControl.LocalPlayer.PlayerId;
+            if (Utils.Is(PlayerControl.LocalPlayer, ModifierEnum.Insane))
+            {
+                if (Utils.ShowDeadBodies)
+                    Modifier.GetModifier<Insane>(PlayerControl.LocalPlayer).IsHidden = false;
+            }
         }
     }
 }

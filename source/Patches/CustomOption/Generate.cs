@@ -115,6 +115,7 @@ namespace TownOfUs.CustomOption
         public static CustomToggleOption ColourblindComms;
         public static CustomToggleOption ImpostorSeeRoles;
         public static CustomToggleOption DeadSeeRoles;
+        public static CustomToggleOption DeadSeeModifiers;
         public static CustomNumberOption InitialCooldowns;
         public static CustomToggleOption ParallelMedScans;
         public static CustomStringOption SkipButtonDisable;
@@ -490,6 +491,21 @@ namespace TownOfUs.CustomOption
         public static CustomNumberOption ChillStartSpeed;
 
         public static CustomHeaderOption Insane;
+        public static CustomToggleOption InsaneDetective;
+        public static CustomToggleOption InsaneSeer;
+        public static CustomStringOption InsaneSeerAbility;
+        public static CustomToggleOption InsaneSnitch;
+        public static CustomToggleOption InsaneTrapper;
+        public static CustomToggleOption InsaneMystic;
+        public static CustomToggleOption InsaneAurial;
+        public static CustomToggleOption InsaneOracle;
+        public static CustomNumberOption InsaneOracleSavesTarget;
+        public static CustomToggleOption InsaneMedic;
+        public static CustomToggleOption InsaneAltruist;
+        public static CustomStringOption InsaneAltruistRevive;
+        public static CustomToggleOption InsaneSwapper;
+        public static CustomToggleOption InsaneTransporter;
+        public static CustomToggleOption InsaneProsecutor;
         public static CustomToggleOption InsaneJester;
         public static CustomToggleOption InsaneGuardianAngel;
 
@@ -776,6 +792,8 @@ namespace TownOfUs.CustomOption
             ImpostorSeeRoles = new CustomToggleOption(num++, MultiMenu.main, "Impostors Can See The Roles Of Their Team", false);
             DeadSeeRoles =
                 new CustomToggleOption(num++, MultiMenu.main, "Dead Can See Everyone's Roles/Votes", false);
+            DeadSeeModifiers =
+                new CustomToggleOption(num++, MultiMenu.main, "Dead Can See Everyone's Modifiers", false);
             InitialCooldowns =
                 new CustomNumberOption(num++, MultiMenu.main, "Game Start Cooldowns", 10f, 10f, 30f, 2.5f, CooldownFormat);
             ParallelMedScans = new CustomToggleOption(num++, MultiMenu.main, "Parallel Medbay Scans", false);
@@ -1278,7 +1296,24 @@ namespace TownOfUs.CustomOption
             UnderdogIncreasedKC = new CustomToggleOption(num++, MultiMenu.modifiers, "Increased Kill Cooldown When 2+ Imps", true);
 
             Insane = new CustomHeaderOption(num++, MultiMenu.modifiers, "<color=#808080FF>Insane</color>");
-            InsaneGuardianAngel = new CustomToggleOption(num++, MultiMenu.modifiers, "Guardian Angel Can Be Insane");
+
+            InsaneDetective = new CustomToggleOption(num++, MultiMenu.modifiers, "Detective Can Be Insane", true);
+            InsaneSeer = new CustomToggleOption(num++, MultiMenu.modifiers, "Seer Can Be Insane", true);
+            InsaneSeerAbility = new CustomStringOption(num++, MultiMenu.modifiers, "Insane Seer Sees", new string[] { "Random Faction", "Opposite Faction" });
+            InsaneSnitch = new CustomToggleOption(num++, MultiMenu.modifiers, "Snitch Can Be Insane", true);
+            InsaneTrapper = new CustomToggleOption(num++, MultiMenu.modifiers, "Trapper Can Be Insane", true);
+            InsaneMystic = new CustomToggleOption(num++, MultiMenu.modifiers, "Mystic Can Be Insane", true);
+            InsaneAurial = new CustomToggleOption(num++, MultiMenu.modifiers, "Aurial Can Be Insane", true);
+            InsaneOracle = new CustomToggleOption(num++, MultiMenu.modifiers, "Oracle Can Be Insane", true);
+            InsaneOracleSavesTarget = new CustomNumberOption(num++, MultiMenu.modifiers, "Insane Oracle Saves Target Chance", 50f, 0f, 100f, 10f, PercentFormat);
+            InsaneMedic = new CustomToggleOption(num++, MultiMenu.modifiers, "Medic Can Be Insane", true);
+            InsaneAltruist = new CustomToggleOption(num++, MultiMenu.modifiers, "Altruist Can Be Insane", true);
+            InsaneAltruistRevive = new CustomStringOption(num++, MultiMenu.modifiers, "Insane Altruist On Revive", new string[] { "Dies+Report", "Dies", "Report" });
+            InsaneSwapper = new CustomToggleOption(num++, MultiMenu.modifiers, "Swapper Can Be Insane", true);
+            InsaneTransporter = new CustomToggleOption(num++, MultiMenu.modifiers, "Transporter Can Be Insane", true);
+            InsaneProsecutor = new CustomToggleOption(num++, MultiMenu.modifiers, "Prosecutor Can Be Insane", true);
+
+            InsaneGuardianAngel = new CustomToggleOption(num++, MultiMenu.modifiers, "Guardian Angel Can Be Insane", false);
             InsaneJester = new CustomToggleOption(num++, MultiMenu.modifiers, "Jester Can Be Insane", false);
         }
     }

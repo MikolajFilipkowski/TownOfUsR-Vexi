@@ -20,7 +20,7 @@ namespace TownOfUs
                 $"Ping: {AmongUsClient.Instance.Ping}ms\n" +
                 (!MeetingHud.Instance
                     ? "<color=#00FF00FF>Modded By: Donners &</color>\n" +
-                    "<color=#00FF00FF>MyDragonBreath</color>\n" : "") +
+                    "<color=#00FF00FF>MyDragonBreath</color>\n<color=#00FF00FF>Insane Modifier by GBN</color>\n" : "") +
                 (AmongUsClient.Instance.GameState != InnerNet.InnerNetClient.GameStates.Started
                     ? "<color=#00FF00FF>Formerly: Slushiegoose & Polus.gg</color>" : "");
         }
