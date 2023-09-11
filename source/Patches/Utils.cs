@@ -203,6 +203,10 @@ namespace TownOfUs
             {
                 var gaTarget = ((GuardianAngel)role).target;
                 var ga = (GuardianAngel)role;
+
+                if (role.Player.Is(ModifierEnum.Insane))
+                    return false;
+
                 return gaTarget != null && ga.Protecting && player.PlayerId == gaTarget.PlayerId;
             });
         }

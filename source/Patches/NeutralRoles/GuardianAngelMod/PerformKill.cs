@@ -21,6 +21,7 @@ namespace TownOfUs.NeutralRoles.GuardianAngelMod
                 if (__instance.isCoolingDown) return false;
                 if (!__instance.isActiveAndEnabled) return false;
                 if (role.ProtectTimer() != 0) return false;
+
                 role.TimeRemaining = CustomGameOptions.ProtectDuration;
                 role.UsesLeft--;
                 role.Protect();
