@@ -115,7 +115,6 @@ namespace TownOfUs.CustomOption
         public static CustomToggleOption ColourblindComms;
         public static CustomToggleOption ImpostorSeeRoles;
         public static CustomToggleOption DeadSeeRoles;
-        public static CustomToggleOption DeadSeeModifiers;
         public static CustomNumberOption InitialCooldowns;
         public static CustomToggleOption ParallelMedScans;
         public static CustomStringOption SkipButtonDisable;
@@ -792,8 +791,6 @@ namespace TownOfUs.CustomOption
             ImpostorSeeRoles = new CustomToggleOption(num++, MultiMenu.main, "Impostors Can See The Roles Of Their Team", false);
             DeadSeeRoles =
                 new CustomToggleOption(num++, MultiMenu.main, "Dead Can See Everyone's Roles/Votes", false);
-            DeadSeeModifiers =
-                new CustomToggleOption(num++, MultiMenu.main, "Dead Can See Everyone's Modifiers", false);
             InitialCooldowns =
                 new CustomNumberOption(num++, MultiMenu.main, "Game Start Cooldowns", 10f, 10f, 30f, 2.5f, CooldownFormat);
             ParallelMedScans = new CustomToggleOption(num++, MultiMenu.main, "Parallel Medbay Scans", false);

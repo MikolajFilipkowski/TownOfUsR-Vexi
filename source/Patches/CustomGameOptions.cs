@@ -159,7 +159,6 @@ namespace TownOfUs
         public static bool SwooperVent => Generate.SwooperVent.Get();
         public static bool ImpostorSeeRoles => Generate.ImpostorSeeRoles.Get();
         public static bool DeadSeeRoles => Generate.DeadSeeRoles.Get();
-        public static bool DeadSeeModifiers => Generate.DeadSeeModifiers.Get();
         public static bool HiddenRoles => Generate.HiddenRoles.Get();
         public static bool FirstDeathShield => Generate.FirstDeathShield.Get();
         public static bool SeeTasksDuringRound => Generate.SeeTasksDuringRound.Get();

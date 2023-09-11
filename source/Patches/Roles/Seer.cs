@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace TownOfUs.Roles
 {
     public class Seer : Role
     {
         public List<byte> Investigated = new List<byte>();
+        public List<KeyValuePair<byte, Color>> InsaneInvestigated = new List<KeyValuePair<byte, Color>>();
 
         public Seer(PlayerControl player) : base(player)
         {

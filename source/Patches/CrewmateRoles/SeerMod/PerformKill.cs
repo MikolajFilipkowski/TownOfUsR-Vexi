@@ -3,6 +3,9 @@ using HarmonyLib;
 using TownOfUs.Roles;
 using UnityEngine;
 using AmongUs.GameOptions;
+using System.Collections.Generic;
+using TownOfUs.Patches.Roles.Modifiers;
+using Reactor.Utilities.Extensions;
 
 namespace TownOfUs.CrewmateRoles.SeerMod
 {
@@ -27,7 +30,33 @@ namespace TownOfUs.CrewmateRoles.SeerMod
             var interact = Utils.Interact(PlayerControl.LocalPlayer, role.ClosestPlayer);
             if (interact[4] == true)
             {
-                role.Investigated.Add(role.ClosestPlayer.PlayerId);
+                if(PlayerControl.LocalPlayer.Is(ModifierEnum.Insane))
+                {
+                    if(CustomGameOptions.InsaneSeerAbility == SeerSees.Random)
+                    {
+                        Color[] randomColor = new Color[] { Color.green, Color.red };
+                        role.InsaneInvestigated.Add(new KeyValuePair<byte, Color>(role.ClosestPlayer.PlayerId, randomColor.Random()));
+                    }
+                    else if(CustomGameOptions.InsaneSeerAbility == SeerSees.Opposite)
+                    {
+                        Color newColor;
+                        PlayerControl player = role.ClosestPlayer;
+                        if ((player.Is(Faction.Crewmates) && !(player.Is(RoleEnum.Sheriff) || player.Is(RoleEnum.Veteran) || player.Is(RoleEnum.Vigilante) || player.Is(RoleEnum.VampireHunter))) ||
+                        ((player.Is(RoleEnum.Sheriff) || player.Is(RoleEnum.Veteran) || player.Is(RoleEnum.Vigilante) || player.Is(RoleEnum.VampireHunter)) && !CustomGameOptions.CrewKillingRed) ||
+                        (player.Is(Faction.NeutralBenign) && !CustomGameOptions.NeutBenignRed) ||
+                        (player.Is(Faction.NeutralEvil) && !CustomGameOptions.NeutEvilRed) ||
+                        (player.Is(Faction.NeutralKilling) && !CustomGameOptions.NeutKillingRed))
+                        {
+                            newColor = Color.red;
+                        }
+                        else
+                            newColor = Color.green;
+
+                        role.InsaneInvestigated.Add(new KeyValuePair<byte, Color>(role.ClosestPlayer.PlayerId, newColor));
+                    }
+                }
+                else
+                    role.Investigated.Add(role.ClosestPlayer.PlayerId);
             }
             if (interact[0] == true)
             {

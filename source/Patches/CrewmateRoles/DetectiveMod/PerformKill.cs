@@ -5,6 +5,7 @@ using UnityEngine;
 using TownOfUs.CrewmateRoles.MedicMod;
 using Reactor.Utilities;
 using AmongUs.GameOptions;
+using Reactor.Utilities.Extensions;
 
 namespace TownOfUs.CrewmateRoles.DetectiveMod
 {
@@ -32,8 +33,16 @@ namespace TownOfUs.CrewmateRoles.DetectiveMod
                 var interact = Utils.Interact(PlayerControl.LocalPlayer, role.ClosestPlayer);
                 if (interact[4] == true)
                 {
-                    if (role.ClosestPlayer == role.DetectedKiller) Coroutines.Start(Utils.FlashCoroutine(Color.red));
-                    else Coroutines.Start(Utils.FlashCoroutine(Color.green));
+                    if(PlayerControl.LocalPlayer.Is(ModifierEnum.Insane))
+                    {
+                        Color[] randomColor = new Color[] { Color.red, Color.green };
+                        Coroutines.Start(Utils.FlashCoroutine(randomColor.Random()));
+                    }
+                    else
+                    {
+                        if (role.ClosestPlayer == role.DetectedKiller) Coroutines.Start(Utils.FlashCoroutine(Color.red));
+                        else Coroutines.Start(Utils.FlashCoroutine(Color.green));
+                    }
                 }
                 if (interact[0] == true)
                 {

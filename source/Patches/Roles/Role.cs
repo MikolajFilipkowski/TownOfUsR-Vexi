@@ -291,10 +291,21 @@ namespace TownOfUs.Roles
 
             var modifier = Modifier.GetModifier(Player);
             if (modifier != null && modifier.GetColoredSymbol() != null)
-            {
+            { 
                 if (modifier.ModifierType == ModifierEnum.Lover && (revealModifier || revealLover))
                     PlayerName += $" {modifier.GetColoredSymbol()}";
                 else if (modifier.ModifierType != ModifierEnum.Lover && revealModifier)
+                    PlayerName += $" {modifier.GetColoredSymbol()}";
+
+                bool seesInsane = false;
+
+                if(modifier.ModifierType == ModifierEnum.Insane)
+                {
+                    if (PlayerControl.LocalPlayer.Data.IsDead && revealRole)
+                        seesInsane = true;
+                }
+
+                if (seesInsane)
                     PlayerName += $" {modifier.GetColoredSymbol()}";
             }
 

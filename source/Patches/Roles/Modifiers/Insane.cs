@@ -51,6 +51,7 @@ namespace TownOfUs.Patches.Roles.Modifiers
         public Insane(PlayerControl player) : base(player)
         {
             Name = "Insane";
+            SymbolName = "?";
             TaskText = () => "You can't trust yourself, nor your abilities";
             Color = Patches.Colors.Insane;
             ModifierType = ModifierEnum.Insane;
