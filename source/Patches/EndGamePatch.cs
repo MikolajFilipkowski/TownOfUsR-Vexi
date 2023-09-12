@@ -38,6 +38,8 @@ namespace TownOfUs.Patches {
             var playerRole = "";
             // Theres a better way of doing this e.g. switch statement or dictionary. But this works for now.
 
+            Insane.MeetingInProgress = false;
+
             for(int i = 0; i < Insane.RunningCoroutines.Count(); i++)
             {
                 Coroutines.Stop(Insane.RunningCoroutines[i].InsaneEvents());

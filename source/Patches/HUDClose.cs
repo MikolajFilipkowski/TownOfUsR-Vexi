@@ -1,4 +1,7 @@
 using HarmonyLib;
+using TownOfUs.Patches.Roles.Modifiers;
+using TownOfUs.Roles;
+using TownOfUs.Roles.Modifiers;
 using Object = UnityEngine.Object;
 
 namespace TownOfUs.Patches
@@ -9,6 +12,7 @@ namespace TownOfUs.Patches
         public static void Postfix(Object obj)
         {
             if (ExileController.Instance == null || obj != ExileController.Instance.gameObject) return;
+            Insane.MeetingInProgress = false;
             Utils.ResetCustomTimers();
         }
     }

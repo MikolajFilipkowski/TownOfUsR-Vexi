@@ -370,6 +370,7 @@ namespace TownOfUs
         public static int MaxReveals => (int)Generate.MaxReveals.Get();
         public static int InsaneOn => (int)Generate.InsaneOn.Get();
         public static bool InsaneRevealOnTasksDone => Generate.InsaneRevealOnTasksDone.Get();
+        public static RevealsTo InsaneRevealsTo => (RevealsTo)Generate.InsaneRevealsTo.Get();
         public static bool InsaneDetective => Generate.InsaneDetective.Get();
         public static bool InsaneSeer => Generate.InsaneSeer.Get();
         public static SeerSees InsaneSeerAbility => (SeerSees)Generate.InsaneSeerAbility.Get();

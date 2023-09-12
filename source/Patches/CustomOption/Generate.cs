@@ -491,6 +491,7 @@ namespace TownOfUs.CustomOption
 
         public static CustomHeaderOption Insane;
         public static CustomToggleOption InsaneRevealOnTasksDone;
+        public static CustomStringOption InsaneRevealsTo;
         public static CustomToggleOption InsaneDetective;
         public static CustomToggleOption InsaneSeer;
         public static CustomStringOption InsaneSeerAbility;
@@ -1298,6 +1299,7 @@ namespace TownOfUs.CustomOption
 
             Insane = new CustomHeaderOption(num++, MultiMenu.modifiers, "<color=#808080FF>Insane</color>");
             InsaneRevealOnTasksDone = new CustomToggleOption(num++, MultiMenu.modifiers, "Insane Reveals On Tasks Done", false);
+            InsaneRevealsTo = new CustomStringOption(num++, MultiMenu.modifiers, "Insane Reveals To", new string[] { "Self", "Others", "Everyone" });
 
             InsaneDetective = new CustomToggleOption(num++, MultiMenu.modifiers, "Detective Can Be Insane", true);
             InsaneSeer = new CustomToggleOption(num++, MultiMenu.modifiers, "Seer Can Be Insane", true);

@@ -13,6 +13,7 @@ using Random = UnityEngine.Random;
 using TownOfUs.Extensions;
 using AmongUs.GameOptions;
 using TownOfUs.ImpostorRoles.TraitorMod;
+using TownOfUs.Patches.Roles.Modifiers;
 
 namespace TownOfUs.Roles
 {
@@ -304,7 +305,14 @@ namespace TownOfUs.Roles
                     if (PlayerControl.LocalPlayer.Data.IsDead && revealRole)
                         seesInsane = true;
 
-                    if (TasksLeft < 1 && CustomGameOptions.InsaneRevealOnTasksDone)
+                    var taskinfos = Player.Data.Tasks.ToArray();
+                    int tasksLeft = taskinfos.Count(x => !x.Complete);
+
+                    bool hasRevealed = (tasksLeft < 1 && CustomGameOptions.InsaneRevealOnTasksDone)
+                        && ((Player == PlayerControl.LocalPlayer && (CustomGameOptions.InsaneRevealsTo == RevealsTo.Self || CustomGameOptions.InsaneRevealsTo == RevealsTo.Everyone))
+                        || (Player != PlayerControl.LocalPlayer && (CustomGameOptions.InsaneRevealsTo == RevealsTo.Others || CustomGameOptions.InsaneRevealsTo == RevealsTo.Everyone)));
+
+                    if (hasRevealed)
                         seesInsane = true;
                 }
 

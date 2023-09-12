@@ -3,6 +3,7 @@ using HarmonyLib;
 using Hazel;
 using TownOfUs.NeutralRoles.ExecutionerMod;
 using TownOfUs.NeutralRoles.GuardianAngelMod;
+using TownOfUs.Patches.Roles.Modifiers;
 using TownOfUs.Roles;
 using TownOfUs.Roles.Cultist;
 using TownOfUs.Roles.Modifiers;
@@ -17,6 +18,8 @@ namespace TownOfUs.Patches
         public static Sprite Sprite => TownOfUs.Arrow;
         public static void Postfix(IntroCutscene._CoBegin_d__33 __instance)
         {
+            Insane.MeetingInProgress = false;
+
             if (PlayerControl.LocalPlayer.Is(RoleEnum.Detective))
             {
                 var detective = Role.GetRole<Detective>(PlayerControl.LocalPlayer);

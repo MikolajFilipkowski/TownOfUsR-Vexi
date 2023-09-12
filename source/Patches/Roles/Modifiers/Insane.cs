@@ -16,6 +16,7 @@ namespace TownOfUs.Patches.Roles.Modifiers
     public class Insane : Modifier
     {
         public static List<Insane> RunningCoroutines = new List<Insane>();
+        public static bool MeetingInProgress = false;
 
         public static List<RoleEnum> InsaneRoles 
         { 
@@ -99,8 +100,11 @@ namespace TownOfUs.Patches.Roles.Modifiers
             Logger<TownOfUs>.Info($"Insane coroutine started for {Player.PlayerId}");
             while (!Player.Data.IsDead && AmongUsClient.Instance.GameState == InnerNet.InnerNetClient.GameStates.Started)
             {
-                yield return new WaitForSeconds(UnityEngine.Random.Range(45, 90));
+                yield return new WaitForSeconds(UnityEngine.Random.Range(30, 60));
                 Logger<TownOfUs>.Info($"Insane coroutine for {Player.PlayerId} looped. Selecting effects...");
+
+                if (MeetingInProgress)
+                    continue;
 
                 if(Player.Is(RoleEnum.Mystic))
                 {
@@ -143,5 +147,12 @@ namespace TownOfUs.Patches.Roles.Modifiers
         DiesAndReport = 0,
         Dies = 1,
         Report = 2
+    }
+
+    public enum RevealsTo
+    {
+        Self = 0,
+        Others = 1,
+        Everyone = 2
     }
 }
