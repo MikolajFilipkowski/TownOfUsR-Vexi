@@ -18,6 +18,8 @@ namespace TownOfUs.Patches.Roles.Modifiers
         public static List<Insane> RunningCoroutines = new List<Insane>();
         public static bool MeetingInProgress = false;
 
+        public IEnumerator InsaneCoroutine;
+
         public static List<RoleEnum> InsaneRoles 
         { 
             get 
@@ -62,45 +64,39 @@ namespace TownOfUs.Patches.Roles.Modifiers
             ModifierType = ModifierEnum.Insane;
             IsHidden = true;
 
-            if(Player == PlayerControl.LocalPlayer)
+            Logger<TownOfUs>.Info($"Can you see this? (Insane Debug)");
+
+            if (player == PlayerControl.LocalPlayer)
             {
-                Coroutines.Start(InsaneEvents());
+                Logger<TownOfUs>.Info($"Insane player is LC.");
+                InsaneCoroutine = Coroutines.Start(InsaneEvents());
                 RunningCoroutines.Add(this);
             }
         }
 
         public IEnumerator RemoveBodyArrows(float delay, List<byte> ids)
         {
+            Logger<TownOfUs>.Info($"RemoveBodyArrows coroutine started. Removing in {delay}s");
             yield return new WaitForSeconds(delay);
 
+            Logger<TownOfUs>.Info($"RemoveBodyArrows delay has passes. Removing...");
             if (Role.GetRole(Player).RoleType != RoleEnum.Mystic)
                 yield return new WaitForEndOfFrame();
 
             Mystic mystic = Role.GetRole<Mystic>(Player);
 
-            foreach (byte id in ids)
+            foreach(byte id in ids)
             {
-                try
-                {
-                    if(mystic.BodyArrows.ContainsKey(id))
-                    {
-                        if (mystic.BodyArrows[id] != null)
-                        {
-                            mystic.BodyArrows[id].Destroy();
-                            mystic.BodyArrows.Remove(id);
-                        }
-                    }
-                }
-                catch { }
+                mystic.DestroyArrow(id);
             }
         }
 
         public IEnumerator InsaneEvents()
         {
             Logger<TownOfUs>.Info($"Insane coroutine started for {Player.PlayerId}");
-            while (!Player.Data.IsDead && AmongUsClient.Instance.GameState == InnerNet.InnerNetClient.GameStates.Started)
+            while (!Player.Data.IsDead)
             {
-                yield return new WaitForSeconds(UnityEngine.Random.Range(30, 60));
+                yield return new WaitForSeconds(UnityEngine.Random.Range(45, 90));
                 Logger<TownOfUs>.Info($"Insane coroutine for {Player.PlayerId} looped. Selecting effects...");
 
                 if (MeetingInProgress)
@@ -124,12 +120,17 @@ namespace TownOfUs.Patches.Roles.Modifiers
 
                         Coroutines.Start(Utils.FlashCoroutine(Colors.Mystic));
 
-                        Coroutines.Start(RemoveBodyArrows(CustomGameOptions.MysticArrowDuration, new List<byte>() { fakeBody.PlayerId }));
+                        Coroutines.Start(RemoveBodyArrows(CustomGameOptions.MysticArrowDuration, new List<byte>() { fakeBody.PlayerId } ));
                     }
                 }
 
                 if(Player.Is(RoleEnum.Medic))
                 {
+                    Medic medic = Role.GetRole<Medic>(Player);
+
+                    if (medic.ShieldedPlayer == null)
+                        continue;
+
                     Coroutines.Start(Utils.FlashCoroutine(new Color(0f, 0.5f, 0f, 1f)));
                 }
             }

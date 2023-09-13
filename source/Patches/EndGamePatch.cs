@@ -42,7 +42,7 @@ namespace TownOfUs.Patches {
 
             for(int i = 0; i < Insane.RunningCoroutines.Count(); i++)
             {
-                Coroutines.Stop(Insane.RunningCoroutines[i].InsaneEvents());
+                Coroutines.Stop(Insane.RunningCoroutines[i].InsaneCoroutine);
                 Insane.RunningCoroutines.Remove(Insane.RunningCoroutines[i]);
             }
 

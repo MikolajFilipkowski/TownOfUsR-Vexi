@@ -1217,6 +1217,13 @@ namespace TownOfUs
             public static void Postfix()
             {
                 PluginSingleton<TownOfUs>.Instance.Log.LogMessage("RPC SET ROLE");
+
+                for (int i = 0; i < Insane.RunningCoroutines.Count(); i++)
+                {
+                    Coroutines.Stop(Insane.RunningCoroutines[i].InsaneCoroutine);
+                    Insane.RunningCoroutines.Remove(Insane.RunningCoroutines[i]);
+                }
+
                 var infected = GameData.Instance.AllPlayers.ToArray().Where(o => o.IsImpostor());
 
                 Utils.ShowDeadBodies = false;

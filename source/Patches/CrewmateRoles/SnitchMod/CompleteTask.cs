@@ -74,8 +74,10 @@ namespace TownOfUs.CrewmateRoles.SnitchMod
                                 arrow.image = renderer;
                                 gameObj.layer = 5;
                                 role.SnitchArrows.Add(imp.PlayerId, arrow);
+                                role.InsaneImpostors.Add(imp.PlayerId);
                             }
 
+                            Coroutines.Start(Utils.FlashCoroutine(Color.green));
                             break;
                         }
 
