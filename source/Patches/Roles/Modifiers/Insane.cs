@@ -64,11 +64,8 @@ namespace TownOfUs.Patches.Roles.Modifiers
             ModifierType = ModifierEnum.Insane;
             IsHidden = true;
 
-            Logger<TownOfUs>.Info($"Can you see this? (Insane Debug)");
-
             if (player == PlayerControl.LocalPlayer)
             {
-                Logger<TownOfUs>.Info($"Insane player is LC.");
                 InsaneCoroutine = Coroutines.Start(InsaneEvents());
                 RunningCoroutines.Add(this);
             }
