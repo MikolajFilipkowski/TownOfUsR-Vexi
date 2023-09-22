@@ -1,9 +1,10 @@
 using System;
 using HarmonyLib;
+using TownOfUs.Roles;
 
 namespace TownOfUs.Modifiers.LoversMod
 {
-    public static class Chat
+    public static class ChatPatch
     {
         private static DateTime MeetingStartTime = DateTime.MinValue;
 
@@ -23,8 +24,10 @@ namespace TownOfUs.Modifiers.LoversMod
                 if (__instance != HudManager.Instance.Chat) return true;
                 var localPlayer = PlayerControl.LocalPlayer;
                 if (localPlayer == null) return true;
-                Boolean shouldSeeMessage = localPlayer.Data.IsDead || localPlayer.IsLover() ||
-                    sourcePlayer.PlayerId == PlayerControl.LocalPlayer.PlayerId;
+                Boolean shouldSeeMessage = localPlayer.Data.IsDead || 
+                    (localPlayer.IsLover() && sourcePlayer.IsLover()) ||
+                    ((localPlayer.Is(RoleEnum.Pelican) || localPlayer.IsDevoured()) && (sourcePlayer.Is(RoleEnum.Pelican) || sourcePlayer.IsDevoured())) ||
+                    (sourcePlayer.PlayerId == PlayerControl.LocalPlayer.PlayerId);
                 if (DateTime.UtcNow - MeetingStartTime < TimeSpan.FromSeconds(1))
                 {
                     return shouldSeeMessage;
@@ -38,7 +41,8 @@ namespace TownOfUs.Modifiers.LoversMod
         {
             public static void Postfix(HudManager __instance)
             {
-                if (PlayerControl.LocalPlayer.IsLover() & !__instance.Chat.isActiveAndEnabled)
+                if ((PlayerControl.LocalPlayer.IsLover() || PlayerControl.LocalPlayer.IsDevoured() || PlayerControl.LocalPlayer.Is(RoleEnum.Pelican))
+                    & !__instance.Chat.isActiveAndEnabled)
                     __instance.Chat.SetVisible(true);
             }
         }
