@@ -477,35 +477,43 @@ namespace TownOfUs
                 }
             }
 
-            var goodGATargets = PlayerControl.AllPlayerControls.ToArray().Where(x => x.Is(Faction.Crewmates) && !x.Is(ModifierEnum.Lover)).ToList();
-            var evilGATargets = PlayerControl.AllPlayerControls.ToArray().Where(x => (x.Is(Faction.Impostors) || x.Is(Faction.NeutralKilling)) && !x.Is(ModifierEnum.Lover)).ToList();
+            
             foreach (var role in Role.GetRoles(RoleEnum.GuardianAngel))
             {
                 var ga = (GuardianAngel)role;
-                if (!(goodGATargets.Count == 0 && CustomGameOptions.EvilTargetPercent == 0) ||
-                    (evilGATargets.Count == 0 && CustomGameOptions.EvilTargetPercent == 100) ||
-                    goodGATargets.Count == 0 && evilGATargets.Count == 0)
-                {
-                    if (goodGATargets.Count == 0)
-                    {
-                        ga.target = evilGATargets[Random.RandomRangeInt(0, evilGATargets.Count)];
-                        evilGATargets.Remove(ga.target);
-                    }
-                    else if (evilGATargets.Count == 0 || !Check(CustomGameOptions.EvilTargetPercent))
-                    {
-                        ga.target = goodGATargets[Random.RandomRangeInt(0, goodGATargets.Count)];
-                        goodGATargets.Remove(ga.target);
-                    }
-                    else
-                    {
-                        ga.target = evilGATargets[Random.RandomRangeInt(0, evilGATargets.Count)];
-                        evilGATargets.Remove(ga.target);
-                    }
-
-                    Utils.Rpc(CustomRPC.SetGATarget, role.Player.PlayerId, ga.target.PlayerId);
-                }
+                GenGATarget(ga);
             }
         }
+
+        public static void GenGATarget(GuardianAngel ga)
+        {
+            var goodGATargets = PlayerControl.AllPlayerControls.ToArray().Where(x => x.Is(Faction.Crewmates) && !x.Is(ModifierEnum.Lover)).ToList();
+            var evilGATargets = PlayerControl.AllPlayerControls.ToArray().Where(x => (x.Is(Faction.Impostors) || x.Is(Faction.NeutralKilling)) && !x.Is(ModifierEnum.Lover)).ToList();
+
+            if (!(goodGATargets.Count == 0 && CustomGameOptions.EvilTargetPercent == 0) ||
+                    (evilGATargets.Count == 0 && CustomGameOptions.EvilTargetPercent == 100) ||
+                    goodGATargets.Count == 0 && evilGATargets.Count == 0)
+            {
+                if (goodGATargets.Count == 0)
+                {
+                    ga.target = evilGATargets[Random.RandomRangeInt(0, evilGATargets.Count)];
+                    evilGATargets.Remove(ga.target);
+                }
+                else if (evilGATargets.Count == 0 || !Check(CustomGameOptions.EvilTargetPercent))
+                {
+                    ga.target = goodGATargets[Random.RandomRangeInt(0, goodGATargets.Count)];
+                    goodGATargets.Remove(ga.target);
+                }
+                else
+                {
+                    ga.target = evilGATargets[Random.RandomRangeInt(0, evilGATargets.Count)];
+                    evilGATargets.Remove(ga.target);
+                }
+
+                Utils.Rpc(CustomRPC.SetGATarget, ga.Player.PlayerId, ga.target.PlayerId);
+            }
+        }
+
         private static void GenEachRoleKilling(List<GameData.PlayerInfo> infected)
         {
             var impostors = Utils.GetImpostors(infected);
@@ -887,12 +895,51 @@ namespace TownOfUs
                         var juggernaut = Role.AllRoles.FirstOrDefault(x => x.RoleType == RoleEnum.Juggernaut);
                         ((Juggernaut)juggernaut)?.Wins();
                         break;
+                    case CustomRPC.PelicanWin:
+                        var pelican = Role.AllRoles.FirstOrDefault(x => x.RoleType == RoleEnum.Pelican);
+                        ((Pelican)pelican)?.Wins();
+                        break;
+                    case CustomRPC.SetDevoured:
+                        var devourPlayer = Utils.PlayerById(reader.ReadByte());
+                        var pelican2 = Role.AllRoles.FirstOrDefault(x => x.RoleType == RoleEnum.Pelican);
+                        if (devourPlayer != null)
+                        {
+                            Role.GetRole(devourPlayer).Devoured = true;
+                            devourPlayer.SetOutfit(CustomPlayerOutfitType.Swooper, new GameData.PlayerOutfit()
+                            {
+                                ColorId = devourPlayer.CurrentOutfit.ColorId,
+                                HatId = "",
+                                SkinId = "",
+                                VisorId = "",
+                                PlayerName = " "
+                            });
+                            devourPlayer.myRend().color = Color.clear;
+                            devourPlayer.nameText().color = Color.clear;
+                            devourPlayer.cosmetics.colorBlindText.color = Color.clear;
+                            devourPlayer.Collider.enabled = false;
+                        }
+                        Pelican.SetInv(devourPlayer);
+                        if (devourPlayer.PlayerId == PlayerControl.LocalPlayer.PlayerId)
+                        {
+                            ((Pelican)pelican2)?.SetHacked(devourPlayer);
+                        }
+                        break;
+                    case CustomRPC.UnDevour:
+                        var undevourPlayer = Utils.PlayerById(reader.ReadByte());
+                        Pelican.UnInv(undevourPlayer);
+                        break;
+                    case CustomRPC.PelicanKill:
+                        var toDie4 = Utils.PlayerById(reader.ReadByte());
+                        var pelican3 = Utils.PlayerById(reader.ReadByte());
+                        Pelican.MurderPlayer(toDie4);
+
+                        break;
                     case CustomRPC.SetHacked:
                         var hackPlayer = Utils.PlayerById(reader.ReadByte());
                         if (hackPlayer.PlayerId == PlayerControl.LocalPlayer.PlayerId)
                         {
                             var glitch = Role.AllRoles.FirstOrDefault(x => x.RoleType == RoleEnum.Glitch);
-                            ((Glitch) glitch)?.SetHacked(hackPlayer);
+                            ((Glitch)glitch)?.SetHacked(hackPlayer);
                         }
 
                         break;
@@ -1390,6 +1437,9 @@ namespace TownOfUs
 
                     if (CustomGameOptions.WerewolfOn > 0)
                         NeutralKillingRoles.Add((typeof(Werewolf), CustomGameOptions.WerewolfOn, true));
+
+                    if (CustomGameOptions.PelicanOn > 0)
+                        NeutralKillingRoles.Add((typeof(Pelican), CustomGameOptions.PelicanOn, true));
 
                     if (CustomGameOptions.GameMode == GameMode.Classic && CustomGameOptions.VampireOn > 0)
                         NeutralKillingRoles.Add((typeof(Vampire), CustomGameOptions.VampireOn, true));

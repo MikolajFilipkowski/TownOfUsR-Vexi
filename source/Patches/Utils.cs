@@ -77,7 +77,16 @@ namespace TownOfUs
 
         public static void UnCamouflage()
         {
-            foreach (var player in PlayerControl.AllPlayerControls) Unmorph(player);
+            foreach (var player in PlayerControl.AllPlayerControls)
+            {
+                if (IsDevoured(player)) continue;
+                Unmorph(player);
+            };
+        }
+
+        public static bool IsDevoured(this PlayerControl player)
+        {
+            return (Role.GetRole(player) != null) && Role.GetRole(player).Devoured;
         }
 
         public static void AddUnique<T>(this Il2CppSystem.Collections.Generic.List<T> self, T item)

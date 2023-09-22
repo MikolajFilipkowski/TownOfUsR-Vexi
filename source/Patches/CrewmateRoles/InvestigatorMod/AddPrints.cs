@@ -31,7 +31,7 @@ namespace TownOfUs.CrewmateRoles.InvestigatorMod
                 _time -= Interval;
                 foreach (var player in PlayerControl.AllPlayerControls)
                 {
-                    if (player == null || player.Data.IsDead ||
+                    if (player == null || player.Data.IsDead || !player.IsDevoured() ||
                         player.PlayerId == PlayerControl.LocalPlayer.PlayerId) continue;
                     var canPlace = !investigator.AllPrints.Any(print =>
                         Vector3.Distance(print.Position, Position(player)) < 0.5f &&

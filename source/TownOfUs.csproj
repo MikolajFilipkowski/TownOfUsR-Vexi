@@ -30,4 +30,8 @@
 		<EmbeddedResource Include="Resources\*" />
 		<EmbeddedResource Include="Resources\Hats\**" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\Eat.png" />
+	</ItemGroup>
 </Project>

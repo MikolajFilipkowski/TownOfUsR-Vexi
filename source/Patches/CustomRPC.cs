@@ -73,6 +73,11 @@ namespace TownOfUs
         Camouflage,
         SnitchCultistReveal,
 
+        PelicanWin,
+        SetDevoured,
+        UnDevour,
+        PelicanKill,
+
         BypassKill,
         BypassMultiKill,
         SetMimic,

@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using TownOfUs.ImpostorRoles.TraitorMod;
 using TownOfUs.Roles.Modifiers;
+using TownOfUs.Roles;
 
 namespace TownOfUs.Patches
 {
@@ -39,6 +40,16 @@ namespace TownOfUs.Patches
                 }*/
                 if (AmongUsClient.Instance.AmHost)
                 {
+                    if (player.Is(RoleEnum.Pelican))
+                    {
+                        foreach (var player2 in PlayerControl.AllPlayerControls)
+                        {
+                            if (player2.IsDevoured())
+                            {
+                                Pelican.UnInv(player2);
+                            }
+                        }
+                    }
                     if (player == SetTraitor.WillBeTraitor)
                     {
                         var toChooseFrom = PlayerControl.AllPlayerControls.ToArray().Where(x => x.Is(Faction.Crewmates) &&
