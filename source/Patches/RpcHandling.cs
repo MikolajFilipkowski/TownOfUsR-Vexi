@@ -341,8 +341,10 @@ namespace TownOfUs
                 Role.GenModifier<Insane>(typeof(Insane), canHaveInsaneModifier);
             }
 
-            var canHaveModifier = PlayerControl.AllPlayerControls.ToArray().Where(x => !canHaveInsaneModifier.Contains(x)).ToList();
-            var canHaveImpModifier = PlayerControl.AllPlayerControls.ToArray().Where(x => !canHaveInsaneModifier.Contains(x)).ToList();
+            var canHaveModifier = PlayerControl.AllPlayerControls.ToArray().ToList();
+            var canHaveImpModifier = PlayerControl.AllPlayerControls.ToArray().ToList();
+
+            canHaveModifier.RemoveAll(x => x.Is(ModifierEnum.Insane));
 
             canHaveImpModifier.RemoveAll(player => !player.Is(Faction.Impostors));
             var canHaveAbility = PlayerControl.AllPlayerControls.ToArray().ToList();

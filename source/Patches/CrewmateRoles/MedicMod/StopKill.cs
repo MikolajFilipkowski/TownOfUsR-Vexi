@@ -13,7 +13,7 @@ namespace TownOfUs.CrewmateRoles.MedicMod
         {
             var medic = Utils.PlayerById(medicId);
 
-            if (!medic.Is(ModifierEnum.Insane) || (medic.Is(ModifierEnum.Insane) && !CustomGameOptions.InsaneMedicDoesNotProtect))
+            if (!medic.Is(ModifierEnum.Insane) || (medic.Is(ModifierEnum.Insane) && CustomGameOptions.InsaneMedicDoesNotProtect))
             {
                 if (PlayerControl.LocalPlayer.PlayerId == playerId &&
                     CustomGameOptions.NotificationShield == NotificationOptions.Shielded)

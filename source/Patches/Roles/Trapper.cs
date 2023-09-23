@@ -18,6 +18,7 @@ namespace TownOfUs.Roles
         public TextMeshPro UsesText;
 
         public List<RoleEnum> trappedPlayers;
+        public List<PlayerControl> insaneTrappedPlayers;
 
         public bool ButtonUsable => UsesLeft != 0;
         public Trapper(PlayerControl player) : base(player)
@@ -29,6 +30,7 @@ namespace TownOfUs.Roles
             RoleType = RoleEnum.Trapper;
             LastTrapped = DateTime.UtcNow;
             trappedPlayers = new List<RoleEnum>();
+            insaneTrappedPlayers = new List<PlayerControl>();
             AddToRoleHistory(RoleType);
 
             UsesLeft = CustomGameOptions.MaxTraps;
