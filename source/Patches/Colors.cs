@@ -24,6 +24,7 @@ namespace TownOfUs.Patches
         public readonly static Color Medium = new Color(0.65f, 0.5f, 1f, 1f);
         public readonly static Color Mystic = new Color(0.3f, 0.6f, 0.9f, 1f);
         public readonly static Color Trapper = new Color(0.65f, 0.82f, 0.7f, 1f);
+        public readonly static Color Graybeard = new Color(0.47f, 0.47f, 0.47f, 1f);
         public readonly static Color Detective = new Color(0.3f, 0.3f, 1f, 1f);
         public readonly static Color Chameleon = new Color(0.5f, 0.5f, 0f, 1f);
         public readonly static Color Imitator = new Color(0.7f, 0.85f, 0.3f, 1f);

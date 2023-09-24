@@ -1139,6 +1139,12 @@ namespace TownOfUs
                         body2.transform.position = new Vector3(v2.x, v2.y, v2z);
 
                         break;
+                    case CustomRPC.SabotageOngoing:
+                        foreach (Graybeard gray in Role.AllRoles.Where(x => x.RoleType == RoleEnum.Graybeard))
+                        {
+                            gray.Sabotage();
+                        }
+                        break;
                     case CustomRPC.SetAssassin:
                         new Assassin(Utils.PlayerById(reader.ReadByte()));
                         break;
@@ -1364,6 +1370,9 @@ namespace TownOfUs
 
                     if (CustomGameOptions.TrapperOn > 0)
                         CrewmateRoles.Add((typeof(Trapper), CustomGameOptions.TrapperOn, false));
+
+                    if (CustomGameOptions.GraybeardOn > 0)
+                        CrewmateRoles.Add((typeof(Graybeard), CustomGameOptions.GraybeardOn, false));
 
                     if (CustomGameOptions.DetectiveOn > 0)
                         CrewmateRoles.Add((typeof(Detective), CustomGameOptions.DetectiveOn, false));

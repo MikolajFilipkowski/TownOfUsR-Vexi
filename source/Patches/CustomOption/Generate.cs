@@ -16,6 +16,7 @@ namespace TownOfUs.CustomOption
         public static CustomNumberOption SpyOn;
         public static CustomNumberOption TrackerOn;
         public static CustomNumberOption TrapperOn;
+        public static CustomNumberOption GraybeardOn;
 
         public static CustomHeaderOption CrewProtectiveRoles;
         public static CustomNumberOption AltruistOn;
@@ -353,6 +354,15 @@ namespace TownOfUs.CustomOption
         public static CustomNumberOption TrapSize;
         public static CustomNumberOption MinAmountOfPlayersInTrap;
 
+        public static CustomHeaderOption Graybeard;
+        public static CustomNumberOption GraybeardCooldown;
+        public static CustomNumberOption ForceFieldSize;
+        public static CustomNumberOption SabotageDeathPercentage;
+        public static CustomToggleOption GraybeardDiesBeforeFirstMeeting;
+        public static CustomNumberOption GraybeardTimeToDeath;
+        public static CustomNumberOption GraybeardRandomizeTimeToDeath;
+        public static CustomNumberOption GraybeardTaskRegainTime;
+
         public static CustomHeaderOption Traitor;
         public static CustomNumberOption LatestSpawn;
         public static CustomToggleOption NeutralKillingStopsTraitor;
@@ -552,6 +562,8 @@ namespace TownOfUs.CustomOption
             TrackerOn = new CustomNumberOption(num++, MultiMenu.crewmate, "<color=#009900FF>Tracker</color>", 0f, 0f, 100f, 10f,
                 PercentFormat);
             TrapperOn = new CustomNumberOption(num++, MultiMenu.crewmate, "<color=#A7D1B3FF>Trapper</color>", 0f, 0f, 100f, 10f,
+                PercentFormat);
+            GraybeardOn = new CustomNumberOption(num++, MultiMenu.crewmate, "<color=#787878>Graybeard</color>", 0f, 0f, 100f, 10f,
                 PercentFormat);
 
             CrewKillingRoles = new CustomHeaderOption(num++, MultiMenu.crewmate, "Crewmate Killing Roles");
@@ -944,6 +956,23 @@ namespace TownOfUs.CustomOption
                 new CustomNumberOption(num++, MultiMenu.crewmate, "Trap Size", 0.25f, 0.05f, 1f, 0.05f, MultiplierFormat);
             MinAmountOfPlayersInTrap =
                 new CustomNumberOption(num++, MultiMenu.crewmate, "Minimum Number Of Roles Required To Trigger Trap", 3, 1, 5, 1);
+
+            Graybeard =
+                new CustomHeaderOption(num++, MultiMenu.crewmate, "<color=#787878>Graybeard</color>");
+            GraybeardCooldown =
+                new CustomNumberOption(num++, MultiMenu.crewmate, "Force Field Cooldown", 25f, 10f, 40f, 2.5f, CooldownFormat);
+            ForceFieldSize =
+                new CustomNumberOption(num++, MultiMenu.crewmate, "Force Field Size", 0.4f, 0.05f, 1f, 0.05f, MultiplierFormat);
+            SabotageDeathPercentage =
+                new CustomNumberOption(num++, MultiMenu.crewmate, "Chance of death on sabotage", 20f, 0f, 100f, 5f,PercentFormat);
+            GraybeardDiesBeforeFirstMeeting =
+                new CustomToggleOption(num++, MultiMenu.crewmate, "Can die before the first meeting from a sabotage", false);
+            GraybeardTimeToDeath =
+                new CustomNumberOption(num++, MultiMenu.crewmate, "Time to Graybeard's Death", 180f, 60f, 300f, 15f, CooldownFormat);
+            GraybeardRandomizeTimeToDeath =
+                new CustomNumberOption(num++, MultiMenu.crewmate, "Randomize Graybeard's death timer (+—)", 0f, 0f, 120f, 5f, CooldownFormat);
+            GraybeardTaskRegainTime =
+                new CustomNumberOption(num++, MultiMenu.crewmate, "Regain time by doing tasks", 30f, 0f, 120f, 5f, CooldownFormat);
 
             Sheriff =
                 new CustomHeaderOption(num++, MultiMenu.crewmate, "<color=#FFFF00FF>Sheriff</color>");

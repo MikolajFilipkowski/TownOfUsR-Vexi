@@ -30,7 +30,7 @@ namespace TownOfUs
     public class TownOfUs : BasePlugin
     {
         public const string Id = "com.vexi.townofus";
-        public const string VersionString = "2.0.2";
+        public const string VersionString = "2.1.0";
         public static System.Version Version = System.Version.Parse(VersionString);
 
         public static AssetLoader bundledAssets;
@@ -76,6 +76,7 @@ namespace TownOfUs
         public static Sprite InfectSprite;
         public static Sprite RampageSprite;
         public static Sprite TrapSprite;
+        public static Sprite ForceFieldSprite;
         public static Sprite InspectSprite;
         public static Sprite ExamineSprite;
         public static Sprite EscapeSprite;
@@ -173,6 +174,7 @@ namespace TownOfUs
             InfectSprite = CreateSprite("TownOfUs.Resources.Infect.png");
             RampageSprite = CreateSprite("TownOfUs.Resources.Rampage.png");
             TrapSprite = CreateSprite("TownOfUs.Resources.Trap.png");
+            ForceFieldSprite = CreateSprite("TownOfUs.Resources.ForceField.png");
             InspectSprite = CreateSprite("TownOfUs.Resources.Inspect.png");
             ExamineSprite = CreateSprite("TownOfUs.Resources.Examine.png");
             EscapeSprite = CreateSprite("TownOfUs.Resources.Recall.png");

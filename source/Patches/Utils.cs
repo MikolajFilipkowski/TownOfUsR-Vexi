@@ -27,6 +27,7 @@ using TownOfUs.CrewmateRoles.AurialMod;
 using Reactor.Networking;
 using Reactor.Networking.Extensions;
 using Unity.Services.Core.Telemetry.Internal;
+using TownOfUs.CrewmateRoles.GraybeardMod;
 
 namespace TownOfUs
 {
@@ -517,6 +518,7 @@ namespace TownOfUs
                         target.Is(RoleEnum.Vampire) && CustomGameOptions.SheriffKillsVampire ||
                         target.Is(RoleEnum.Executioner) && CustomGameOptions.SheriffKillsExecutioner ||
                         target.Is(RoleEnum.Doomsayer) && CustomGameOptions.SheriffKillsDoomsayer ||
+                        target.Is(RoleEnum.Pelican) && CustomGameOptions.SheriffKillsPelican ||
                         target.Is(RoleEnum.Jester) && CustomGameOptions.SheriffKillsJester) sheriff.CorrectKills += 1;
                     else if (killer == target) sheriff.IncorrectKills += 1;
                 }
@@ -1225,6 +1227,14 @@ namespace TownOfUs
                 trapper.LastTrapped = DateTime.UtcNow;
                 trapper.trappedPlayers.Clear();
                 if (CustomGameOptions.TrapsRemoveOnNewRound) trapper.traps.ClearTraps();
+            }
+            if (PlayerControl.LocalPlayer.Is(RoleEnum.Graybeard))
+            {
+                var graybeard = Role.GetRole<Graybeard>(PlayerControl.LocalPlayer);
+                graybeard.LastTrapped = DateTime.UtcNow;
+                graybeard.trappedPlayers.Clear();
+                graybeard.traps.ClearTraps();
+                graybeard.ButtonUsable = true;
             }
             if (PlayerControl.LocalPlayer.Is(RoleEnum.Detective))
             {

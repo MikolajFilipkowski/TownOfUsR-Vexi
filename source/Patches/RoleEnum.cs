@@ -26,6 +26,7 @@ namespace TownOfUs
         Transporter,
         Medium,
         Trapper,
+        Graybeard,
         Survivor,
         GuardianAngel,
         Mystic,

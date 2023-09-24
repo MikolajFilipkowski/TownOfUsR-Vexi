@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
 using Reactor.Utilities;
 using Reactor.Utilities.Extensions;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using TownOfUs.Roles;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace TownOfUs.CrewmateRoles.TrapperMod
+namespace TownOfUs.CrewmateRoles.GraybeardMod
 {
     public class Trap
     {
@@ -25,12 +26,12 @@ namespace TownOfUs.CrewmateRoles.TrapperMod
         }
 
         public void Update()
-        {
+        {      
             foreach (PlayerControl player in PlayerControl.AllPlayerControls)
             {
                 if (player.Data.IsDead || player.IsDevoured()) continue;
                 //PluginSingleton<TownOfUs>.Instance.Log.LogMessage($"player with byte {player.PlayerId} is {Vector2.Distance(transform.position, player.GetTruePosition())} away");
-                if (Vector2.Distance(transform.position, player.GetTruePosition()) < (CustomGameOptions.TrapSize + 0.01f) * ShipStatus.Instance.MaxLightRadius)
+                if (Vector2.Distance(transform.position, player.GetTruePosition()) < (CustomGameOptions.ForceFieldSize + 0.01f) * ShipStatus.Instance.MaxLightRadius)
                 {
                     if (!players.ContainsKey(player.PlayerId)) players.Add(player.PlayerId, 0f);
                 } 
@@ -44,26 +45,18 @@ namespace TownOfUs.CrewmateRoles.TrapperMod
                 {
                     players[entry.PlayerId] += Time.deltaTime;
                     //PluginSingleton<TownOfUs>.Instance.Log.LogMessage($"player with byte {entry} is logged with time {players[entry]}");
-                    if (players[entry.PlayerId] > CustomGameOptions.MinAmountOfTimeInTrap)
+                    if (players[entry.PlayerId] > 0.4f)
                     {
-                        foreach (Trapper t in Role.GetRoles(RoleEnum.Trapper))
+                        foreach (Graybeard t in Role.GetRoles(RoleEnum.Graybeard))
                         {
-                            if(t.Player.Is(ModifierEnum.Insane))
-                            {
-                                if(!t.insaneTrappedPlayers.Contains(entry))
-                                {
-                                    RoleEnum fakeRole = Utils.GetRole(PlayerControl.AllPlayerControls.ToArray().Where(x 
-                                    => x != t.Player && !t.trappedPlayers.Contains(Utils.GetRole(x))
-                                    && (!CustomGameOptions.InsaneTrapperSeesDead && !x.Data.IsDead) || CustomGameOptions.InsaneTrapperSeesDead).Random());
-
-                                    t.trappedPlayers.Add(fakeRole);
-                                    t.insaneTrappedPlayers.Add(entry);
-                                }
-                            }
+                            if (entry == t.Player) continue;
+                            if (!t.trappedPlayers.Keys.Any((key) => key.PlayerId==entry.PlayerId)) 
+                                t.trappedPlayers.Add(entry, DateTime.UtcNow);
                             else
                             {
-                                RoleEnum playerrole = Role.GetRole(Utils.PlayerById(entry.PlayerId)).RoleType;
-                                if (!t.trappedPlayers.Contains(playerrole) && entry != t.Player) t.trappedPlayers.Add(playerrole);
+                                var removedPlayer = t.trappedPlayers.Where((key) => key.Key.PlayerId == entry.PlayerId).FirstOrDefault().Key;
+                                t.trappedPlayers.Remove(removedPlayer);
+                                t.trappedPlayers.Add(entry, DateTime.UtcNow);
                             }
                         }
                     }
@@ -89,10 +82,10 @@ namespace TownOfUs.CrewmateRoles.TrapperMod
         {
             var TrapPref = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             TrapPref.name = "Trap";
-            TrapPref.transform.localScale = new Vector3(CustomGameOptions.TrapSize * ShipStatus.Instance.MaxLightRadius * 2f, 
-                CustomGameOptions.TrapSize * ShipStatus.Instance.MaxLightRadius * 2f, CustomGameOptions.TrapSize * ShipStatus.Instance.MaxLightRadius * 2f);
+            TrapPref.transform.localScale = new Vector3(CustomGameOptions.ForceFieldSize * ShipStatus.Instance.MaxLightRadius * 2f, 
+                CustomGameOptions.ForceFieldSize * ShipStatus.Instance.MaxLightRadius * 2f, CustomGameOptions.ForceFieldSize * ShipStatus.Instance.MaxLightRadius * 2f);
             GameObject.Destroy(TrapPref.GetComponent<SphereCollider>());
-            TrapPref.GetComponent<MeshRenderer>().material = Trapper.trapMaterial;
+            TrapPref.GetComponent<MeshRenderer>().material = Graybeard.trapMaterial;
             TrapPref.transform.position = location;
             var TrapScript = new Trap();
             TrapScript.transform = TrapPref.transform;

@@ -96,6 +96,8 @@ namespace TownOfUs
         RemoveAllBodies,
         CheckMurder,
 
+        SabotageOngoing,
+
         SubmergedFixOxygen
     }
 }

@@ -58,6 +58,7 @@ namespace TownOfUs
         public static int VeteranOn => (int)Generate.VeteranOn.Get();
         public static int TrackerOn => (int)Generate.TrackerOn.Get();
         public static int TrapperOn => (int)Generate.TrapperOn.Get();
+        public static int GraybeardOn => (int)Generate.GraybeardOn.Get();
         public static int TraitorOn => (int)Generate.TraitorOn.Get();
         public static int TransporterOn => (int)Generate.TransporterOn.Get();
         public static int MediumOn => (int)Generate.MediumOn.Get();
@@ -279,6 +280,13 @@ namespace TownOfUs
         public static float MinAmountOfTimeInTrap => Generate.MinAmountOfTimeInTrap.Get();
         public static float TrapSize => Generate.TrapSize.Get();
         public static int MinAmountOfPlayersInTrap => (int) Generate.MinAmountOfPlayersInTrap.Get();
+        public static float GraybeardCooldown => Generate.GraybeardCooldown.Get();
+        public static float ForceFieldSize => Generate.ForceFieldSize.Get();
+        public static int SabotageDeathPercentage => (int)Generate.SabotageDeathPercentage.Get();
+        public static bool GraybeardDiesBeforeFirstMeeting => Generate.GraybeardDiesBeforeFirstMeeting.Get();
+        public static int GraybeardTimeToDeath => (int)Generate.GraybeardTimeToDeath.Get();
+        public static int GraybeardRandomizeTimeToDeath => (int)Generate.GraybeardRandomizeTimeToDeath.Get();
+        public static int GraybeardTaskRegainTime => (int)Generate.GraybeardTaskRegainTime.Get();
         public static float ExamineCd => Generate.ExamineCooldown.Get();
         public static bool DetectiveReportOn => Generate.DetectiveReportOn.Get();
         public static float DetectiveRoleDuration => Generate.DetectiveRoleDuration.Get();

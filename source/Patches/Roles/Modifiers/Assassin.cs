@@ -45,6 +45,7 @@ namespace TownOfUs.Roles.Modifiers
             if (CustomGameOptions.VeteranOn > 0 || (CustomGameOptions.VampireHunterOn > 0 && CustomGameOptions.GameMode == GameMode.Classic && CustomGameOptions.VampireOn > 0 && CustomGameOptions.BecomeOnVampDeaths == BecomeEnum.Veteran)) ColorMapping.Add("Veteran", Colors.Veteran);
             if (CustomGameOptions.TrackerOn > 0) ColorMapping.Add("Tracker", Colors.Tracker);
             if (CustomGameOptions.TrapperOn > 0) ColorMapping.Add("Trapper", Colors.Trapper);
+            if (CustomGameOptions.GraybeardOn > 0) ColorMapping.Add("Graybeard", Colors.Graybeard);
             if (CustomGameOptions.TransporterOn > 0) ColorMapping.Add("Transporter", Colors.Transporter);
             if (CustomGameOptions.MediumOn > 0) ColorMapping.Add("Medium", Colors.Medium);
             if (CustomGameOptions.MysticOn > 0) ColorMapping.Add("Mystic", Colors.Mystic);
@@ -104,6 +105,7 @@ namespace TownOfUs.Roles.Modifiers
             if (CustomGameOptions.AssassinGuessModifiers && CustomGameOptions.FrostyOn > 0) ColorMapping.Add("Frosty", Colors.Frosty);
             if (CustomGameOptions.AssassinGuessModifiers && CustomGameOptions.MultitaskerOn > 0) ColorMapping.Add("Multitasker", Colors.Multitasker);
             if (CustomGameOptions.AssassinGuessModifiers && CustomGameOptions.TorchOn > 0) ColorMapping.Add("Torch", Colors.Torch);
+            if (CustomGameOptions.AssassinGuessModifiers && CustomGameOptions.InsaneOn > 0) ColorMapping.Add("Insane", Colors.Insane);
             if (CustomGameOptions.AssassinGuessLovers && CustomGameOptions.LoversOn > 0) ColorMapping.Add("Lover", Colors.Lovers);
 
             // Sorts the list alphabetically. 
