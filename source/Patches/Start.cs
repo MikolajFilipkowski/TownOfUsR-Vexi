@@ -102,6 +102,13 @@ namespace TownOfUs.Patches
                 trapper.LastTrapped = trapper.LastTrapped.AddSeconds(CustomGameOptions.InitialCooldowns - CustomGameOptions.TrapCooldown);
             }
 
+            if (PlayerControl.LocalPlayer.Is(RoleEnum.Graybeard))
+            {
+                var graybeard = Role.GetRole<Graybeard>(PlayerControl.LocalPlayer);
+                graybeard.LastTrapped = DateTime.UtcNow;
+                graybeard.LastTrapped = graybeard.LastTrapped.AddSeconds(CustomGameOptions.InitialCooldowns - CustomGameOptions.GraybeardCooldown);
+            }
+
             if (PlayerControl.LocalPlayer.Is(RoleEnum.Veteran))
             {
                 var veteran = Role.GetRole<Veteran>(PlayerControl.LocalPlayer);

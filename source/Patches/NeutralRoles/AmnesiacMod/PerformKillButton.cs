@@ -12,6 +12,8 @@ using TownOfUs.Roles.Modifiers;
 using TownOfUs.ImpostorRoles.BomberMod;
 using TownOfUs.CrewmateRoles.AurialMod;
 using TownOfUs.Patches.ScreenEffects;
+using TownOfUs.CrewmateRoles.GraybeardMod;
+using Reactor.Utilities;
 
 namespace TownOfUs.NeutralRoles.AmnesiacMod
 {
@@ -89,6 +91,7 @@ namespace TownOfUs.NeutralRoles.AmnesiacMod
                 case RoleEnum.Medium:
                 case RoleEnum.Mystic:
                 case RoleEnum.Trapper:
+                case RoleEnum.Graybeard:
                 case RoleEnum.Detective:
                 case RoleEnum.Imitator:
                 case RoleEnum.VampireHunter:
@@ -112,6 +115,7 @@ namespace TownOfUs.NeutralRoles.AmnesiacMod
                 case RoleEnum.Plaguebearer:
                 case RoleEnum.Pestilence:
                 case RoleEnum.Werewolf:
+                case RoleEnum.Pelican:
                 case RoleEnum.Doomsayer:
                 case RoleEnum.Vampire:
 
@@ -139,7 +143,7 @@ namespace TownOfUs.NeutralRoles.AmnesiacMod
 
             if (role == RoleEnum.Investigator) Footprint.DestroyAll(Role.GetRole<Investigator>(other));
 
-            if (role == RoleEnum.Snitch) CompleteTask.Postfix(amnesiac);
+            if (role == RoleEnum.Snitch) CrewmateRoles.SnitchMod.CompleteTask.Postfix(amnesiac);
 
             Role.RoleDictionary.Remove(amnesiac.PlayerId);
             Role.RoleDictionary.Remove(other.PlayerId);
@@ -195,7 +199,7 @@ namespace TownOfUs.NeutralRoles.AmnesiacMod
                 snitchRole.ImpArrows.DestroyAll();
                 snitchRole.SnitchArrows.Values.DestroyAll();
                 snitchRole.SnitchArrows.Clear();
-                CompleteTask.Postfix(amnesiac);
+                CrewmateRoles.SnitchMod.CompleteTask.Postfix(amnesiac);
                 if (other.AmOwner)
                     foreach (var player in PlayerControl.AllPlayerControls)
                         player.nameText().color = Color.white;
@@ -420,6 +424,12 @@ namespace TownOfUs.NeutralRoles.AmnesiacMod
                 wwRole.LastKilled = DateTime.UtcNow;
             }
 
+            else if (role == RoleEnum.Pelican)
+            {
+                var peliRole = Role.GetRole<Pelican>(amnesiac);
+                peliRole.LastHack = DateTime.UtcNow;
+            }
+
             else if (role == RoleEnum.Doomsayer)
             {
                 var doomRole = Role.GetRole<Doomsayer>(amnesiac);
@@ -455,6 +465,18 @@ namespace TownOfUs.NeutralRoles.AmnesiacMod
                 trapperRole.UsesLeft = CustomGameOptions.MaxTraps;
                 trapperRole.trappedPlayers.Clear();
                 trapperRole.traps.ClearTraps();
+            }
+
+            else if (role == RoleEnum.Graybeard)
+            {
+                var graybeardRole = Role.GetRole<Graybeard>(amnesiac);
+                graybeardRole.LastTrapped = DateTime.UtcNow;
+                graybeardRole.ButtonUsable = true;
+                graybeardRole.trappedPlayers.Clear();
+                graybeardRole.traps.ClearTraps();
+                graybeardRole.TimeToDeath = CustomGameOptions.GraybeardTimeToDeath + UnityEngine.Random.RandomRangeInt(-CustomGameOptions.GraybeardRandomizeTimeToDeath, CustomGameOptions.GraybeardRandomizeTimeToDeath + 1);
+                graybeardRole.LastMeeting = DateTime.UtcNow;
+                Coroutines.Start(DeathTimer.FrameTimer());
             }
 
             else if (role == RoleEnum.Bomber)
