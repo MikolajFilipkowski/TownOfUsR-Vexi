@@ -280,6 +280,7 @@ namespace TownOfUs
             crewRoles.Shuffle();
             impRoles.Shuffle();
 
+            // Hand out appropriate roles to crewmates and impostors.
             foreach (var (type, _, unique) in crewRoles)
             {
                 Role.GenRole<Role>(type, crewmates);
@@ -299,7 +300,7 @@ namespace TownOfUs
             //INSERT INSANE MODIFIER HERE!
 
             var canHaveInsaneModifier = PlayerControl.AllPlayerControls.ToArray().Where(x => Insane.InsaneRoles.Contains(Utils.GetRole(x))).ToList();
-            if(UnityEngine.Random.Range(0, 100) <= CustomGameOptions.InsaneOn)
+            if (UnityEngine.Random.Range(0, 100) <= CustomGameOptions.InsaneOn)
             {
                 Role.GenModifier<Insane>(typeof(Insane), canHaveInsaneModifier);
             }
@@ -326,6 +327,7 @@ namespace TownOfUs
                 }
             }
 
+            // Hand out assassin modifiers, if enabled, to impostor assassins.
             var canHaveAssassinModifier = PlayerControl.AllPlayerControls.ToArray().Where(player => player.Is(Faction.Impostors) && player.Is(AbilityEnum.Assassin)).ToList();
             canHaveAssassinModifier.Shuffle();
             AssassinModifiers.SortModifiers(canHaveAssassinModifier.Count);
@@ -337,6 +339,7 @@ namespace TownOfUs
                 Role.GenModifier<Modifier>(type, canHaveAssassinModifier);
             }
 
+            // Hand out impostor modifiers.
             var canHaveImpModifier = PlayerControl.AllPlayerControls.ToArray().Where(player => player.Is(Faction.Impostors) && !player.Is(ModifierEnum.DoubleShot)).ToList();
             canHaveImpModifier.Shuffle();
             ImpostorModifiers.SortModifiers(canHaveImpModifier.Count);
@@ -348,6 +351,7 @@ namespace TownOfUs
                 Role.GenModifier<Modifier>(type, canHaveImpModifier);
             }
 
+            // Hand out global modifiers.
             var canHaveModifier = PlayerControl.AllPlayerControls.ToArray()
                 .Where(player => !player.Is(ModifierEnum.Disperser) && !player.Is(ModifierEnum.DoubleShot) && !player.Is(ModifierEnum.Underdog))
                 .ToList();
@@ -379,6 +383,7 @@ namespace TownOfUs
                 Role.GenModifier<Modifier>(type, canHaveModifier);
             }
 
+            // Now hand out Crewmate Modifiers to all remaining eligible players.
             canHaveModifier.RemoveAll(player => !player.Is(Faction.Crewmates));
             CrewmateModifiers.SortModifiers(canHaveModifier.Count);
             CrewmateModifiers.Shuffle();
