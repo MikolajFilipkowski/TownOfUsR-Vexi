@@ -1293,6 +1293,11 @@ namespace TownOfUs
                 werewolf.LastRampaged = DateTime.UtcNow;
                 werewolf.LastKilled = DateTime.UtcNow;
             }
+            if (PlayerControl.LocalPlayer.Is(RoleEnum.Pelican))
+            {
+                var peli = Role.GetRole<Pelican>(PlayerControl.LocalPlayer);
+                peli.LastHack = DateTime.UtcNow;
+            }
             if (PlayerControl.LocalPlayer.Is(RoleEnum.Plaguebearer))
             {
                 var plaguebearer = Role.GetRole<Plaguebearer>(PlayerControl.LocalPlayer);

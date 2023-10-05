@@ -6,6 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TownOfUs.Roles;
+using TownOfUs;
+using TownOfUs.Patches;
+using UnityEngine;
 
 namespace TownOfUs.CrewmateRoles.GraybeardMod
 {
@@ -44,6 +47,11 @@ namespace TownOfUs.CrewmateRoles.GraybeardMod
             {
                 Utils.RpcMurderPlayer(role.Player, role.Player);
                 DestroyableSingleton<HudManager>.Instance.Chat.AddChat(PlayerControl.LocalPlayer, "You died of old age");
+                Coroutines.Stop(FrameTimer());
+            }
+            else if (timeElapsed>role.TimeToDeath*0.9)
+            {
+                Coroutines.Start(Utils.FlashCoroutine(Color.red, 5f, 0.1f));
             }
         }
     }

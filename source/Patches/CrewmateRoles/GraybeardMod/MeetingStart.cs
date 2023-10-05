@@ -30,7 +30,7 @@ namespace TownOfUs.CrewmateRoles.GraybeardMod
             }
             else
             {
-                string message = "Roles caught in your trap:\n";
+                string message = "Players caught in your trap:\n";
                 foreach (var player in graybeardRole.trappedPlayers.OrderBy(x => -(timeNow - x.Value).TotalSeconds))
                 {
                     var timeRn = (Math.Floor((timeNow - player.Value).TotalSeconds) == 0) ? "right now" : $"{Math.Floor((timeNow - player.Value).TotalSeconds)}s ago";

@@ -60,7 +60,6 @@ namespace TownOfUs.Roles
         {
             if ((DateTime.UtcNow-LastSabotaged).TotalMilliseconds < 70f)
             {
-                LastSabotaged = DateTime.UtcNow;
                 return;
             }
 

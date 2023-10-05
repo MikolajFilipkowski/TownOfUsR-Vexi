@@ -284,6 +284,7 @@ namespace TownOfUs
             foreach (var (type, _, unique) in crewRoles)
             {
                 Role.GenRole<Role>(type, crewmates);
+                PluginSingleton<TownOfUs>.Instance.Log.LogMessage($"Rola {type.FullName}");
             }
             foreach (var (type, _, unique) in impRoles)
             {
