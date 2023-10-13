@@ -20,6 +20,8 @@ namespace TownOfUs.Roles
         public DateTime LastSabotaged { get; set; }
         public DateTime LastMeeting { get; set; }
 
+        public int PlayersInTrap { get; set; } = 0;
+
         public Dictionary<PlayerControl, DateTime> trappedPlayers;
 
         public int TimeToDeath;
@@ -31,7 +33,9 @@ namespace TownOfUs.Roles
         {
             Name = "Graybeard";
             ImpostorText = () => "You have a weak, loving heart";
-            TaskText = () => "Place force fields and do tasks to stay alive";
+            TaskText = () => traps.Count == 0 ?
+            $"Place force fields and do tasks to stay alive\nThe force field is currently inactive" :
+            $"Place force fields and do tasks to stay alive\n Players in the force field: {PlayersInTrap}";
             Color = Patches.Colors.Graybeard;
             RoleType = RoleEnum.Graybeard;
             LastTrapped = DateTime.UtcNow;

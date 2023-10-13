@@ -49,7 +49,10 @@ namespace TownOfUs.CrewmateRoles.GraybeardMod
                     {
                         foreach (Graybeard t in Role.GetRoles(RoleEnum.Graybeard))
                         {
+                            t.PlayersInTrap++;
+
                             if (entry == t.Player) continue;
+
                             if (!t.trappedPlayers.Keys.Any((key) => key.PlayerId==entry.PlayerId)) 
                                 t.trappedPlayers.Add(entry, DateTime.UtcNow);
                             else
@@ -61,6 +64,12 @@ namespace TownOfUs.CrewmateRoles.GraybeardMod
                         }
                     }
                 }
+            }
+
+            foreach (Graybeard t in Role.GetRoles(RoleEnum.Graybeard))
+            {
+                t.RegenTask();
+                t.PlayersInTrap = 0;
             }
         }
     }
