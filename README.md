@@ -87,6 +87,10 @@ Join our [Discord](https://discord.gg/ugyc4EVUYZ) if you have any problems or wa
 # Releases
 | Among Us - Version| Mod Version | Link |
 |----------|-------------|-----------------|
+| 2023.6.13s & 2023.6.13e | v2.1.4 | [Download](https://github.com/MikolajFilipkowski/TownOfUsR-Vexi/releases/download/v2.1.4/TownOfUs.dll) |
+| 2023.6.13s & 2023.6.13e | v2.1.3 | [Download](https://github.com/MikolajFilipkowski/TownOfUsR-Vexi/releases/download/v2.1.3/TownOfUs.dll) |
+| 2023.6.13s & 2023.6.13e | v2.1.2 | [Download](https://github.com/MikolajFilipkowski/TownOfUsR-Vexi/releases/download/v2.1.2/TownOfUs.dll) |
+| 2023.6.13s & 2023.6.13e | v2.1.1 | [Download](https://github.com/MikolajFilipkowski/TownOfUsR-Vexi/releases/download/v2.1.1/TownOfUs.dll) |
 | 2023.6.13s & 2023.6.13e | v2.1.0 | [Download](https://github.com/MikolajFilipkowski/TownOfUsR-Vexi/releases/download/v2.1.0/TownOfUs.dll) |
 | 2023.6.13s & 2023.6.13e | v2.0.2 | [Download](https://github.com/MikolajFilipkowski/TownOfUsR-Vexi/releases/download/v2.0.2/TownOfUs.dll) |
 
