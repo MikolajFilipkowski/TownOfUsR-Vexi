@@ -1,8 +1,11 @@
 using System;
+using System.Linq;
 using HarmonyLib;
 using Hazel;
+using TownOfUs.ImpostorRoles.TraitorMod;
 using TownOfUs.NeutralRoles.ExecutionerMod;
 using TownOfUs.NeutralRoles.GuardianAngelMod;
+using TownOfUs.Patches.Roles.Modifiers;
 using TownOfUs.Roles;
 using TownOfUs.Roles.Cultist;
 using TownOfUs.Roles.Modifiers;
@@ -17,6 +20,8 @@ namespace TownOfUs.Patches
         public static Sprite Sprite => TownOfUs.Arrow;
         public static void Postfix(IntroCutscene._CoBegin_d__33 __instance)
         {
+            Insane.MeetingInProgress = false;
+
             if (PlayerControl.LocalPlayer.Is(RoleEnum.Detective))
             {
                 var detective = Role.GetRole<Detective>(PlayerControl.LocalPlayer);
@@ -95,6 +100,13 @@ namespace TownOfUs.Patches
                 var trapper = Role.GetRole<Trapper>(PlayerControl.LocalPlayer);
                 trapper.LastTrapped = DateTime.UtcNow;
                 trapper.LastTrapped = trapper.LastTrapped.AddSeconds(CustomGameOptions.InitialCooldowns - CustomGameOptions.TrapCooldown);
+            }
+
+            if (PlayerControl.LocalPlayer.Is(RoleEnum.Graybeard))
+            {
+                var graybeard = Role.GetRole<Graybeard>(PlayerControl.LocalPlayer);
+                graybeard.LastTrapped = DateTime.UtcNow;
+                graybeard.LastTrapped = graybeard.LastTrapped.AddSeconds(CustomGameOptions.InitialCooldowns - CustomGameOptions.GraybeardCooldown);
             }
 
             if (PlayerControl.LocalPlayer.Is(RoleEnum.Veteran))
@@ -210,12 +222,22 @@ namespace TownOfUs.Patches
                 var exe = Role.GetRole<Executioner>(PlayerControl.LocalPlayer);
                 if (exe.target == null)
                 {
-                    var writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
-                        (byte)CustomRPC.ExecutionerToJester, SendOption.Reliable, -1);
-                    writer.Write(exe.Player.PlayerId);
-                    AmongUsClient.Instance.FinishRpcImmediately(writer);
+                    var exeTargets = PlayerControl.AllPlayerControls.ToArray().Where(x => x.Is(Faction.Crewmates) && !x.Is(ModifierEnum.Lover) && !x.Is(RoleEnum.Mayor) && !x.Is(RoleEnum.Swapper) && !x.Is(RoleEnum.Vigilante) && x != SetTraitor.WillBeTraitor).ToList();
+                    if (exeTargets.Count > 0)
+                    {
+                        exe.target = exeTargets[UnityEngine.Random.RandomRangeInt(0, exeTargets.Count)];
 
-                    TargetColor.ExeToJes(exe.Player);
+                        Utils.Rpc(CustomRPC.SetTarget, exe.Player.PlayerId, exe.target.PlayerId);
+                    }
+                    if (exe.target == null)
+                    {
+                        var writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
+                        (byte)CustomRPC.ExecutionerToJester, SendOption.Reliable, -1);
+                        writer.Write(exe.Player.PlayerId);
+                        AmongUsClient.Instance.FinishRpcImmediately(writer);
+
+                        TargetColor.ExeToJes(exe.Player);
+                    }
                 }
             }
 
@@ -237,12 +259,16 @@ namespace TownOfUs.Patches
                 ga.LastProtected = ga.LastProtected.AddSeconds(CustomGameOptions.InitialCooldowns - CustomGameOptions.ProtectCd);
                 if (ga.target == null)
                 {
-                    var writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
+                    RpcHandling.GenGATarget(ga);
+                    if (ga.target == null)
+                    {
+                        var writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId,
                         (byte)CustomRPC.GAToSurv, SendOption.Reliable, -1);
-                    writer.Write(ga.Player.PlayerId);
-                    AmongUsClient.Instance.FinishRpcImmediately(writer);
+                        writer.Write(ga.Player.PlayerId);
+                        AmongUsClient.Instance.FinishRpcImmediately(writer);
 
-                    GATargetColor.GAToSurv(ga.Player);
+                        GATargetColor.GAToSurv(ga.Player);
+                    }
                 }
             }
 
@@ -274,6 +300,13 @@ namespace TownOfUs.Patches
                 werewolf.LastKilled = DateTime.UtcNow;
                 werewolf.LastRampaged = werewolf.LastRampaged.AddSeconds(CustomGameOptions.InitialCooldowns - CustomGameOptions.RampageCd);
                 werewolf.LastKilled = werewolf.LastKilled.AddSeconds(CustomGameOptions.InitialCooldowns - CustomGameOptions.RampageKillCd);
+            }
+
+            if (PlayerControl.LocalPlayer.Is(RoleEnum.Pelican))
+            {
+                var pelican = Role.GetRole<Pelican>(PlayerControl.LocalPlayer);
+                pelican.LastHack = DateTime.UtcNow;
+                pelican.LastHack = pelican.LastHack.AddSeconds(CustomGameOptions.InitialCooldowns - CustomGameOptions.DevourCd);
             }
 
             if (PlayerControl.LocalPlayer.Is(RoleEnum.Vampire))

@@ -1,4 +1,6 @@
 ﻿using HarmonyLib;
+using Reactor.Utilities;
+using System.Linq;
 using TownOfUs.Extensions;
 using TownOfUs.Roles;
 using Color = UnityEngine.Color;
@@ -70,6 +72,21 @@ namespace TownOfUs.CrewmateRoles.AurialMod
                 {
                     ColorChar(player, Color.white);
                     continue;
+                }
+
+                if(s.Player.Is(ModifierEnum.Insane))
+                {
+                    Color newColor;
+                    if(s.InsaneKnownRoles.Any(x => x.Key == player.PlayerId))
+                    {
+                        newColor = s.InsaneKnownRoles.First(x => x.Key == player.PlayerId).Value;
+                        ColorChar(player, newColor);
+                        continue;
+                    }
+                    else
+                    {
+                        Logger<TownOfUs>.Error($"Insane Aurial cannot find {player.PlayerId}'s fake color, even though they've been checked. Falling back to real faction.");
+                    }
                 }
 
                 var faction = Role.GetRole(player).Faction;

@@ -34,6 +34,8 @@ namespace TownOfUs
 
             if (playerInfo.IsDead)
                 return false;
+            if (player.IsDevoured())
+                return false;
 
             if (CustomGameOptions.GameMode == GameMode.Cultist && !player.Is(RoleEnum.Engineer)) return false;
             else if (CustomGameOptions.GameMode == GameMode.Cultist && player.Is(RoleEnum.Engineer)) return true;

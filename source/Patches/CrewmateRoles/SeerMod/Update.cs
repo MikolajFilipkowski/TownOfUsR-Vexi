@@ -1,4 +1,5 @@
 using HarmonyLib;
+using System.Linq;
 using TownOfUs.Extensions;
 using TownOfUs.Roles;
 using UnityEngine;
@@ -10,6 +11,23 @@ namespace TownOfUs.CrewmateRoles.SeerMod
     {
         private static void UpdateMeeting(MeetingHud __instance, Seer seer)
         {
+            if(seer.Player.Is(ModifierEnum.Insane))
+            {
+                foreach(var player in PlayerControl.AllPlayerControls)
+                {
+                    if (!seer.InsaneInvestigated.Any(x => x.Key == player.PlayerId)) continue;
+                    foreach(var state in __instance.playerStates)
+                    {
+                        if(player.PlayerId != state.TargetPlayerId) continue;
+                        if(seer.InsaneInvestigated.Any(x => x.Key == player.PlayerId))
+                        {
+                            state.NameText.color = seer.InsaneInvestigated.First(x => x.Key == state.TargetPlayerId).Value;
+                        }
+                    }
+                }
+                return;
+            }
+
             foreach (var player in PlayerControl.AllPlayerControls)
             {
                 if (!seer.Investigated.Contains(player.PlayerId)) continue;
@@ -51,7 +69,6 @@ namespace TownOfUs.CrewmateRoles.SeerMod
 
         [HarmonyPriority(Priority.Last)]
         private static void Postfix(HudManager __instance)
-
         {
             if (PlayerControl.AllPlayerControls.Count <= 1) return;
             if (PlayerControl.LocalPlayer == null) return;
@@ -61,6 +78,18 @@ namespace TownOfUs.CrewmateRoles.SeerMod
             if (!PlayerControl.LocalPlayer.Is(RoleEnum.Seer)) return;
             var seer = Role.GetRole<Seer>(PlayerControl.LocalPlayer);
             if (MeetingHud.Instance != null) UpdateMeeting(MeetingHud.Instance, seer);
+
+            if (seer.Player.Is(ModifierEnum.Insane))
+            {
+                foreach (var player in PlayerControl.AllPlayerControls)
+                {
+                    if(seer.InsaneInvestigated.Any(x => x.Key == player.PlayerId))
+                    {
+                        player.nameText().color = seer.InsaneInvestigated.First(x => x.Key == player.PlayerId).Value;
+                    }
+                }
+                return;
+            }
 
             foreach (var player in PlayerControl.AllPlayerControls)
             {

@@ -29,13 +29,14 @@ using UnityEngine;
 using Coroutine = TownOfUs.ImpostorRoles.JanitorMod.Coroutine;
 using Object = UnityEngine.Object;
 using PerformKillButton = TownOfUs.NeutralRoles.AmnesiacMod.PerformKillButton;
-using Random = UnityEngine.Random; //using Il2CppSystem;
+using Random = UnityEngine.Random;
 using TownOfUs.Patches;
 using AmongUs.GameOptions;
 using TownOfUs.NeutralRoles.VampireMod;
 using TownOfUs.CrewmateRoles.MayorMod;
 using System.Reflection;
 using TownOfUs.Patches.NeutralRoles;
+using TownOfUs.Patches.Roles.Modifiers;
 
 namespace TownOfUs
 {
@@ -333,8 +334,19 @@ namespace TownOfUs
             foreach (var impostor in impostors)
                 Role.GenRole<Role>(typeof(Impostor), impostor);
 
+            //INSERT INSANE MODIFIER HERE!
+
+            var canHaveInsaneModifier = PlayerControl.AllPlayerControls.ToArray().Where(x => Insane.InsaneRoles.Contains(Utils.GetRole(x))).ToList();
+            if (UnityEngine.Random.Range(0, 100) <= CustomGameOptions.InsaneOn)
+            {
+                Role.GenModifier<Insane>(typeof(Insane), canHaveInsaneModifier);
+            }
+
             var canHaveModifier = PlayerControl.AllPlayerControls.ToArray().ToList();
             var canHaveImpModifier = PlayerControl.AllPlayerControls.ToArray().ToList();
+
+            canHaveModifier.RemoveAll(x => x.Is(ModifierEnum.Insane));
+
             canHaveImpModifier.RemoveAll(player => !player.Is(Faction.Impostors));
             var canHaveAbility = PlayerControl.AllPlayerControls.ToArray().ToList();
             var canHaveAbility2 = PlayerControl.AllPlayerControls.ToArray().ToList();
@@ -385,7 +397,7 @@ namespace TownOfUs
                 if (type.FullName.Contains("Lover"))
                 {
                     if (canHaveModifier.Count == 1) continue;
-                        Lover.Gen(canHaveModifier);
+                    Lover.Gen(canHaveModifier);
                 }
                 else
                 {
@@ -468,35 +480,43 @@ namespace TownOfUs
                 }
             }
 
-            var goodGATargets = PlayerControl.AllPlayerControls.ToArray().Where(x => x.Is(Faction.Crewmates) && !x.Is(ModifierEnum.Lover)).ToList();
-            var evilGATargets = PlayerControl.AllPlayerControls.ToArray().Where(x => (x.Is(Faction.Impostors) || x.Is(Faction.NeutralKilling)) && !x.Is(ModifierEnum.Lover)).ToList();
+
             foreach (var role in Role.GetRoles(RoleEnum.GuardianAngel))
             {
                 var ga = (GuardianAngel)role;
-                if (!(goodGATargets.Count == 0 && CustomGameOptions.EvilTargetPercent == 0) ||
-                    (evilGATargets.Count == 0 && CustomGameOptions.EvilTargetPercent == 100) ||
-                    goodGATargets.Count == 0 && evilGATargets.Count == 0)
-                {
-                    if (goodGATargets.Count == 0)
-                    {
-                        ga.target = evilGATargets[Random.RandomRangeInt(0, evilGATargets.Count)];
-                        evilGATargets.Remove(ga.target);
-                    }
-                    else if (evilGATargets.Count == 0 || !Check(CustomGameOptions.EvilTargetPercent))
-                    {
-                        ga.target = goodGATargets[Random.RandomRangeInt(0, goodGATargets.Count)];
-                        goodGATargets.Remove(ga.target);
-                    }
-                    else
-                    {
-                        ga.target = evilGATargets[Random.RandomRangeInt(0, evilGATargets.Count)];
-                        evilGATargets.Remove(ga.target);
-                    }
-
-                    Utils.Rpc(CustomRPC.SetGATarget, role.Player.PlayerId, ga.target.PlayerId);
-                }
+                GenGATarget(ga);
             }
         }
+
+        public static void GenGATarget(GuardianAngel ga)
+        {
+            var goodGATargets = PlayerControl.AllPlayerControls.ToArray().Where(x => x.Is(Faction.Crewmates) && !x.Is(ModifierEnum.Lover)).ToList();
+            var evilGATargets = PlayerControl.AllPlayerControls.ToArray().Where(x => (x.Is(Faction.Impostors) || x.Is(Faction.NeutralKilling)) && !x.Is(ModifierEnum.Lover)).ToList();
+
+            if (!(goodGATargets.Count == 0 && CustomGameOptions.EvilTargetPercent == 0) ||
+                    (evilGATargets.Count == 0 && CustomGameOptions.EvilTargetPercent == 100) ||
+                    goodGATargets.Count == 0 && evilGATargets.Count == 0)
+            {
+                if (goodGATargets.Count == 0)
+                {
+                    ga.target = evilGATargets[Random.RandomRangeInt(0, evilGATargets.Count)];
+                    evilGATargets.Remove(ga.target);
+                }
+                else if (evilGATargets.Count == 0 || !Check(CustomGameOptions.EvilTargetPercent))
+                {
+                    ga.target = goodGATargets[Random.RandomRangeInt(0, goodGATargets.Count)];
+                    goodGATargets.Remove(ga.target);
+                }
+                else
+                {
+                    ga.target = evilGATargets[Random.RandomRangeInt(0, evilGATargets.Count)];
+                    evilGATargets.Remove(ga.target);
+                }
+
+                Utils.Rpc(CustomRPC.SetGATarget, ga.Player.PlayerId, ga.target.PlayerId);
+            }
+        }
+
         private static void GenEachRoleKilling(List<GameData.PlayerInfo> infected)
         {
             var impostors = Utils.GetImpostors(infected);
@@ -878,12 +898,51 @@ namespace TownOfUs
                         var juggernaut = Role.AllRoles.FirstOrDefault(x => x.RoleType == RoleEnum.Juggernaut);
                         ((Juggernaut)juggernaut)?.Wins();
                         break;
+                    case CustomRPC.PelicanWin:
+                        var pelican = Role.AllRoles.FirstOrDefault(x => x.RoleType == RoleEnum.Pelican);
+                        ((Pelican)pelican)?.Wins();
+                        break;
+                    case CustomRPC.SetDevoured:
+                        var devourPlayer = Utils.PlayerById(reader.ReadByte());
+                        var pelican2 = Role.AllRoles.FirstOrDefault(x => x.RoleType == RoleEnum.Pelican);
+                        if (devourPlayer != null)
+                        {
+                            Role.GetRole(devourPlayer).Devoured = true;
+                            devourPlayer.SetOutfit(CustomPlayerOutfitType.Swooper, new GameData.PlayerOutfit()
+                            {
+                                ColorId = devourPlayer.CurrentOutfit.ColorId,
+                                HatId = "",
+                                SkinId = "",
+                                VisorId = "",
+                                PlayerName = " "
+                            });
+                            devourPlayer.myRend().color = Color.clear;
+                            devourPlayer.nameText().color = Color.clear;
+                            devourPlayer.cosmetics.colorBlindText.color = Color.clear;
+                            devourPlayer.Collider.enabled = false;
+                        }
+                        Pelican.SetInv(devourPlayer);
+                        if (devourPlayer.PlayerId == PlayerControl.LocalPlayer.PlayerId)
+                        {
+                            ((Pelican)pelican2)?.SetHacked(devourPlayer);
+                        }
+                        break;
+                    case CustomRPC.UnDevour:
+                        var undevourPlayer = Utils.PlayerById(reader.ReadByte());
+                        Pelican.UnInv(undevourPlayer);
+                        break;
+                    case CustomRPC.PelicanKill:
+                        var toDie4 = Utils.PlayerById(reader.ReadByte());
+                        var pelican3 = Utils.PlayerById(reader.ReadByte());
+                        Pelican.MurderPlayer(toDie4);
+
+                        break;
                     case CustomRPC.SetHacked:
                         var hackPlayer = Utils.PlayerById(reader.ReadByte());
                         if (hackPlayer.PlayerId == PlayerControl.LocalPlayer.PlayerId)
                         {
                             var glitch = Role.AllRoles.FirstOrDefault(x => x.RoleType == RoleEnum.Glitch);
-                            ((Glitch) glitch)?.SetHacked(hackPlayer);
+                            ((Glitch)glitch)?.SetHacked(hackPlayer);
                         }
 
                         break;
@@ -1110,6 +1169,12 @@ namespace TownOfUs
                         body2.transform.position = new Vector3(v2.x, v2.y, v2z);
 
                         break;
+                    case CustomRPC.SabotageOngoing:
+                        foreach (Graybeard gray in Role.AllRoles.Where(x => x.RoleType == RoleEnum.Graybeard))
+                        {
+                            gray.Sabotage();
+                        }
+                        break;
                     case CustomRPC.SetAssassin:
                         new Assassin(Utils.PlayerById(reader.ReadByte()));
                         break;
@@ -1223,6 +1288,13 @@ namespace TownOfUs
             public static void Postfix()
             {
                 PluginSingleton<TownOfUs>.Instance.Log.LogMessage("RPC SET ROLE");
+
+                for (int i = 0; i < Insane.RunningCoroutines.Count(); i++)
+                {
+                    Coroutines.Stop(Insane.RunningCoroutines[i].InsaneCoroutine);
+                    Insane.RunningCoroutines.Remove(Insane.RunningCoroutines[i]);
+                }
+
                 var infected = GameData.Instance.AllPlayers.ToArray().Where(o => o.IsImpostor());
 
                 Utils.ShowDeadBodies = false;
@@ -1344,6 +1416,9 @@ namespace TownOfUs
                     if (CustomGameOptions.TrapperOn > 0)
                         CrewmateRoles.Add((typeof(Trapper), CustomGameOptions.TrapperOn, false));
 
+                    if (CustomGameOptions.GraybeardOn > 0)
+                        CrewmateRoles.Add((typeof(Graybeard), CustomGameOptions.GraybeardOn, false));
+
                     if (CustomGameOptions.DetectiveOn > 0)
                         CrewmateRoles.Add((typeof(Detective), CustomGameOptions.DetectiveOn, false));
 
@@ -1389,6 +1464,9 @@ namespace TownOfUs
 
                     if (CustomGameOptions.WerewolfOn > 0)
                         NeutralKillingRoles.Add((typeof(Werewolf), CustomGameOptions.WerewolfOn, true));
+
+                    if (CustomGameOptions.PelicanOn > 0)
+                        NeutralKillingRoles.Add((typeof(Pelican), CustomGameOptions.PelicanOn, true));
 
                     if (CustomGameOptions.GameMode == GameMode.Classic && CustomGameOptions.VampireOn > 0)
                         NeutralKillingRoles.Add((typeof(Vampire), CustomGameOptions.VampireOn, true));

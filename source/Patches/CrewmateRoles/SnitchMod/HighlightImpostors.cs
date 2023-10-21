@@ -10,6 +10,26 @@ namespace TownOfUs.CrewmateRoles.SnitchMod
     {
         private static void UpdateMeeting(MeetingHud __instance)
         {
+            if(PlayerControl.LocalPlayer.Is(ModifierEnum.Insane))
+            {
+                foreach(var player in PlayerControl.AllPlayerControls)
+                {
+                    foreach(var state in __instance.playerStates)
+                    {
+                        if (player.PlayerId != state.TargetPlayerId)
+                            continue;
+
+                        Snitch role = (Snitch)Role.GetRole(PlayerControl.LocalPlayer);
+
+                        if (!role.InsaneImpostors.Contains(player.PlayerId))
+                            continue;
+
+                        state.NameText.color = Palette.ImpostorRed;
+                    }
+                }
+                return;
+            }
+
             foreach (var player in PlayerControl.AllPlayerControls)
             {
                 foreach (var state in __instance.playerStates)
@@ -32,6 +52,18 @@ namespace TownOfUs.CrewmateRoles.SnitchMod
             var role = Role.GetRole<Snitch>(PlayerControl.LocalPlayer);
             if (!role.TasksDone) return;
             if (MeetingHud.Instance && CustomGameOptions.SnitchSeesImpInMeeting) UpdateMeeting(MeetingHud.Instance);
+
+            if(PlayerControl.LocalPlayer.Is(ModifierEnum.Insane))
+            {
+                foreach(var player in PlayerControl.AllPlayerControls)
+                {
+                    if (!role.InsaneImpostors.Contains(player.PlayerId))
+                        continue;
+
+                    player.nameText().color = Palette.ImpostorRed;
+                }
+                return;
+            }
 
             foreach (var player in PlayerControl.AllPlayerControls)
             {

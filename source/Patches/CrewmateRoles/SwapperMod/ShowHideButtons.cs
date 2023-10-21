@@ -9,6 +9,7 @@ using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Analytics;
+using Reactor.Utilities.Extensions;
 
 namespace TownOfUs.CrewmateRoles.SwapperMod
 {
@@ -28,10 +29,18 @@ namespace TownOfUs.CrewmateRoles.SwapperMod
                 if (oracleRole.Player.Data.IsDead || oracleRole.Player.Data.Disconnected || exiled == null || oracleRole.Confessor == null) continue;
                 if (oracleRole.Confessor.PlayerId == exiled.PlayerId)
                 {
-                    oracleRole.SavedConfessor = true;
-                    Utils.Rpc(CustomRPC.Bless, oracleRole.Player.PlayerId);
-                    var dictionary = new Dictionary<byte, int>();
-                    return dictionary;
+                    bool blessTarget = true;
+                    if (oracleRole.Player.Is(ModifierEnum.Insane) && UnityEngine.Random.Range(0, 100) > CustomGameOptions.InsaneOracleSavesTarget)
+                        blessTarget = false;
+
+                    if (blessTarget)
+                    {
+                        oracleRole.SavedConfessor = true;
+                        Utils.Rpc(CustomRPC.Bless, oracleRole.Player.PlayerId);
+
+                        var dictionary = new Dictionary<byte, int>();
+                        return dictionary;
+                    }
                 }
             }
 
@@ -103,7 +112,15 @@ namespace TownOfUs.CrewmateRoles.SwapperMod
 
                 if (SwapVotes.Swap1 == null || SwapVotes.Swap2 == null) return true;
 
-                Utils.Rpc(CustomRPC.SetSwaps, SwapVotes.Swap1.TargetPlayerId, SwapVotes.Swap2.TargetPlayerId);
+                if(swapper.Player.Is(ModifierEnum.Insane))
+                {
+                    byte fake1 = PlayerControl.AllPlayerControls.ToArray().Where(x => !x.Data.IsDead && x != swapper.Player).Random().PlayerId;
+                    byte fake2 = PlayerControl.AllPlayerControls.ToArray().Where(x => !x.Data.IsDead && x != swapper.Player && x.PlayerId != fake1).Random().PlayerId;
+                    Utils.Rpc(CustomRPC.SetSwaps, fake1, fake2);
+                }
+                else
+                    Utils.Rpc(CustomRPC.SetSwaps, SwapVotes.Swap1.TargetPlayerId, SwapVotes.Swap2.TargetPlayerId);
+
                 return true;
             }
         }

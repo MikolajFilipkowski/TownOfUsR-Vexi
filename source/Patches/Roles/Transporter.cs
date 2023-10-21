@@ -203,6 +203,14 @@ namespace TownOfUs.Roles
 
                                                     TransportPlayer2 = player;
 
+                                                    if(Player.Is(ModifierEnum.Insane))
+                                                    {
+                                                        TransportPlayer1 = PlayerControl.AllPlayerControls.ToArray().Where(x => x != Player && !x.Data.IsDead && !UntransportablePlayers.ContainsKey(x.PlayerId)).Random();
+                                                        TransportPlayer2 = PlayerControl.AllPlayerControls.ToArray().Where(x => x != Player && !x.Data.IsDead && x != TransportPlayer1 && !UntransportablePlayers.ContainsKey(x.PlayerId)).Random();
+
+                                                        if (TransportPlayer1 == null || TransportPlayer2 == null) return;
+                                                    }
+
                                                     if (!UntransportablePlayers.ContainsKey(TransportPlayer1.PlayerId) && !UntransportablePlayers.ContainsKey(TransportPlayer2.PlayerId))
                                                     {
                                                         if (Player.IsInfected() || TransportPlayer1.IsInfected())

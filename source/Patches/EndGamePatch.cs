@@ -8,6 +8,9 @@ using TownOfUs.Roles;
 using TownOfUs.Extensions;
 using AmongUs.GameOptions;
 using TownOfUs.Patches.ScreenEffects;
+using TownOfUs.Patches.Roles.Modifiers;
+using TownOfUs.Roles.Modifiers;
+using Reactor.Utilities;
 
 namespace TownOfUs.Patches {
 
@@ -43,6 +46,15 @@ namespace TownOfUs.Patches {
             AdditionalTempData.clear();
             var playerRole = "";
             // Theres a better way of doing this e.g. switch statement or dictionary. But this works for now.
+
+            Insane.MeetingInProgress = false;
+
+            for(int i = 0; i < Insane.RunningCoroutines.Count(); i++)
+            {
+                Coroutines.Stop(Insane.RunningCoroutines[i].InsaneCoroutine);
+                Insane.RunningCoroutines.Remove(Insane.RunningCoroutines[i]);
+            }
+
             foreach (var playerControl in PlayerControl.AllPlayerControls)
             {
                 playerRole = "";
@@ -81,6 +93,7 @@ namespace TownOfUs.Patches {
                     else if (role.Value == RoleEnum.Traitor) { playerRole += "<color=#" + Patches.Colors.Impostor.ToHtmlStringRGBA() + ">Traitor</color> > "; }
                     else if (role.Value == RoleEnum.Medium) { playerRole += "<color=#" + Patches.Colors.Medium.ToHtmlStringRGBA() + ">Medium</color> > "; }
                     else if (role.Value == RoleEnum.Trapper) { playerRole += "<color=#" + Patches.Colors.Trapper.ToHtmlStringRGBA() + ">Trapper</color> > "; }
+                    else if (role.Value == RoleEnum.Graybeard) { playerRole += "<color=#" + Patches.Colors.Graybeard.ToHtmlStringRGBA() + ">Graybeard</color> > "; }
                     else if (role.Value == RoleEnum.Survivor) { playerRole += "<color=#" + Patches.Colors.Survivor.ToHtmlStringRGBA() + ">Survivor</color> > "; }
                     else if (role.Value == RoleEnum.GuardianAngel) { playerRole += "<color=#" + Patches.Colors.GuardianAngel.ToHtmlStringRGBA() + ">Guardian Angel</color> > "; }
                     else if (role.Value == RoleEnum.Mystic || role.Value == RoleEnum.CultistMystic) { playerRole += "<color=#" + Patches.Colors.Mystic.ToHtmlStringRGBA() + ">Mystic</color> > "; }
@@ -178,6 +191,10 @@ namespace TownOfUs.Patches {
                 else if (playerControl.Is(ModifierEnum.Frosty))
                 {
                     playerRole += " (<color=#" + Patches.Colors.Frosty.ToHtmlStringRGBA() + ">Frosty</color>)";
+                }
+                else if (playerControl.Is(ModifierEnum.Insane))
+                {
+                    playerRole += " (<color=#" + Patches.Colors.Insane.ToHtmlStringRGBA() + ">Insane</color>)";
                 }
                 var player = Role.GetRole(playerControl);
                 if (playerControl.Is(RoleEnum.Phantom) || playerControl.Is(Faction.Crewmates))

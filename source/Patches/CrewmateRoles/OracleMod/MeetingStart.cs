@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using Reactor.Utilities.Extensions;
 using System.Linq;
 using TownOfUs.Extensions;
 using TownOfUs.Roles;
@@ -15,13 +16,13 @@ namespace TownOfUs.CrewmateRoles.OracleMod
             var oracleRole = Role.GetRole<Oracle>(PlayerControl.LocalPlayer);
             if (oracleRole.Confessor != null)
             {
-                var playerResults = PlayerReportFeedback(oracleRole.Confessor);
+                var playerResults = PlayerReportFeedback(oracleRole.Confessor, oracleRole.Player.Is(ModifierEnum.Insane));
 
                 if (!string.IsNullOrWhiteSpace(playerResults)) DestroyableSingleton<HudManager>.Instance.Chat.AddChat(PlayerControl.LocalPlayer, playerResults);
             }
         }
 
-        public static string PlayerReportFeedback(PlayerControl player)
+        public static string PlayerReportFeedback(PlayerControl player, bool insane = false)
         {
             if (player.Data.IsDead || player.Data.Disconnected) return "Your confessor failed to survive so you received no confession";
             var allPlayers = PlayerControl.AllPlayerControls.ToArray().Where(x => !x.Data.IsDead && !x.Data.Disconnected && x != PlayerControl.LocalPlayer && x != player).ToList();
@@ -30,6 +31,15 @@ namespace TownOfUs.CrewmateRoles.OracleMod
             (x.Is(Faction.Impostors) || (x.Is(Faction.NeutralKilling) && CustomGameOptions.NeutralKillingShowsEvil) ||
             (x.Is(Faction.NeutralEvil) && CustomGameOptions.NeutralEvilShowsEvil) || (x.Is(Faction.NeutralBenign) && CustomGameOptions.NeutralBenignShowsEvil))).ToList();
             if (evilPlayers.Count == 0) return $"{player.GetDefaultOutfit().PlayerName} confesses to knowing that there are no more evil players!"; 
+
+            if(insane)
+            {
+                var firstRandom = allPlayers.Random();
+                allPlayers.Remove(firstRandom);
+                var secondRandom = allPlayers.Random();
+                return $"{player.GetDefaultOutfit().PlayerName} confesses to knowing that they, {firstRandom.GetDefaultOutfit().PlayerName} and/or {secondRandom.GetDefaultOutfit().PlayerName} is evil!";
+            }
+
             allPlayers.Shuffle();
             evilPlayers.Shuffle();
             var secondPlayer = allPlayers[0];

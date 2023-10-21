@@ -13,6 +13,7 @@ using Random = UnityEngine.Random;
 using TownOfUs.Extensions;
 using AmongUs.GameOptions;
 using TownOfUs.ImpostorRoles.TraitorMod;
+using TownOfUs.Patches.Roles.Modifiers;
 
 namespace TownOfUs.Roles
 {
@@ -65,6 +66,8 @@ namespace TownOfUs.Roles
         protected internal int IncorrectKills { get; set; } = 0;
         protected internal int CorrectAssassinKills { get; set; } = 0;
         protected internal int IncorrectAssassinKills { get; set; } = 0;
+
+        protected internal bool Devoured { get; set; } = false;
 
         public bool Local => PlayerControl.LocalPlayer.PlayerId == Player.PlayerId;
 
@@ -293,10 +296,31 @@ namespace TownOfUs.Roles
 
             var modifier = Modifier.GetModifier(Player);
             if (modifier != null && modifier.GetColoredSymbol() != null)
-            {
+            { 
                 if (modifier.ModifierType == ModifierEnum.Lover && (revealModifier || revealLover))
                     PlayerName += $" {modifier.GetColoredSymbol()}";
-                else if (modifier.ModifierType != ModifierEnum.Lover && revealModifier)
+                else if (modifier.ModifierType != ModifierEnum.Lover && revealModifier && modifier.ModifierType != ModifierEnum.Insane)
+                    PlayerName += $" {modifier.GetColoredSymbol()}";
+
+                bool seesInsane = false;
+
+                if(modifier.ModifierType == ModifierEnum.Insane)
+                {
+                    if (PlayerControl.LocalPlayer.Data.IsDead && revealRole)
+                        seesInsane = true;
+
+                    var taskinfos = Player.Data.Tasks.ToArray();
+                    int tasksLeft = taskinfos.Count(x => !x.Complete);
+
+                    bool hasRevealed = (tasksLeft < 1 && CustomGameOptions.InsaneRevealOnTasksDone)
+                        && ((Player == PlayerControl.LocalPlayer && (CustomGameOptions.InsaneRevealsTo == RevealsTo.Self || CustomGameOptions.InsaneRevealsTo == RevealsTo.Everyone))
+                        || (Player != PlayerControl.LocalPlayer && (CustomGameOptions.InsaneRevealsTo == RevealsTo.Others || CustomGameOptions.InsaneRevealsTo == RevealsTo.Everyone)));
+
+                    if (hasRevealed)
+                        seesInsane = true;
+                }
+
+                if (seesInsane)
                     PlayerName += $" {modifier.GetColoredSymbol()}";
             }
 
@@ -435,7 +459,7 @@ namespace TownOfUs.Roles
                 public static void Postfix(IntroCutscene __instance)
                 {
                     var modifier = Modifier.GetModifier(PlayerControl.LocalPlayer);
-                    if (modifier != null)
+                    if (modifier != null && !modifier.IsHidden)
                         ModifierText = Object.Instantiate(__instance.RoleText, __instance.RoleText.transform.parent, false);
                     else
                         ModifierText = null;
@@ -448,7 +472,7 @@ namespace TownOfUs.Roles
                 public static void Postfix(IntroCutscene __instance)
                 {
                     var modifier = Modifier.GetModifier(PlayerControl.LocalPlayer);
-                    if (modifier != null)
+                    if (modifier != null && !modifier.IsHidden)
                         ModifierText = Object.Instantiate(__instance.RoleText, __instance.RoleText.transform.parent, false);
                     else
                         ModifierText = null;
@@ -492,6 +516,7 @@ namespace TownOfUs.Roles
                     if (ModifierText != null)
                     {
                         var modifier = Modifier.GetModifier(PlayerControl.LocalPlayer);
+
                         if (modifier.GetType() == typeof(Lover))
                         {
                             ModifierText.text = $"<size=3>{modifier.TaskText()}</size>";
@@ -609,9 +634,11 @@ namespace TownOfUs.Roles
                 {
                     var modTask = new GameObject(modifier.Name + "Task").AddComponent<ImportantTextTask>();
                     modTask.transform.SetParent(player.transform, false);
-                    modTask.Text =
-                        $"{modifier.ColorString}Modifier: {modifier.Name}\n{modifier.TaskText()}</color>";
-                    player.myTasks.Insert(0, modTask);
+                    if(!modifier.IsHidden)
+                    {
+                        modTask.Text = $"{modifier.ColorString}Modifier: {modifier.Name}\n{modifier.TaskText()}</color>";
+                        player.myTasks.Insert(0, modTask);
+                    }
                 }
 
                 if (role == null || role.Hidden) return;

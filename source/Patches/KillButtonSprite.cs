@@ -32,6 +32,7 @@ namespace TownOfUs
         private static Sprite Protect => TownOfUs.ProtectSprite;
         private static Sprite Infect => TownOfUs.InfectSprite;
         private static Sprite Trap => TownOfUs.TrapSprite;
+        private static Sprite ForceField => TownOfUs.ForceFieldSprite;
         private static Sprite Inspect => TownOfUs.InspectSprite;
         private static Sprite Swoop => TownOfUs.SwoopSprite;
         private static Sprite Observe => TownOfUs.ObserveSprite;
@@ -118,6 +119,11 @@ namespace TownOfUs
             else if (PlayerControl.LocalPlayer.Is(RoleEnum.Trapper))
             {
                 __instance.KillButton.graphic.sprite = Trap;
+                flag = true;
+            }
+            else if (PlayerControl.LocalPlayer.Is(RoleEnum.Graybeard))
+            {
+                __instance.KillButton.graphic.sprite = ForceField;
                 flag = true;
             }
             else if (PlayerControl.LocalPlayer.Is(RoleEnum.Detective))

@@ -16,6 +16,7 @@ namespace TownOfUs.CustomOption
         public static CustomNumberOption SpyOn;
         public static CustomNumberOption TrackerOn;
         public static CustomNumberOption TrapperOn;
+        public static CustomNumberOption GraybeardOn;
 
         public static CustomHeaderOption CrewProtectiveRoles;
         public static CustomNumberOption AltruistOn;
@@ -53,6 +54,7 @@ namespace TownOfUs.CustomOption
         public static CustomNumberOption GlitchOn;
         public static CustomNumberOption VampireOn;
         public static CustomNumberOption WerewolfOn;
+        public static CustomNumberOption PelicanOn;
 
         public static CustomHeaderOption ImpostorConcealingRoles;
         public static CustomNumberOption EscapistOn;
@@ -88,6 +90,7 @@ namespace TownOfUs.CustomOption
         public static CustomNumberOption RadarOn;
         public static CustomNumberOption SleuthOn;
         public static CustomNumberOption TiebreakerOn;
+        public static CustomNumberOption InsaneOn;
 
         public static CustomHeaderOption ImpostorModifiers;
         public static CustomNumberOption DisperserOn;
@@ -187,6 +190,7 @@ namespace TownOfUs.CustomOption
         public static CustomToggleOption SheriffKillsGlitch;
         public static CustomToggleOption SheriffKillsVampire;
         public static CustomToggleOption SheriffKillsWerewolf;
+        public static CustomToggleOption SheriffKillsPelican;
         public static CustomNumberOption SheriffKillCd;
         public static CustomToggleOption SheriffBodyReport;
 
@@ -354,6 +358,15 @@ namespace TownOfUs.CustomOption
         public static CustomNumberOption TrapSize;
         public static CustomNumberOption MinAmountOfPlayersInTrap;
 
+        public static CustomHeaderOption Graybeard;
+        public static CustomNumberOption GraybeardCooldown;
+        public static CustomNumberOption ForceFieldSize;
+        public static CustomNumberOption SabotageDeathPercentage;
+        public static CustomToggleOption GraybeardDiesBeforeFirstMeeting;
+        public static CustomNumberOption GraybeardTimeToDeath;
+        public static CustomNumberOption GraybeardRandomizeTimeToDeath;
+        public static CustomNumberOption GraybeardTaskRegainTime;
+
         public static CustomHeaderOption Traitor;
         public static CustomNumberOption LatestSpawn;
         public static CustomToggleOption NeutralKillingStopsTraitor;
@@ -401,6 +414,9 @@ namespace TownOfUs.CustomOption
         public static CustomNumberOption RampageDuration;
         public static CustomNumberOption RampageKillCooldown;
         public static CustomToggleOption WerewolfVent;
+
+        public static CustomHeaderOption Pelican;
+        public static CustomNumberOption DevourCooldown;
 
         public static CustomHeaderOption Detective;
         public static CustomNumberOption ExamineCooldown;
@@ -493,6 +509,30 @@ namespace TownOfUs.CustomOption
         public static CustomNumberOption ChillDuration;
         public static CustomNumberOption ChillStartSpeed;
 
+        public static CustomHeaderOption Insane;
+        public static CustomToggleOption InsaneRevealOnTasksDone;
+        public static CustomStringOption InsaneRevealsTo;
+        public static CustomToggleOption InsaneDetective;
+        public static CustomToggleOption InsaneSeer;
+        public static CustomStringOption InsaneSeerAbility;
+        public static CustomToggleOption InsaneSnitch;
+        public static CustomToggleOption InsaneTrapper;
+        public static CustomToggleOption InsaneTrapperSeesDead;
+        public static CustomToggleOption InsaneMystic;
+        public static CustomToggleOption InsaneAurial;
+        public static CustomStringOption InsaneAurialAbility;
+        public static CustomToggleOption InsaneOracle;
+        public static CustomNumberOption InsaneOracleSavesTarget;
+        public static CustomToggleOption InsaneMedic;
+        public static CustomToggleOption InsaneMedicDoesNotProtect;
+        public static CustomToggleOption InsaneAltruist;
+        public static CustomStringOption InsaneAltruistRevive;
+        public static CustomToggleOption InsaneSwapper;
+        public static CustomToggleOption InsaneTransporter;
+        //public static CustomToggleOption InsaneProsecutor;
+        //public static CustomToggleOption InsaneJester;
+        public static CustomToggleOption InsaneGuardianAngel;
+
         public static Func<object, string> PercentFormat { get; } = value => $"{value:0}%";
         private static Func<object, string> CooldownFormat { get; } = value => $"{value:0.0#}s";
         private static Func<object, string> MultiplierFormat { get; } = value => $"{value:0.0#}x";
@@ -527,6 +567,8 @@ namespace TownOfUs.CustomOption
             TrackerOn = new CustomNumberOption(num++, MultiMenu.crewmate, "<color=#009900FF>Tracker</color>", 0f, 0f, 100f, 10f,
                 PercentFormat);
             TrapperOn = new CustomNumberOption(num++, MultiMenu.crewmate, "<color=#A7D1B3FF>Trapper</color>", 0f, 0f, 100f, 10f,
+                PercentFormat);
+            GraybeardOn = new CustomNumberOption(num++, MultiMenu.crewmate, "<color=#787878>Graybeard</color>", 0f, 0f, 100f, 10f,
                 PercentFormat);
 
             CrewKillingRoles = new CustomHeaderOption(num++, MultiMenu.crewmate, "Crewmate Killing Roles");
@@ -591,6 +633,8 @@ namespace TownOfUs.CustomOption
                 PercentFormat);
             WerewolfOn = new CustomNumberOption(num++, MultiMenu.neutral, "<color=#A86629FF>Werewolf</color>", 0f, 0f, 100f, 10f,
                 PercentFormat);
+            PelicanOn = new CustomNumberOption(num++, MultiMenu.neutral, "<color=#b50965>Pelican</color>", 0f, 0f, 100f, 10f,
+                PercentFormat);
 
             ImpostorConcealingRoles = new CustomHeaderOption(num++, MultiMenu.imposter, "Impostor Concealing Roles");
             EscapistOn = new CustomNumberOption(num++, MultiMenu.imposter, "<color=#FF0000FF>Escapist</color>", 0f, 0f, 100f, 10f,
@@ -650,6 +694,8 @@ namespace TownOfUs.CustomOption
             SleuthOn = new CustomNumberOption(num++, MultiMenu.modifiers, "<color=#803333FF>Sleuth</color>", 0f, 0f, 100f, 10f,
                 PercentFormat);
             TiebreakerOn = new CustomNumberOption(num++, MultiMenu.modifiers, "<color=#99E699FF>Tiebreaker</color>", 0f, 0f, 100f, 10f,
+                PercentFormat);
+            InsaneOn = new CustomNumberOption(num++, MultiMenu.modifiers, "<color=#808080FF>Insane</color>", 0f, 0f, 100f, 10f,
                 PercentFormat);
 
             ImpostorModifiers = new CustomHeaderOption(num++, MultiMenu.modifiers, "Impostor Modifiers");
@@ -918,6 +964,23 @@ namespace TownOfUs.CustomOption
             MinAmountOfPlayersInTrap =
                 new CustomNumberOption(num++, MultiMenu.crewmate, "Minimum Number Of Roles Required To Trigger Trap", 3, 1, 5, 1);
 
+            Graybeard =
+                new CustomHeaderOption(num++, MultiMenu.crewmate, "<color=#787878>Graybeard</color>");
+            GraybeardCooldown =
+                new CustomNumberOption(num++, MultiMenu.crewmate, "Force Field Cooldown", 25f, 10f, 40f, 2.5f, CooldownFormat);
+            ForceFieldSize =
+                new CustomNumberOption(num++, MultiMenu.crewmate, "Force Field Size", 0.4f, 0.05f, 1f, 0.05f, MultiplierFormat);
+            SabotageDeathPercentage =
+                new CustomNumberOption(num++, MultiMenu.crewmate, "Chance of death on sabotage", 20f, 0f, 100f, 5f,PercentFormat);
+            GraybeardDiesBeforeFirstMeeting =
+                new CustomToggleOption(num++, MultiMenu.crewmate, "Can die before the first meeting from a sabotage", false);
+            GraybeardTimeToDeath =
+                new CustomNumberOption(num++, MultiMenu.crewmate, "Time to Graybeard's Death", 180f, 60f, 300f, 15f, CooldownFormat);
+            GraybeardRandomizeTimeToDeath =
+                new CustomNumberOption(num++, MultiMenu.crewmate, "Randomize Graybeard's death timer (+—)", 0f, 0f, 120f, 5f, CooldownFormat);
+            GraybeardTaskRegainTime =
+                new CustomNumberOption(num++, MultiMenu.crewmate, "Regain time by doing tasks", 30f, 0f, 120f, 5f, CooldownFormat);
+
             Sheriff =
                 new CustomHeaderOption(num++, MultiMenu.crewmate, "<color=#FFFF00FF>Sheriff</color>");
             SheriffKillOther =
@@ -940,6 +1003,8 @@ namespace TownOfUs.CustomOption
                 new CustomToggleOption(num++, MultiMenu.crewmate, "Sheriff Kills Vampire", false);
             SheriffKillsWerewolf =
                 new CustomToggleOption(num++, MultiMenu.crewmate, "Sheriff Kills Werewolf", false);
+            SheriffKillsPelican =
+                new CustomToggleOption(num++, MultiMenu.crewmate, "Sheriff Kills Pelican", false);
             SheriffKillCd =
                 new CustomNumberOption(num++, MultiMenu.crewmate, "Sheriff Kill Cooldown", 25f, 10f, 40f, 2.5f, CooldownFormat);
             SheriffBodyReport = new CustomToggleOption(num++, MultiMenu.crewmate, "Sheriff Can Report Who They've Killed");
@@ -1171,6 +1236,10 @@ namespace TownOfUs.CustomOption
             WerewolfVent =
                 new CustomToggleOption(num++, MultiMenu.neutral, "Werewolf Can Vent When Rampaged", false);
 
+            Pelican = new CustomHeaderOption(num++, MultiMenu.neutral, "<color=#b50965>Pelican</color>");
+            DevourCooldown =
+                new CustomNumberOption(num++, MultiMenu.neutral, "Devour Cooldown", 30f, 10f, 60f, 2.5f, CooldownFormat);
+
             Escapist =
                 new CustomHeaderOption(num++, MultiMenu.imposter, "<color=#FF0000FF>Escapist</color>");
             EscapeCooldown =
@@ -1282,6 +1351,32 @@ namespace TownOfUs.CustomOption
             Underdog = new CustomHeaderOption(num++, MultiMenu.modifiers, "<color=#FF0000FF>Underdog</color>");
             UnderdogKillBonus = new CustomNumberOption(num++, MultiMenu.modifiers, "Kill Cooldown Bonus", 5f, 2.5f, 10f, 2.5f, CooldownFormat);
             UnderdogIncreasedKC = new CustomToggleOption(num++, MultiMenu.modifiers, "Increased Kill Cooldown When 2+ Imps", true);
+
+            Insane = new CustomHeaderOption(num++, MultiMenu.modifiers, "<color=#808080FF>Insane</color>");
+            InsaneRevealOnTasksDone = new CustomToggleOption(num++, MultiMenu.modifiers, "Insane Reveals On Tasks Done", false);
+            InsaneRevealsTo = new CustomStringOption(num++, MultiMenu.modifiers, "Insane Reveals To", new string[] { "Self", "Others", "Everyone" });
+
+            InsaneDetective = new CustomToggleOption(num++, MultiMenu.modifiers, "Detective Can Be Insane", true);
+            InsaneSeer = new CustomToggleOption(num++, MultiMenu.modifiers, "Seer Can Be Insane", true);
+            InsaneSeerAbility = new CustomStringOption(num++, MultiMenu.modifiers, "Insane Seer Sees", new string[] { "Random Faction", "Opposite Faction" });
+            InsaneSnitch = new CustomToggleOption(num++, MultiMenu.modifiers, "Snitch Can Be Insane", true);
+            InsaneTrapper = new CustomToggleOption(num++, MultiMenu.modifiers, "Trapper Can Be Insane", true);
+            InsaneTrapperSeesDead = new CustomToggleOption(num++, MultiMenu.modifiers, "Trapper Can See Dead Roles", true);
+            InsaneMystic = new CustomToggleOption(num++, MultiMenu.modifiers, "Mystic Can Be Insane", true);
+            InsaneAurial = new CustomToggleOption(num++, MultiMenu.modifiers, "Aurial Can Be Insane", true);
+            InsaneAurialAbility = new CustomStringOption(num++, MultiMenu.modifiers, "Insane Aurial Sees", new string[] { "Random Faction", "Opposite Faction" });
+            InsaneOracle = new CustomToggleOption(num++, MultiMenu.modifiers, "Oracle Can Be Insane", true);
+            InsaneOracleSavesTarget = new CustomNumberOption(num++, MultiMenu.modifiers, "Insane Oracle Saves Target Chance", 50f, 0f, 100f, 10f, PercentFormat);
+            InsaneMedic = new CustomToggleOption(num++, MultiMenu.modifiers, "Medic Can Be Insane", true);
+            InsaneMedicDoesNotProtect = new CustomToggleOption(num++, MultiMenu.modifiers, "Insane Medic Does Not Protect", false);
+            InsaneAltruist = new CustomToggleOption(num++, MultiMenu.modifiers, "Altruist Can Be Insane", true);
+            InsaneAltruistRevive = new CustomStringOption(num++, MultiMenu.modifiers, "Insane Altruist On Revive", new string[] { "Dies+Report", "Dies", "Report" });
+            InsaneSwapper = new CustomToggleOption(num++, MultiMenu.modifiers, "Swapper Can Be Insane", true);
+            InsaneTransporter = new CustomToggleOption(num++, MultiMenu.modifiers, "Transporter Can Be Insane", true);
+            //InsaneProsecutor = new CustomToggleOption(num++, MultiMenu.modifiers, "Prosecutor Can Be Insane", true);
+
+            InsaneGuardianAngel = new CustomToggleOption(num++, MultiMenu.modifiers, "Guardian Angel Can Be Insane", false);
+            //InsaneJester = new CustomToggleOption(num++, MultiMenu.modifiers, "Jester Can Be Insane", false);
         }
     }
 }

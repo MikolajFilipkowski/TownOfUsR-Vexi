@@ -83,6 +83,11 @@ namespace TownOfUs
                 var ww = (Werewolf)role;
                 losers.Add(ww.Player.GetDefaultOutfit().ColorId);
             }
+            foreach (var role in Role.GetRoles(RoleEnum.Pelican))
+            {
+                var peli = (Pelican)role;
+                losers.Add(peli.Player.GetDefaultOutfit().ColorId);
+            }
 
             var toRemoveWinners = TempData.winners.ToArray().Where(o => losers.Contains(o.ColorId)).ToArray();
             for (int i = 0; i < toRemoveWinners.Count(); i++) TempData.winners.Remove(toRemoveWinners[i]);
@@ -269,6 +274,17 @@ namespace TownOfUs
                         var werewolfData = new WinningPlayerData(werewolf.Player.Data);
                         if (PlayerControl.LocalPlayer != werewolf.Player) werewolfData.IsYou = false;
                         TempData.winners.Add(werewolfData);
+                    }
+                }
+                else if (type == RoleEnum.Pelican)
+                {
+                    var pelican = (Pelican)role;
+                    if (pelican.PelicanWins)
+                    {
+                        TempData.winners = new List<WinningPlayerData>();
+                        var pelicanData = new WinningPlayerData(pelican.Player.Data);
+                        if (PlayerControl.LocalPlayer != pelican.Player) pelicanData.IsYou = false;
+                        TempData.winners.Add(pelicanData);
                     }
                 }
             }

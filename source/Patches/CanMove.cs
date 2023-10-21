@@ -10,6 +10,7 @@ namespace TownOfUs.Patches
             public static bool Prefix(PlayerControl __instance, ref bool __result)
             {
                 __result = __instance.moveable
+                           && !__instance.IsDevoured()
                            && !Minigame.Instance
                            && !__instance.shapeshifting
                            && (!DestroyableSingleton<HudManager>.InstanceExists

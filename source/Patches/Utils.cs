@@ -27,6 +27,7 @@ using TownOfUs.CrewmateRoles.AurialMod;
 using Reactor.Networking;
 using Reactor.Networking.Extensions;
 using Unity.Services.Core.Telemetry.Internal;
+using TownOfUs.CrewmateRoles.GraybeardMod;
 
 namespace TownOfUs
 {
@@ -77,7 +78,16 @@ namespace TownOfUs
 
         public static void UnCamouflage()
         {
-            foreach (var player in PlayerControl.AllPlayerControls) Unmorph(player);
+            foreach (var player in PlayerControl.AllPlayerControls)
+            {
+                if (IsDevoured(player)) continue;
+                Unmorph(player);
+            };
+        }
+
+        public static bool IsDevoured(this PlayerControl player)
+        {
+            return (Role.GetRole(player) != null) && Role.GetRole(player).Devoured;
         }
 
         public static void AddUnique<T>(this Il2CppSystem.Collections.Generic.List<T> self, T item)
@@ -162,6 +172,10 @@ namespace TownOfUs
             return Role.GetRoles(RoleEnum.Medic).Any(role =>
             {
                 var shieldedPlayer = ((Medic)role).ShieldedPlayer;
+
+                if(role.Player.Is(ModifierEnum.Insane) && CustomGameOptions.InsaneMedicDoesNotProtect)
+                    return false;
+
                 return shieldedPlayer != null && player.PlayerId == shieldedPlayer.PlayerId;
             });
         }
@@ -199,6 +213,10 @@ namespace TownOfUs
             {
                 var gaTarget = ((GuardianAngel)role).target;
                 var ga = (GuardianAngel)role;
+
+                if (role.Player.Is(ModifierEnum.Insane))
+                    return false;
+
                 return gaTarget != null && ga.Protecting && player.PlayerId == gaTarget.PlayerId;
             });
         }
@@ -500,6 +518,7 @@ namespace TownOfUs
                         target.Is(RoleEnum.Vampire) && CustomGameOptions.SheriffKillsVampire ||
                         target.Is(RoleEnum.Executioner) && CustomGameOptions.SheriffKillsExecutioner ||
                         target.Is(RoleEnum.Doomsayer) && CustomGameOptions.SheriffKillsDoomsayer ||
+                        target.Is(RoleEnum.Pelican) && CustomGameOptions.SheriffKillsPelican ||
                         target.Is(RoleEnum.Jester) && CustomGameOptions.SheriffKillsJester) sheriff.CorrectKills += 1;
                     else if (killer == target) sheriff.IncorrectKills += 1;
                 }
@@ -522,7 +541,8 @@ namespace TownOfUs
 
                 if (PlayerControl.LocalPlayer.Is(RoleEnum.Mystic) && !PlayerControl.LocalPlayer.Data.IsDead)
                 {
-                    Coroutines.Start(FlashCoroutine(Patches.Colors.Mystic));
+                    if(!PlayerControl.LocalPlayer.Is(ModifierEnum.Insane))
+                        Coroutines.Start(FlashCoroutine(Patches.Colors.Mystic));
                 }
 
                 if (PlayerControl.LocalPlayer.Is(RoleEnum.Detective))
@@ -1214,6 +1234,14 @@ namespace TownOfUs
                 trapper.trappedPlayers.Clear();
                 if (CustomGameOptions.TrapsRemoveOnNewRound) trapper.traps.ClearTraps();
             }
+            if (PlayerControl.LocalPlayer.Is(RoleEnum.Graybeard))
+            {
+                var graybeard = Role.GetRole<Graybeard>(PlayerControl.LocalPlayer);
+                graybeard.LastTrapped = DateTime.UtcNow;
+                graybeard.trappedPlayers.Clear();
+                graybeard.traps.ClearTraps();
+                graybeard.ButtonUsable = true;
+            }
             if (PlayerControl.LocalPlayer.Is(RoleEnum.Detective))
             {
                 var detective = Role.GetRole<Detective>(PlayerControl.LocalPlayer);
@@ -1266,6 +1294,11 @@ namespace TownOfUs
                 var werewolf = Role.GetRole<Werewolf>(PlayerControl.LocalPlayer);
                 werewolf.LastRampaged = DateTime.UtcNow;
                 werewolf.LastKilled = DateTime.UtcNow;
+            }
+            if (PlayerControl.LocalPlayer.Is(RoleEnum.Pelican))
+            {
+                var peli = Role.GetRole<Pelican>(PlayerControl.LocalPlayer);
+                peli.LastHack = DateTime.UtcNow;
             }
             if (PlayerControl.LocalPlayer.Is(RoleEnum.Plaguebearer))
             {

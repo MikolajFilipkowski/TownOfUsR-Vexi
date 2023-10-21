@@ -5,6 +5,7 @@ using TownOfUs.CrewmateRoles.HaunterMod;
 using TownOfUs.CrewmateRoles.MediumMod;
 using TownOfUs.CrewmateRoles.VampireHunterMod;
 using TownOfUs.NeutralRoles.GuardianAngelMod;
+using TownOfUs.Patches.Roles.Modifiers;
 
 namespace TownOfUs
 {
@@ -57,6 +58,7 @@ namespace TownOfUs
         public static int VeteranOn => (int)Generate.VeteranOn.Get();
         public static int TrackerOn => (int)Generate.TrackerOn.Get();
         public static int TrapperOn => (int)Generate.TrapperOn.Get();
+        public static int GraybeardOn => (int)Generate.GraybeardOn.Get();
         public static int TraitorOn => (int)Generate.TraitorOn.Get();
         public static int TransporterOn => (int)Generate.TransporterOn.Get();
         public static int MediumOn => (int)Generate.MediumOn.Get();
@@ -66,6 +68,7 @@ namespace TownOfUs
         public static int BlackmailerOn => (int)Generate.BlackmailerOn.Get();
         public static int PlaguebearerOn => (int)Generate.PlaguebearerOn.Get();
         public static int WerewolfOn => (int)Generate.WerewolfOn.Get();
+        public static int PelicanOn => (int)Generate.PelicanOn.Get();
         public static int DetectiveOn => (int)Generate.DetectiveOn.Get();
         public static int EscapistOn => (int)Generate.EscapistOn.Get();
         public static int ImitatorOn => (int)Generate.ImitatorOn.Get();
@@ -107,6 +110,7 @@ namespace TownOfUs
         public static bool SheriffKillsGlitch => Generate.SheriffKillsGlitch.Get();
         public static bool SheriffKillsVampire => Generate.SheriffKillsVampire.Get();
         public static bool SheriffKillsWerewolf => Generate.SheriffKillsWerewolf.Get();
+        public static bool SheriffKillsPelican => Generate.SheriffKillsPelican.Get();
         public static float SheriffKillCd => Generate.SheriffKillCd.Get();
         public static bool SwapperButton => Generate.SwapperButton.Get();
         public static float FootprintSize => Generate.FootprintSize.Get();
@@ -273,12 +277,20 @@ namespace TownOfUs
         public static float RampageDuration => Generate.RampageDuration.Get();
         public static float RampageKillCd => Generate.RampageKillCooldown.Get();
         public static bool WerewolfVent => Generate.WerewolfVent.Get();
+        public static float DevourCd => Generate.DevourCooldown.Get();
         public static float TrapCooldown => Generate.TrapCooldown.Get();
         public static bool TrapsRemoveOnNewRound => Generate.TrapsRemoveOnNewRound.Get();
         public static int MaxTraps => (int)Generate.MaxTraps.Get();
         public static float MinAmountOfTimeInTrap => Generate.MinAmountOfTimeInTrap.Get();
         public static float TrapSize => Generate.TrapSize.Get();
         public static int MinAmountOfPlayersInTrap => (int) Generate.MinAmountOfPlayersInTrap.Get();
+        public static float GraybeardCooldown => Generate.GraybeardCooldown.Get();
+        public static float ForceFieldSize => Generate.ForceFieldSize.Get();
+        public static int SabotageDeathPercentage => (int)Generate.SabotageDeathPercentage.Get();
+        public static bool GraybeardDiesBeforeFirstMeeting => Generate.GraybeardDiesBeforeFirstMeeting.Get();
+        public static int GraybeardTimeToDeath => (int)Generate.GraybeardTimeToDeath.Get();
+        public static int GraybeardRandomizeTimeToDeath => (int)Generate.GraybeardRandomizeTimeToDeath.Get();
+        public static int GraybeardTaskRegainTime => (int)Generate.GraybeardTaskRegainTime.Get();
         public static float ExamineCd => Generate.ExamineCooldown.Get();
         public static bool DetectiveReportOn => Generate.DetectiveReportOn.Get();
         public static float DetectiveRoleDuration => Generate.DetectiveRoleDuration.Get();
@@ -372,5 +384,30 @@ namespace TownOfUs
         public static float ReviveCooldown => Generate.ReviveCooldown.Get();
         public static float IncreasedCooldownPerRevive => Generate.IncreasedCooldownPerRevive.Get();
         public static int MaxReveals => (int)Generate.MaxReveals.Get();
+        public static int InsaneOn => (int)Generate.InsaneOn.Get();
+        public static bool InsaneRevealOnTasksDone => Generate.InsaneRevealOnTasksDone.Get();
+        public static RevealsTo InsaneRevealsTo => (RevealsTo)Generate.InsaneRevealsTo.Get();
+        public static bool InsaneDetective => Generate.InsaneDetective.Get();
+        public static bool InsaneSeer => Generate.InsaneSeer.Get();
+        public static SeerSees InsaneSeerAbility => (SeerSees)Generate.InsaneSeerAbility.Get();
+        public static bool InsaneSnitch => Generate.InsaneSnitch.Get();
+        public static bool InsaneTrapper => Generate.InsaneTrapper.Get();
+        public static bool InsaneTrapperSeesDead => Generate.InsaneTrapperSeesDead.Get();
+        public static bool InsaneMystic => Generate.InsaneMystic.Get();
+        public static bool InsaneAurial => Generate.InsaneAurial.Get();
+        public static SeerSees InsaneAurialAbility => (SeerSees)Generate.InsaneAurialAbility.Get();
+        public static bool InsaneOracle => Generate.InsaneOracle.Get();
+        public static float InsaneOracleSavesTarget => Generate.InsaneOracleSavesTarget.Get();
+        public static bool InsaneMedic => Generate.InsaneMedic.Get();
+        public static bool InsaneMedicDoesNotProtect => Generate.InsaneMedicDoesNotProtect.Get();
+        public static bool InsaneAltruist => Generate.InsaneAltruist.Get();
+        public static AltruistRevive InsaneAltruistRevive => (AltruistRevive)Generate.InsaneAltruistRevive.Get();
+        public static bool InsaneSwapper => Generate.InsaneSwapper.Get();
+        public static bool InsaneTransporter => Generate.InsaneTransporter.Get();
+        //public static bool InsaneProsecutor => Generate.InsaneProsecutor.Get();
+        //public static bool InsaneJester => Generate.InsaneJester.Get();
+        public static bool InsaneGuardianAngel => Generate.InsaneGuardianAngel.Get();
+
+        //ADD CONFIG OPTION FOR EVERY POSSIBLE ROLE! 
     }
 }

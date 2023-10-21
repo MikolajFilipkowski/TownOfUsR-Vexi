@@ -56,7 +56,6 @@ namespace TownOfUs.Roles
             TimeRemaining -= Time.deltaTime;
         }
 
-
         public void UnProtect()
         {
             var ga = GetRole<GuardianAngel>(Player);

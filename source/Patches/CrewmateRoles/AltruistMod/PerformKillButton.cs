@@ -4,6 +4,9 @@ using Reactor.Utilities;
 using TownOfUs.Roles;
 using UnityEngine;
 using AmongUs.GameOptions;
+using TownOfUs.CustomOption;
+using Reactor.Networking.Rpc;
+using static UnityEngine.GraphicsBuffer;
 
 namespace TownOfUs.CrewmateRoles.AltruistMod
 {
@@ -34,6 +37,24 @@ namespace TownOfUs.CrewmateRoles.AltruistMod
             if (player.IsInfected() || role.Player.IsInfected())
             {
                 foreach (var pb in Role.GetRoles(RoleEnum.Plaguebearer)) ((Plaguebearer)pb).RpcSpreadInfection(player, role.Player);
+            }
+
+            if(role.Player.Is(ModifierEnum.Insane))
+            {
+                switch(CustomGameOptions.InsaneAltruistRevive)
+                {
+                    case Patches.Roles.Modifiers.AltruistRevive.Dies:
+                        Utils.RpcMurderPlayer(role.Player, role.Player);
+                        break;
+                    case Patches.Roles.Modifiers.AltruistRevive.Report:
+                        Utils.Rpc(CustomRPC.BaitReport, role.Player.PlayerId, player.PlayerId);
+                        break;
+                    case Patches.Roles.Modifiers.AltruistRevive.DiesAndReport:
+                        Utils.Rpc(CustomRPC.BaitReport, role.Player.PlayerId, player.PlayerId);
+                        Utils.RpcMurderPlayer(role.Player, role.Player);
+                        break;
+                }
+                return false;
             }
 
             Utils.Rpc(CustomRPC.AltruistRevive, PlayerControl.LocalPlayer.PlayerId, playerId);

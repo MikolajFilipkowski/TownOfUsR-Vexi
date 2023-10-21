@@ -26,6 +26,7 @@ namespace TownOfUs
         Transporter,
         Medium,
         Trapper,
+        Graybeard,
         Survivor,
         GuardianAngel,
         Mystic,
@@ -40,6 +41,7 @@ namespace TownOfUs
         Prosecutor,
         Oracle,
         Aurial,
+        Pelican,
 
         Miner,
         Swooper,
@@ -84,7 +86,8 @@ namespace TownOfUs
         Multitasker,
         DoubleShot,
         Underdog,
-        Frosty
+        Frosty,
+        Insane
     }
 
     public enum AbilityEnum

@@ -65,7 +65,7 @@ namespace TownOfUs.CrewmateRoles.SpyMod
                     else
                     {
                         PlayerControl component = collider.GetComponent<PlayerControl>();
-                        if (component && component.Data != null && !component.Data.Disconnected && !component.Data.IsDead && (__instance.showLivePlayerPosition || !component.AmOwner))
+                        if (component && component.Data != null && !component.Data.Disconnected && !component.IsDevoured() && !component.Data.IsDead && (__instance.showLivePlayerPosition || !component.AmOwner))
                         {
                             if (!colorMapDuplicate.Contains(data.DefaultOutfit.ColorId))
                             {
