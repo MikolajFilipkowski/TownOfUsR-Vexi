@@ -104,7 +104,7 @@ namespace TownOfUs.Roles
                         player.NameText.color = Color;
 
             if (HudManager.Instance != null && HudManager.Instance.Chat != null)
-                foreach (var bubble in HudManager.Instance.Chat.chatBubPool.activeChildren)
+                foreach (var bubble in HudManager.Instance.Chat.chatBubblePool.activeChildren)
                     if (bubble.Cast<ChatBubble>().NameText != null &&
                         Player.Data.PlayerName == bubble.Cast<ChatBubble>().NameText.text)
                         bubble.Cast<ChatBubble>().NameText.color = Color;

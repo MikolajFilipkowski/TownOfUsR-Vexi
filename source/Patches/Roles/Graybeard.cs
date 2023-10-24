@@ -2,6 +2,7 @@
 using Reactor.Utilities.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using TMPro;
 using TownOfUs.CrewmateRoles.GraybeardMod;
@@ -62,6 +63,10 @@ namespace TownOfUs.Roles
 
         public void Sabotage()
         {
+            var system = ShipStatus.Instance.Systems[SystemTypes.Sabotage].Cast<SabotageSystemType>();
+            var specials = system.specials.ToArray();
+            if (!specials.Any(s => s.IsActive)) return;
+
             if ((DateTime.UtcNow-LastSabotaged).TotalMilliseconds < 70f)
             {
                 return;
